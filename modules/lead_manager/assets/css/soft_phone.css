@@ -1,0 +1,349 @@
+
+.h-list, .actions {
+    margin: 0;
+    padding: 0;
+    list-item-style: none;
+}
+.h-list > li, .actions > li {
+    display: inline-block;
+}
+
+/ main /
+.container {
+    position: relative;
+    height: 140px;
+    width: 300px;
+    margin: 20px auto;
+    perspective: 600px;
+}
+
+.call {
+    position: absolute;
+    width: 30%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    box-sizing: border-box;
+    color: #ecf0f1;
+    padding: 10px;
+    border-radius: 4px;
+    transition: all 1s, background-color 600ms, opacity 600ms;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    z-index: 9999;
+}
+
+.ringing {
+  background-color: #51647c;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+  border-radius: 18px;
+  display: none;
+}
+
+.hold {
+    background-color: #E9B863 !important;
+}
+.speaking {
+
+   box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+   border-radius: 18px;
+}
+
+.dialing,
+.speaking{   background-color: #626f80;}
+
+
+.wrapup {
+    background-color: #ff7980;
+}
+
+/ inner /
+.head_bell {
+    font-size: 42px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.head_bell {
+    text-align: center;
+}
+
+.head_bell img{width: 50px}
+
+.details {
+    color: #ecf0f1;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.actions {
+    width: 100%;
+    padding: 2px 16px;
+    box-sizing: border-box;
+}
+
+.decline-icon {
+    transform: rotate(
+        135deg
+        );
+
+}
+.decline-icon{ display: : inline-block !important;}
+
+.action {
+    margin-left: -2px;
+    margin-right: -2px;
+    width: 50%;
+    padding: 0 8px 0 12px;
+    box-sizing: border-box;
+    text-align: center;
+}
+.action > a {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto !important;
+    border-radius: 100%;
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 5px 8px;
+    text-decoration: none;
+    font-size: 33px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    line-height: 60px;
+}
+.action > a:hover {
+/*    background-color: rgba(255, 255, 255, 0.2);*/
+}
+
+.cut a{
+    background-color: transparent;
+    border: 1px solid #FF3B30;
+    color: #FF3B30;
+}
+
+.cut a:hover{background-color: #FF3B30; color: white}
+
+.pic a:hover{background-color: #FF3B30; color: white}
+
+
+.pic a{
+    background-color: transparent;
+    border: 1px solid #84c529;
+    color: #84c529;
+}
+
+.pic a:hover{background-color: #84c529; color: white}
+
+/ animation /
+.-fadeout {
+    filter: blur(6px);
+    opacity: 0;
+}
+.-drop {
+    filter: blur(6px);
+    opacity: 0;
+    transform: translateY(20%) rotateX(20deg);
+}
+
+.-flip {
+    transform: rotateY(180deg);
+}
+
+.flipback {
+    transform: rotateY(-180deg);
+}
+
+.-ringing {
+    -webkit-animation: _ringing 600ms infinite;
+    animation: _ringing 600ms infinite;
+    -webkit-animation-fill-mode: forward;
+    animation-fill-mode: forward;
+    -webkit-animation-direction: normal;
+    animation-direction: normal;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+}
+.-dialing {
+-webkit-animation: _ringing 600ms infinite;
+animation: _ringing 600ms infinite;
+-webkit-animation-fill-mode: forward;
+animation-fill-mode: forward;
+-webkit-animation-direction: normal;
+animation-direction: normal;
+-webkit-animation-timing-function: linear;
+animation-timing-function: linear;
+}
+
+@-webkit-keyframes _ringing {
+    0% {
+        transform: translate(0, 0);
+    }
+    10% {
+        transform: translate(6px, 0px);
+        transform: rotateZ(2deg);
+    }
+    20% {
+        transform: translate(-6px, 0px);
+        transform: rotateZ(-2deg);
+    }
+    30% {
+        transform: translate(3px, 0px);
+        transform: rotateZ(1deg);
+    }
+    40% {
+        transform: translate(-3px, 0px);
+        transform: rotateZ(-1deg);
+    }
+    50% {
+        transform: translate(2px, 0px);
+        transform: rotateZ(1deg);
+    }
+    60% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes _ringing {
+    0% {
+        transform: translate(0, 0);
+    }
+    10% {
+        transform: translate(6px, 0px);
+        transform: rotateZ(2deg);
+    }
+    20% {
+        transform: translate(-6px, 0px);
+        transform: rotateZ(-2deg);
+    }
+    30% {
+        transform: translate(3px, 0px);
+        transform: rotateZ(1deg);
+    }
+    40% {
+        transform: translate(-3px, 0px);
+        transform: rotateZ(-1deg);
+    }
+    50% {
+        transform: translate(2px, 0px);
+        transform: rotateZ(1deg);
+    }
+    60% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+/ eq /
+.hidden {
+    display: none;
+}
+
+.sound {
+    font-size: 26px;
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    opacity: 0.2;
+    cursor: pointer;
+}
+
+.sound:hover {
+    opacity: 0.5;
+}
+
+.fa-ban {
+    color: tomato;
+}
+
+.head {
+    height: 46px;
+}
+
+#eq {
+    width: 220px;
+    height: 46px;
+}
+
+.ui-widget-content {
+    border: 0 !important;
+    background: #6b676700 url(../plugins/jquery-ui/images/ui-bg_highlight-soft_100_eeeeee_1x100.png) ba !important;
+    color: #333;
+    position: fixed !important;
+    z-index: 9999;
+    width: 100% !important;
+    top: 0;
+}
+
+.dialing {
+  background-color: #000000;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+  border-radius: 18px;
+  display: none;
+}
+.action_dial {
+    margin-left: 89px;
+    margin-right: -2px;
+    width: 50%;
+    padding: 0 8px 0 12px;
+    box-sizing: border-box;
+    text-align: center;
+}
+.action_dial > a {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto !important;
+    border-radius: 100%;
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 5px 8px;
+    text-decoration: none;
+    font-size: 33px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    line-height: 60px;
+}
+.action_dial > a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.action_dial .cut a{
+    background-color: transparent;
+    border: 1px solid #FF3B30;
+    color: #FF3B30;
+}
+#calling-info img {
+    width: 30px;
+    height: 26px;
+}
+
+
+#speaking-soft-phone h4{  font-size: 25px;}
+
+#speaking-soft-phone h4 i {font-size: 23px;}
+
+#speaking-soft-phone .action{margin: 0 auto}
+
+#speaking-soft-phone .action_dial {
+    margin-left: 0;
+    margin-right: -2px;
+	width: auto;}
+
+#speaking-soft-phone .details{}
+
+
+#speaking-soft-phone .sound{opacity: 1}
+
+
+p.bold.fil_cl {
+    margin-top: 9px;
+}
+

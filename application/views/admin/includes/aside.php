@@ -1,0 +1,146 @@
+<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
+<aside id="menu" class="sidebar sidebar">
+    <ul class="nav metis-menu" id="side-menu">
+        <li class="tw-mt-[63px] sm:tw-mt-0 -tw-mx-2 tw-overflow-hidden sm:tw-bg-neutral-900/50">
+            <div id="logo" class="tw-py-2 tw-px-2 tw-h-[63px] tw-flex tw-items-center">
+                <?php echo get_company_logo(get_admin_uri() . '/', '!tw-mt-0')?>
+            </div>
+        </li>
+        <!--<li class="menu-item-hrm_dashboard">-->
+        <!--    <a href="https://skilltest.live/hrmsnew/admin/hrm" aria-expanded="false">-->
+        <!--        <i class="fa fa-home menu-icon"></i>-->
+        <!--        <span class="menu-text">-->
+        <!--            OutDoor Duits                </span>-->
+        <!--                                    </a>-->
+        <!--            </li>-->
+        <?php
+         hooks()->do_action('before_render_aside_menu');
+         ?>
+        <?php foreach ($sidebar_menu as $key => $item) {
+             if ((isset($item['collapse']) && $item['collapse']) && count($item['children']) === 0) {
+                 continue;
+             } ?>
+        <li class="menu-item-<?php echo $item['slug']; ?>"
+            <?php echo _attributes_to_string(isset($item['li_attributes']) ? $item['li_attributes'] : []); ?>>
+            <a href="<?php echo count($item['children']) > 0 ? '#' : $item['href']; ?>" aria-expanded="false"
+                <?php echo _attributes_to_string(isset($item['href_attributes']) ? $item['href_attributes'] : []); ?>>
+                <i class="<?php echo $item['icon']; ?> menu-icon"></i>
+                <span class="menu-text">
+                    <?php echo _l($item['name'], '', false); ?>
+                </span>
+                <?php if (count($item['children']) > 0) { ?>
+                <span class="fa arrow pleft5"></span>
+                <?php } ?>
+                <?php if (isset($item['badge'], $item['badge']['value']) && !empty($item['badge'])) {?>
+                <span
+                    class="badge pull-right
+               <?=isset($item['badge']['type']) && $item['badge']['type'] != '' ? "bg-{$item['badge']['type']}" : 'bg-info' ?>" <?=(isset($item['badge']['type']) && $item['badge']['type'] == '') ||
+                        isset($item['badge']['color']) ? "style='background-color: {$item['badge']['color']}'" : '' ?>>
+                    <?= $item['badge']['value'] ?>
+                </span>
+                <?php } ?>
+            </a>
+            <?php if (count($item['children']) > 0) { ?>
+            <ul class="nav nav-second-level collapse" aria-expanded="false">
+                <?php foreach ($item['children'] as $submenu) {
+                            ?>
+                <li class="sub-menu-item-<?php echo $submenu['slug']; ?>"
+                    <?php echo _attributes_to_string(isset($submenu['li_attributes']) ? $submenu['li_attributes'] : []); ?>>
+                    <a href="<?php echo $submenu['href']; ?>"
+                        <?php echo _attributes_to_string(isset($submenu['href_attributes']) ? $submenu['href_attributes'] : []); ?>>
+                        <?php if (!empty($submenu['icon'])) { ?>
+                        <i class="<?php echo $submenu['icon']; ?> menu-icon"></i>
+                        <?php } ?>
+                        <span class="sub-menu-text">
+                            <?php echo _l($submenu['name'], '', false); ?>
+                        </span>
+                    </a>
+                    <?php if (isset($submenu['badge'], $submenu['badge']['value']) && !empty($submenu['badge'])) {?>
+                    <span
+                        class="badge pull-right
+               <?=isset($submenu['badge']['type']) && $submenu['badge']['type'] != '' ? "bg-{$submenu['badge']['type']}" : 'bg-info' ?>" <?=(isset($submenu['badge']['type']) && $submenu['badge']['type'] == '') ||
+                isset($submenu['badge']['color']) ? "style='background-color: {$submenu['badge']['color']}'" : '' ?>>
+                        <?= $submenu['badge']['value'] ?>
+                    </span>
+                    <?php } ?>
+                </li>
+                <?php
+                        } ?>
+            </ul>
+            <?php } ?>
+            
+        </li>
+        
+        <?php hooks()->do_action('after_render_single_aside_menu', $item); ?>
+        <?php
+         } ?>
+         
+        <li class="menu-item-cost_tracking">
+            <a href="#" aria-expanded="true">
+                <i class="fa fa-users menu-icon"></i>
+                <span class="menu-text">
+                    Cost Tracking                </span>
+                                <span class="fa arrow pleft5"></span>
+                                            </a>
+                        <ul class="nav nav-second-level" aria-expanded="true" style="">
+                            <?php if(is_admin()){?>
+                                <li class="sub-menu-item-cost_tracking">
+                    <a href="https://skilltest.live/hrmsnew/admin/hr_profile/cost_tracking">
+                                                <i class="fa fa-american-sign-language-interpreting menu-icon"></i>
+                                                <span class="sub-menu-text">
+                            Cost Tracking                        </span>
+                    </a>
+                                    </li>
+                                     
+                                    <li class="sub-menu-item-cost_tracking">
+                    <a href="https://skilltest.live/hrmsnew/admin/hr_profile/add_components">
+                                                <i class="fa fa-american-sign-language-interpreting menu-icon"></i>
+                                                <span class="sub-menu-text">
+                            Add Components                        </span>
+                    </a>
+                                    </li>
+                                    
+                                    <?php } if(!is_admin()){?>
+                                    <li class="sub-menu-item-cost_tracking">
+                    <a href="https://skilltest.live/hrmsnew/admin/hr_profile/allocate_cost_tracking">
+                                                <i class="fa fa-american-sign-language-interpreting menu-icon"></i>
+                                                <span class="sub-menu-text">
+                            Allocated Cost Report                        </span>
+                    </a>
+                                    </li>
+                                    <?php }?>
+                
+                            </ul>
+                        
+        </li>
+        
+            <?php hooks()->do_action('after_render_aside_menu'); ?>
+            <?php $this->load->view('admin/projects/pinned'); ?>
+    </ul>
+</aside>
+<!--<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>-->
+<script>
+// $(document).ready(function() {
+//     function checkTrainingSchedule() {
+//         var csrf_token = $('meta[name="csrf_token"]').attr('content');
+//         $.ajax({
+//             // url: '<?php echo base_url();?>admin/Dashboard/checkTrainingSchedule',
+//             type: 'POST',
+//             dataType: 'json',
+//             headers: {'X-CSRF-TOKEN': csrf_token},
+//             success: function(response) {
+//                 console.log('Server response:', response);
+//             },
+//             error: function(error) {
+//                 console.error('Error:', error);
+//             }
+//         });
+//     }
+
+//     // Trigger the function initially
+//     checkTrainingSchedule();
+
+//     // Set up a setInterval to periodically call the function
+//     setInterval(checkTrainingSchedule, 200000); // 30 minutes in milliseconds
+// });
+</script>
