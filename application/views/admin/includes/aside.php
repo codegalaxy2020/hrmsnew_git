@@ -10,7 +10,8 @@
            <a href="http://localhost/hrmsnew_git/admin/tasks" aria-expanded="false">
                <i class="fa fa-home menu-icon"></i>
                <span class="menu-text">
-               Tasks                </span>
+               Tasks     
+                       </span>
                                            </a>
          </li>
         <?php
