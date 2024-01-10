@@ -50,6 +50,9 @@
 								}elseif($group_item == 'training_attendance' && is_admin()){
 									echo 'Training Attendance';
 								}
+								elseif($group_item == 'training_attendance_staff' && !is_admin()){
+									echo 'Training Attendance';
+								}
 
 								//Added by DEEP BASAK on January 08, 2024
 								//For added training feed back module
