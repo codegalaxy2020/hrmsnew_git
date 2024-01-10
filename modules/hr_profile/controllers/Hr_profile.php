@@ -747,9 +747,9 @@ class Hr_profile extends AdminController {
 			$data['tab'][] = 'training_feedback';
 		}
 
-// 		if (!is_admin()) {
-// 		$data['tab'][] = 'training_attendance_staff';
-// 		}
+		if (!is_admin()) {
+		$data['tab'][] = 'training_attendance_staff';
+		}
 //         if (!is_admin()) {
 // 		$data['tab'][] = 'training_calender_staff';
 // 		}
@@ -1074,6 +1074,7 @@ class Hr_profile extends AdminController {
         $staffId = $this->input->post('staffId');
         $leadId = $this->input->post('leadId');
         $attendanceValue = $this->input->post('attendanceValue');
+        $staffname = $this->input->post('staffname');
 
         // Get the current date
         $attendanceDate = date('Y-m-d');
@@ -1092,6 +1093,17 @@ class Hr_profile extends AdminController {
                 'attendance' => $attendanceValue,
                 'status' => 1
             ));
+            //send notification
+                $notified = add_notification([
+                    'description' => "Training Attendance updated with " . $attendanceValue . " for " . $staffname,
+                    'touserid' => $staffId,
+                    'additional_data' => serialize([
+                        'additional_description' => $attendanceValue,
+                    ]),
+                ]);
+    			if ($notified) {
+    				pusher_trigger_notification([$staffId]);
+    			}
         } else {
             // If the record doesn't exist, insert a new one
             $this->db->insert('tbltraining_attendance', array(
@@ -1101,6 +1113,17 @@ class Hr_profile extends AdminController {
                 'attendance' => $attendanceValue,
                 'status' => 1
             ));
+            //send notification
+                $notified = add_notification([
+                    'description' => "Training Attendance updated with " . $attendanceValue . " for " . $staffname,
+                    'touserid' => $staffId,
+                    'additional_data' => serialize([
+                        'additional_description' => $attendanceValue,
+                    ]),
+                ]);
+    			if ($notified) {
+    				pusher_trigger_notification([$staffId]);
+    			}
         }
 
         // You can send a response back to the frontend if needed
