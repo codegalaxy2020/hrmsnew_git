@@ -67,7 +67,7 @@
                 </tr>
                 <?php
                 $staff_ids = $this->db->select('staff_id,training_process_id')->where('staff_id IS NOT NULL AND staff_id != ""')->get('tblhr_jp_interview_training')->result_array();
-
+                $counter = 1;
                 foreach ($staff_ids as $index => $staff) :
                     $wait_staff_ids = explode(',', $staff['staff_id']);
                     foreach ($wait_staff_ids as $wait_staff_id) :
@@ -80,7 +80,7 @@
                             ->result_array();
                 ?>
                     <tr>
-                        <td><?php echo $index + 1; ?></td>
+                        <td><?php echo $counter; ?></td>
                     <td><?php echo $staff_name; ?></td>
                     <td><?php echo $interview_training[0]['training_name']; ?></td>
                     <td><?php echo $interview_training[0]['time_to_start']; ?></td>
@@ -88,7 +88,7 @@
                     <td><?php echo $interview_training[0]['training_location']; ?></td>
                     <td><?php echo $interview_training[0]['training_venues']; ?></td>
                     <td class="action-buttons">
-                        <select class="attendance-dropdown" data-staff-id="<?php echo $wait_staff_id; ?>" data-lead-id="<?php echo $interview_training[0]['training_process_id']; ?>">
+                        <select class="attendance-dropdown" data-staff-id="<?php echo $wait_staff_id; ?>" data-lead-id="<?php echo $interview_training[0]['training_process_id']; ?>" data-staff-name="<?php echo $staff_name; ?>">
                             <option value="">Attendance</option>
                             <option value="present">Present</option>
                             <option value="absent">Absent</option>
@@ -97,7 +97,9 @@
                         <a href="<?php echo base_url('hr_profile/view_attendance/' . $wait_staff_id . '/' . $interview_training[0]['training_process_id']); ?>" class="btn btn-primary">View Attendance</a>
                     </td>
                     </tr>
-                <?php endforeach;
+                <?php 
+                $counter++;
+                endforeach;
                 endforeach; ?>
             </table>
 
@@ -142,11 +144,12 @@
             var staffId = $(this).data('staff-id');
             var leadId = $(this).data('lead-id');
             var attendanceValue = $(this).val();
-            submitAttendance(staffId, leadId, attendanceValue);
+            var staffname = $(this).data('staff-name');
+            submitAttendance(staffId, leadId, attendanceValue, staffname);
         });
 
         
-        function submitAttendance(staffId, leadId, attendanceValue) {
+        function submitAttendance(staffId, leadId, attendanceValue, staffname) {
             
             $.ajax({
                 type: 'POST',
@@ -154,7 +157,8 @@
                 data: {
                     staffId: staffId,
                     leadId: leadId,
-                    attendanceValue: attendanceValue
+                    attendanceValue: attendanceValue,
+                    staffname: staffname
                 },
                 success: function (response) {
                    var responseData = JSON.parse(response);
