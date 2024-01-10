@@ -14,6 +14,19 @@
     <?php echo app_compile_css(); ?>
     <?php render_admin_js_variables(); ?>
 
+    <!-- Added by DEEP BASAK on January 10, 2024 -->
+    <style>
+        .page_loader{
+			position: fixed;
+			z-index: 99999;
+			background: rgba(255,255,255,.5);
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+            text-align: center;
+		}
+    </style>
+
     <script>
     var totalUnreadNotifications = <?php echo $current_user->total_unread_notifications; ?>,
         proposalsTemplates = <?php echo json_encode(get_proposal_templates()); ?>,
@@ -30,4 +43,11 @@
 </head>
 
 <body <?php echo admin_body_class(isset($bodyclass) ? $bodyclass : ''); ?>>
+
+    <!-- Added by DEEP BASAK on January 10, 2024 -->
+    <div class="page_loader" style="display:none;">
+		<div class="d-flex page_loader_content justify-content-center">
+			<img src="<?= base_url('assets/images/preloader.gif') ?>" style="width: 60px; padding-top: 210px;">
+		</div>
+	</div>
     <?php hooks()->do_action('after_body_start'); ?>

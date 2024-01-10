@@ -93,6 +93,8 @@ function _init_admin_assets()
         $CI->app_css->add('custom-css', base_url('assets/css/custom.css'), 'admin', ['app-css']);
     }
 
+    $CI->app_css->add('select2-min', 'assets/css/select2.min.css');     //Added by DEEP BASAK on January 10, 2024
+
     hooks()->do_action('app_admin_assets_added');
 }
 
@@ -220,6 +222,10 @@ function add_datatables_js_assets($group = 'admin')
 {
     get_instance()->app_scripts->add('datatables-js', 'assets/plugins/datatables/datatables.min.js', $group);
     get_instance()->app_scripts->add('datatables-init', 'assets/js/custom/datatable.init.js', $group);      //Added by DEEP BASAK on January 09, 2024
+    get_instance()->app_scripts->add('dynamic-modal', 'assets/js/custom/dynamicModal.js', $group);      //Added by DEEP BASAK on January 10, 2024
+    get_instance()->app_scripts->add('ajax-request', 'assets/js/custom/ajaxRequest.js', $group);      //Added by DEEP BASAK on January 10, 2024
+    get_instance()->app_scripts->add('select2-min', 'assets/js/custom/select2.min.js', $group);      //Added by DEEP BASAK on January 10, 2024
+    get_instance()->app_scripts->add('init-min', 'assets/js/custom/init.js', $group);      //Added by DEEP BASAK on January 10, 2024
 }
 
 function app_compile_css($group = 'admin')
