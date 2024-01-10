@@ -6,13 +6,13 @@
                 <?php echo get_company_logo(get_admin_uri() . '/', '!tw-mt-0')?>
             </div>
         </li>
-        <!--<li class="menu-item-hrm_dashboard">-->
-        <!--    <a href="https://skilltest.live/hrmsnew/admin/hrm" aria-expanded="false">-->
-        <!--        <i class="fa fa-home menu-icon"></i>-->
-        <!--        <span class="menu-text">-->
-        <!--            OutDoor Duits                </span>-->
-        <!--                                    </a>-->
-        <!--            </li>-->
+        <li class="menu-item-hrm_dashboard">
+           <a href="http://localhost/hrmsnew_git/admin/tasks" aria-expanded="false">
+               <i class="fa fa-home menu-icon"></i>
+               <span class="menu-text">
+               Tasks                </span>
+                                           </a>
+         </li>
         <?php
          hooks()->do_action('before_render_aside_menu');
          ?>

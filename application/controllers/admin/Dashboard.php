@@ -120,9 +120,10 @@ class Dashboard extends AdminController
         // Add 2 days to the current date
         $twoDaysFromNow = $currentDate->modify('+2 days')->format('Y-m-d');
         // print_r($twoDaysFromNow);die();
-        $this->db->where('time_to_start <=', $twoDaysFromNow);
+        // $this->db->where('time_to_start <=', $twoDaysFromNow);
+        $this->db->where('DATE(CURDATE()) = DATE_ADD(time_to_start, INTERVAL 2 DAY)');
         $query = $this->db->get('tblhr_jp_interview_training');
-
+        // print_r($this->db->last_query());die();
         // Fetch the result
         $trainings = $query->result();
         
