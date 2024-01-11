@@ -535,3 +535,16 @@ function _maybe_system_setup_warnings()
     // Php version notice
     hooks()->add_action('before_start_render_dashboard_content', [new Message('app\services\messages\PhpVersionNotice'), 'check']);
 }
+
+
+//helper for Update csrf
+//Added by Deep Basak on Febuary 20, 2023
+function update_csrf_session()
+{
+	$CI = &get_instance();
+	$csrf = array(
+		'csrfName' => $CI->security->get_csrf_token_name(),
+		'csrfHash' => $CI->security->get_csrf_hash()
+	);
+	return $csrf;
+}

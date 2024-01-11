@@ -56,7 +56,7 @@
 
 								//Added by DEEP BASAK on January 08, 2024
 								//For added training feed back module
-								elseif($group_item == 'training_feedback' && is_admin()){
+								elseif($group_item == 'training_feedback'){
 									echo 'Training Feedback';
 								}
 								// elseif($group_item == 'training_attendance_staff' && !is_admin()){

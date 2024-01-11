@@ -40,7 +40,7 @@
 
             <div class="col-md-12">
                 <div class="mb-3">
-                    <label for="" class="form-label">Traning Type<span class="text-danger">*</span></label>
+                    <label for="" class="form-label">Feedback<span class="text-danger">*</span></label>
                     <textarea class="form-control form-control-sm" name="feedback" id="feedback"></textarea>
                 </div>
             </div>
