@@ -8,7 +8,6 @@
  function ajaxFromSubmit(url, elem, callback, errCallBk = function(data) { errCllBkLogic(data); }) {
     var formData = new FormData(elem);
     formData.append([$('#token_name').val()], $('#token_hash').val());
-    debugger;
     // console.log(formData);
     $.ajax({
         url: baseUrl + url,
