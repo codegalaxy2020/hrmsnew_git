@@ -768,6 +768,8 @@ class Hr_profile extends AdminController {
 		$data['training_libraries'] = $this->hr_profile_model->get_training_library();
 		$data['training_programs'] = $this->hr_profile_model->get_job_position_training_process();
 
+
+		//Added by DEEP BASAK on January 10, 2024
 		$join = array(
 			array(
 				'table'	=> 'tblhr_type_of_trainings',
@@ -785,9 +787,34 @@ class Hr_profile extends AdminController {
 				'type'	=> 'left'
 			)
 		);
-		$data['training_feedback'] = $this->Common_model->getAllData('tbl_training_feedback', '', '', ['is_active' => 'Y'], '', '', '', '', [], $join);
+		$staffId = get_staff_user_id();
+		$data['training_feedback'] = $this->Common_model->getAllData('tbl_training_feedback', '', '', ['is_active' => 'Y'], 'tbl_training_feedback.id desc', '', '', '', [], $join);
 
 		$this->load->view('training/manage_training', $data);
+	}
+
+	//Added by DEEP BASAk on January 10, 2024
+	public function load_modal(){
+		$data['training'] = $this->Common_model->getAllData('tblhr_jp_interview_training', '', '');
+		$data['training_type'] = $this->Common_model->getAllData('tblhr_type_of_trainings', '', '');
+		$html = $this->load->view('training/components/training_feedback_modal_body', $data, true);
+
+		echo json_encode(array('status'=> 'success', 'message'=>'Display modal', 'html'=>$html));
+	}
+
+	public function save_feedback(){
+		$data = array(
+			'staff_id' => get_staff_user_id(),
+			'training_id' => $this->input->post('training_name'),
+			'training_type_id' => $this->input->post('training_name'),
+			'feedback' => $this->input->post('feedback'),
+			'created_at' => date('Y-m-d H:i:s'),
+			'created_by' => get_staff_user_id(),
+		);
+
+		$this->Common_model->add('tbl_training_feedback', $data);
+
+		echo json_encode(array('status'=> 'success', 'message'=>'Feedback send'));
 	}
 
 	/**

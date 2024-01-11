@@ -14,6 +14,9 @@
         th {
             background-color: #f2f2f2;
         }
+        .form-control {
+            display: inline;
+        }
     </style>
 <div id="wrapper">
 	<div class="content">

@@ -7,8 +7,8 @@
  */
  function ajaxFromSubmit(url, elem, callback, errCallBk = function(data) { errCllBkLogic(data); }) {
     var formData = new FormData(elem);
-    formData.append([$('#csrf_token_name').val()], $('#csrf_token_hash').val());
-    
+    formData.append([$('#token_name').val()], $('#token_hash').val());
+    debugger;
     // console.log(formData);
     $.ajax({
         url: baseUrl + url,
@@ -70,7 +70,7 @@ function ajaxPostRequest(url, formData, callback, errCallBk = function(data) { e
                     errCallBk(data);
 					$('.page_loader').hide();
                 } else {
-                    validation(); //Initialized Validation
+                    //validation(); //Initialized Validation
                     $('.page_loader').hide();
                     callback(data);
                 }
