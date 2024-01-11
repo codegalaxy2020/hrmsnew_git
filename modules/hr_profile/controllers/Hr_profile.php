@@ -833,7 +833,7 @@ class Hr_profile extends AdminController {
 		foreach ($testdata as $key => $fieldData){
 			$action = '';
 			if(is_admin()){
-				$action .= '<a href="javascript:" data-toggle="tooltip" title="Delete" onclick="deleteFeedback('.$fieldData->id.')" class="btn btn-sm btn-outline-danger"><i class="fa fa-trash"></i></a>';
+				$action .= '<a href="javascript:" data-toggle="tooltip" title="Delete" onclick="deleteFeedback('.$fieldData->id.')" class="text-danger"><i class="fa fa-trash"></i></a>';
 			}
 
 			$data[] = array(
