@@ -95,6 +95,19 @@ function _init_admin_assets()
 
     $CI->app_css->add('select2-min', 'assets/css/select2.min.css');     //Added by DEEP BASAK on January 10, 2024
 
+<<<<<<< Updated upstream
+=======
+    //Added by DEEP BASAK on January 11, 2024
+    // <!-- ALERTIFY css -->
+    $CI->app_css->add('alertify', 'assets/css/alertify/alertify.css');
+    $CI->app_css->add('alertify-min', 'assets/css/alertify/alertify.min.css');
+    $CI->app_css->add('alertify-rtl', 'assets/css/alertify/alertify.rtl.css');
+    $CI->app_css->add('alertify-rtl-min', 'assets/css/alertify/alertify.rtl.min.css');
+
+    //SweetAlert JS Added by DEEP BASAK on January 11, 2024
+    $CI->app_css->add('sweetalert-min', 'assets/css/sweetalert.css');
+
+>>>>>>> Stashed changes
     hooks()->do_action('app_admin_assets_added');
 }
 
@@ -226,6 +239,25 @@ function add_datatables_js_assets($group = 'admin')
     get_instance()->app_scripts->add('ajax-request', 'assets/js/custom/ajaxRequest.js', $group);      //Added by DEEP BASAK on January 10, 2024
     get_instance()->app_scripts->add('select2-min', 'assets/js/custom/select2.min.js', $group);      //Added by DEEP BASAK on January 10, 2024
     get_instance()->app_scripts->add('init-min', 'assets/js/custom/init.js', $group);      //Added by DEEP BASAK on January 10, 2024
+<<<<<<< Updated upstream
+=======
+
+    // <!-- ALERTIFY css -->
+    //Added by DEEP BASAK on January 11, 2024
+    get_instance()->app_scripts->add('alertify', 'assets/js/custom/alertify.js', $group);
+    get_instance()->app_scripts->add('alertify-min', 'assets/js/custom/alertify.min.js', $group);
+
+    //SweetAlert JS Added by DEEP BASAK on January 11, 2024
+    // get_instance()->app_scripts->add('SweetAlert-min', 'assets/js/custom/sweetalert.min.js', $group);
+    get_instance()->app_scripts->add('SweetAlert-min', 'assets/js/custom/sweetalert2@11.js', $group);
+
+    //Message JS Added by DEEP BASAK on January 11, 2024
+    get_instance()->app_scripts->add('message', 'assets/js/custom/message.js', $group);
+
+
+    //Common Validation JS Added by DEEP BASAK on January 11, 2024
+    get_instance()->app_scripts->add('SweetAlert-min', 'assets/js/custom/commonValidation.js', $group);
+>>>>>>> Stashed changes
 }
 
 function app_compile_css($group = 'admin')

@@ -799,7 +799,20 @@ class Hr_profile extends AdminController {
 		$data['training_type'] = $this->Common_model->getAllData('tblhr_type_of_trainings', '', '');
 		$html = $this->load->view('training/components/training_feedback_modal_body', $data, true);
 
+<<<<<<< Updated upstream
 		echo json_encode(array('status'=> 'success', 'message'=>'Display modal', 'html'=>$html));
+=======
+
+		// echo json_encode(array('status'=> 'success', 'message'=>'Display modal', 'html'=>$html));
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'Display modal', 'html'=>$html);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+
+		// echo json_encode(array('status'=> 'success', 'message'=>'Display modal', 'html'=>$html));
+
+>>>>>>> Stashed changes
 	}
 
 	public function save_feedback(){
@@ -814,7 +827,27 @@ class Hr_profile extends AdminController {
 
 		$this->Common_model->add('tbl_training_feedback', $data);
 
+<<<<<<< Updated upstream
 		echo json_encode(array('status'=> 'success', 'message'=>'Feedback send'));
+=======
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'Feedback send');
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+	public function delete_feedback(){
+		$this->Common_model->UpdateDB('tbl_training_feedback', ['id' => $this->input->post('id')], ['is_active'=>'N', 'updated_at'=>date('Y-m-d H:i:s'), 'updated_by' => get_staff_user_id()]);
+
+		# response
+        $result = array('message'=> 'Feedback Deleted!', 'status' => 'success');
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+
+		// echo json_encode(array('status'=> 'success', 'message'=>'Feedback send'));
+
+>>>>>>> Stashed changes
 	}
 
 	/**
