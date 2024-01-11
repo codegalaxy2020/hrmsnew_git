@@ -743,9 +743,9 @@ class Hr_profile extends AdminController {
 
 		//Added by DEEP BASAK on January 08, 2024
 		//For added training feed back module
-		// if (is_admin()) {
+		if (is_admin()) {
 			$data['tab'][] = 'training_feedback';
-		// }
+		}
 
 		if (!is_admin()) {
 		$data['tab'][] = 'training_attendance_staff';
@@ -793,88 +793,15 @@ class Hr_profile extends AdminController {
 		$this->load->view('training/manage_training', $data);
 	}
 
-
-	public function feedback_list(){
-		# include datatable model
-        include_once('application/models/common/Datatable_model.php');
-        # customize filter
-        $order_by = array('tbl_training_feedback.id' => 'desc');
-        $where_in = array();
-        $where = array('tbl_training_feedback.is_active' => 'Y');
-		
-        $join = array(
-			array(
-				'ontable'	=> 'tblhr_type_of_trainings',
-				'onParams'	=> 'tblhr_type_of_trainings.id = tbl_training_feedback.training_type_id',
-				'type'		=> 'left'
-			),
-			array(
-				'ontable'	=> 'tblhr_jp_interview_training',
-				'onParams'	=> 'tblhr_jp_interview_training.training_process_id = tbl_training_feedback.training_id',
-				'type'		=> 'left'
-			),
-			array(
-				'ontable'	=> 'tblstaff',
-				'onParams'	=> 'tblstaff.staffid = tbl_training_feedback.staff_id',
-				'type'		=> 'left'
-			)
-		);
-        $queryAttachments = array(
-            'select' => 'tbl_training_feedback.*, tblhr_type_of_trainings.name, tblhr_jp_interview_training.training_name, tblstaff.firstname, tblstaff.lastname',
-            'where' => $where,
-            'where_in' => $where_in,
-            'join' => $join,
-            'group_by' => ''
-        );
-
-        $dttbl_model = new Datatable_model('tbl_training_feedback', array(), array(), $order_by, $queryAttachments);
-        $testdata = $dttbl_model->getRows($_POST);
-        $data = array();
-
-		foreach ($testdata as $key => $fieldData){
-			$action = '';
-			if(is_admin()){
-				$action .= '<a href="javascript:" data-toggle="tooltip" title="Delete" onclick="deleteFeedback('.$fieldData->id.')" class="btn btn-sm btn-outline-danger"><i class="fa fa-trash"></i></a>';
-			}
-
-			$data[] = array(
-				$key + 1,
-				$fieldData->firstname.' '.$fieldData->lastname,
-				$fieldData->training_name,
-				$fieldData->name,
-				$fieldData->feedback,
-				date("F d, Y", strtotime($fieldData->created_at)),
-				$action
-			);
-		}
-
-		if (isset($_POST['draw']) && $_POST['draw']) {
-            $draw = $_POST['draw'];
-        } else {
-            $draw = '';
-        }
-
-        $output = array(
-            "draw" => $draw,
-            "recordsTotal" => $dttbl_model->countAll(),
-            "recordsFiltered" => $dttbl_model->countFiltered($_POST),
-            "data" => $data,
-            "status" => 'success',
-			"csrf" => update_csrf_session()
-        );
-
-        # response
-        echo json_encode($output);
-        unset($dttbl_model);
-	}
-
-
 	//Added by DEEP BASAk on January 10, 2024
 	public function load_modal(){
 		$data['training'] = $this->Common_model->getAllData('tblhr_jp_interview_training', '', '');
 		$data['training_type'] = $this->Common_model->getAllData('tblhr_type_of_trainings', '', '');
 		$html = $this->load->view('training/components/training_feedback_modal_body', $data, true);
 
+<<<<<<< Updated upstream
+		echo json_encode(array('status'=> 'success', 'message'=>'Display modal', 'html'=>$html));
+=======
 
 		// echo json_encode(array('status'=> 'success', 'message'=>'Display modal', 'html'=>$html));
 
@@ -883,8 +810,9 @@ class Hr_profile extends AdminController {
         $obj = (object) array_merge((array) $result, update_csrf_session());
         echo json_encode($obj);
 
-		echo json_encode(array('status'=> 'success', 'message'=>'Display modal', 'html'=>$html));
+		// echo json_encode(array('status'=> 'success', 'message'=>'Display modal', 'html'=>$html));
 
+>>>>>>> Stashed changes
 	}
 
 	public function save_feedback(){
@@ -899,6 +827,9 @@ class Hr_profile extends AdminController {
 
 		$this->Common_model->add('tbl_training_feedback', $data);
 
+<<<<<<< Updated upstream
+		echo json_encode(array('status'=> 'success', 'message'=>'Feedback send'));
+=======
 
 		# response
         $result = array('status'=> 'success', 'message'=>'Feedback send');
@@ -914,8 +845,9 @@ class Hr_profile extends AdminController {
         $obj = (object) array_merge((array) $result, update_csrf_session());
         echo json_encode($obj);
 
-		echo json_encode(array('status'=> 'success', 'message'=>'Feedback send'));
+		// echo json_encode(array('status'=> 'success', 'message'=>'Feedback send'));
 
+>>>>>>> Stashed changes
 	}
 
 	/**
