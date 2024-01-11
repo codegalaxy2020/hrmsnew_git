@@ -2555,90 +2555,90 @@ class timesheets_model extends app_model {
 			}
 			$point_id = '';
 			$workplace_id = '';
-			if ($check_more != '') {
-				if (isset($data['location_user'])) {
-					$data_location = explode(',', $data['location_user']);
-					if (isset($data_location[0]) && isset($data_location[1])) {
-						$latitude = $data_location[0];
-						$longitude = $data_location[1];
-						if ($count_st == 2) {
-							if (isset($data['point_id'])) {
-								if ($data['point_id'] != '') {
-									$point_id = $data['point_id'];
-								}
-							}
-							if ($point_id == '') {
-								$point_id = $this->get_next_point($data['staff_id'], $date, $latitude, $longitude)->id;
-							}
-							if ($point_id == '') {
-								$check_more = 'check_coordinates';
-							}
-						}
-						switch ($check_more) {
-						case 'check_route':
-							// Attendance by route point
-							// Get geolocation of this route point and caculation distance to location of you
-							// If valid will return route id to insert in check_in_out table
-							// Else return error:
-							// Error 2: Current location is not allowed to attendance
-							// Error 3: Location information is unknown
-							if ($point_id == '') {
-								if (isset($data['point_id'])) {
-									if ($data['point_id'] != '') {
-										$point_id = $data['point_id'];
-									}
-								}
-								if ($point_id == '') {
-									$point_id = $this->get_next_point($data['staff_id'], $date, $latitude, $longitude)->id;
-								}
-							}
-							if ($point_id != '') {
-								$route_point_latitude = '';
-								$route_point_longitude = '';
-								$max_distance = '';
-								$data_route_point = $this->get_route_point($point_id);
-								if ($data_route_point) {
-									$route_point_latitude = $data_route_point->latitude;
-									$route_point_longitude = $data_route_point->longitude;
-									$max_distance = $data_route_point->distance;
-								}
-								if ($latitude != '' && $longitude != '' && $route_point_latitude != '' && $route_point_longitude != '' && $max_distance != '') {
-									$cal_distance = $this->compute_distance($route_point_latitude, $route_point_longitude, $latitude, $longitude);
-									if ((float) $cal_distance > (float) $max_distance) {
-										// Invalid distance
-										// Error 2: Current location is not allowed to attendance
-										return 2;
-									}
-								} else {
-									// Error 3: Location information is unknown
-									return 3;
-								}
-							} else {
-								// Error 4: Route point is unknown
-								return 4;
-							}
-							break;
-						case 'check_coordinates':
-							// Attendance by geolocation
-							$res_coordinates = $this->check_attendance_by_coordinates($data['staff_id'], $latitude, $longitude);
-							$error = $res_coordinates->error_code;
-							$workplace_id = $res_coordinates->workplace_id;
-							if ($error == 2 || $error == 3) {
-								// Error 2: Current location is not allowed to attendance
-								// Error 3: Location information is unknown
-								return $error;
-							}
-							break;
-						}
-					} else {
-						// Error 3: Location information is unknown
-						return 3;
-					}
-				} else {
-					// Error 3: Location information is unknown
-					return 3;
-				}
-			}
+			// if ($check_more != '') {
+			// 	if (isset($data['location_user'])) {
+			// 		$data_location = explode(',', $data['location_user']);
+			// 		if (isset($data_location[0]) && isset($data_location[1])) {
+			// 			$latitude = $data_location[0];
+			// 			$longitude = $data_location[1];
+			// 			if ($count_st == 2) {
+			// 				if (isset($data['point_id'])) {
+			// 					if ($data['point_id'] != '') {
+			// 						$point_id = $data['point_id'];
+			// 					}
+			// 				}
+			// 				if ($point_id == '') {
+			// 					$point_id = $this->get_next_point($data['staff_id'], $date, $latitude, $longitude)->id;
+			// 				}
+			// 				if ($point_id == '') {
+			// 					$check_more = 'check_coordinates';
+			// 				}
+			// 			}
+			// 			switch ($check_more) {
+			// 			case 'check_route':
+			// 				// Attendance by route point
+			// 				// Get geolocation of this route point and caculation distance to location of you
+			// 				// If valid will return route id to insert in check_in_out table
+			// 				// Else return error:
+			// 				// Error 2: Current location is not allowed to attendance
+			// 				// Error 3: Location information is unknown
+			// 				if ($point_id == '') {
+			// 					if (isset($data['point_id'])) {
+			// 						if ($data['point_id'] != '') {
+			// 							$point_id = $data['point_id'];
+			// 						}
+			// 					}
+			// 					if ($point_id == '') {
+			// 						$point_id = $this->get_next_point($data['staff_id'], $date, $latitude, $longitude)->id;
+			// 					}
+			// 				}
+			// 				if ($point_id != '') {
+			// 					$route_point_latitude = '';
+			// 					$route_point_longitude = '';
+			// 					$max_distance = '';
+			// 					$data_route_point = $this->get_route_point($point_id);
+			// 					if ($data_route_point) {
+			// 						$route_point_latitude = $data_route_point->latitude;
+			// 						$route_point_longitude = $data_route_point->longitude;
+			// 						$max_distance = $data_route_point->distance;
+			// 					}
+			// 					if ($latitude != '' && $longitude != '' && $route_point_latitude != '' && $route_point_longitude != '' && $max_distance != '') {
+			// 						$cal_distance = $this->compute_distance($route_point_latitude, $route_point_longitude, $latitude, $longitude);
+			// 						if ((float) $cal_distance > (float) $max_distance) {
+			// 							// Invalid distance
+			// 							// Error 2: Current location is not allowed to attendance
+			// 							return 2;
+			// 						}
+			// 					} else {
+			// 						// Error 3: Location information is unknown
+			// 						return 3;
+			// 					}
+			// 				} else {
+			// 					// Error 4: Route point is unknown
+			// 					return 4;
+			// 				}
+			// 				break;
+			// 			case 'check_coordinates':
+			// 				// Attendance by geolocation
+			// 				$res_coordinates = $this->check_attendance_by_coordinates($data['staff_id'], $latitude, $longitude);
+			// 				$error = $res_coordinates->error_code;
+			// 				$workplace_id = $res_coordinates->workplace_id;
+			// 				if ($error == 2 || $error == 3) {
+			// 					// Error 2: Current location is not allowed to attendance
+			// 					// Error 3: Location information is unknown
+			// 					return $error;
+			// 				}
+			// 				break;
+			// 			}
+			// 		} else {
+			// 			// Error 3: Location information is unknown
+			// 			return 3;
+			// 		}
+			// 	} else {
+			// 		// Error 3: Location information is unknown
+			// 		return 3;
+			// 	}
+			// }
 			$send_notify = false;
 			if(isset($data['send_notify']) && $data['send_notify'] == 1){
 				$send_notify = true;

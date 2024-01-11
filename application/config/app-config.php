@@ -18,8 +18,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 *
 */
 // define('APP_BASE_URL', 'https://skilltest.live/hrmsnew/');
-define('APP_BASE_URL', 'http://localhost/laravel/hrmsnew_git/hrmsnew_git/');
-// define('APP_BASE_URL', 'http://localhost/hrmsnew_git/');
+// define('APP_BASE_URL', 'http://localhost/laravel/hrmsnew_git/hrmsnew_git/');
+define('APP_BASE_URL', 'http://localhost/hrmsnew_git/');
 
 /*
 * --------------------------------------------------------------------------
