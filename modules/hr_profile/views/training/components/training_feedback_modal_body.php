@@ -22,18 +22,36 @@
 
             <div class="col-md-12">
                 <div class="mb-3">
-                    <label for="" class="form-label">Traning Type<span class="text-danger">*</span></label>
-                    <select class="form-control form-control-sm" name="training_name" id="training_name">
-                        <option value="" selected disabled>Select Training Type</option>
-                        <?php
-                        if(!empty($training_type)):
-                            foreach($training_type as $key => $value):
-                        ?>
-                        <option value="<?= $value->id ?>"><?= $value->name ?></option>
-                        <?php
-                            endforeach;
-                        endif;
-                        ?>
+                    <label for="" class="form-label">Content<span class="text-danger">*</span></label>
+                    <select class="form-control form-control-sm" name="content" id="content">
+                        <option value="" selected disabled>Select Content</option>
+                        <option value="good">Good</option>
+                        <option value="medium">Medium</option>
+                        <option value="bad">Bad</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <label for="" class="form-label">Trainer effectiveness<span class="text-danger">*</span></label>
+                    <select class="form-control form-control-sm" name="trainer_effectiveness" id="trainer_effectiveness">
+                        <option value="" selected disabled>Select Trainer Effectiveness</option>
+                        <option value="good">Good</option>
+                        <option value="medium">Medium</option>
+                        <option value="bad">Bad</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <label for="" class="form-label">Overall experience<span class="text-danger">*</span></label>
+                    <select class="form-control form-control-sm" name="overall_experience" id="overall_experience">
+                        <option value="" selected disabled>Select Overall Experience</option>
+                        <option value="good">Good</option>
+                        <option value="medium">Medium</option>
+                        <option value="bad">Bad</option>
                     </select>
                 </div>
             </div>

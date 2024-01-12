@@ -75,7 +75,6 @@ function ajaxPostRequest(url, formData, callback, errCallBk = function(data) { e
                 }
             });
         },
-        
         error: function(jqXHR, exception) {
             var msg = '';
             if (jqXHR.status === 0) {
