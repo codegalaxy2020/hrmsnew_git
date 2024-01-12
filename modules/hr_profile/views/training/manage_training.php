@@ -19,12 +19,12 @@
 								
 							</a>
 						</li> -->
-				    <!-- <li<?php if($group_item == $group){echo " class='active'"; } ?>>
+				    <li<?php if($group_item == $group){echo " class='active'"; } ?>>
 							<a href="<?php echo admin_url('utilities/calendartraining'); ?>">
                             Training Add calendar
 								
 							</a>
-						</li> -->
+						</li>
 					<?php
 					$i = 0;
 					foreach($tab as $group_item){
@@ -48,6 +48,9 @@
 								}elseif($group_item == 'waitlist' && is_admin()){
 									echo 'Waitlist';
 								}elseif($group_item == 'training_attendance' && is_admin()){
+									echo 'Training Attendance';
+								}
+								elseif($group_item == 'training_attendance_staff' && !is_admin()){
 									echo 'Training Attendance';
 								}
 

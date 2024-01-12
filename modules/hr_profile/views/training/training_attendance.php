@@ -66,9 +66,11 @@
                     <th>Action</th>
                 </tr>
                 <?php
+
                 $staff_ids = $this->db->select('staff_id,training_process_id')->where('staff_id IS NOT NULL AND staff_id != ""')->order_by('training_process_id', 'DESC')->get('tblhr_jp_interview_training')->result_array();
 
                 $count = 0;
+
                 foreach ($staff_ids as $index => $staff) :
                     $wait_staff_ids = explode(',', $staff['staff_id']);
                     foreach ($wait_staff_ids as $key => $wait_staff_id) :
@@ -98,8 +100,11 @@
                             </select>
                         </td>
                         <td><a href="<?php echo base_url('hr_profile/view_attendance/' . $wait_staff_id . '/' . $interview_training[0]['training_process_id']); ?>" class="btn btn-primary">View Attendance</a></td>
+
                     </tr>
-                <?php endforeach;
+                <?php 
+                $counter++;
+                endforeach;
                 endforeach; ?>
             </table>
 
@@ -143,18 +148,22 @@
             var staffId = $(this).data('staff-id');
             var leadId = $(this).data('lead-id');
             var attendanceValue = $(this).val();
-            submitAttendance(staffId, leadId, attendanceValue);
+            var staffname = $(this).data('staff-name');
+            submitAttendance(staffId, leadId, attendanceValue, staffname);
         });
 
         
-        function submitAttendance(staffId, leadId, attendanceValue) {
+
+        function submitAttendance(staffId, leadId, attendanceValue, staffname) {
+
             $.ajax({
                 type: 'POST',
                 url: '<?php echo base_url();?>admin/hr_profile/attendance', // Replace with your controller URL
                 data: {
                     staffId: staffId,
                     leadId: leadId,
-                    attendanceValue: attendanceValue
+                    attendanceValue: attendanceValue,
+                    staffname: staffname
                 },
                 success: function (response) {
                    var responseData = JSON.parse(response);

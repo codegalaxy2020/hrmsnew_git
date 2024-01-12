@@ -743,13 +743,13 @@ class Hr_profile extends AdminController {
 
 		//Added by DEEP BASAK on January 08, 2024
 		//For added training feed back module
-		// if (is_admin()) {
+		if (is_admin()) {
 			$data['tab'][] = 'training_feedback';
-		// }
+		}
 
-// 		if (!is_admin()) {
-// 		$data['tab'][] = 'training_attendance_staff';
-// 		}
+		if (!is_admin()) {
+		$data['tab'][] = 'training_attendance_staff';
+		}
 //         if (!is_admin()) {
 // 		$data['tab'][] = 'training_calender_staff';
 // 		}
@@ -792,6 +792,7 @@ class Hr_profile extends AdminController {
 
 		$this->load->view('training/manage_training', $data);
 	}
+
 
 	public function feedback_list(){
 		# include datatable model
@@ -897,6 +898,7 @@ class Hr_profile extends AdminController {
         unset($dttbl_model);
 	}
 
+
 	//Added by DEEP BASAk on January 10, 2024
 	public function load_modal(){
 		// $data['training'] = $this->Common_model->getAllData('tblhr_jp_interview_training', '', '', ['FIND_IN_SET("3", staff_id)' => '0']);
@@ -911,6 +913,8 @@ class Hr_profile extends AdminController {
         $result = array('status'=> 'success', 'message'=>'Display modal', 'html'=>$html);
         $obj = (object) array_merge((array) $result, update_csrf_session());
         echo json_encode($obj);
+
+		// echo json_encode(array('status'=> 'success', 'message'=>'Display modal', 'html'=>$html));
 	}
 
 	public function save_feedback(){
@@ -940,6 +944,9 @@ class Hr_profile extends AdminController {
         $result = array('message'=> 'Feedback Deleted!', 'status' => 'success');
         $obj = (object) array_merge((array) $result, update_csrf_session());
         echo json_encode($obj);
+
+		// echo json_encode(array('status'=> 'success', 'message'=>'Feedback send'));
+
 	}
 
 	/**
@@ -1226,6 +1233,7 @@ class Hr_profile extends AdminController {
         $staffId = $this->input->post('staffId');
         $leadId = $this->input->post('leadId');
         $attendanceValue = $this->input->post('attendanceValue');
+        $staffname = $this->input->post('staffname');
 
         // Get the current date
         $attendanceDate = date('Y-m-d');
@@ -1248,6 +1256,17 @@ class Hr_profile extends AdminController {
 				'created_by'=> get_staff_user_id(),					//Cr by DEEP BASAK on January 12, 2024
 				'created_at'=> date('Y-m-d H:i:s')					//Cr by DEEP BASAK on January 12, 2024
             ));
+            //send notification
+                $notified = add_notification([
+                    'description' => "Training Attendance updated with " . $attendanceValue . " for " . $staffname,
+                    'touserid' => $staffId,
+                    'additional_data' => serialize([
+                        'additional_description' => $attendanceValue,
+                    ]),
+                ]);
+    			if ($notified) {
+    				pusher_trigger_notification([$staffId]);
+    			}
         } else {
             // If the record doesn't exist, insert a new one
             $this->db->insert('tbltraining_attendance', array(
@@ -1260,6 +1279,17 @@ class Hr_profile extends AdminController {
 				'created_by'=> get_staff_user_id(),				//Cr by DEEP BASAK on January 12, 2024
 				'created_at'=> date('Y-m-d H:i:s')				//Cr by DEEP BASAK on January 12, 2024
             ));
+            //send notification
+                $notified = add_notification([
+                    'description' => "Training Attendance updated with " . $attendanceValue . " for " . $staffname,
+                    'touserid' => $staffId,
+                    'additional_data' => serialize([
+                        'additional_description' => $attendanceValue,
+                    ]),
+                ]);
+    			if ($notified) {
+    				pusher_trigger_notification([$staffId]);
+    			}
         }
 
         // You can send a response back to the frontend if needed

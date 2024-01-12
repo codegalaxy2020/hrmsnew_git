@@ -6,13 +6,14 @@
                 <?php echo get_company_logo(get_admin_uri() . '/', '!tw-mt-0')?>
             </div>
         </li>
-        <!--<li class="menu-item-hrm_dashboard">-->
-        <!--    <a href="https://skilltest.live/hrmsnew/admin/hrm" aria-expanded="false">-->
-        <!--        <i class="fa fa-home menu-icon"></i>-->
-        <!--        <span class="menu-text">-->
-        <!--            OutDoor Duits                </span>-->
-        <!--                                    </a>-->
-        <!--            </li>-->
+        <li class="menu-item-hrm_dashboard">
+           <a href="<?=base_url();?>admin/tasks" aria-expanded="false">
+               <i class="fa fa-home menu-icon"></i>
+               <span class="menu-text">
+               Tasks     
+                       </span>
+                                           </a>
+         </li>
         <?php
          hooks()->do_action('before_render_aside_menu');
          ?>
@@ -79,40 +80,73 @@
             <a href="#" aria-expanded="true">
                 <i class="fa fa-users menu-icon"></i>
                 <span class="menu-text">
-                    Cost Tracking                </span>
-                                <span class="fa arrow pleft5"></span>
-                                            </a>
-                        <ul class="nav nav-second-level" aria-expanded="true" style="">
-                            <?php if(is_admin()){?>
-                                <li class="sub-menu-item-cost_tracking">
-                    <a href="https://skilltest.live/hrmsnew/admin/hr_profile/cost_tracking">
-                                                <i class="fa fa-american-sign-language-interpreting menu-icon"></i>
-                                                <span class="sub-menu-text">
-                            Cost Tracking                        </span>
+                    Cost Tracking 
+                </span>
+                <span class="fa arrow pleft5"></span>
+            </a>
+            <ul class="nav nav-second-level" aria-expanded="true" style="">
+            <?php if(is_admin()){?>
+                <li class="sub-menu-item-cost_tracking">
+                    <a href="<?=base_url();?>admin/hr_profile/cost_tracking">
+                      <i class="fa fa-american-sign-language-interpreting menu-icon"></i>
+                        <span class="sub-menu-text">
+                            Cost Tracking   
+                         </span>
                     </a>
-                                    </li>
-                                     
-                                    <li class="sub-menu-item-cost_tracking">
-                    <a href="https://skilltest.live/hrmsnew/admin/hr_profile/add_components">
-                                                <i class="fa fa-american-sign-language-interpreting menu-icon"></i>
-                                                <span class="sub-menu-text">
-                            Add Components                        </span>
+                </li>
+                <li class="sub-menu-item-cost_tracking">
+                    <a href="<?=base_url();?>admin/hr_profile/add_components">
+                        <i class="fa fa-american-sign-language-interpreting menu-icon"></i>
+                        <span class="sub-menu-text">
+                            Add Components 
+                        </span>
                     </a>
-                                    </li>
-                                    
-                                    <?php } if(!is_admin()){?>
-                                    <li class="sub-menu-item-cost_tracking">
-                    <a href="https://skilltest.live/hrmsnew/admin/hr_profile/allocate_cost_tracking">
-                                                <i class="fa fa-american-sign-language-interpreting menu-icon"></i>
-                                                <span class="sub-menu-text">
-                            Allocated Cost Report                        </span>
+                </li>
+                     <?php } if(!is_admin()){?>
+                <li class="sub-menu-item-cost_tracking">
+                    <a href="<?=base_url();?>admin/hr_profile/allocate_cost_tracking">
+                        <i class="fa fa-american-sign-language-interpreting menu-icon"></i>
+                        <span class="sub-menu-text">
+                            Allocated Cost Report                        
+                        </span>
                     </a>
-                                    </li>
-                                    <?php }?>
+                </li>
+                 <?php }?>
                 
-                            </ul>
+                 </ul>
                         
         </li>
+        <?php if(is_admin()){?>
+        <li class="menu-item-faculty">
+            <a href="#" aria-expanded="true">
+                <i class="fa fa-users menu-icon"></i>
+                <span class="menu-text">
+                Faculty / Coordinator 
+                </span>
+                <span class="fa arrow pleft5"></span>
+            </a>
+            <ul class="nav nav-second-level" aria-expanded="true" style="">
+            
+                <li class="sub-menu-item-faculty">
+                    <a href="<?=base_url();?>admin/hr_profile/faculty">
+                      <i class="fa fa-american-sign-language-interpreting menu-icon"></i>
+                        <span class="sub-menu-text">
+                            Add Faculty   
+                         </span>
+                    </a>
+                </li>
+                <li class="sub-menu-item-faculty">
+                    <a href="<?=base_url();?>admin/hr_profile/manage_faculty">
+                        <i class="fa fa-american-sign-language-interpreting menu-icon"></i>
+                        <span class="sub-menu-text">
+                            Manage Faculty 
+                        </span>
+                    </a>
+                </li>
+                 </ul>
+                        
+        </li>
+        <?php } ?>
         
             <?php hooks()->do_action('after_render_aside_menu'); ?>
             <?php $this->load->view('admin/projects/pinned'); ?>
