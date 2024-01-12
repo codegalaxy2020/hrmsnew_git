@@ -487,3 +487,7 @@ $lang['traning_feedback_traning_name'] = 'Traning Name';
 $lang['traning_feedback_action'] = 'Action';
 $lang['traning_feedback'] = 'Traning Feedback';
 
+//Added by DEEP BASAK on January 09, 2024
+$lang['traning_content'] = 'Traning content';
+$lang['traning_effectiveness'] = 'Traning effectiveness';
+$lang['traning_experience'] = 'Traning experience';

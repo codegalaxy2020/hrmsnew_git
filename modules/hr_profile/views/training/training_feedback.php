@@ -18,7 +18,9 @@
 						<th>#</th>
 						<th><?= _l('traning_feedback_staff_name') ?></th>
 						<th><?= _l('traning_feedback_traning_name') ?></th>
-						<th><?= _l('hr_training_type') ?></th>
+						<th><?= _l('traning_content') ?></th>
+						<th><?= _l('traning_effectiveness') ?></th>
+						<th><?= _l('traning_experience') ?></th>
 						<th><?= _l('traning_feedback') ?></th>
 						<th><?= _l('hr_datecreator') ?></th>
 						<?php if(is_admin()): ?>

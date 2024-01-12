@@ -53,7 +53,7 @@
 			<a href="#"  onclick="training_program_bulk_actions(); return false;" data-toggle="modal" data-table=".table-table_training_program" data-target="#leads_bulk_actions" class=" hide bulk-actions-btn table-btn"><?php echo _l('hr_bulk_actions'); ?></a>
 		<?php } ?>
 
-        	<table border="1">
+        	<table class="table table-bordered table-sm" id="table-table_training_attendence">
                 <tr>
                     <th>ID</th>
                     <th>Staff Name</th>
@@ -62,15 +62,19 @@
                     <th>Time to End</th>
                     <th>Location</th>
                     <th>Venues</th>
+                    <th>Attendence</th>
                     <th>Action</th>
-                    
                 </tr>
                 <?php
-                $staff_ids = $this->db->select('staff_id,training_process_id')->where('staff_id IS NOT NULL AND staff_id != ""')->get('tblhr_jp_interview_training')->result_array();
-                $counter = 1;
+
+                $staff_ids = $this->db->select('staff_id,training_process_id')->where('staff_id IS NOT NULL AND staff_id != ""')->order_by('training_process_id', 'DESC')->get('tblhr_jp_interview_training')->result_array();
+
+                $count = 0;
+
                 foreach ($staff_ids as $index => $staff) :
                     $wait_staff_ids = explode(',', $staff['staff_id']);
-                    foreach ($wait_staff_ids as $wait_staff_id) :
+                    foreach ($wait_staff_ids as $key => $wait_staff_id) :
+                        $count++;
                         $wait_staff = $this->db->get_where('tblstaff', array('staffid' => $wait_staff_id))->row_array();
                         $staff_name = $wait_staff['firstname'] . ' ' . $wait_staff['lastname'];
                 
@@ -80,22 +84,23 @@
                             ->result_array();
                 ?>
                     <tr>
-                        <td><?php echo $counter; ?></td>
-                    <td><?php echo $staff_name; ?></td>
-                    <td><?php echo $interview_training[0]['training_name']; ?></td>
-                    <td><?php echo $interview_training[0]['time_to_start']; ?></td>
-                    <td><?php echo $interview_training[0]['time_to_end']; ?></td>
-                    <td><?php echo $interview_training[0]['training_location']; ?></td>
-                    <td><?php echo $interview_training[0]['training_venues']; ?></td>
-                    <td class="action-buttons">
-                        <select class="attendance-dropdown" data-staff-id="<?php echo $wait_staff_id; ?>" data-lead-id="<?php echo $interview_training[0]['training_process_id']; ?>" data-staff-name="<?php echo $staff_name; ?>">
-                            <option value="">Attendance</option>
-                            <option value="present">Present</option>
-                            <option value="absent">Absent</option>
-                            <option value="half_day">Half Day</option>
-                        </select>
-                        <a href="<?php echo base_url('hr_profile/view_attendance/' . $wait_staff_id . '/' . $interview_training[0]['training_process_id']); ?>" class="btn btn-primary">View Attendance</a>
-                    </td>
+                        <td><?php echo $count; ?></td>
+                        <td><?php echo $staff_name; ?></td>
+                        <td><?php echo $interview_training[0]['training_name']; ?></td>
+                        <td><?php echo $interview_training[0]['time_to_start']; ?></td>
+                        <td><?php echo $interview_training[0]['time_to_end']; ?></td>
+                        <td><?php echo $interview_training[0]['training_location']; ?></td>
+                        <td><?php echo $interview_training[0]['training_venues']; ?></td>
+                        <td class="action-buttons">
+                            <select class="attendance-dropdown form-control form-control-sm" data-staff-id="<?php echo $wait_staff_id; ?>" data-lead-id="<?php echo $interview_training[0]['training_process_id']; ?>">
+                                <option value="">Attendance</option>
+                                <option value="present">Present</option>
+                                <option value="absent">Absent</option>
+                                <option value="half_day">Half Day</option>
+                            </select>
+                        </td>
+                        <td><a href="<?php echo base_url('hr_profile/view_attendance/' . $wait_staff_id . '/' . $interview_training[0]['training_process_id']); ?>" class="btn btn-primary">View Attendance</a></td>
+
                     </tr>
                 <?php 
                 $counter++;
@@ -138,7 +143,6 @@
 <!--<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>-->
 <script>
     $(document).ready(function () {
-        
         $('.attendance-dropdown').on('change', function () {
             // alert('hi');
             var staffId = $(this).data('staff-id');
@@ -149,8 +153,9 @@
         });
 
         
+
         function submitAttendance(staffId, leadId, attendanceValue, staffname) {
-            
+
             $.ajax({
                 type: 'POST',
                 url: '<?php echo base_url();?>admin/hr_profile/attendance', // Replace with your controller URL

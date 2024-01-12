@@ -70,7 +70,7 @@
 							</a>
 						</li>
 					<?php } ?>
-					<li<?php if($group_item == $group){echo " class='active'"; } ?>>
+					<li <?php if($group_item == $group){echo " class='active'"; } ?>>
 							<a href="<?php echo admin_url('utilities/calendar'); ?>">
                             	Personal Calender
 							</a>

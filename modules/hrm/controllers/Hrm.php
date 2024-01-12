@@ -361,7 +361,13 @@ public function latch_payslip(){
             }
             $data['payroll_column'] = $this->hrm_model->column_type('', 1);
 
-            $data['records_received'] = json_decode($recordsreceived->records_received, true);
+            // echo "<pre>"; print_r($recordsreceived->records_received); echo "</pre>"; exit;
+            if(!empty($recordsreceived->records_received)){     //CR by DEEP BASAK on January 12, 2024
+                $data['records_received'] = json_decode($recordsreceived->records_received, true);
+            } else{
+                $data['records_received'] = array();
+            }
+            
             $data['checkbox'] = [];
             if(isset( $data['records_received'])){
                 foreach ($data['records_received'] as $value) {
