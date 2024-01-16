@@ -94,7 +94,7 @@ function serverSideDataTable(tableId, ajaxUrl, num_of_row, callback = '', formDa
 
 //Added by DEEP BASAK on November 01, 2023
 //For static datatable
-function staticDataTable(tableId){
+function staticDataTable(tableId, columnExport){
     if ($.fn.dataTable.isDataTable('#' + tableId)) {
         destroyDataTable(tabId)
     }
@@ -106,11 +106,17 @@ function staticDataTable(tableId){
                 extend: "copyHtml5",
                 text: '<i class="fa fa-copy"></i> Copy',
                 titleAttr: "Copy",
+                exportOptions: {
+                    columns: columnExport // Specify the columns to include (0-based index)
+                },
             },
             {
                 extend: "excelHtml5",
                 text: '<i class="fa fa-file-excel-o"></i> Excel',
                 titleAttr: "Excel",
+                exportOptions: {
+                    columns: columnExport // Specify the columns to include (0-based index)
+                },
             },
             {
                 extend: "pdfHtml5",
@@ -118,6 +124,9 @@ function staticDataTable(tableId){
                 titleAttr: "Pdf",
                 orientation: "landscape",
                 pageSize: "A4",
+                exportOptions: {
+                    columns: columnExport // Specify the columns to include (0-based index)
+                },
             },
         ],
         order: [],

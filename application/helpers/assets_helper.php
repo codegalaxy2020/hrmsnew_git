@@ -254,9 +254,15 @@ function add_datatables_js_assets($group = 'admin')
     //Message JS Added by DEEP BASAK on January 11, 2024
     get_instance()->app_scripts->add('message', 'assets/js/custom/message.js', $group);
 
-
     //Common Validation JS Added by DEEP BASAK on January 11, 2024
     get_instance()->app_scripts->add('SweetAlert-min', 'assets/js/custom/commonValidation.js', $group);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+
+    //APEX Chart JS Added by DEEP BASAK on January 15, 2024
+    get_instance()->app_scripts->add('apexchart', 'assets/js/custom/apexcharts-3.45.js', $group);
+
 >>>>>>> Stashed changes
 }
 

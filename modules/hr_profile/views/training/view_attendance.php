@@ -25,33 +25,51 @@
 							<h3>Attendance</h3>
 						</div>
 						<br>
-						
+						<div class="row">
+							<div class="col-md-4">
+								<h4><strong>Staff Name:</strong> <?= $staff_details->firstname . ' ' . $staff_details->lastname ?></h4>
+							</div>
+							<div class="col-md-4">
+								<h4><strong>Training Name:</strong> <?= $training_details->training_name ?></h4>
+							</div>
+							<div class="col-md-4">
+								<h4><strong>Training Process: </strong></h4>
+								<?php
+								$class = 'bg-danger';
+								if($total_present <= 30){
+									$class = 'bg-danger';
+								} else if(($total_present > 30) && ($total_present <= 60)){
+									$class = 'bg-warning';
+								} else if(($total_present > 60)){
+									$class = 'bg-success';
+								}
+								?>
+								<div class="progress">
+									<div class=" progress-bar-striped <?= $class ?>" role="progressbar" style="width: <?= $total_present ?>%" aria-valuenow="<?= $total_present ?>" aria-valuemin="0" aria-valuemax="100"><?= $total_present ?>%</div>
+								</div>
+							</div>
+						</div>
 
 						<div class="row">
 							<div class="col-md-12">
 							<?php if (!empty($faculty_data)): ?>
-                                <table border="1">
+                                <table class="table table-sm table-bordered">
                                     <tr>
                                         <th>ID</th>
                                         <th>Date</th>
                                         <th>Attendance</th>
-                                        
                                     </tr>
-                                    <?php 
-                                    // print_r($faculty_data);die();
-                                    foreach ($faculty_data as $index => $faculty): ?>
-                                        <tr>
-                                            <td><?php echo $index + 1; ?></td>
-                                            <td><?php echo $faculty['attendance_date']; ?></td>
-                                           <td>
-                                            <?php echo $faculty['attendance']; ?>
-                                        </td>
-                                        </tr>
+                                    <?php foreach ($faculty_data as $index => $faculty): ?>
+									<tr>
+										<td><?php echo $index + 1; ?></td>
+										<td><?php echo date("F d, Y", strtotime($faculty['attendance_date'])); ?></td>
+										<td><?php echo $faculty['attendance']; ?></td>
+									</tr>
                                     <?php endforeach; ?>
                                 </table>
-                            <?php else: ?>
-                                <p>No faculty data available.</p>
-                            <?php endif; ?>
+								<?php else: ?>
+								<p>No faculty data available.</p>
+								<?php endif; ?>
                                     
 								</div>
 							</div>
@@ -118,7 +136,6 @@
 	?>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script>
-    
 
     function deleteFaculty(id) {
         var confirmDelete = confirm('Are you sure you want to delete faculty with ID ' + id + '?');
