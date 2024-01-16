@@ -743,12 +743,16 @@ class Hr_profile extends AdminController {
 
 		//Added by DEEP BASAK on January 08, 2024
 		//For added training feed back module
-		if (is_admin()) {
+		// if (is_admin()) {
 			$data['tab'][] = 'training_feedback';
-		}
+		// }
+
+		//Added by DEEP BASAK on January 15, 2024
+		//For added training chart module
+		$data['tab'][] = 'training_chart';
 
 		if (!is_admin()) {
-		$data['tab'][] = 'training_attendance_staff';
+			$data['tab'][] = 'training_attendance_staff';
 		}
 //         if (!is_admin()) {
 // 		$data['tab'][] = 'training_calender_staff';
@@ -769,26 +773,7 @@ class Hr_profile extends AdminController {
 		$data['training_programs'] = $this->hr_profile_model->get_job_position_training_process();
 
 
-		//Added by DEEP BASAK on January 10, 2024
-		// $join = array(
-		// 	array(
-		// 		'table'	=> 'tblhr_type_of_trainings',
-		// 		'on'	=> 'tblhr_type_of_trainings.id = tbl_training_feedback.training_type_id',
-		// 		'type'	=> 'left'
-		// 	),
-		// 	array(
-		// 		'table'	=> 'tblhr_jp_interview_training',
-		// 		'on'	=> 'tblhr_jp_interview_training.training_process_id = tbl_training_feedback.training_id',
-		// 		'type'	=> 'left'
-		// 	),
-		// 	array(
-		// 		'table'	=> 'tblstaff',
-		// 		'on'	=> 'tblstaff.staffid = tbl_training_feedback.staff_id',
-		// 		'type'	=> 'left'
-		// 	)
-		// );
-		// $staffId = get_staff_user_id();
-		// $data['training_feedback'] = $this->Common_model->getAllData('tbl_training_feedback', '', '', ['is_active' => 'Y'], 'tbl_training_feedback.id desc', '', '', '', [], $join);
+		$data['training_list'] = $this->Common_model->getAllData('tblhr_jp_interview_training', '', '', []);
 
 		$this->load->view('training/manage_training', $data);
 	}
@@ -915,6 +900,25 @@ class Hr_profile extends AdminController {
         echo json_encode($obj);
 
 		// echo json_encode(array('status'=> 'success', 'message'=>'Display modal', 'html'=>$html));
+	}
+
+	public function training_attendence_chart(){
+		$lable = array();
+		$series = array();
+
+		$data = $this->Common_model->getAllData('tbltraining_attendance', '', '', ['is_active' => 'Y', 'training_id' => $this->input->post('training_id')]);
+		// echo "<pre>"; print_r($data); echo "</pre>"; exit;
+		foreach($data as $key => $val){
+			$lable[] = $val->attendance;
+			$series[] = intval($val->count); 
+		}
+
+		$data = array('lable'=>$lable, 'series'=>$series);
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'Data fetch', 'data' => $data);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
 	}
 
 	public function save_feedback(){
@@ -1235,6 +1239,13 @@ class Hr_profile extends AdminController {
         $attendanceValue = $this->input->post('attendanceValue');
         $staffname = $this->input->post('staffname');
 
+		$count = 0;
+		if($attendanceValue == 'present'){
+			$count = 1;
+		} else if($attendanceValue == 'half_day'){
+			$count = 0.5;
+		}
+
         // Get the current date
         $attendanceDate = date('Y-m-d');
 
@@ -1251,10 +1262,11 @@ class Hr_profile extends AdminController {
             $this->db->where('id', $existingRecord['id']);
             $this->db->update('tbltraining_attendance', array(
                 'attendance' => $attendanceValue,
+				'count' => $count,
                 'status' => 1,
 				'is_active'=>'Y',									//Cr by DEEP BASAK on January 12, 2024
-				'created_by'=> get_staff_user_id(),					//Cr by DEEP BASAK on January 12, 2024
-				'created_at'=> date('Y-m-d H:i:s')					//Cr by DEEP BASAK on January 12, 2024
+				'updated_by'=> get_staff_user_id(),					//Cr by DEEP BASAK on January 12, 2024
+				'updated_at'=> date('Y-m-d H:i:s')					//Cr by DEEP BASAK on January 12, 2024
             ));
             //send notification
                 $notified = add_notification([
@@ -1274,6 +1286,7 @@ class Hr_profile extends AdminController {
                 'training_id' => $leadId,
                 'attendance_date' => $attendanceDate,
                 'attendance' => $attendanceValue,
+				'count' => $count,
                 'status' => 1,
 				'is_active'=>'Y',								//Cr by DEEP BASAK on January 12, 2024
 				'created_by'=> get_staff_user_id(),				//Cr by DEEP BASAK on January 12, 2024
@@ -1309,7 +1322,19 @@ class Hr_profile extends AdminController {
 	}
 	
 	public function view_attendance($wait_staff_id, $training_process_id) {
-	    $data['faculty_data'] = $this->hr_profile_model->faculty_data_tbltraining_attendance($wait_staff_id, $training_process_id);
+		$total_present = 0;
+	    $data['faculty_data'] = $attendance_details = $this->hr_profile_model->faculty_data_tbltraining_attendance($wait_staff_id, $training_process_id);
+		
+		$data['staff_details'] = $this->Common_model->getAllData('tblstaff', '', 1, ['staffid' => $wait_staff_id]);		//CR BY DEEP BASAK on January 16, 2024
+		$data['training_details'] = $this->Common_model->getAllData('tblhr_jp_interview_training', '', 1, ['training_process_id' => $training_process_id]);		//CR BY DEEP BASAK on January 16, 2024
+
+		foreach($attendance_details as $key => $val){
+			// echo "<pre>"; print_r($val['count']); echo "</pre>"; exit;
+			$total_present = $total_present + $val['count'];
+		}
+		$total_present = 100 * ($total_present / $data['training_details']->mint_point);
+		$data['total_present'] = $total_present;
+
 		$this->app_scripts->add('surveys-js', module_dir_url('surveys', 'assets/js/surveys.js'), 'admin', ['app-js']);
 		$this->app_css->add('surveys-css', module_dir_url('hr_profile', 'assets/css/training/training_post.css'), 'admin', ['app-css']);
 

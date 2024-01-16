@@ -1,6 +1,4 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>-->
 <div>
     <style>
         table {
@@ -52,19 +50,23 @@
 		<?php if (has_permission('staffmanage_training','','delete')) { ?>
 			<a href="#"  onclick="training_program_bulk_actions(); return false;" data-toggle="modal" data-table=".table-table_training_program" data-target="#leads_bulk_actions" class=" hide bulk-actions-btn table-btn"><?php echo _l('hr_bulk_actions'); ?></a>
 		<?php } ?>
-
-        	<table class="table table-bordered table-sm" id="table-table_training_attendence">
-                <tr>
-                    <th>ID</th>
-                    <th>Staff Name</th>
-                    <th>Name</th>
-                    <th>Time to Start</th>
-                    <th>Time to End</th>
-                    <th>Location</th>
-                    <th>Venues</th>
-                    <th>Attendence</th>
-                    <th>Action</th>
-                </tr>
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm" id="table-table_training_attendence">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Staff Name</th>
+                            <th>Name</th>
+                            <th>Time to Start</th>
+                            <th>Time to End</th>
+                            <th>Location</th>
+                            <th>Venues</th>
+                            <th>Attendence</th>
+                            <th>Training Progress</th>
+                            <!-- <th>Action</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
                 <?php
 
                 $staff_ids = $this->db->select('staff_id,training_process_id')->where('staff_id IS NOT NULL AND staff_id != ""')->order_by('training_process_id', 'DESC')->get('tblhr_jp_interview_training')->result_array();
@@ -75,6 +77,24 @@
                     $wait_staff_ids = explode(',', $staff['staff_id']);
                     foreach ($wait_staff_ids as $key => $wait_staff_id) :
                         $count++;
+
+                        //Added by DEEP BASAK on January 16, 2024
+                        $total_present = 0;
+                        $attendance_details = $this->Common_model->getAllData('tbltraining_attendance', '', '', ['is_active' => 'Y', 'training_id' => $staff['training_process_id'], 'staff_id' => $wait_staff_id]);
+                        foreach($attendance_details as $key => $val){
+                            $total_present = $total_present + $val->count;
+                        }
+                        $training_details = $this->Common_model->getAllData('tblhr_jp_interview_training', '', 1, ['training_process_id' => $staff['training_process_id']]);
+                        $total_present = 100 * ($total_present / $training_details->mint_point);
+                        $class = 'bg-danger';
+                        if($total_present <= 30){
+                            $class = 'bg-danger';
+                        } else if(($total_present > 30) && ($total_present <= 60)){
+                            $class = 'bg-warning';
+                        } else if(($total_present > 60)){
+                            $class = 'bg-success';
+                        }
+                        
                         $wait_staff = $this->db->get_where('tblstaff', array('staffid' => $wait_staff_id))->row_array();
                         $staff_name = $wait_staff['firstname'] . ' ' . $wait_staff['lastname'];
                 
@@ -85,7 +105,7 @@
                 ?>
                     <tr>
                         <td><?php echo $count; ?></td>
-                        <td><?php echo $staff_name; ?></td>
+                        <td><a href="<?php echo base_url('hr_profile/view_attendance/' . $wait_staff_id . '/' . $interview_training[0]['training_process_id']); ?>"><?php echo $staff_name; ?></a></td>
                         <td><?php echo $interview_training[0]['training_name']; ?></td>
                         <td><?php echo $interview_training[0]['time_to_start']; ?></td>
                         <td><?php echo $interview_training[0]['time_to_end']; ?></td>
@@ -99,89 +119,23 @@
                                 <option value="half_day">Half Day</option>
                             </select>
                         </td>
-                        <td><a href="<?php echo base_url('hr_profile/view_attendance/' . $wait_staff_id . '/' . $interview_training[0]['training_process_id']); ?>" class="btn btn-primary">View Attendance</a></td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar-striped <?= $class ?>" role="progressbar" style="width: <?= $total_present ?>%" aria-valuenow="<?= $total_present ?>" aria-valuemin="0" aria-valuemax="100"><?= $total_present ?>%</div>
+                            </div>
+                        </td>
+                        <!-- <td><a href="<?php echo base_url('hr_profile/view_attendance/' . $wait_staff_id . '/' . $interview_training[0]['training_process_id']); ?>" class="btn btn-primary">View Attendance</a></td> -->
 
                     </tr>
                 <?php 
-                $counter++;
+                // $counter++;
                 endforeach;
                 endforeach; ?>
+                </tbody>
             </table>
+            </div>
 
 
 		</div>
 		<!-- training_program end -->
 	</div>
-</body>
-</html>
-<script>
-    function askToJoinw(trainingId, staffId, training_name) {
-        // Perform AJAX request
-        $.ajax({
-            url: '<?php echo base_url();?>admin/hr_profile/check_allotted_slots_join',
-            type: 'POST',
-            dataType: 'json',
-            data: { training_id: trainingId, staffId: staffId, training_name:training_name },
-            success: function(response) {
-                console.log(response);
-                if (response.success) {
-                    // Handle success, e.g., enable the join button
-                    alert(response.message);
-                    location.reload(true);
-                } else {
-                    // Handle failure, e.g., show an error message
-                    alert(response.message);
-                }
-            },
-            error: function() {
-                // Handle AJAX error
-                alert('Error making the AJAX request.');
-            }
-        });
-    }
-</script>
-<!--<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>-->
-<script>
-    $(document).ready(function () {
-        $('.attendance-dropdown').on('change', function () {
-            // alert('hi');
-            var staffId = $(this).data('staff-id');
-            var leadId = $(this).data('lead-id');
-            var attendanceValue = $(this).val();
-            var staffname = $(this).data('staff-name');
-            submitAttendance(staffId, leadId, attendanceValue, staffname);
-        });
-
-        
-
-        function submitAttendance(staffId, leadId, attendanceValue, staffname) {
-
-            $.ajax({
-                type: 'POST',
-                url: '<?php echo base_url();?>admin/hr_profile/attendance', // Replace with your controller URL
-                data: {
-                    staffId: staffId,
-                    leadId: leadId,
-                    attendanceValue: attendanceValue,
-                    staffname: staffname
-                },
-                success: function (response) {
-                   var responseData = JSON.parse(response);
-                    if (responseData.success) {
-                        alert('Attendance updated successfully!');
-                        location.reload();
-                    } else {
-                        alert('Failed to update attendance. Please try again.');
-                    }
-                },
-                error: function (error) {
-                    // Handle errors if any
-                }
-            });
-        }
-        
-    });
-</script>
-<script>
-    
-</script>
