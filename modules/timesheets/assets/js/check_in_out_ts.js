@@ -11,7 +11,7 @@
      $('#clock_attendance_modal input[name="edit_date"]').val('');
      $("#clock_attendance_modal .curr_date .form-group").slideUp(500);
      var staff_id = $('#clock_attendance_modal input[name="staff_id"]').val();
-     get_data_attendance(staff_id, get_date());
+    //  get_data_attendance(staff_id, get_date());
      $('#clock_attendance_modal input[name="edit_date"]').val('');
    });
    $(window).on('load', function() {
@@ -40,18 +40,25 @@
   */
   function open_check_in_out(){
    "use strict";
-   getLocation();
-   $("#clock_attendance_modal .curr_date .form-group").slideUp(1);
-   $('#clock_attendance_modal').modal('show');
-   appValidateForm($('#timesheets-form-check-in'), {
-     staff_id: 'required',
-     date: 'required'
-   })
-   appValidateForm($('#timesheets-form-check-out'), {
-     staff_id: 'required',
-     date: 'required'
-   })   
-   $(".btn-close-edit-datetime").click();
+  //  debugger;
+   var staff_id = $('#clock_attendance_modal input[name="default_staff_id"]').val();
+   ajaxPostRequest('timesheets/get_data_attendance2', {'staff_id': staff_id}, function (data) {
+    $("#clock_attendance_modal").find(".modal-body").html(data.html);
+    // get_data_attendance(staff_id, get_date());
+    getLocation();
+    $("#clock_attendance_modal .curr_date .form-group").slideUp(1);
+    $('#clock_attendance_modal').modal('show');
+    appValidateForm($('#timesheets-form-check-in'), {
+      staff_id: 'required',
+      date: 'required'
+    })
+    appValidateForm($('#timesheets-form-check-out'), {
+      staff_id: 'required',
+      date: 'required'
+    })   
+    $(".btn-close-edit-datetime").click();
+   });
+   
  }
 /**
  * update Clock
@@ -101,11 +108,17 @@
    if(staff_id != ''){
      var data = {};
      data.staff_id = staff_id;
-     data.date = date;
-     $.post(admin_url+'timesheets/get_data_attendance',data).done(function(response){
-      response = JSON.parse(response);
-      $('#attendance_history').html('');
-      $('#attendance_history').html(response.html_list);
+    //  data.date = date;
+    $("#clock_attendance_modal").find(".modal-body").html('');
+    //  $.post(admin_url+'timesheets/get_data_attendance2',data).done(function(response){
+    //   response = JSON.parse(response);
+    //   // $('#attendance_history').html('');
+    //   // $('#attendance_history').html(response.html_list);
+    //   $("#clock_attendance_modal").find(".modal-body").html(response.html);
+    // });
+    ajaxPostRequest('timesheets/get_data_attendance2', {'staff_id': staff_id}, function(data){
+      $("#clock_attendance_modal").find(".modal-body").html(data.html);
+      getLocation();
     });
    }
  }
@@ -146,26 +159,28 @@
 function get_route_point(){
  "use strict";
  var geolocation = $('input[name="location_user"]').eq(0).val();
- if(geolocation != ''){
-  var split = geolocation.split(',');
-  var data = {};
-  data.lat = split[0];
-  data.lng = split[1];
-  data.staff = $('select[name="staff_id"]').val();
-  data.date = $('#edit_date').val();
+  if(geolocation != ''){
+    var split = geolocation.split(',');
+    var data = {};
+    data.lat = split[0];
+    data.lng = split[1];
+    data.staff = $('select[name="staff_id"]').val();
+    data.date = $('#edit_date').val();
 
-  $.post(admin_url+'timesheets/get_route_point_combobox',data).done(function(response){
-    response = JSON.parse(response);
-    if(response.point_id == '') {
-      $('.route_point_combobox').addClass('hide');
-    }
-    else{
-      $('.route_point_combobox').removeClass('hide');
-      $('select[name="route_point"]').html(response.option).selectpicker('refresh');
-    }
-  });
+    $.post(admin_url+'timesheets/get_route_point_combobox',data).done(function(response){
+      response = JSON.parse(response);
+      if(response.point_id == '') {
+        $('.route_point_combobox').addClass('hide');
+      }
+      else{
+        $('.route_point_combobox').removeClass('hide');
+        $('select[name="route_point"]').html(response.option).selectpicker('refresh');
+      }
+    });
+  }
 }
-}
+
+
 function get_data(){
  "use strict";
  var route_point = $('#route_point').val();
@@ -175,22 +190,22 @@ function get_data(){
 }
 
 function getLocation() {
- "use strict";
- function success(position) {
-  const latitude  = position.coords.latitude;
-  const longitude = position.coords.longitude;
-  $('#clock_attendance_modal input[name="location_user"]').val(latitude+','+longitude);
-  get_route_point();
-}
+  "use strict";
+  function success(position) {
+    const latitude  = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    $('#clock_attendance_modal input[name="location_user"]').val(latitude+','+longitude);
+    // get_route_point();
+  }
 
-function error() {
-  alert('Unable to retrieve your location');
-}
+  function error() {
+    alert('Unable to retrieve your location');
+  }
 
-if (!navigator.geolocation) {
-  alert('Geolocation is not supported by your browser');
-} else {
-  navigator.geolocation.getCurrentPosition(success, error);
-}
+  if (!navigator.geolocation) {
+    alert('Geolocation is not supported by your browser');
+  } else {
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
 }
 

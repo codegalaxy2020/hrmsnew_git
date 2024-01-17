@@ -11,6 +11,8 @@ class hr_payroll extends AdminController {
 		parent::__construct();
 		$this->load->model('hr_payroll_model');
 		hooks()->do_action('hr_payroll_init'); 
+
+		$this->load->model('common/Common_model');		//Added by DEEP BASAK on January 09, 2024
 	}
 
 	/**
@@ -1111,118 +1113,148 @@ class hr_payroll extends AdminController {
 		$this->load->model('staff_model');
 		$this->load->model('departments_model');
 
-		$rel_type = hrp_get_timesheets_status();
+		// $rel_type = hrp_get_timesheets_status();
 
-		//get current month
-		$current_month = date('Y-m-d', strtotime(date('Y-m') . '-01'));
+		// //get current month
+		// $current_month = date('Y-m-d', strtotime(date('Y-m') . '-01'));
 
-		//get day header in month
-		$days_header_in_month = $this->hr_payroll_model->get_day_header_in_month($current_month, $rel_type);
+		// //get day header in month
+		// $days_header_in_month = $this->hr_payroll_model->get_day_header_in_month($current_month, $rel_type);
 
-		$attendances = $this->hr_payroll_model->get_hrp_attendance($current_month);
-		$attendances_value = [];
+		// $attendances = $this->hr_payroll_model->get_hrp_attendance($current_month);
+		// $attendances_value = [];
 
-		foreach ($attendances as $key => $value) {
-			$attendances_value[$value['staff_id'] . '_' . $value['month']] = $value;
-		}
+		// foreach ($attendances as $key => $value) {
+		// 	$attendances_value[$value['staff_id'] . '_' . $value['month']] = $value;
+		// }
 
-		//load deparment by manager
-		if (!is_admin() && !has_permission('hrp_employee', '', 'view')) {
-			//View own
-			$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object(get_staffid_by_permission());
-		} else {
-			//admin or view global
-			$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object();
-		}
+		// //load deparment by manager
+		// if (!is_admin() && !has_permission('hrp_employee', '', 'view')) {
+		// 	//View own
+		// 	$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object(get_staffid_by_permission());
+		// } else {
+		// 	//admin or view global
+		// 	$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object();
+		// }
 
-		$data_object_kpi = [];
+		// $data_object_kpi = [];
 
-		foreach ($staffs as $staff_key => $staff_value) {
-			/*check value from database*/
+		// foreach ($staffs as $staff_key => $staff_value) {
+		// 	/*check value from database*/
 
-			$staff_i = $this->hr_payroll_model->get_staff_info($staff_value['staffid']);
-			if ($staff_i) {
+		// 	$staff_i = $this->hr_payroll_model->get_staff_info($staff_value['staffid']);
+		// 	if ($staff_i) {
 
-				if (isset($staff_i->staff_identifi)) {
-					$data_object_kpi[$staff_key]['hr_code'] = $staff_i->staff_identifi;
-				} else {
-					$data_object_kpi[$staff_key]['hr_code'] = $this->hr_payroll_model->hrp_format_code('EXS', $staff_i->staffid, 5);
-				}
+		// 		if (isset($staff_i->staff_identifi)) {
+		// 			$data_object_kpi[$staff_key]['hr_code'] = $staff_i->staff_identifi;
+		// 		} else {
+		// 			$data_object_kpi[$staff_key]['hr_code'] = $this->hr_payroll_model->hrp_format_code('EXS', $staff_i->staffid, 5);
+		// 		}
 
-				$data_object_kpi[$staff_key]['staff_name'] = $staff_i->firstname . ' ' . $staff_i->lastname;
+		// 		$data_object_kpi[$staff_key]['staff_name'] = $staff_i->firstname . ' ' . $staff_i->lastname;
 
-				$arr_department = $this->hr_payroll_model->get_staff_departments($staff_i->staffid, true);
+		// 		$arr_department = $this->hr_payroll_model->get_staff_departments($staff_i->staffid, true);
 
-				$list_department = '';
-				if (count($arr_department) > 0) {
+		// 		$list_department = '';
+		// 		if (count($arr_department) > 0) {
 
-					foreach ($arr_department as $key => $department) {
-						$department_value = $this->departments_model->get($department);
+		// 			foreach ($arr_department as $key => $department) {
+		// 				$department_value = $this->departments_model->get($department);
 
-						if ($department_value) {
-							if (strlen($list_department) != 0) {
-								$list_department .= ', ' . $department_value->name;
-							} else {
-								$list_department .= $department_value->name;
-							}
-						}
+		// 				if ($department_value) {
+		// 					if (strlen($list_department) != 0) {
+		// 						$list_department .= ', ' . $department_value->name;
+		// 					} else {
+		// 						$list_department .= $department_value->name;
+		// 					}
+		// 				}
 
-					}
-				}
+		// 			}
+		// 		}
 
-				$data_object_kpi[$staff_key]['staff_departments'] = $list_department;
+		// 		$data_object_kpi[$staff_key]['staff_departments'] = $list_department;
 
-			} else {
-				$data_object_kpi[$staff_key]['hr_code'] = '';
-				$data_object_kpi[$staff_key]['staff_name'] = '';
-				$data_object_kpi[$staff_key]['staff_departments'] = '';
+		// 	} else {
+		// 		$data_object_kpi[$staff_key]['hr_code'] = '';
+		// 		$data_object_kpi[$staff_key]['staff_name'] = '';
+		// 		$data_object_kpi[$staff_key]['staff_departments'] = '';
 
-			}
+		// 	}
 
-			if (isset($attendances_value[$staff_value['staffid'] . '_' . $current_month])) {
+		// 	if (isset($attendances_value[$staff_value['staffid'] . '_' . $current_month])) {
 
-				$data_object_kpi[$staff_key]['standard_workday'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['standard_workday'];
-				$data_object_kpi[$staff_key]['actual_workday'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['actual_workday'];
-				$data_object_kpi[$staff_key]['actual_workday_probation'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['actual_workday_probation'];
-				$data_object_kpi[$staff_key]['paid_leave'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['paid_leave'];
-				$data_object_kpi[$staff_key]['unpaid_leave'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['unpaid_leave'];
-				$data_object_kpi[$staff_key]['id'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['id'];
+		// 		$data_object_kpi[$staff_key]['standard_workday'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['standard_workday'];
+		// 		$data_object_kpi[$staff_key]['actual_workday'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['actual_workday'];
+		// 		$data_object_kpi[$staff_key]['actual_workday_probation'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['actual_workday_probation'];
+		// 		$data_object_kpi[$staff_key]['paid_leave'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['paid_leave'];
+		// 		$data_object_kpi[$staff_key]['unpaid_leave'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['unpaid_leave'];
+		// 		$data_object_kpi[$staff_key]['id'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['id'];
 
-				$data_object_kpi[$staff_key] = array_merge($data_object_kpi[$staff_key], $attendances_value[$staff_value['staffid'] . '_' . $current_month]);
+		// 		$data_object_kpi[$staff_key] = array_merge($data_object_kpi[$staff_key], $attendances_value[$staff_value['staffid'] . '_' . $current_month]);
 
-			} else {
-				$data_object_kpi[$staff_key]['standard_workday'] = get_hr_payroll_option('standard_working_time');
-				$data_object_kpi[$staff_key]['actual_workday_probation'] = 0;
-				$data_object_kpi[$staff_key]['actual_workday'] = 0;
-				$data_object_kpi[$staff_key]['paid_leave'] = 0;
-				$data_object_kpi[$staff_key]['unpaid_leave'] = 0;
-				$data_object_kpi[$staff_key]['id'] = 0;
-				$data_object_kpi[$staff_key] = array_merge($data_object_kpi[$staff_key], $days_header_in_month['days_header']);
+		// 	} else {
+		// 		$data_object_kpi[$staff_key]['standard_workday'] = get_hr_payroll_option('standard_working_time');
+		// 		$data_object_kpi[$staff_key]['actual_workday_probation'] = 0;
+		// 		$data_object_kpi[$staff_key]['actual_workday'] = 0;
+		// 		$data_object_kpi[$staff_key]['paid_leave'] = 0;
+		// 		$data_object_kpi[$staff_key]['unpaid_leave'] = 0;
+		// 		$data_object_kpi[$staff_key]['id'] = 0;
+		// 		$data_object_kpi[$staff_key] = array_merge($data_object_kpi[$staff_key], $days_header_in_month['days_header']);
 
-			}
-			$data_object_kpi[$staff_key]['rel_type'] = $rel_type;
-			$data_object_kpi[$staff_key]['month'] = $current_month;
-			$data_object_kpi[$staff_key]['staff_id'] = $staff_value['staffid'];
+		// 	}
+		// 	$data_object_kpi[$staff_key]['rel_type'] = $rel_type;
+		// 	$data_object_kpi[$staff_key]['month'] = $current_month;
+		// 	$data_object_kpi[$staff_key]['staff_id'] = $staff_value['staffid'];
 
-		}
+		// }
 
-		//check is add new or update data
-		if (count($attendances_value) > 0) {
-			$data['button_name'] = _l('hrp_update');
-		} else {
-			$data['button_name'] = _l('submit');
-		}
+		// //check is add new or update data
+		// if (count($attendances_value) > 0) {
+		// 	$data['button_name'] = _l('hrp_update');
+		// } else {
+		// 	$data['button_name'] = _l('submit');
+		// }
 
 		$data['departments'] = $this->departments_model->get();
-		$data['roles'] = $this->roles_model->get();
-		$data['staffs'] = $staffs;
-		$data['data_object_kpi'] = $data_object_kpi;
+		// $data['roles'] = $this->roles_model->get();
+		// $data['staffs'] = $staffs;
+		// $data['data_object_kpi'] = $data_object_kpi;
 
-		$data['body_value'] = json_encode($data_object_kpi);
-		$data['columns'] = json_encode($days_header_in_month['columns_type']);
-		$data['col_header'] = json_encode($days_header_in_month['headers']);
+		// $data['body_value'] = json_encode($data_object_kpi);
+		// $data['columns'] = json_encode($days_header_in_month['columns_type']);
+		// $data['col_header'] = json_encode($days_header_in_month['headers']);
 
-		$this->load->view('attendances/attendance_manage', $data);
+		if(is_admin()){
+			$data['attendance'] = $this->Common_model->getAllData('tbl_staff_attendance', 'MAX(id) as id, check_in_date', '', ['is_active' => 'Y'], 'check_in_date DESC', '', 'check_in_date');
+		} else{
+			$data['attendance'] = $this->Common_model->getAllData('tbl_staff_attendance', 'MAX(id) as id, check_in_date', '', ['is_active' => 'Y', 'staff_id' => get_staff_user_id()], 'check_in_date DESC', '', 'check_in_date');
+		}
+		
+
+		$this->load->view('attendances/attendance_manage2', $data);
+	}
+
+	public function load_attendance_modal(){
+		// $data['attendance_list'] = 'test';
+		$join = array(
+			array(
+				'table'		=> 'tblstaff',
+				'on'		=> 'tblstaff.staffid = tbl_staff_attendance.staff_id',
+				'type'		=> 'left'
+			)
+		);
+		if(is_admin()){
+			$data['attendance_list'] = $this->Common_model->getAllData('tbl_staff_attendance', '', '', ['is_active' => 'Y', 'check_in_date' => $this->input->post('date')], 'check_in_date DESC', '', '', '', [], $join);
+		} else{
+			$data['attendance_list'] = $this->Common_model->getAllData('tbl_staff_attendance', '', '', ['is_active' => 'Y', 'staff_id' => get_staff_user_id(), 'check_in_date' => $this->input->post('date')], 'check_in_date DESC', '', '', '', [], $join);
+		}
+
+		$html = $this->load->view('attendances/components/attendance_modal_body', $data, true);
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'Display modal', 'html' => $html);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
 	}
 
 	/**

@@ -10,6 +10,8 @@ class timesheets extends AdminController {
 		$this->load->model('timesheets_model');
 		$this->load->model('departments_model');
 		hooks()->do_action('timesheets_init'); 
+
+		$this->load->model('common/Common_model');		//Added by DEEP BASAK on January 09, 2024
 	}
 
 	/* List all announcements */
@@ -4489,6 +4491,57 @@ public function check_in_ts() {
 			]);
 			die;
 		}
+	}
+
+	//Added by DEEP BASAK on January 17, 2024
+	public function get_data_attendance2(){
+		$data['staff'] = $this->Common_model->getAllData('tblstaff', '', '', []);
+		$data['staff_id'] = $this->input->post('staff_id');
+		$today = date('Y-m-d');
+		$data['staff_attendance'] = $this->Common_model->getAllData('tbl_staff_attendance', '', 1, ['is_active' => 'Y', 'check_in_date' => $today, 'staff_id' => $this->input->post('staff_id')]);
+		$html = $this->load->view('timekeeping/component/check_in_out_modal_body', $data, true);
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'Display modal', 'html'=>$html);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+	//Added by DEEP BASAK on January 17, 2024
+	public function check_in_ts2(){
+
+		if($this->input->post('type_check') == 1){
+			$data = array(
+				'staff_id' 				=> $this->input->post('staff_id'),
+				'check_in_date'			=> date('Y-m-d'),
+				'check_in_location'		=> $this->input->post('location_user'),
+				'check_in'				=> date('Y-m-d H:i:s'),
+				'is_active'				=> 'Y',
+				'created_at'			=> date('Y-m-d H:i:s'),
+				'created_by'			=> get_staff_user_id()
+			);
+
+			$this->Common_model->add('tbl_staff_attendance', $data);
+			$message = 'You have login';
+		} else if($this->input->post('type_check') == 2){
+			$data = array(
+				'staff_id' 				=> $this->input->post('staff_id'),
+				'check_out_date'		=> date('Y-m-d'),
+				'check_out_location'	=> $this->input->post('location_user'),
+				'check_out'				=> date('Y-m-d H:i:s'),
+				'is_active'				=> 'Y',
+				'updated_at'			=> date('Y-m-d H:i:s'),
+				'updated_by'			=> get_staff_user_id()
+			);
+
+			$this->Common_model->UpdateDB('tbl_staff_attendance', ['staff_id' => $this->input->post('staff_id'), 'check_in_date' => date('Y-m-d')], $data);
+			$message = 'You have logout';
+		}
+
+		# response
+        $result = array('status'=> 'success', 'message'=>$message);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
 	}
 /**
  * workplace management

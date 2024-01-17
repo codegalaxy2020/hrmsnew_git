@@ -28,6 +28,7 @@
     </style>
 
     <script>
+        var baseUrl = '<?= base_url() ?>';
     var totalUnreadNotifications = <?php echo $current_user->total_unread_notifications; ?>,
         proposalsTemplates = <?php echo json_encode(get_proposal_templates()); ?>,
         contractsTemplates = <?php echo json_encode(get_contract_templates()); ?>,
@@ -43,7 +44,7 @@
 </head>
 
 <body <?php echo admin_body_class(isset($bodyclass) ? $bodyclass : ''); ?>>
-
+    
     <!-- Added by DEEP BASAK on January 10, 2024 -->
     <div class="page_loader" style="display:none;">
 		<div class="d-flex page_loader_content justify-content-center">
