@@ -1128,14 +1128,14 @@ class hr_payroll extends AdminController {
 		// 	$attendances_value[$value['staff_id'] . '_' . $value['month']] = $value;
 		// }
 
-		// //load deparment by manager
-		// if (!is_admin() && !has_permission('hrp_employee', '', 'view')) {
-		// 	//View own
-		// 	$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object(get_staffid_by_permission());
-		// } else {
-		// 	//admin or view global
-		// 	$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object();
-		// }
+		//load deparment by manager
+		if (!is_admin() && !has_permission('hrp_employee', '', 'view')) {
+			//View own
+			$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object(get_staffid_by_permission());
+		} else {
+			//admin or view global
+			$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object();
+		}
 
 		// $data_object_kpi = [];
 
@@ -1217,7 +1217,7 @@ class hr_payroll extends AdminController {
 
 		$data['departments'] = $this->departments_model->get();
 		// $data['roles'] = $this->roles_model->get();
-		// $data['staffs'] = $staffs;
+		$data['staffs'] = $staffs;
 		// $data['data_object_kpi'] = $data_object_kpi;
 
 		// $data['body_value'] = json_encode($data_object_kpi);
@@ -1232,6 +1232,67 @@ class hr_payroll extends AdminController {
 		
 
 		$this->load->view('attendances/attendance_manage2', $data);
+	}
+
+	public function month_attendance_list($date = '', $staff_id = ''){
+        # customize filter
+		$where = ' `is_active` = "Y" ';
+		if(!is_admin()){
+			$where .= ' AND staff_id = ' . get_staff_user_id() . ' ';
+		}
+
+		if($date != ''){
+			$where .= ' AND `check_in_date` BETWEEN "'.$date.'-01" AND "'.$date.'-31" ';
+		} else{
+			$where .= ' AND `check_in_date` BETWEEN "'.date('Y-m').'-01" AND "'.date('Y-m').'-31" ';
+		}
+
+		if(($staff_id != 0) && ($staff_id != '') && ($staff_id != 'null')){
+			$where .= ' AND staff_id = ' . $staff_id . ' ';
+		}
+
+		$query = 'SELECT
+			MAX( id ) AS id,
+			`check_in_date` 
+		FROM
+			`tbl_staff_attendance` 
+		WHERE
+			'.$where.'
+		GROUP BY
+			`check_in_date` 
+		ORDER BY
+			`check_in_date` DESC';
+
+		// echo $query; exit;
+
+		$testdata = $this->Common_model->callSP($query);
+		$data = array();
+		
+		foreach ($testdata as $key => $fieldData){
+			$data[] = array(
+				$key + 1,
+				'<a href="javascript:" onclick="openAttendanceModal(\'' . $fieldData['check_in_date'] . '\')">' . date("F d, Y", strtotime($fieldData['check_in_date'])) . '</a>'
+			);
+		}
+
+		if (isset($_POST['draw']) && $_POST['draw']) {
+            $draw = $_POST['draw'];
+        } else {
+            $draw = '';
+        }
+
+        $output = array(
+            "draw" => $draw,
+			"recordsTotal" => count($testdata),
+            "recordsFiltered" => count($testdata),
+            "data" => $data,
+            "status" => 'success',
+			"csrf" => update_csrf_session()
+        );
+
+        # response
+        echo json_encode($output);
+        unset($dttbl_model);
 	}
 
 	public function load_attendance_modal(){

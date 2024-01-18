@@ -151,6 +151,7 @@
                 ajaxFromSubmit('timesheets/check_in_ts2', this, function (data){
                     alert(data.message);
                     $("#clock_attendance_modal").find(".close").trigger('click');
+                    serverSideDataTable('table-month_attendance', baseUrl + 'hr_payroll/month_attendance_list/'+$('#month_attendance').val()+'/'+$('#staff_attendance').val(), 4);
                 });
             } else {
                 alert("You clicked Cancel!");
@@ -165,6 +166,7 @@
                 ajaxFromSubmit('timesheets/check_in_ts2', this, function (data){
                     alert(data.message);
                     $("#clock_attendance_modal").find(".close").trigger('click');
+                    serverSideDataTable('table-month_attendance', baseUrl + 'hr_payroll/month_attendance_list/'+$('#month_attendance').val()+'/'+$('#staff_attendance').val(), 4);
                 });
             } else {
                 alert("You clicked Cancel!");

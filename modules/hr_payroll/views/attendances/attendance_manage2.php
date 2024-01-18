@@ -30,46 +30,33 @@
 								<!-- filter -->
 								<div class="row filter_by">
 
+									<?php if(is_admin()): ?>
 									<div class="col-md-2">
-										<?php echo render_input('month_attendance','month',date('Y-m'), 'month'); ?>   
-									</div>
-
-									<div class="col-md-3 leads-filter-column pull-left">
-										<?php echo render_select('department_attendance',$departments,array('departmentid', 'name'),'department',''); ?>
-									</div>
-
-									<div class="col-md-3 leads-filter-column pull-left">
-										<div class="form-group">
-											<label for="role_attendance" class="control-label"><?php echo _l('role'); ?></label>
-											<select name="role_attendance[]" class="form-control selectpicker" multiple="true" id="role_attendance" data-actions-box="true" data-width="100%" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>" data-live-search="true"> 
-												<?php foreach ($roles as $key => $role) { ?>
-													<option value="<?php echo html_entity_decode($role['roleid']); ?>" ><?php  echo html_entity_decode($role['name']); ?></option>
-												<?php } ?>
-											</select>
-										</div>
+										<label>Month</label>
+										<input type="month" onchange="serverSideDataTable('table-month_attendance', baseUrl + 'hr_payroll/month_attendance_list/'+this.value+'/'+$('#staff_attendance').val(), 4);" class="form-control" id="month_attendance" name="month_attendance" value="<?= date('Y-m') ?>">
 									</div>
 
 									<div class="col-md-3 leads-filter-column pull-left">
 
 										<div class="form-group">
 											<label for="staff_attendance" class="control-label"><?php echo _l('staff'); ?></label>
-											<select name="staff_attendance[]" class="form-control selectpicker" multiple="true" id="staff_attendance" data-actions-box="true" data-width="100%" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>" data-live-search="true"> 
+											<select onchange="serverSideDataTable('table-month_attendance', baseUrl + 'hr_payroll/month_attendance_list/'+$('#month_attendance').val()+'/'+this.value, 4);" name="staff_attendance" class="form-control selectpicker" id="staff_attendance" data-actions-box="true" data-width="100%" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>" data-live-search="true"> 
+												<option value="0" selected disabled>Select Staff</option>
 												<?php foreach ($staffs as $key => $staff) { ?>
-
 													<option value="<?php echo html_entity_decode($staff['staffid']); ?>" ><?php  echo html_entity_decode($staff['firstname'].' '.$staff['lastname']); ?></option>
 												<?php } ?>
 											</select>
 										</div>
 
 									</div>
-								
+									<?php endif; ?>
 
 								</div>
 								<!-- filter -->
 							</div>
 							<div class="col-md-12">
 								<hr class="hr-color">
-								<table class="table table-bordered table-sm">
+								<table class="table table-bordered table-sm" id="table-month_attendance">
 									<thead>
 										<tr>
 											<th>#</th>
@@ -77,18 +64,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<?php
-										if(!empty($attendance)):
-											foreach($attendance as $key => $val):
-										?>
-										<tr>
-											<td><?= $key + 1 ?></td>
-											<td><a href="javascript:" onclick="openAttendanceModal('<?= $val->check_in_date ?>')"><?= date("F d, Y", strtotime($val->check_in_date)) ?></a></td>
-										</tr>
-										<?php
-											endforeach;
-										endif;
-										?>
+										
 									</tbody>
 								</table>
 							</div>

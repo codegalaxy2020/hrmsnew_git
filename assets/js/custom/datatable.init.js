@@ -46,12 +46,12 @@ function serverSideDataTable(tableId, ajaxUrl, num_of_row, callback = '', formDa
             },
             {
                 extend: "excelHtml5",
-                text: '<i class="fa fa-file-excel-o"></i> Excel',
+                text: '<i class="fa fa-file-excel"></i> Excel',
                 titleAttr: "Excel",
             },
             {
                 extend: "pdfHtml5",
-                text: '<i class="fa fa-file-pdf-o"></i> Pdf',
+                text: '<i class="fa fa-file-pdf"></i> Pdf',
                 titleAttr: "Pdf",
                 orientation: "landscape",
                 pageSize: "A4",
@@ -112,7 +112,7 @@ function staticDataTable(tableId, columnExport){
             },
             {
                 extend: "excelHtml5",
-                text: '<i class="fa fa-file-excel-o"></i> Excel',
+                text: '<i class="fa fa-file-excel"></i> Excel',
                 titleAttr: "Excel",
                 exportOptions: {
                     columns: columnExport // Specify the columns to include (0-based index)
@@ -120,7 +120,7 @@ function staticDataTable(tableId, columnExport){
             },
             {
                 extend: "pdfHtml5",
-                text: '<i class="fa fa-file-pdf-o"></i> Pdf',
+                text: '<i class="fa fa-file-pdf"></i> Pdf',
                 titleAttr: "Pdf",
                 orientation: "landscape",
                 pageSize: "A4",
