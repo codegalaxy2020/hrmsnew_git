@@ -144,6 +144,19 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        var month, staff;
+		if ($('#month_attendance').val() != undefined) {
+			month = $('#month_attendance').val();
+		} else {
+			month = null;
+		}
+
+		if ($('#staff_attendance').val() != undefined) {
+			staff = $('#staff_attendance').val();
+		} else {
+			staff = null;
+		}
+
         $("#checkInForm").on('submit', function (e){
             e.preventDefault();
             var userConfirmation = confirm("Are you sure want to Check-In?");
@@ -151,7 +164,10 @@
                 ajaxFromSubmit('timesheets/check_in_ts2', this, function (data){
                     alert(data.message);
                     $("#clock_attendance_modal").find(".close").trigger('click');
-                    serverSideDataTable('table-month_attendance', baseUrl + 'hr_payroll/month_attendance_list/'+$('#month_attendance').val()+'/'+$('#staff_attendance').val(), 4);
+                    serverSideDataTable('table-month_attendance', baseUrl + 'hr_payroll/month_attendance_list/'+month+'/'+staff, 4);
+                    $("#table-month_attendance_info").hide();
+                    $("#table-month_attendance_paginate").hide();
+                    $("#table-month_attendance_filter").hide();
                 });
             } else {
                 alert("You clicked Cancel!");
@@ -166,7 +182,10 @@
                 ajaxFromSubmit('timesheets/check_in_ts2', this, function (data){
                     alert(data.message);
                     $("#clock_attendance_modal").find(".close").trigger('click');
-                    serverSideDataTable('table-month_attendance', baseUrl + 'hr_payroll/month_attendance_list/'+$('#month_attendance').val()+'/'+$('#staff_attendance').val(), 4);
+                    serverSideDataTable('table-month_attendance', baseUrl + 'hr_payroll/month_attendance_list/'+month+'/'+staff, 4);
+                    $("#table-month_attendance_info").hide();
+                    $("#table-month_attendance_paginate").hide();
+                    $("#table-month_attendance_filter").hide();
                 });
             } else {
                 alert("You clicked Cancel!");

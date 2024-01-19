@@ -1241,7 +1241,7 @@ class hr_payroll extends AdminController {
 			$where .= ' AND staff_id = ' . get_staff_user_id() . ' ';
 		}
 
-		if($date != ''){
+		if(($date != '') && ($date != 'null')){
 			$where .= ' AND `check_in_date` BETWEEN "'.$date.'-01" AND "'.$date.'-31" ';
 		} else{
 			$where .= ' AND `check_in_date` BETWEEN "'.date('Y-m').'-01" AND "'.date('Y-m').'-31" ';
@@ -1293,6 +1293,56 @@ class hr_payroll extends AdminController {
         # response
         echo json_encode($output);
         unset($dttbl_model);
+	}
+
+	public function get_working_chart(){
+		$staff_id = $this->input->post('staff_id');
+		$date = $this->input->post('month');
+		if(($date != '') && ($date != 'null')){
+			$where = 'YEAR ( check_in_date ) = '.date('Y', strtotime($date)).' AND MONTH ( check_in_date ) = '.date('m', strtotime($date)).' ';
+		} else{
+			$where = 'YEAR ( check_in_date ) = '.date('Y').' AND MONTH ( check_in_date ) = '.date('m').' ';
+		}
+		
+		if(($staff_id != 0) && ($staff_id != '') && ($staff_id != 'null')){
+			$where .= ' AND staff_id = ' . $staff_id . ' ';
+		} else{
+			$where .= ' AND staff_id = ' . get_staff_user_id() . ' ';
+		}
+
+		$query = 'SELECT
+			total_hour
+		FROM
+			tbl_staff_attendance 
+		WHERE
+			' . $where . ' ';
+			
+		$query1 = 'SELECT
+			FORMAT(SUM(today_hour), 2) AS total_work_done
+		FROM
+			tbl_staff_attendance 
+		WHERE
+			' . $where . ' ';
+		
+
+		$testdata = $this->Common_model->callSP($query, 'row');
+		$testdata1 = $this->Common_model->callSP($query1, 'row');
+
+		$data = array(
+			'label' => array(
+				'Work Hour Done ' . floatval($testdata1['total_work_done']),
+				'Work Hour Pending ' . floatval($testdata['total_hour']) - floatval($testdata1['total_work_done'])
+			),
+			'serise' => array(
+				floatval($testdata1['total_work_done']),
+				floatval($testdata['total_hour']) - floatval($testdata1['total_work_done'])
+			)
+		);
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'Display modal', 'data' => $data);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
 	}
 
 	public function load_attendance_modal(){

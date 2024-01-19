@@ -11,7 +11,7 @@
                                 <th>Staff Name</th>
                                 <th>Check In Time</th>
                                 <th>Check Out Time</th>
-                                <th>Total Duration (h:m:s)</th>
+                                <th>Total Duration (Hours)</th>
                                 <th>Check-in Location</th>
                                 <th>Check-out Location</th>
                             </tr>
@@ -41,15 +41,15 @@
                                 <th>
                                     <?php
                                     if(!empty($val->check_out)){
-                                        $checkInDateTime = new DateTime($val->check_in);
-                                        $checkOutDateTime = new DateTime($val->check_out);
-                                        $timeDifference = $checkInDateTime->diff($checkOutDateTime);
-                                        // Access the time difference components
-                                        $hours = $timeDifference->h;
-                                        $minutes = $timeDifference->i;
-                                        $seconds = $timeDifference->s;
+                                        // $checkInDateTime = new DateTime($val->check_in);
+                                        // $checkOutDateTime = new DateTime($val->check_out);
+                                        // $timeDifference = $checkInDateTime->diff($checkOutDateTime);
+                                        // // Access the time difference components
+                                        // $hours = $timeDifference->h;
+                                        // $minutes = $timeDifference->i;
+                                        // $seconds = $timeDifference->s;
 
-                                        echo $hours . ':' . $minutes . ':' . $seconds . '';
+                                        echo $val->today_hour . ' Hours';
                                     }
                                     ?>
                                 </th>

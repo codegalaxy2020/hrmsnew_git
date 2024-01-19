@@ -19,7 +19,7 @@
      var minute_attendance = $('input[name="minute_attendance"]').val();
      var second_attendance = $('input[name="second_attendance"]').val();
      server_time(hour_attendance,minute_attendance,second_attendance);
-     get_route_point();
+    //  get_route_point();
    });
  })(jQuery);
  var run_time;

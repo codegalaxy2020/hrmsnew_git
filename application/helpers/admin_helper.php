@@ -548,3 +548,22 @@ function update_csrf_session()
 	);
 	return $csrf;
 }
+
+//Helper for getting the no of working days by using month and year
+//Added by DEEP BASAK on January 18, 2024
+function getWorkingDays($year, $month) {
+    $totalDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+    $workingDays = 0;
+
+    for ($day = 1; $day <= $totalDays; $day++) {
+        $currentDate = strtotime("$year-$month-$day");
+        $currentDayOfWeek = date('N', $currentDate);
+
+        // Check if the current day is not Saturday (6) or Sunday (7)
+        if ($currentDayOfWeek < 6) {
+            $workingDays++;
+        }
+    }
+
+    return $workingDays;
+}

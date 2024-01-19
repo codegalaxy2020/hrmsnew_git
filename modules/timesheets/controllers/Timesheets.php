@@ -4511,11 +4511,13 @@ public function check_in_ts() {
 	public function check_in_ts2(){
 
 		if($this->input->post('type_check') == 1){
+			$total_hours = getWorkingDays(date('Y'), date('m')) * 8;
 			$data = array(
 				'staff_id' 				=> $this->input->post('staff_id'),
 				'check_in_date'			=> date('Y-m-d'),
 				'check_in_location'		=> $this->input->post('location_user'),
 				'check_in'				=> date('Y-m-d H:i:s'),
+				'total_hour'			=> $total_hours,
 				'is_active'				=> 'Y',
 				'created_at'			=> date('Y-m-d H:i:s'),
 				'created_by'			=> get_staff_user_id()
@@ -4524,11 +4526,23 @@ public function check_in_ts() {
 			$this->Common_model->add('tbl_staff_attendance', $data);
 			$message = 'You have login';
 		} else if($this->input->post('type_check') == 2){
+
+			$val = $this->Common_model->getAllData('tbl_staff_attendance', '', 1, ['is_active' => 'Y', 'staff_id' => $this->input->post('staff_id'), 'check_in_date' => date('Y-m-d')], 'check_in_date DESC');
+
+			$startTime = new DateTime($val->check_in);
+			$endTime = new DateTime($val->check_out);
+			$interval = $startTime->diff($endTime);
+			
+			// Calculate the difference in hours as a float
+			$hours = $interval->h + $interval->i / 60 + $interval->s / 3600;
+			$today_hours = round($hours, 2);
+
 			$data = array(
 				'staff_id' 				=> $this->input->post('staff_id'),
 				'check_out_date'		=> date('Y-m-d'),
 				'check_out_location'	=> $this->input->post('location_user'),
 				'check_out'				=> date('Y-m-d H:i:s'),
+				'today_hour'			=> $today_hours,
 				'is_active'				=> 'Y',
 				'updated_at'			=> date('Y-m-d H:i:s'),
 				'updated_by'			=> get_staff_user_id()

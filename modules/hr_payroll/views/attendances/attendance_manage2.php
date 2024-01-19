@@ -33,14 +33,14 @@
 									<?php if(is_admin()): ?>
 									<div class="col-md-2">
 										<label>Month</label>
-										<input type="month" onchange="serverSideDataTable('table-month_attendance', baseUrl + 'hr_payroll/month_attendance_list/'+this.value+'/'+$('#staff_attendance').val(), 4);" class="form-control" id="month_attendance" name="month_attendance" value="<?= date('Y-m') ?>">
+										<input type="month" onchange="filterData(this.value, $('#staff_attendance').val())" class="form-control" id="month_attendance" name="month_attendance" value="<?= date('Y-m') ?>">
 									</div>
 
 									<div class="col-md-3 leads-filter-column pull-left">
 
 										<div class="form-group">
 											<label for="staff_attendance" class="control-label"><?php echo _l('staff'); ?></label>
-											<select onchange="serverSideDataTable('table-month_attendance', baseUrl + 'hr_payroll/month_attendance_list/'+$('#month_attendance').val()+'/'+this.value, 4);" name="staff_attendance" class="form-control selectpicker" id="staff_attendance" data-actions-box="true" data-width="100%" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>" data-live-search="true"> 
+											<select onchange="filterData($('#month_attendance').val(), this.value)" name="staff_attendance" class="form-control selectpicker" id="staff_attendance" data-actions-box="true" data-width="100%" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>" data-live-search="true"> 
 												<option value="0" selected disabled>Select Staff</option>
 												<?php foreach ($staffs as $key => $staff) { ?>
 													<option value="<?php echo html_entity_decode($staff['staffid']); ?>" ><?php  echo html_entity_decode($staff['firstname'].' '.$staff['lastname']); ?></option>
@@ -50,6 +50,10 @@
 
 									</div>
 									<?php endif; ?>
+
+									<div class="col-md-3">
+										<div id="chart"></div>
+									</div>
 
 								</div>
 								<!-- filter -->
