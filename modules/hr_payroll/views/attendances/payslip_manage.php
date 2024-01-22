@@ -18,7 +18,7 @@
 
 						<div class="row mb-5">
 							<div class="col-md-12">
-								<h4 class="no-margin"><?php echo _l('hr_manage_attendance') ?> </h4>
+								<h4 class="no-margin"><?php echo _l('hr_manage_payroll') ?> </h4>
 							</div>
 							<div class="col-md-12">
 								<hr class="hr">
@@ -33,10 +33,10 @@
 									<?php if(is_admin()): ?>
 									<div class="col-md-2">
 										<label>Month</label>
-										<input type="month" onchange="filterData(this.value, $('#staff_attendance').val())" class="form-control" id="month_attendance" name="month_attendance" value="<?= date('Y-m') ?>">
+										<input type="month" onchange="filterData(this.value)" class="form-control" id="month_attendance" name="month_attendance" value="<?= date('Y-m') ?>">
 									</div>
 
-									<div class="col-md-2 leads-filter-column pull-left">
+									<!-- <div class="col-md-2 leads-filter-column pull-left">
 
 										<div class="form-group">
 											<label for="staff_attendance" class="control-label"><?php echo _l('staff'); ?></label>
@@ -48,21 +48,7 @@
 											</select>
 										</div>
 
-									</div>
-									<?php endif; ?>
-
-									<div class="col-md-4">
-										<div id="chart"></div>
-									</div>
-									
-									<div class="col-md-4">
-										<div id="day_wise_attendance"></div>
-									</div>
-
-									<?php if(is_admin()): ?>
-									<div class="col-md-2">
-										<a href="<?= base_url('admin/hr_payroll/manage_payslip') ?>" class="btn btn-primary btn-block">Payslip</a>
-									</div>
+									</div> -->
 									<?php endif; ?>
 
 								</div>
@@ -70,17 +56,32 @@
 							</div>
 							<div class="col-md-12">
 								<hr class="hr-color">
-								<table class="table table-bordered table-sm" id="table-month_attendance">
-									<thead>
-										<tr>
-											<th>#</th>
-											<th>Date</th>
-										</tr>
-									</thead>
-									<tbody>
-										
-									</tbody>
-								</table>
+								<div class="table-responsive">
+									<table class="table table-bordered table-sm" id="table-staff_payslip">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Staff</th>
+												<th>Month</th>
+												<th>Year</th>
+												<th>Basic Salary</th>
+												<th>Allowance</th>
+												<th>DA</th>
+												<th>HRA</th>
+												<th>P-Tax</th>
+												<th>PF</th>
+												<th>Gross Salary</th>
+												<th>Net Salary</th>
+												<th>Employee Expence</th>
+												<th>Paid / Unpaid</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody>
+											
+										</tbody>
+									</table>
+								</div>
 							</div>
 						</div>
 						
@@ -122,7 +123,7 @@
 
 
 <?php init_tail(); ?>
-<?php require 'modules/hr_payroll/assets/js/attendances/attendance_manage_js2.php'; ?>
+<?php require 'modules/hr_payroll/assets/js/attendances/payslip_manage_js.php'; ?>
 
 </body>
 </html>

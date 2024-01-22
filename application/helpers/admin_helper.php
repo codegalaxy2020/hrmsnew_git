@@ -567,3 +567,13 @@ function getWorkingDays($year, $month) {
 
     return $workingDays;
 }
+
+function pr($val){
+    // return echo
+    echo "<pre>"; print_r($val); echo "</pre>";
+}
+
+function prx($val){
+    // return echo
+    echo "<pre>"; print_r($val); echo "</pre>"; exit;
+}

@@ -52,3 +52,42 @@
 		</div>
 	</div>
     <?php hooks()->do_action('after_body_start'); ?>
+
+
+<!-- For Attendance Auto Update if SOme employee forgot to logout by DEEP BASAK on January 20, 2024 -->
+<?php
+$CI = &get_instance();
+$CI->load->model('common/Common_model');
+$sql = "SELECT *
+FROM `tbl_staff_attendance`
+WHERE `is_active` = 'Y'
+AND `check_out_date` IS NULL";
+$attendance_details = $CI->Common_model->callSP($sql);
+
+if(!empty($attendance_details)){
+    foreach($attendance_details as $key => $val){
+        $check_out_date = $val['check_in_date'] . ' 23:59:59';
+        // echo "<pre>"; print_r($check_out_date); exit;
+
+        $startTime = new DateTime($val->check_in);
+        $endTime = new DateTime($check_out_date);
+        $interval = $startTime->diff($endTime);
+        
+        // Calculate the difference in hours as a float
+        $hours = $interval->h + $interval->i / 60 + $interval->s / 3600;
+        $today_hours = round($hours, 2);
+        
+        $data = array(
+            'check_out'     => $check_out_date,
+            'today_hour'    => $today_hours,
+            'check_out_date' => $val['check_in_date'],
+            'check_out_location'    => $val['check_in_location'],
+            'updated_at'        => date('Y-m-d H:i:s'),
+            'updated_by'        => get_staff_user_id()
+        );
+        if($val['check_in_date'] != date('Y-m-d')){
+            $CI->Common_model->UpdateDB('tbl_staff_attendance', ['id' => $val['id']], $data);
+        }
+        
+    }
+}

@@ -164,10 +164,10 @@
                 ajaxFromSubmit('timesheets/check_in_ts2', this, function (data){
                     alert(data.message);
                     $("#clock_attendance_modal").find(".close").trigger('click');
-                    serverSideDataTable('table-month_attendance', baseUrl + 'hr_payroll/month_attendance_list/'+month+'/'+staff, 4);
-                    $("#table-month_attendance_info").hide();
-                    $("#table-month_attendance_paginate").hide();
-                    $("#table-month_attendance_filter").hide();
+                    serverSideDataTable('table-month_attendance', baseUrl + 'hr_payroll/month_attendance_list/'+month+'/'+staff, 10);
+                    // $("#table-month_attendance_info").hide();
+                    // $("#table-month_attendance_paginate").hide();
+                    // $("#table-month_attendance_filter").hide();
                 });
             } else {
                 alert("You clicked Cancel!");
@@ -182,10 +182,7 @@
                 ajaxFromSubmit('timesheets/check_in_ts2', this, function (data){
                     alert(data.message);
                     $("#clock_attendance_modal").find(".close").trigger('click');
-                    serverSideDataTable('table-month_attendance', baseUrl + 'hr_payroll/month_attendance_list/'+month+'/'+staff, 4);
-                    $("#table-month_attendance_info").hide();
-                    $("#table-month_attendance_paginate").hide();
-                    $("#table-month_attendance_filter").hide();
+                    serverSideDataTable('table-month_attendance', baseUrl + 'hr_payroll/month_attendance_list/'+month+'/'+staff, 10);
                 });
             } else {
                 alert("You clicked Cancel!");

@@ -8,11 +8,11 @@
         </li>
         <li class="menu-item-hrm_dashboard">
            <a href="<?=base_url();?>admin/tasks" aria-expanded="false">
-               <i class="fa fa-home menu-icon"></i>
-               <span class="menu-text">
-               Tasks     
-                       </span>
-                                           </a>
+                <i class="fa fa-home menu-icon"></i>
+                <span class="menu-text">
+                    Tasks     
+                </span>
+            </a>
          </li>
         <?php
          hooks()->do_action('before_render_aside_menu');

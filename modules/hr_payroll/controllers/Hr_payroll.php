@@ -1223,14 +1223,7 @@ class hr_payroll extends AdminController {
 		// $data['body_value'] = json_encode($data_object_kpi);
 		// $data['columns'] = json_encode($days_header_in_month['columns_type']);
 		// $data['col_header'] = json_encode($days_header_in_month['headers']);
-
-		if(is_admin()){
-			$data['attendance'] = $this->Common_model->getAllData('tbl_staff_attendance', 'MAX(id) as id, check_in_date', '', ['is_active' => 'Y'], 'check_in_date DESC', '', 'check_in_date');
-		} else{
-			$data['attendance'] = $this->Common_model->getAllData('tbl_staff_attendance', 'MAX(id) as id, check_in_date', '', ['is_active' => 'Y', 'staff_id' => get_staff_user_id()], 'check_in_date DESC', '', 'check_in_date');
-		}
-		
-
+		$data['title'] = 'Staff Attendance';
 		$this->load->view('attendances/attendance_manage2', $data);
 	}
 
@@ -1251,7 +1244,41 @@ class hr_payroll extends AdminController {
 			$where .= ' AND staff_id = ' . $staff_id . ' ';
 		}
 
+		// Skip number of Rows count  
+		$start = $_POST["start"];
+
+		// Paging Length 10,20  
+		$length = $_POST["length"];
+
+		// Search Value from (Search box)  
+		$searchValue = trim($_POST["search"]["value"]);
+		$searchwhere = '';
+		if(!empty($searchValue)){
+			$searchwhere .= ' AND check_in_date LIKE "%'.$searchValue.'%" ';
+		}
+
+		//Paging Size (10, 20, 50,100)  
+		$pageSize = $length != null ? intval($length) : 0;
+		$skip = $start != null ? intval($start) : 0;
+
+
+		//Datatable view Query
 		$query = 'SELECT
+			MAX( id ) AS id,
+			`check_in_date` 
+		FROM
+			`tbl_staff_attendance` 
+		WHERE
+			'.$where.'
+			'.$searchwhere.'
+		GROUP BY
+			`check_in_date` 
+		ORDER BY
+			`check_in_date` DESC
+		LIMIT '.$pageSize.' OFFSET '.$skip.' ';
+
+		//Total records query
+		$query_total = 'SELECT
 			MAX( id ) AS id,
 			`check_in_date` 
 		FROM
@@ -1263,14 +1290,13 @@ class hr_payroll extends AdminController {
 		ORDER BY
 			`check_in_date` DESC';
 
-		// echo $query; exit;
-
 		$testdata = $this->Common_model->callSP($query);
+		$testdata_total = $this->Common_model->callSP($query_total);
 		$data = array();
 		
 		foreach ($testdata as $key => $fieldData){
 			$data[] = array(
-				$key + 1,
+				$key + $skip + 1,
 				'<a href="javascript:" onclick="openAttendanceModal(\'' . $fieldData['check_in_date'] . '\')">' . date("F d, Y", strtotime($fieldData['check_in_date'])) . '</a>'
 			);
 		}
@@ -1283,8 +1309,8 @@ class hr_payroll extends AdminController {
 
         $output = array(
             "draw" => $draw,
-			"recordsTotal" => count($testdata),
-            "recordsFiltered" => count($testdata),
+			"recordsTotal" => count($testdata_total),
+            "recordsFiltered" => count($testdata_total),
             "data" => $data,
             "status" => 'success',
 			"csrf" => update_csrf_session()
@@ -1361,6 +1387,287 @@ class hr_payroll extends AdminController {
 		}
 
 		$html = $this->load->view('attendances/components/attendance_modal_body', $data, true);
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'Display modal', 'html' => $html);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+	/**
+	 * Manage Payslip
+	 * Added by DEEP BASAK on January 19, 2024
+	 */
+	public function manage_payslip(){
+		if (!has_permission('hrp_attendance', '', 'view') && !has_permission('hrp_attendance', '', 'view_own') && !is_admin()) {
+			access_denied('hrp_attendance');
+		}
+
+		$this->load->model('staff_model');
+		$this->load->model('departments_model');
+
+		//load deparment by manager
+		if (!is_admin() && !has_permission('hrp_employee', '', 'view')) {
+			//View own
+			$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object(get_staffid_by_permission());
+		} else {
+			//admin or view global
+			$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object();
+		}
+
+		$data['departments'] = $this->departments_model->get();
+		$data['staffs'] = $staffs;
+
+		$data['title'] = 'Staff Payslip';
+
+		$month = date('m');
+		$year = date('Y');
+		$staff_details = $this->Common_model->getAllData('tblstaff', '', '');
+
+		if(!empty($staff_details)){
+			foreach($staff_details as $staff_key => $staff_val){
+				// $check_month_payslip = $this->Common_model->getAllData('tbl_staff_payslip', '', '', ['is_active'=>'Y', 'staff_id' => $staff_val->staffid, 'month' => $month, 'year' => $year, 'is_generate' => 'N']);
+				// if(!empty($check_month_payslip)){
+					$sql = "SELECT * FROM `tbldirect_cost_training` WHERE cost_for = 'staff' AND staff_id = $staff_val->staffid AND created_at LIKE '$year-$month%'";
+					
+					$emp_cost = $this->Common_model->callSP($sql);
+					$empCostVal = 0;
+					if(!empty($emp_cost)){
+						foreach($emp_cost as $key => $val){
+							$empCostVal = $empCostVal + $val['total'] + $val['indirect_cost_total'] + $val['recruitment_cost'] + $val['onboarding_cost'] + $val['payroll_processing_cost'] + $val['hr_personnel_cost'] + $val['administrative_costs'] + $val['employee_training'] + $val['workshops'] + $val['courses'] + $val['certifications'] + $val['materials'] + $val['training_development_expenses_total'] + $val['training_program'] + $val['component_name'] + $val['wefw'] + $val['ewf_wef'] + $val['erger_fbgrnby'];
+						}
+					}
+					$this->Common_model->UpdateDB('tbl_staff_payslip', ['is_active'=>'Y', 'staff_id' => $staff_val->staffid, 'month' => $month, 'year' => $year, 'is_generate' => 'N'], ['is_active' => 'N', 'updated_at' => date('Y-m-d H:i:s'), 'updated_by' => get_staff_user_id()]);
+				// }
+				// if(empty($check_month_payslip)){
+					$where = array(
+						'is_active'=> 'Y', 
+						'check_in_date >=' => $year . '-' . $month . '-01',
+						'check_in_date <=' => $year . '-' . $month . '-31',
+						'staff_id'		=> $staff_val->staffid,
+						'today_hour<>'	=> ''
+					);
+					$totalHourByStaff = 0;
+					$totalHourByMonth = 0;
+					$staffMonthlyHour = 0;
+					$basicSalary = 0;
+					$allowance = 0;
+					$da = 0;
+					$hra = 0;
+					$pTax = 0;
+					$pf = 0;
+					$grossSalary = 0;
+					$netSalary = 0;
+					$attendance_details = $this->Common_model->getAllData('tbl_staff_attendance', '', '', $where);
+					if(!empty($attendance_details)){
+						foreach($attendance_details as $att_key => $att_val){
+							$totalHourByStaff = $totalHourByStaff + $att_val->today_hour;
+							$totalHourByMonth = $att_val->total_hour;
+						}
+					}
+	
+					if($totalHourByMonth > $totalHourByStaff){
+						$staffMonthlyHour = $totalHourByStaff;
+					} else{
+						$staffMonthlyHour = $totalHourByMonth;
+					}
+	
+					$basicSalary = $staffMonthlyHour * $staff_val->hourly_rate;
+					$allowance = (30/100) * $basicSalary;
+					$da = (5/100) * $basicSalary;
+					$hra = (20/100) * $basicSalary;
+					// $pTax = ()
+					$grossSalary = $basicSalary + $allowance + $da + $hra;
+	
+					if($grossSalary < 10000){
+						$pTax = 0;
+					} else if($grossSalary > 10000 && $grossSalary < 15000){
+						$pTax = 110;
+					} else if($grossSalary > 15000 && $grossSalary < 25000){
+						$pTax = 130;
+					} else if($grossSalary > 25000 && $grossSalary < 40000){
+						$pTax = 150;
+					} else{
+						$pTax = 200;
+					}
+					$pf = (12/100) * $basicSalary;
+					$netSalary = $grossSalary - ($pf - $pTax);
+					// pr($staff_val->staffid);
+	
+					$tblData = array(
+						'staff_id'		=> $staff_val->staffid,
+						'month'			=> $month,
+						'month_text'	=> date('F'),
+						'year'			=> $year,
+						'days_working'	=> getWorkingDays($year, $month),
+						'total_work_hour'=> $attendance_details[0]->total_hour,
+						'basic_salary'	=> $basicSalary,
+						'allowance'		=> $allowance,
+						'da'			=> $da,
+						'hra'			=> $hra,
+						'p_tax'			=> $pTax,
+						'pf'			=> $pf,
+						'gross_salary'	=> $grossSalary,
+						'net_salary'	=> $netSalary,
+						'employee_exp'	=> $empCostVal,
+						'is_generate'	=> 'N',
+						'is_active'		=> 'Y',
+						'created_at'	=> date('Y-m-d H:i:s'),
+						'created_by'	=> get_staff_user_id()
+					);
+					// pr($tblData);
+
+					$this->Common_model->add('tbl_staff_payslip', $tblData);
+				// }
+			} 
+			// exit;
+		}
+
+		
+		$this->load->view('attendances/payslip_manage', $data);
+	}
+
+	/**
+	 * Monthly Payslip List
+	 * Added by DEEP BASAK on January 19, 2024
+	 */
+	public function month_payslip_list($date = ''){
+
+		# customize filter
+		$where = ' `is_active` = "Y" ';
+		if(!is_admin()){
+			$where .= ' AND staff_id = ' . get_staff_user_id() . ' ';
+		}
+
+		if(($date != '') && ($date != 'null')){
+			$where .= ' AND `month_text` = "'.date("F", strtotime($date)).'" ';
+		}
+
+		// Skip number of Rows count  
+		$start = $_POST["start"];
+
+		// Paging Length 10,20  
+		$length = $_POST["length"];
+
+		// Search Value from (Search box)  
+		$searchValue = trim($_POST["search"]["value"]);
+		$searchwhere = '';
+		if(!empty($searchValue)){
+			$searchwhere .= ' AND month_text LIKE "%'.$searchValue.'%" 
+				OR year LIKE "%'.$searchValue.'%" 
+				OR basic_salary LIKE "%'.$searchValue.'%" 
+				OR allowance LIKE "%'.$searchValue.'%"
+				OR da LIKE "%'.$searchValue.'%"
+				OR hra LIKE "%'.$searchValue.'%"
+				OR p_tax LIKE "%'.$searchValue.'%"
+				OR pf LIKE "%'.$searchValue.'%"
+				OR gross_salary LIKE "%'.$searchValue.'%"
+				OR net_salary LIKE "%'.$searchValue.'%"
+				OR tblstaff.firstname LIKE "%'.$searchValue.'%"
+				OR tblstaff.lastname LIKE "%'.$searchValue.'%"';
+		}
+
+		//Paging Size (10, 20, 50,100)  
+		$pageSize = $length != null ? intval($length) : 0;
+		$skip = $start != null ? intval($start) : 0;
+
+		//Datatable view Query
+		$query = 'SELECT
+			tblstaff.firstname, tblstaff.lastname,
+			tbl_staff_payslip.*
+		FROM
+			`tbl_staff_payslip` 
+		LEFT JOIN tblstaff ON tblstaff.staffid = tbl_staff_payslip.staff_id
+		WHERE
+			'.$where.'
+			'.$searchwhere.'
+		ORDER BY
+			tblstaff.firstname DESC
+		LIMIT '.$pageSize.' OFFSET '.$skip.' ';
+
+		//Total records query
+		$query_total = 'SELECT
+			tblstaff.firstname, tblstaff.lastname,
+			tbl_staff_payslip.*
+		FROM
+			`tbl_staff_payslip` 
+		LEFT JOIN tblstaff ON tblstaff.staffid = tbl_staff_payslip.staff_id
+		WHERE
+			'.$where.' 
+		ORDER BY
+			tblstaff.firstname DESC';
+
+		$testdata = $this->Common_model->callSP($query);
+		$testdata_total = $this->Common_model->callSP($query_total);
+		$data = array();
+		
+		foreach ($testdata as $key => $fieldData){
+			if($fieldData['is_generate'] == 'Y'){
+				$paid = '<span class="badge badge-success">Paid</span>';
+				$action = '';
+			} else{
+				$action = '';
+				$paid = '<span class="badge badge-primary">Not Paid</span>';
+				if(is_admin()){
+					$action = '<a href="javascript:" onclick="paidSalary(\'' . $fieldData['id'] . '\')"><i class="fa fa-check"></i></a>';
+					$action .= '<a href="javascript:" onclick="printPayslip(\'' . $fieldData['id'] . '\')"><i class="fa fa-print"></i></a>';
+				}
+			}
+			$data[] = array(
+				$key + $skip + 1,
+				$fieldData['firstname'] . ' ' . $fieldData['lastname'],
+				$fieldData['month_text'],
+				$fieldData['year'],
+				$fieldData['basic_salary'],
+				$fieldData['allowance'],
+				$fieldData['da'],
+				$fieldData['hra'],
+				$fieldData['p_tax'],
+				$fieldData['pf'],
+				$fieldData['gross_salary'],
+				$fieldData['net_salary'],
+				$fieldData['employee_exp'],
+				$paid,
+				$action
+			);
+		}
+
+		if (isset($_POST['draw']) && $_POST['draw']) {
+            $draw = $_POST['draw'];
+        } else {
+            $draw = '';
+        }
+
+        $output = array(
+            "draw" => $draw,
+			"recordsTotal" => count($testdata_total),
+            "recordsFiltered" => count($testdata_total),
+            "data" => $data,
+            "status" => 'success',
+			"csrf" => update_csrf_session()
+        );
+
+        # response
+        echo json_encode($output);
+        unset($dttbl_model);
+	}
+
+	/**
+	 * Print Payslip
+	 * Added by DEEP BASAK on 22 January, 2024
+	 */
+	public function print_payslip(){
+		$data['id'] = $this->input->post('id');
+		$join = array(
+			array(
+				'table'		=> 'tblstaff',
+				'on'		=> 'tblstaff.staffid = tbl_staff_payslip.staff_id',
+				'type'		=> 'left'
+			)
+		);
+		$data['payslip_details'] = $this->Common_model->getAllData('tbl_staff_payslip', 'tbl_staff_payslip.*, tblstaff.firstname, tblstaff.lastname, tblstaff.staff_identifi', 1, ['id' => $this->input->post('id')], '', '', '', '', [], $join);
+		// prx($this->db->last_query());
+		$html = $this->load->view('attendances/components/payslip_print', $data, true);
 
 		# response
         $result = array('status'=> 'success', 'message'=>'Display modal', 'html' => $html);
