@@ -1371,6 +1371,47 @@ class hr_payroll extends AdminController {
         echo json_encode($obj);
 	}
 
+	/**
+	 * Get Day Wise Attendance
+	 * Added by DEEP BASAK on January 22, 2024
+	 */
+	public function day_wise_attendance(){
+		$month = $this->input->post('month');
+		$staff = $this->input->post('staff_id');
+		if(empty($staff)){
+			$where2 = array('staff_id' => get_staff_user_id());
+		} else{
+			$where2 = array('staff_id' => $staff);
+		}
+
+		//CR by DEEP BASAK on January 24, 2024 for bug fixing of column chart
+		if(!empty($month)){
+			$where3 = array('check_in_date >=' => $month . '-01', 'check_in_date <=' => $month . '-31');
+		} else {
+			$where3 = array('check_in_date >=' => date('Y-m') . '-01', 'check_in_date <=' => date('Y-m') . '-31',);
+		}
+
+		$where1 = array('is_active' => 'Y', 'today_hour <>' => '');
+		$where = array_merge($where1, $where2, $where3);
+
+		$attendance_details = $this->Common_model->getAllData('tbl_staff_attendance', 'total_hour, today_hour, check_in_date', '', $where, 'check_in_date ASC');
+		// prx($this->db->last_query());
+		$labels = array();
+		$data = array();
+		if(!empty($attendance_details)){
+			foreach($attendance_details as $key => $val){
+				$labels[] = date("F d, Y", strtotime($val->check_in_date));
+				$data[] = $val->today_hour;
+			}
+		}
+		$mainData = array('data'=> $data, 'label'=>$labels);
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'Display modal', 'chart' => $mainData, 'text'=>'Monthly Attendance in '. date('F, Y', strtotime($month)));
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
 	public function load_attendance_modal(){
 		// $data['attendance_list'] = 'test';
 		$join = array(

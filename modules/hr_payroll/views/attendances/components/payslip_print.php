@@ -161,7 +161,7 @@
             <tbody>
                 <tr align="center">
                     <td>
-                        <img src="https://www.codegalaxy.co.in/uploads/2437f-logosmall.png" width="100">
+                        <img src="<?= base_url('assets/images/logosmall.png') ?>" width="100">
                     </td>
                 </tr>
                 <tr align="center">

@@ -30,6 +30,8 @@ if (!has_permission('projects', '', 'create')) {
     array_push($where, 'AND ' . db_prefix() . 'taskstimers.staff_id=' . get_staff_user_id());
 }
 
+// if(empty())
+
 $staff_ids = $this->ci->projects_model->get_distinct_tasks_timesheets_staff($project_id);
 
 $_staff_ids = [];

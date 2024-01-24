@@ -117,8 +117,24 @@
                                     <div class="col-md-9">
                                       <div class="form-group">
                                             <select name="timesheet_staff_id" id="timesheet_staff_id" class="selectpicker" data-live-search="true" data-width="100%" data-none-selected-text="-">
-                                            <option value=""></option>
-                                        </select>
+                                                <option value=""></option>
+                                                <?php
+                                                $CI = &get_instance();
+                                                $where = array();
+                                                if(!is_admin()){
+                                                    $where = array('staffid' => get_staff_user_id());
+                                                }
+                                                $staff = $CI->Common_model->getAllData('tblstaff', '', '', $where);
+                                                // prx($staff);
+                                                if(!empty($staff)):
+                                                    foreach($staff as $key => $val):
+                                                ?>
+                                                <option value="<?= $val->staffid ?>"><?= $val->firstname . ' ' . $val->lastname . ' ('.$val->staff_identifi.')' ?></option>
+                                                <?php
+                                                    endforeach;
+                                                endif;
+                                                ?>
+                                            </select>
                                       </div>
                                     </div>
                                 </div>

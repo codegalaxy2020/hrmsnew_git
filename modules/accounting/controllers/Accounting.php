@@ -582,6 +582,7 @@ class Accounting extends AdminController
             $this->load->model('currencies_model');
 
             $currency = $this->currencies_model->get_base_currency();
+            // prx($this->db->last_query());
             $acc_closing_date = '';
             if(get_option('acc_close_the_books') == 1){
                 $acc_closing_date = get_option('acc_closing_date');
@@ -7491,7 +7492,8 @@ class Accounting extends AdminController
             $data['group'] = 'banking_register';
         }
 
-        $data['bank_accounts'] = $this->accounting_model->get_accounts('', ['account_detail_type_id' => 14]);
+        // $data['bank_accounts'] = $this->accounting_model->get_accounts('', ['account_detail_type_id' => 14]);
+        $data['bank_accounts'] = $this->accounting_model->get_accounts('');
 
         if($data['group'] == 'reconcile_bank_account'){
             $data['bank_account'] = $this->input->get('bank_account');
@@ -7595,9 +7597,6 @@ class Accounting extends AdminController
             ];
             $where = [];
 
-            
-
-
             $from_date = '';
             $to_date = '';
             if ($this->input->post('from_date')) {
@@ -7617,9 +7616,10 @@ class Accounting extends AdminController
             if ($this->input->post('bank_account')) {
                 $bank_account = $this->input->post('bank_account');
                 array_push($where, 'AND account ='. $bank_account);
-            }else{
-                array_push($where, 'AND account = "-1"');
             }
+            // else{
+            //     array_push($where, 'AND account = "-1"');
+            // }
 
             if ($from_date != '' && $to_date != '') {
                 array_push($where, 'AND (date >= "' . $from_date . '" and date <= "' . $to_date . '")');
@@ -7662,7 +7662,7 @@ class Accounting extends AdminController
                 'LEFT JOIN ' . db_prefix() . 'pur_vendor ON ' . db_prefix() . 'pur_vendor.userid = ' . db_prefix() . 'acc_account_history.vendor',
             ];
             $result = data_tables_init($aColumns, $sIndexColumn, $sTable, $join, $where, ['customer', 'rel_type', 'rel_id', 'account', 'vendor']);
-
+            
             $output = $result['output'];
             $rResult = $result['rResult'];
 

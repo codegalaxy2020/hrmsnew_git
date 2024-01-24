@@ -54,16 +54,16 @@
 									<div class="col-md-4">
 										<div id="chart"></div>
 									</div>
-									
-									<div class="col-md-4">
-										<div id="day_wise_attendance"></div>
-									</div>
 
 									<?php if(is_admin()): ?>
 									<div class="col-md-2">
 										<a href="<?= base_url('admin/hr_payroll/manage_payslip') ?>" class="btn btn-primary btn-block">Payslip</a>
 									</div>
 									<?php endif; ?>
+									
+									<div class="col-md-12">
+										<div id="day_wise_attendance"></div>
+									</div>
 
 								</div>
 								<!-- filter -->
