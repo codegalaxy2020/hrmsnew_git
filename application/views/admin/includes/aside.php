@@ -143,13 +143,45 @@
                         </span>
                     </a>
                 </li>
+            </ul>
+                        
+        </li>
+        <?php } ?>
+
+        <?php if(is_admin()){?>
+        <li class="menu-item-faculty">
+            <a href="#" aria-expanded="true">
+                <i class="fa fa-users menu-icon"></i>
+                <span class="menu-text">
+                Vendor / Customer  
+                </span>
+                <span class="fa arrow pleft5"></span>
+            </a>
+            <ul class="nav nav-second-level" aria-expanded="true" style="">
+            
+                <li class="sub-menu-item-faculty">
+                    <a href="<?=base_url();?>admin/clients">
+                      <i class="fa fa-american-sign-language-interpreting menu-icon"></i>
+                        <span class="sub-menu-text">
+                            Add Vendor / Customer  
+                         </span>
+                    </a>
+                </li>
+                <li class="sub-menu-item-faculty">
+                    <a href="<?=base_url();?>admin/contracts">
+                        <i class="fa fa-american-sign-language-interpreting menu-icon"></i>
+                        <span class="sub-menu-text">
+                        contracts 
+                        </span>
+                    </a>
+                </li>
                  </ul>
                         
         </li>
         <?php } ?>
         
-            <?php hooks()->do_action('after_render_aside_menu'); ?>
-            <?php $this->load->view('admin/projects/pinned'); ?>
+        <?php hooks()->do_action('after_render_aside_menu'); ?>
+        <?php $this->load->view('admin/projects/pinned'); ?>
     </ul>
 </aside>
 <!--<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>-->

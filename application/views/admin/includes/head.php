@@ -67,9 +67,8 @@ $attendance_details = $CI->Common_model->callSP($sql);
 if(!empty($attendance_details)){
     foreach($attendance_details as $key => $val){
         $check_out_date = $val['check_in_date'] . ' 23:59:59';
-        // echo "<pre>"; print_r($check_out_date); exit;
 
-        $startTime = new DateTime($val->check_in);
+        $startTime = new DateTime($val['check_in']);
         $endTime = new DateTime($check_out_date);
         $interval = $startTime->diff($endTime);
         

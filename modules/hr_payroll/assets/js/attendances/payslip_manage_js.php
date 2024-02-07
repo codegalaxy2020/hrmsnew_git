@@ -28,4 +28,20 @@
 		});
 	}
 
+	//Added by DEEP BASAK on Febuary 02, 2024
+	function paidSalary(id){
+		warnMsg2("Are you sure want to Pay this amount?", false, true, "Pay It!", "", function (){
+			ajaxPostRequest('hr_payroll/pain_salary', {'id': id}, function (data) {
+				SwalSuccess2("Good Job!", data.message, data.status);
+				var month;
+				if ($('#month_attendance').val() != undefined) {
+					month = $('#month_attendance').val();
+				} else {
+					month = null;
+				}
+				serverSideDataTable('table-staff_payslip', baseUrl + 'hr_payroll/month_payslip_list/' + month, 10);
+			})
+		});
+	}
+
 </script>

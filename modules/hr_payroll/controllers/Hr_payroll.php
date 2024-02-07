@@ -1573,7 +1573,6 @@ class hr_payroll extends AdminController {
 	 * Added by DEEP BASAK on January 19, 2024
 	 */
 	public function month_payslip_list($date = ''){
-
 		# customize filter
 		$where = ' `is_active` = "Y" ';
 		if(!is_admin()){
@@ -1626,6 +1625,8 @@ class hr_payroll extends AdminController {
 			tblstaff.firstname DESC
 		LIMIT '.$pageSize.' OFFSET '.$skip.' ';
 
+		// prx($query);
+
 		//Total records query
 		$query_total = 'SELECT
 			tblstaff.firstname, tblstaff.lastname,
@@ -1645,7 +1646,7 @@ class hr_payroll extends AdminController {
 		foreach ($testdata as $key => $fieldData){
 			if($fieldData['is_generate'] == 'Y'){
 				$paid = '<span class="badge badge-success">Paid</span>';
-				$action = '';
+				$action = '<a href="javascript:" onclick="printPayslip(\'' . $fieldData['id'] . '\')"><i class="fa fa-print"></i></a>';
 			} else{
 				$action = '';
 				$paid = '<span class="badge badge-primary">Not Paid</span>';
@@ -1712,6 +1713,18 @@ class hr_payroll extends AdminController {
 
 		# response
         $result = array('status'=> 'success', 'message'=>'Display modal', 'html' => $html);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+	/**
+	 * Pay salary
+	 * Added by DEEP BASAK on 02 Febuary, 2024
+	 */
+	public function pain_salary(){
+		$this->Common_model->UpdateDB('tbl_staff_payslip', ['id' => $this->input->post('id')], ['is_generate' => 'Y']);
+		# response
+        $result = array('status'=> 'success', 'message'=>'Salary Paid');
         $obj = (object) array_merge((array) $result, update_csrf_session());
         echo json_encode($obj);
 	}
