@@ -62,5 +62,28 @@ $(document).ready(function() {
     // Set up a setInterval to periodically call the function
     setInterval(checkTrainingSchedule, 200000); // 30 minutes in milliseconds
 });
+$(document).ready(function() {
+    function checkTaskSchedule() {
+        var csrf_token = $('meta[name="csrf_token"]').attr('content');
+        $.ajax({
+            url: '<?php echo base_url();?>admin/Dashboard/checkTaskSchedule',
+            type: 'POST',
+            dataType: 'json',
+            headers: {'X-CSRF-TOKEN': csrf_token},
+            success: function(response) {
+                console.log('Server response:', response);
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+
+    // Trigger the function initially
+    checkTaskSchedule();
+
+    // Set up a setInterval to periodically call the function
+    setInterval(checkTrainingSchedule, 200000); // 30 minutes in milliseconds
+});
 </script>
 <?php app_admin_footer(); ?>

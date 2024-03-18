@@ -150,4 +150,30 @@ class Dashboard extends AdminController
             ->set_content_type('application/json')
             ->set_output(json_encode(['status' => 'success']));
     }
+
+    public function checkTaskSchedule()
+    {
+        
+        $this->db->where('status !=', 'done');
+        $query = $this->db->get('tblteachingtasks');
+        
+        $trainings = $query->result();
+        foreach ($trainings as $training) {            
+                $notified = add_notification([
+                    'description' => "your " . $training->task_name . " task on " . $training->status,
+                    'touserid' => $training->user_id,
+                    'additional_data' => serialize([
+                        "Contact With HR.",
+                    ]),
+                ]);
+
+                if ($notified) {
+                    pusher_trigger_notification([$training->user_id]);
+                }
+        }
+
+       $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode(['status' => 'success']));
+    }
 }
