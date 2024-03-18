@@ -257,7 +257,7 @@ class Common_model extends CI_Model
 					return $req->result_array();
 				}
             } else {
-                return 1;   //Added by DEEP BASAK on July 11, 2023
+                return array();   //Added by DEEP BASAK on July 11, 2023
             }
         } catch (\Throwable $th) {
 			throw $th;

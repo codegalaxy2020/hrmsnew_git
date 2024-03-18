@@ -19,12 +19,12 @@
 								
 							</a>
 						</li> -->
-				    <li<?php if($group_item == $group){echo " class='active'"; } ?>>
+				    <!-- <li<?php if($group_item == $group){echo " class='active'"; } ?>>
 							<a href="<?php echo admin_url('utilities/calendartraining'); ?>">
                             Training Add calendar
 								
 							</a>
-						</li>
+						</li> -->
 					<?php
 					$i = 0;
 					foreach($tab as $group_item){
@@ -56,8 +56,14 @@
 
 								//Added by DEEP BASAK on January 08, 2024
 								//For added training feed back module
-								elseif($group_item == 'training_feedback' && is_admin()){
+								elseif($group_item == 'training_feedback'){
 									echo 'Training Feedback';
+								}
+
+								//Added by DEEP BASAK on January 15, 2024
+								//For added training Chart module
+								elseif($group_item == 'training_chart'){
+									echo 'Training Chart';
 								}
 								// elseif($group_item == 'training_attendance_staff' && !is_admin()){
 								// 	echo 'Training Attendance';
@@ -70,7 +76,7 @@
 							</a>
 						</li>
 					<?php } ?>
-					<li<?php if($group_item == $group){echo " class='active'"; } ?>>
+					<li <?php if($group_item == $group){echo " class='active'"; } ?>>
 							<a href="<?php echo admin_url('utilities/calendar'); ?>">
                             	Personal Calender
 							</a>
@@ -107,6 +113,16 @@ if(!(strpos($viewuri,'admin/hr_profile/training?group=training_program') === fal
 //Added by DEEP BASAK on January 09, 2024
 elseif(!(strpos($viewuri,'admin/hr_profile/training?group=training_feedback') === false)){
 	require('modules/hr_profile/assets/js/training/training_feedback_js.php');
+}
+
+//Added by DEEP BASAK on January 15, 2024
+elseif(!(strpos($viewuri,'admin/hr_profile/training?group=training_chart') === false)){
+	require('modules/hr_profile/assets/js/training/training_chart_js.php');
+}
+
+//Added by DEEP BASAK on January 16, 2024
+elseif(!(strpos($viewuri,'admin/hr_profile/training?group=training_attendance') === false)){
+	require('modules/hr_profile/assets/js/training/training_attendance_js.php');
 }
 
 require('modules/hr_profile/assets/js/training/training_program_js.php');

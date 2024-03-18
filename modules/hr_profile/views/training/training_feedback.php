@@ -18,30 +18,18 @@
 						<th>#</th>
 						<th><?= _l('traning_feedback_staff_name') ?></th>
 						<th><?= _l('traning_feedback_traning_name') ?></th>
-						<th><?= _l('hr_training_type') ?></th>
+						<th><?= _l('traning_content') ?></th>
+						<th><?= _l('traning_effectiveness') ?></th>
+						<th><?= _l('traning_experience') ?></th>
 						<th><?= _l('traning_feedback') ?></th>
 						<th><?= _l('hr_datecreator') ?></th>
+						<?php if(is_admin()): ?>
 						<th><?= _l('traning_feedback_action') ?></th>
+						<?php endif; ?>
 					</tr>
 				</thead>
 				<tbody>
-					<?php
-					if(!empty($training_feedback)):
-						foreach($training_feedback as $key => $value):
-					?>
-					<tr>
-						<td><?= $key+1 ?></td>
-						<td><?= $value->firstname.' '.$value->lastname ?></td>
-						<td><?= $value->training_name ?></td>
-						<td><?= $value->name ?></td>
-						<td><?= $value->feedback ?></td>
-						<td><?= date("F d, Y", strtotime($value->created_at)) ?></td>
-						<td></td>
-					</tr>
-					<?php
-						endforeach;
-					endif;
-					?>
+					
 				</tbody>
 			</table>
 		</div>

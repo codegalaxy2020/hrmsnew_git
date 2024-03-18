@@ -743,12 +743,16 @@ class Hr_profile extends AdminController {
 
 		//Added by DEEP BASAK on January 08, 2024
 		//For added training feed back module
-		if (is_admin()) {
+		// if (is_admin()) {
 			$data['tab'][] = 'training_feedback';
-		}
+		// }
+
+		//Added by DEEP BASAK on January 15, 2024
+		//For added training chart module
+		$data['tab'][] = 'training_chart';
 
 		if (!is_admin()) {
-		$data['tab'][] = 'training_attendance_staff';
+			$data['tab'][] = 'training_attendance_staff';
 		}
 //         if (!is_admin()) {
 // 		$data['tab'][] = 'training_calender_staff';
@@ -769,39 +773,124 @@ class Hr_profile extends AdminController {
 		$data['training_programs'] = $this->hr_profile_model->get_job_position_training_process();
 
 
-		//Added by DEEP BASAK on January 10, 2024
-		$join = array(
-			array(
-				'table'	=> 'tblhr_type_of_trainings',
-				'on'	=> 'tblhr_type_of_trainings.id = tbl_training_feedback.training_type_id',
-				'type'	=> 'left'
-			),
-			array(
-				'table'	=> 'tblhr_jp_interview_training',
-				'on'	=> 'tblhr_jp_interview_training.training_process_id = tbl_training_feedback.training_id',
-				'type'	=> 'left'
-			),
-			array(
-				'table'	=> 'tblstaff',
-				'on'	=> 'tblstaff.staffid = tbl_training_feedback.staff_id',
-				'type'	=> 'left'
-			)
-		);
-		$staffId = get_staff_user_id();
-		$data['training_feedback'] = $this->Common_model->getAllData('tbl_training_feedback', '', '', ['is_active' => 'Y'], 'tbl_training_feedback.id desc', '', '', '', [], $join);
+		$data['training_list'] = $this->Common_model->getAllData('tblhr_jp_interview_training', '', '', []);
 
 		$this->load->view('training/manage_training', $data);
 	}
 
+
+	public function feedback_list(){
+		# include datatable model
+        include_once('application/models/common/Datatable_model.php');
+        # customize filter
+        $order_by = array('tbl_training_feedback.id' => 'desc');
+        $where_in = array();
+		if(is_admin()){
+			$where = array('tbl_training_feedback.is_active' => 'Y');
+		} else{
+			$where = array('tbl_training_feedback.is_active' => 'Y', 'tbl_training_feedback.staff_id' => get_staff_user_id());
+		}
+        
+		
+        $join = array(
+			array(
+				'ontable'	=> 'tblhr_jp_interview_training',
+				'onParams'	=> 'tblhr_jp_interview_training.training_process_id = tbl_training_feedback.training_id',
+				'type'		=> 'left'
+			),
+			array(
+				'ontable'	=> 'tblstaff',
+				'onParams'	=> 'tblstaff.staffid = tbl_training_feedback.staff_id',
+				'type'		=> 'left'
+			)
+		);
+        $queryAttachments = array(
+            'select' => 'tbl_training_feedback.*, tblhr_jp_interview_training.training_name, tblstaff.firstname, tblstaff.lastname',
+            'where' => $where,
+            'where_in' => $where_in,
+            'join' => $join,
+            'group_by' => ''
+        );
+
+        $dttbl_model = new Datatable_model('tbl_training_feedback', array(), array(), $order_by, $queryAttachments);
+        $testdata = $dttbl_model->getRows($_POST);
+        $data = array();
+
+		foreach ($testdata as $key => $fieldData){
+			$action = '';
+			if(is_admin()){
+				$action .= '<a href="javascript:" data-toggle="tooltip" title="Delete" onclick="deleteFeedback('.$fieldData->id.')" class="text-danger"><i class="fa fa-trash"></i></a>';
+			}
+
+			$content = '';
+			if($fieldData->content == 'good'){
+				$content = '<span class="badge bg-success">Good</span>';
+			} else if($fieldData->content == 'medium'){
+				$content = '<span class="badge bg-warning">Medium</span>';
+			} else if($fieldData->content == 'bad'){
+				$content = '<span class="badge bg-danger">Bad</span>';
+			}
+
+			$trainer_effectiveness = '';
+			if($fieldData->trainer_effectiveness == 'good'){
+				$trainer_effectiveness = '<span class="badge bg-success">Good</span>';
+			} else if($fieldData->trainer_effectiveness == 'medium'){
+				$trainer_effectiveness = '<span class="badge bg-warning">Medium</span>';
+			} else if($fieldData->trainer_effectiveness == 'bad'){
+				$trainer_effectiveness = '<span class="badge bg-danger">Bad</span>';
+			}
+
+			$overall_experience = '';
+			if($fieldData->overall_experience == 'good'){
+				$overall_experience = '<span class="badge bg-success">Good</span>';
+			} else if($fieldData->overall_experience == 'medium'){
+				$overall_experience = '<span class="badge bg-warning">Medium</span>';
+			} else if($fieldData->overall_experience == 'bad'){
+				$overall_experience = '<span class="badge bg-danger">Bad</span>';
+			}
+
+			$data[] = array(
+				$key + 1,
+				$fieldData->firstname.' '.$fieldData->lastname,
+				$fieldData->training_name,
+				$content,
+				$trainer_effectiveness,
+				$overall_experience,
+				$fieldData->feedback,
+				date("F d, Y", strtotime($fieldData->created_at)),
+				$action
+			);
+		}
+
+		if (isset($_POST['draw']) && $_POST['draw']) {
+            $draw = $_POST['draw'];
+        } else {
+            $draw = '';
+        }
+
+        $output = array(
+            "draw" => $draw,
+            // "recordsTotal" => $dttbl_model->countAll(),
+			"recordsTotal" => $dttbl_model->countFiltered($_POST),
+            "recordsFiltered" => $dttbl_model->countFiltered($_POST),
+            "data" => $data,
+            "status" => 'success',
+			"csrf" => update_csrf_session()
+        );
+
+        # response
+        echo json_encode($output);
+        unset($dttbl_model);
+	}
+
+
 	//Added by DEEP BASAk on January 10, 2024
 	public function load_modal(){
-		$data['training'] = $this->Common_model->getAllData('tblhr_jp_interview_training', '', '');
-		$data['training_type'] = $this->Common_model->getAllData('tblhr_type_of_trainings', '', '');
+		// $data['training'] = $this->Common_model->getAllData('tblhr_jp_interview_training', '', '', ['FIND_IN_SET("3", staff_id)' => '0']);
+		// echo $this->db->last_query(); exit;
+		$data['training'] = $this->db->query("SELECT * FROM `tblhr_jp_interview_training` WHERE FIND_IN_SET('3', staff_id) > 0")->result();
+		// $data['training_type'] = $this->Common_model->getAllData('tblhr_type_of_trainings', '', '');
 		$html = $this->load->view('training/components/training_feedback_modal_body', $data, true);
-
-<<<<<<< Updated upstream
-		echo json_encode(array('status'=> 'success', 'message'=>'Display modal', 'html'=>$html));
-=======
 
 		// echo json_encode(array('status'=> 'success', 'message'=>'Display modal', 'html'=>$html));
 
@@ -811,25 +900,40 @@ class Hr_profile extends AdminController {
         echo json_encode($obj);
 
 		// echo json_encode(array('status'=> 'success', 'message'=>'Display modal', 'html'=>$html));
+	}
 
->>>>>>> Stashed changes
+	public function training_attendence_chart(){
+		$lable = array();
+		$series = array();
+
+		$data = $this->Common_model->getAllData('tbltraining_attendance', '', '', ['is_active' => 'Y', 'training_id' => $this->input->post('training_id')]);
+		// echo "<pre>"; print_r($data); echo "</pre>"; exit;
+		foreach($data as $key => $val){
+			$lable[] = $val->attendance;
+			$series[] = intval($val->count); 
+		}
+
+		$data = array('lable'=>$lable, 'series'=>$series);
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'Data fetch', 'data' => $data);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
 	}
 
 	public function save_feedback(){
 		$data = array(
 			'staff_id' => get_staff_user_id(),
 			'training_id' => $this->input->post('training_name'),
-			'training_type_id' => $this->input->post('training_name'),
+			'content' => $this->input->post('content'),
+			'trainer_effectiveness' =>$this->input->post('trainer_effectiveness'),
+			'overall_experience' => $this->input->post('overall_experience'),
 			'feedback' => $this->input->post('feedback'),
 			'created_at' => date('Y-m-d H:i:s'),
 			'created_by' => get_staff_user_id(),
 		);
 
 		$this->Common_model->add('tbl_training_feedback', $data);
-
-<<<<<<< Updated upstream
-		echo json_encode(array('status'=> 'success', 'message'=>'Feedback send'));
-=======
 
 		# response
         $result = array('status'=> 'success', 'message'=>'Feedback send');
@@ -847,7 +951,6 @@ class Hr_profile extends AdminController {
 
 		// echo json_encode(array('status'=> 'success', 'message'=>'Feedback send'));
 
->>>>>>> Stashed changes
 	}
 
 	/**
@@ -1136,6 +1239,13 @@ class Hr_profile extends AdminController {
         $attendanceValue = $this->input->post('attendanceValue');
         $staffname = $this->input->post('staffname');
 
+		$count = 0;
+		if($attendanceValue == 'present'){
+			$count = 1;
+		} else if($attendanceValue == 'half_day'){
+			$count = 0.5;
+		}
+
         // Get the current date
         $attendanceDate = date('Y-m-d');
 
@@ -1143,7 +1253,8 @@ class Hr_profile extends AdminController {
         $existingRecord = $this->db->get_where('tbltraining_attendance', array(
             'staff_id' => $staffId,
             'training_id' => $leadId,
-            'attendance_date' => $attendanceDate
+            'attendance_date' => $attendanceDate,
+			'is_active'=>'Y'		//Cr by DEEP BASAK on January 12, 2024
         ))->row_array();
 
         if ($existingRecord) {
@@ -1151,7 +1262,11 @@ class Hr_profile extends AdminController {
             $this->db->where('id', $existingRecord['id']);
             $this->db->update('tbltraining_attendance', array(
                 'attendance' => $attendanceValue,
-                'status' => 1
+				'count' => $count,
+                'status' => 1,
+				'is_active'=>'Y',									//Cr by DEEP BASAK on January 12, 2024
+				'updated_by'=> get_staff_user_id(),					//Cr by DEEP BASAK on January 12, 2024
+				'updated_at'=> date('Y-m-d H:i:s')					//Cr by DEEP BASAK on January 12, 2024
             ));
             //send notification
                 $notified = add_notification([
@@ -1171,7 +1286,11 @@ class Hr_profile extends AdminController {
                 'training_id' => $leadId,
                 'attendance_date' => $attendanceDate,
                 'attendance' => $attendanceValue,
-                'status' => 1
+				'count' => $count,
+                'status' => 1,
+				'is_active'=>'Y',								//Cr by DEEP BASAK on January 12, 2024
+				'created_by'=> get_staff_user_id(),				//Cr by DEEP BASAK on January 12, 2024
+				'created_at'=> date('Y-m-d H:i:s')				//Cr by DEEP BASAK on January 12, 2024
             ));
             //send notification
                 $notified = add_notification([
@@ -1203,7 +1322,19 @@ class Hr_profile extends AdminController {
 	}
 	
 	public function view_attendance($wait_staff_id, $training_process_id) {
-	    $data['faculty_data'] = $this->hr_profile_model->faculty_data_tbltraining_attendance($wait_staff_id, $training_process_id);
+		$total_present = 0;
+	    $data['faculty_data'] = $attendance_details = $this->hr_profile_model->faculty_data_tbltraining_attendance($wait_staff_id, $training_process_id);
+		
+		$data['staff_details'] = $this->Common_model->getAllData('tblstaff', '', 1, ['staffid' => $wait_staff_id]);		//CR BY DEEP BASAK on January 16, 2024
+		$data['training_details'] = $this->Common_model->getAllData('tblhr_jp_interview_training', '', 1, ['training_process_id' => $training_process_id]);		//CR BY DEEP BASAK on January 16, 2024
+
+		foreach($attendance_details as $key => $val){
+			// echo "<pre>"; print_r($val['count']); echo "</pre>"; exit;
+			$total_present = $total_present + $val['count'];
+		}
+		$total_present = 100 * ($total_present / $data['training_details']->mint_point);
+		$data['total_present'] = $total_present;
+
 		$this->app_scripts->add('surveys-js', module_dir_url('surveys', 'assets/js/surveys.js'), 'admin', ['app-js']);
 		$this->app_css->add('surveys-css', module_dir_url('hr_profile', 'assets/css/training/training_post.css'), 'admin', ['app-css']);
 
@@ -7695,6 +7826,7 @@ public function get_list_job_position_training($id) {
 	 */
 	public function table_training_program() {
 		$this->app->get_table_data(module_views_path('hr_profile', 'training/job_position_manage/training_programs_table'));
+		// echo $this->db->last_query();
 	}
 
 	/**

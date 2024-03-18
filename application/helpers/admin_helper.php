@@ -535,8 +535,6 @@ function _maybe_system_setup_warnings()
     // Php version notice
     hooks()->add_action('before_start_render_dashboard_content', [new Message('app\services\messages\PhpVersionNotice'), 'check']);
 }
-<<<<<<< Updated upstream
-=======
 
 
 //helper for Update csrf
@@ -549,7 +547,6 @@ function update_csrf_session()
 		'csrfHash' => $CI->security->get_csrf_hash()
 	);
 	return $csrf;
-
 }
 
 //Helper for getting the no of working days by using month and year
@@ -581,4 +578,3 @@ function prx($val){
     echo "<pre>"; print_r($val); echo "</pre>"; exit;
 
 }
->>>>>>> Stashed changes

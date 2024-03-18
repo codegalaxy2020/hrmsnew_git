@@ -18,8 +18,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 *
 */
 // define('APP_BASE_URL', 'https://skilltest.live/hrmsnew/');
-// define('APP_BASE_URL', 'http://localhost/laravel/hrmsnew_git/hrmsnew_git/');
-define('APP_BASE_URL', 'http://localhost/hrmsnew_git/');
+define('APP_BASE_URL', 'http://localhost/laravel/hrmsnew_git/hrmsnew_git/');
+// define('APP_BASE_URL', 'http://localhost/hrmsnew_git/');
 
 /*
 * --------------------------------------------------------------------------
@@ -54,13 +54,8 @@ define('APP_DB_PASSWORD', '');
 /**
  * The name of the database you want to connect to
  */
-<<<<<<< Updated upstream
-// define('APP_DB_NAME', 'skilltest_hrmsnew');
-define('APP_DB_NAME', 'skilltest_hrmsnew');
-=======
 define('APP_DB_NAME', 'skilltest_hrmsnew');
 // define('APP_DB_NAME', 'hrmsnew');
->>>>>>> Stashed changes
 
 /**
  * @since  2.3.0

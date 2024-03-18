@@ -263,3 +263,6 @@ $lang['hrp_amount']             											= 'Amount';
 $lang['hrp_payslip_download']             									= 'Payslip download';
 $lang['bank_name']             												= 'Bank name';
 $lang['account_number']             										= 'Account number';
+
+//Added by DEEP BASAK on January 22, 2024
+$lang['hr_manage_payroll']                                                  = 'Payroll';

@@ -11,6 +11,8 @@ class hr_payroll extends AdminController {
 		parent::__construct();
 		$this->load->model('hr_payroll_model');
 		hooks()->do_action('hr_payroll_init'); 
+
+		$this->load->model('common/Common_model');		//Added by DEEP BASAK on January 09, 2024
 	}
 
 	/**
@@ -1111,20 +1113,20 @@ class hr_payroll extends AdminController {
 		$this->load->model('staff_model');
 		$this->load->model('departments_model');
 
-		$rel_type = hrp_get_timesheets_status();
+		// $rel_type = hrp_get_timesheets_status();
 
-		//get current month
-		$current_month = date('Y-m-d', strtotime(date('Y-m') . '-01'));
+		// //get current month
+		// $current_month = date('Y-m-d', strtotime(date('Y-m') . '-01'));
 
-		//get day header in month
-		$days_header_in_month = $this->hr_payroll_model->get_day_header_in_month($current_month, $rel_type);
+		// //get day header in month
+		// $days_header_in_month = $this->hr_payroll_model->get_day_header_in_month($current_month, $rel_type);
 
-		$attendances = $this->hr_payroll_model->get_hrp_attendance($current_month);
-		$attendances_value = [];
+		// $attendances = $this->hr_payroll_model->get_hrp_attendance($current_month);
+		// $attendances_value = [];
 
-		foreach ($attendances as $key => $value) {
-			$attendances_value[$value['staff_id'] . '_' . $value['month']] = $value;
-		}
+		// foreach ($attendances as $key => $value) {
+		// 	$attendances_value[$value['staff_id'] . '_' . $value['month']] = $value;
+		// }
 
 		//load deparment by manager
 		if (!is_admin() && !has_permission('hrp_employee', '', 'view')) {
@@ -1135,94 +1137,596 @@ class hr_payroll extends AdminController {
 			$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object();
 		}
 
-		$data_object_kpi = [];
+		// $data_object_kpi = [];
 
-		foreach ($staffs as $staff_key => $staff_value) {
-			/*check value from database*/
+		// foreach ($staffs as $staff_key => $staff_value) {
+		// 	/*check value from database*/
 
-			$staff_i = $this->hr_payroll_model->get_staff_info($staff_value['staffid']);
-			if ($staff_i) {
+		// 	$staff_i = $this->hr_payroll_model->get_staff_info($staff_value['staffid']);
+		// 	if ($staff_i) {
 
-				if (isset($staff_i->staff_identifi)) {
-					$data_object_kpi[$staff_key]['hr_code'] = $staff_i->staff_identifi;
-				} else {
-					$data_object_kpi[$staff_key]['hr_code'] = $this->hr_payroll_model->hrp_format_code('EXS', $staff_i->staffid, 5);
-				}
+		// 		if (isset($staff_i->staff_identifi)) {
+		// 			$data_object_kpi[$staff_key]['hr_code'] = $staff_i->staff_identifi;
+		// 		} else {
+		// 			$data_object_kpi[$staff_key]['hr_code'] = $this->hr_payroll_model->hrp_format_code('EXS', $staff_i->staffid, 5);
+		// 		}
 
-				$data_object_kpi[$staff_key]['staff_name'] = $staff_i->firstname . ' ' . $staff_i->lastname;
+		// 		$data_object_kpi[$staff_key]['staff_name'] = $staff_i->firstname . ' ' . $staff_i->lastname;
 
-				$arr_department = $this->hr_payroll_model->get_staff_departments($staff_i->staffid, true);
+		// 		$arr_department = $this->hr_payroll_model->get_staff_departments($staff_i->staffid, true);
 
-				$list_department = '';
-				if (count($arr_department) > 0) {
+		// 		$list_department = '';
+		// 		if (count($arr_department) > 0) {
 
-					foreach ($arr_department as $key => $department) {
-						$department_value = $this->departments_model->get($department);
+		// 			foreach ($arr_department as $key => $department) {
+		// 				$department_value = $this->departments_model->get($department);
 
-						if ($department_value) {
-							if (strlen($list_department) != 0) {
-								$list_department .= ', ' . $department_value->name;
-							} else {
-								$list_department .= $department_value->name;
-							}
-						}
+		// 				if ($department_value) {
+		// 					if (strlen($list_department) != 0) {
+		// 						$list_department .= ', ' . $department_value->name;
+		// 					} else {
+		// 						$list_department .= $department_value->name;
+		// 					}
+		// 				}
 
-					}
-				}
+		// 			}
+		// 		}
 
-				$data_object_kpi[$staff_key]['staff_departments'] = $list_department;
+		// 		$data_object_kpi[$staff_key]['staff_departments'] = $list_department;
 
-			} else {
-				$data_object_kpi[$staff_key]['hr_code'] = '';
-				$data_object_kpi[$staff_key]['staff_name'] = '';
-				$data_object_kpi[$staff_key]['staff_departments'] = '';
+		// 	} else {
+		// 		$data_object_kpi[$staff_key]['hr_code'] = '';
+		// 		$data_object_kpi[$staff_key]['staff_name'] = '';
+		// 		$data_object_kpi[$staff_key]['staff_departments'] = '';
 
-			}
+		// 	}
 
-			if (isset($attendances_value[$staff_value['staffid'] . '_' . $current_month])) {
+		// 	if (isset($attendances_value[$staff_value['staffid'] . '_' . $current_month])) {
 
-				$data_object_kpi[$staff_key]['standard_workday'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['standard_workday'];
-				$data_object_kpi[$staff_key]['actual_workday'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['actual_workday'];
-				$data_object_kpi[$staff_key]['actual_workday_probation'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['actual_workday_probation'];
-				$data_object_kpi[$staff_key]['paid_leave'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['paid_leave'];
-				$data_object_kpi[$staff_key]['unpaid_leave'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['unpaid_leave'];
-				$data_object_kpi[$staff_key]['id'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['id'];
+		// 		$data_object_kpi[$staff_key]['standard_workday'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['standard_workday'];
+		// 		$data_object_kpi[$staff_key]['actual_workday'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['actual_workday'];
+		// 		$data_object_kpi[$staff_key]['actual_workday_probation'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['actual_workday_probation'];
+		// 		$data_object_kpi[$staff_key]['paid_leave'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['paid_leave'];
+		// 		$data_object_kpi[$staff_key]['unpaid_leave'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['unpaid_leave'];
+		// 		$data_object_kpi[$staff_key]['id'] = $attendances_value[$staff_value['staffid'] . '_' . $current_month]['id'];
 
-				$data_object_kpi[$staff_key] = array_merge($data_object_kpi[$staff_key], $attendances_value[$staff_value['staffid'] . '_' . $current_month]);
+		// 		$data_object_kpi[$staff_key] = array_merge($data_object_kpi[$staff_key], $attendances_value[$staff_value['staffid'] . '_' . $current_month]);
 
-			} else {
-				$data_object_kpi[$staff_key]['standard_workday'] = get_hr_payroll_option('standard_working_time');
-				$data_object_kpi[$staff_key]['actual_workday_probation'] = 0;
-				$data_object_kpi[$staff_key]['actual_workday'] = 0;
-				$data_object_kpi[$staff_key]['paid_leave'] = 0;
-				$data_object_kpi[$staff_key]['unpaid_leave'] = 0;
-				$data_object_kpi[$staff_key]['id'] = 0;
-				$data_object_kpi[$staff_key] = array_merge($data_object_kpi[$staff_key], $days_header_in_month['days_header']);
+		// 	} else {
+		// 		$data_object_kpi[$staff_key]['standard_workday'] = get_hr_payroll_option('standard_working_time');
+		// 		$data_object_kpi[$staff_key]['actual_workday_probation'] = 0;
+		// 		$data_object_kpi[$staff_key]['actual_workday'] = 0;
+		// 		$data_object_kpi[$staff_key]['paid_leave'] = 0;
+		// 		$data_object_kpi[$staff_key]['unpaid_leave'] = 0;
+		// 		$data_object_kpi[$staff_key]['id'] = 0;
+		// 		$data_object_kpi[$staff_key] = array_merge($data_object_kpi[$staff_key], $days_header_in_month['days_header']);
 
-			}
-			$data_object_kpi[$staff_key]['rel_type'] = $rel_type;
-			$data_object_kpi[$staff_key]['month'] = $current_month;
-			$data_object_kpi[$staff_key]['staff_id'] = $staff_value['staffid'];
+		// 	}
+		// 	$data_object_kpi[$staff_key]['rel_type'] = $rel_type;
+		// 	$data_object_kpi[$staff_key]['month'] = $current_month;
+		// 	$data_object_kpi[$staff_key]['staff_id'] = $staff_value['staffid'];
 
+		// }
+
+		// //check is add new or update data
+		// if (count($attendances_value) > 0) {
+		// 	$data['button_name'] = _l('hrp_update');
+		// } else {
+		// 	$data['button_name'] = _l('submit');
+		// }
+
+		$data['departments'] = $this->departments_model->get();
+		// $data['roles'] = $this->roles_model->get();
+		$data['staffs'] = $staffs;
+		// $data['data_object_kpi'] = $data_object_kpi;
+
+		// $data['body_value'] = json_encode($data_object_kpi);
+		// $data['columns'] = json_encode($days_header_in_month['columns_type']);
+		// $data['col_header'] = json_encode($days_header_in_month['headers']);
+		$data['title'] = 'Staff Attendance';
+		$this->load->view('attendances/attendance_manage2', $data);
+	}
+
+	public function month_attendance_list($date = '', $staff_id = ''){
+        # customize filter
+		$where = ' `is_active` = "Y" ';
+		if(!is_admin()){
+			$where .= ' AND staff_id = ' . get_staff_user_id() . ' ';
 		}
 
-		//check is add new or update data
-		if (count($attendances_value) > 0) {
-			$data['button_name'] = _l('hrp_update');
+		if(($date != '') && ($date != 'null')){
+			$where .= ' AND `check_in_date` BETWEEN "'.$date.'-01" AND "'.$date.'-31" ';
+		} else{
+			$where .= ' AND `check_in_date` BETWEEN "'.date('Y-m').'-01" AND "'.date('Y-m').'-31" ';
+		}
+
+		if(($staff_id != 0) && ($staff_id != '') && ($staff_id != 'null')){
+			$where .= ' AND staff_id = ' . $staff_id . ' ';
+		}
+
+		// Skip number of Rows count  
+		$start = $_POST["start"];
+
+		// Paging Length 10,20  
+		$length = $_POST["length"];
+
+		// Search Value from (Search box)  
+		$searchValue = trim($_POST["search"]["value"]);
+		$searchwhere = '';
+		if(!empty($searchValue)){
+			$searchwhere .= ' AND check_in_date LIKE "%'.$searchValue.'%" ';
+		}
+
+		//Paging Size (10, 20, 50,100)  
+		$pageSize = $length != null ? intval($length) : 0;
+		$skip = $start != null ? intval($start) : 0;
+
+
+		//Datatable view Query
+		$query = 'SELECT
+			MAX( id ) AS id,
+			`check_in_date` 
+		FROM
+			`tbl_staff_attendance` 
+		WHERE
+			'.$where.'
+			'.$searchwhere.'
+		GROUP BY
+			`check_in_date` 
+		ORDER BY
+			`check_in_date` DESC
+		LIMIT '.$pageSize.' OFFSET '.$skip.' ';
+
+		//Total records query
+		$query_total = 'SELECT
+			MAX( id ) AS id,
+			`check_in_date` 
+		FROM
+			`tbl_staff_attendance` 
+		WHERE
+			'.$where.'
+		GROUP BY
+			`check_in_date` 
+		ORDER BY
+			`check_in_date` DESC';
+
+		$testdata = $this->Common_model->callSP($query);
+		$testdata_total = $this->Common_model->callSP($query_total);
+		$data = array();
+		
+		foreach ($testdata as $key => $fieldData){
+			$data[] = array(
+				$key + $skip + 1,
+				'<a href="javascript:" onclick="openAttendanceModal(\'' . $fieldData['check_in_date'] . '\')">' . date("F d, Y", strtotime($fieldData['check_in_date'])) . '</a>'
+			);
+		}
+
+		if (isset($_POST['draw']) && $_POST['draw']) {
+            $draw = $_POST['draw'];
+        } else {
+            $draw = '';
+        }
+
+        $output = array(
+            "draw" => $draw,
+			"recordsTotal" => count($testdata_total),
+            "recordsFiltered" => count($testdata_total),
+            "data" => $data,
+            "status" => 'success',
+			"csrf" => update_csrf_session()
+        );
+
+        # response
+        echo json_encode($output);
+        unset($dttbl_model);
+	}
+
+	public function get_working_chart(){
+		$staff_id = $this->input->post('staff_id');
+		$date = $this->input->post('month');
+		if(($date != '') && ($date != 'null')){
+			$where = 'YEAR ( check_in_date ) = '.date('Y', strtotime($date)).' AND MONTH ( check_in_date ) = '.date('m', strtotime($date)).' ';
+		} else{
+			$where = 'YEAR ( check_in_date ) = '.date('Y').' AND MONTH ( check_in_date ) = '.date('m').' ';
+		}
+		
+		if(($staff_id != 0) && ($staff_id != '') && ($staff_id != 'null')){
+			$where .= ' AND staff_id = ' . $staff_id . ' ';
+		} else{
+			$where .= ' AND staff_id = ' . get_staff_user_id() . ' ';
+		}
+
+		$query = 'SELECT
+			total_hour
+		FROM
+			tbl_staff_attendance 
+		WHERE
+			' . $where . ' ';
+			
+		$query1 = 'SELECT
+			FORMAT(SUM(today_hour), 2) AS total_work_done
+		FROM
+			tbl_staff_attendance 
+		WHERE
+			' . $where . ' ';
+		
+
+		$testdata = $this->Common_model->callSP($query, 'row');
+		$testdata1 = $this->Common_model->callSP($query1, 'row');
+
+		$data = array(
+			'label' => array(
+				'Work Hour Done ' . floatval($testdata1['total_work_done']),
+				'Work Hour Pending ' . floatval($testdata['total_hour']) - floatval($testdata1['total_work_done'])
+			),
+			'serise' => array(
+				floatval($testdata1['total_work_done']),
+				floatval($testdata['total_hour']) - floatval($testdata1['total_work_done'])
+			)
+		);
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'Display modal', 'data' => $data);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+	/**
+	 * Get Day Wise Attendance
+	 * Added by DEEP BASAK on January 22, 2024
+	 */
+	public function day_wise_attendance(){
+		$month = $this->input->post('month');
+		$staff = $this->input->post('staff_id');
+		if(empty($staff)){
+			$where2 = array('staff_id' => get_staff_user_id());
+		} else{
+			$where2 = array('staff_id' => $staff);
+		}
+
+		//CR by DEEP BASAK on January 24, 2024 for bug fixing of column chart
+		if(!empty($month)){
+			$where3 = array('check_in_date >=' => $month . '-01', 'check_in_date <=' => $month . '-31');
 		} else {
-			$data['button_name'] = _l('submit');
+			$where3 = array('check_in_date >=' => date('Y-m') . '-01', 'check_in_date <=' => date('Y-m') . '-31',);
+		}
+
+		$where1 = array('is_active' => 'Y', 'today_hour <>' => '');
+		$where = array_merge($where1, $where2, $where3);
+
+		$attendance_details = $this->Common_model->getAllData('tbl_staff_attendance', 'total_hour, today_hour, check_in_date', '', $where, 'check_in_date ASC');
+		// prx($this->db->last_query());
+		$labels = array();
+		$data = array();
+		if(!empty($attendance_details)){
+			foreach($attendance_details as $key => $val){
+				$labels[] = date("F d, Y", strtotime($val->check_in_date));
+				$data[] = $val->today_hour;
+			}
+		}
+		$mainData = array('data'=> $data, 'label'=>$labels);
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'Display modal', 'chart' => $mainData, 'text'=>'Monthly Attendance in '. date('F, Y', strtotime($month)));
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+	public function load_attendance_modal(){
+		// $data['attendance_list'] = 'test';
+		$join = array(
+			array(
+				'table'		=> 'tblstaff',
+				'on'		=> 'tblstaff.staffid = tbl_staff_attendance.staff_id',
+				'type'		=> 'left'
+			)
+		);
+		if(is_admin()){
+			$data['attendance_list'] = $this->Common_model->getAllData('tbl_staff_attendance', '', '', ['is_active' => 'Y', 'check_in_date' => $this->input->post('date')], 'check_in_date DESC', '', '', '', [], $join);
+		} else{
+			$data['attendance_list'] = $this->Common_model->getAllData('tbl_staff_attendance', '', '', ['is_active' => 'Y', 'staff_id' => get_staff_user_id(), 'check_in_date' => $this->input->post('date')], 'check_in_date DESC', '', '', '', [], $join);
+		}
+
+		$html = $this->load->view('attendances/components/attendance_modal_body', $data, true);
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'Display modal', 'html' => $html);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+	/**
+	 * Manage Payslip
+	 * Added by DEEP BASAK on January 19, 2024
+	 */
+	public function manage_payslip(){
+		if (!has_permission('hrp_attendance', '', 'view') && !has_permission('hrp_attendance', '', 'view_own') && !is_admin()) {
+			access_denied('hrp_attendance');
+		}
+
+		$this->load->model('staff_model');
+		$this->load->model('departments_model');
+
+		//load deparment by manager
+		if (!is_admin() && !has_permission('hrp_employee', '', 'view')) {
+			//View own
+			$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object(get_staffid_by_permission());
+		} else {
+			//admin or view global
+			$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object();
 		}
 
 		$data['departments'] = $this->departments_model->get();
-		$data['roles'] = $this->roles_model->get();
 		$data['staffs'] = $staffs;
-		$data['data_object_kpi'] = $data_object_kpi;
 
-		$data['body_value'] = json_encode($data_object_kpi);
-		$data['columns'] = json_encode($days_header_in_month['columns_type']);
-		$data['col_header'] = json_encode($days_header_in_month['headers']);
+		$data['title'] = 'Staff Payslip';
 
-		$this->load->view('attendances/attendance_manage', $data);
+		$month = date('m');
+		$year = date('Y');
+		$staff_details = $this->Common_model->getAllData('tblstaff', '', '');
+
+		if(!empty($staff_details)){
+			foreach($staff_details as $staff_key => $staff_val){
+				// $check_month_payslip = $this->Common_model->getAllData('tbl_staff_payslip', '', '', ['is_active'=>'Y', 'staff_id' => $staff_val->staffid, 'month' => $month, 'year' => $year, 'is_generate' => 'N']);
+				// if(!empty($check_month_payslip)){
+					$sql = "SELECT * FROM `tbldirect_cost_training` WHERE cost_for = 'staff' AND staff_id = $staff_val->staffid AND created_at LIKE '$year-$month%'";
+					
+					$emp_cost = $this->Common_model->callSP($sql);
+					$empCostVal = 0;
+					if(!empty($emp_cost)){
+						foreach($emp_cost as $key => $val){
+							$empCostVal = $empCostVal + $val['total'] + $val['indirect_cost_total'] + $val['recruitment_cost'] + $val['onboarding_cost'] + $val['payroll_processing_cost'] + $val['hr_personnel_cost'] + $val['administrative_costs'] + $val['employee_training'] + $val['workshops'] + $val['courses'] + $val['certifications'] + $val['materials'] + $val['training_development_expenses_total'] + $val['training_program'] + $val['component_name'] + $val['wefw'] + $val['ewf_wef'] + $val['erger_fbgrnby'];
+						}
+					}
+					$this->Common_model->UpdateDB('tbl_staff_payslip', ['is_active'=>'Y', 'staff_id' => $staff_val->staffid, 'month' => $month, 'year' => $year, 'is_generate' => 'N'], ['is_active' => 'N', 'updated_at' => date('Y-m-d H:i:s'), 'updated_by' => get_staff_user_id()]);
+				// }
+				// if(empty($check_month_payslip)){
+					$where = array(
+						'is_active'=> 'Y', 
+						'check_in_date >=' => $year . '-' . $month . '-01',
+						'check_in_date <=' => $year . '-' . $month . '-31',
+						'staff_id'		=> $staff_val->staffid,
+						'today_hour<>'	=> ''
+					);
+					$totalHourByStaff = 0;
+					$totalHourByMonth = 0;
+					$staffMonthlyHour = 0;
+					$basicSalary = 0;
+					$allowance = 0;
+					$da = 0;
+					$hra = 0;
+					$pTax = 0;
+					$pf = 0;
+					$grossSalary = 0;
+					$netSalary = 0;
+					$attendance_details = $this->Common_model->getAllData('tbl_staff_attendance', '', '', $where);
+					if(!empty($attendance_details)){
+						foreach($attendance_details as $att_key => $att_val){
+							$totalHourByStaff = $totalHourByStaff + $att_val->today_hour;
+							$totalHourByMonth = $att_val->total_hour;
+						}
+					}
+	
+					if($totalHourByMonth > $totalHourByStaff){
+						$staffMonthlyHour = $totalHourByStaff;
+					} else{
+						$staffMonthlyHour = $totalHourByMonth;
+					}
+	
+					$basicSalary = $staffMonthlyHour * $staff_val->hourly_rate;
+					$allowance = (30/100) * $basicSalary;
+					$da = (5/100) * $basicSalary;
+					$hra = (20/100) * $basicSalary;
+					// $pTax = ()
+					$grossSalary = $basicSalary + $allowance + $da + $hra;
+	
+					if($grossSalary < 10000){
+						$pTax = 0;
+					} else if($grossSalary > 10000 && $grossSalary < 15000){
+						$pTax = 110;
+					} else if($grossSalary > 15000 && $grossSalary < 25000){
+						$pTax = 130;
+					} else if($grossSalary > 25000 && $grossSalary < 40000){
+						$pTax = 150;
+					} else{
+						$pTax = 200;
+					}
+					$pf = (12/100) * $basicSalary;
+					$netSalary = $grossSalary - ($pf - $pTax);
+					// pr($staff_val->staffid);
+	
+					$tblData = array(
+						'staff_id'		=> $staff_val->staffid,
+						'month'			=> $month,
+						'month_text'	=> date('F'),
+						'year'			=> $year,
+						'days_working'	=> getWorkingDays($year, $month),
+						'total_work_hour'=> $attendance_details[0]->total_hour,
+						'basic_salary'	=> $basicSalary,
+						'allowance'		=> $allowance,
+						'da'			=> $da,
+						'hra'			=> $hra,
+						'p_tax'			=> $pTax,
+						'pf'			=> $pf,
+						'gross_salary'	=> $grossSalary,
+						'net_salary'	=> $netSalary,
+						'employee_exp'	=> $empCostVal,
+						'is_generate'	=> 'N',
+						'is_active'		=> 'Y',
+						'created_at'	=> date('Y-m-d H:i:s'),
+						'created_by'	=> get_staff_user_id()
+					);
+					// pr($tblData);
+
+					$this->Common_model->add('tbl_staff_payslip', $tblData);
+				// }
+			} 
+			// exit;
+		}
+
+		
+		$this->load->view('attendances/payslip_manage', $data);
+	}
+
+	/**
+	 * Monthly Payslip List
+	 * Added by DEEP BASAK on January 19, 2024
+	 */
+	public function month_payslip_list($date = ''){
+		# customize filter
+		$where = ' `is_active` = "Y" ';
+		if(!is_admin()){
+			$where .= ' AND staff_id = ' . get_staff_user_id() . ' ';
+		}
+
+		if(($date != '') && ($date != 'null')){
+			$where .= ' AND `month_text` = "'.date("F", strtotime($date)).'" ';
+		}
+
+		// Skip number of Rows count  
+		$start = $_POST["start"];
+
+		// Paging Length 10,20  
+		$length = $_POST["length"];
+
+		// Search Value from (Search box)  
+		$searchValue = trim($_POST["search"]["value"]);
+		$searchwhere = '';
+		if(!empty($searchValue)){
+			$searchwhere .= ' AND month_text LIKE "%'.$searchValue.'%" 
+				OR year LIKE "%'.$searchValue.'%" 
+				OR basic_salary LIKE "%'.$searchValue.'%" 
+				OR allowance LIKE "%'.$searchValue.'%"
+				OR da LIKE "%'.$searchValue.'%"
+				OR hra LIKE "%'.$searchValue.'%"
+				OR p_tax LIKE "%'.$searchValue.'%"
+				OR pf LIKE "%'.$searchValue.'%"
+				OR gross_salary LIKE "%'.$searchValue.'%"
+				OR net_salary LIKE "%'.$searchValue.'%"
+				OR tblstaff.firstname LIKE "%'.$searchValue.'%"
+				OR tblstaff.lastname LIKE "%'.$searchValue.'%"';
+		}
+
+		//Paging Size (10, 20, 50,100)  
+		$pageSize = $length != null ? intval($length) : 0;
+		$skip = $start != null ? intval($start) : 0;
+
+		//Datatable view Query
+		$query = 'SELECT
+			tblstaff.firstname, tblstaff.lastname,
+			tbl_staff_payslip.*
+		FROM
+			`tbl_staff_payslip` 
+		LEFT JOIN tblstaff ON tblstaff.staffid = tbl_staff_payslip.staff_id
+		WHERE
+			'.$where.'
+			'.$searchwhere.'
+		ORDER BY
+			tblstaff.firstname DESC
+		LIMIT '.$pageSize.' OFFSET '.$skip.' ';
+
+		// prx($query);
+
+		//Total records query
+		$query_total = 'SELECT
+			tblstaff.firstname, tblstaff.lastname,
+			tbl_staff_payslip.*
+		FROM
+			`tbl_staff_payslip` 
+		LEFT JOIN tblstaff ON tblstaff.staffid = tbl_staff_payslip.staff_id
+		WHERE
+			'.$where.' 
+		ORDER BY
+			tblstaff.firstname DESC';
+
+		$testdata = $this->Common_model->callSP($query);
+		$testdata_total = $this->Common_model->callSP($query_total);
+		$data = array();
+		
+		foreach ($testdata as $key => $fieldData){
+			if($fieldData['is_generate'] == 'Y'){
+				$paid = '<span class="badge badge-success">Paid</span>';
+				$action = '<a href="javascript:" onclick="printPayslip(\'' . $fieldData['id'] . '\')"><i class="fa fa-print"></i></a>';
+			} else{
+				$action = '';
+				$paid = '<span class="badge badge-primary">Not Paid</span>';
+				if(is_admin()){
+					$action = '<a href="javascript:" onclick="paidSalary(\'' . $fieldData['id'] . '\')"><i class="fa fa-check"></i></a>';
+					$action .= '<a href="javascript:" onclick="printPayslip(\'' . $fieldData['id'] . '\')"><i class="fa fa-print"></i></a>';
+				}
+			}
+			$data[] = array(
+				$key + $skip + 1,
+				$fieldData['firstname'] . ' ' . $fieldData['lastname'],
+				$fieldData['month_text'],
+				$fieldData['year'],
+				$fieldData['basic_salary'],
+				$fieldData['allowance'],
+				$fieldData['da'],
+				$fieldData['hra'],
+				$fieldData['p_tax'],
+				$fieldData['pf'],
+				$fieldData['gross_salary'],
+				$fieldData['net_salary'],
+				$fieldData['employee_exp'],
+				$paid,
+				$action
+			);
+		}
+
+		if (isset($_POST['draw']) && $_POST['draw']) {
+            $draw = $_POST['draw'];
+        } else {
+            $draw = '';
+        }
+
+        $output = array(
+            "draw" => $draw,
+			"recordsTotal" => count($testdata_total),
+            "recordsFiltered" => count($testdata_total),
+            "data" => $data,
+            "status" => 'success',
+			"csrf" => update_csrf_session()
+        );
+
+        # response
+        echo json_encode($output);
+        unset($dttbl_model);
+	}
+
+	/**
+	 * Print Payslip
+	 * Added by DEEP BASAK on 22 January, 2024
+	 */
+	public function print_payslip(){
+		$data['id'] = $this->input->post('id');
+		$join = array(
+			array(
+				'table'		=> 'tblstaff',
+				'on'		=> 'tblstaff.staffid = tbl_staff_payslip.staff_id',
+				'type'		=> 'left'
+			)
+		);
+		$data['payslip_details'] = $this->Common_model->getAllData('tbl_staff_payslip', 'tbl_staff_payslip.*, tblstaff.firstname, tblstaff.lastname, tblstaff.staff_identifi', 1, ['id' => $this->input->post('id')], '', '', '', '', [], $join);
+		// prx($this->db->last_query());
+		$html = $this->load->view('attendances/components/payslip_print', $data, true);
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'Display modal', 'html' => $html);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+	/**
+	 * Pay salary
+	 * Added by DEEP BASAK on 02 Febuary, 2024
+	 */
+	public function pain_salary(){
+		$this->Common_model->UpdateDB('tbl_staff_payslip', ['id' => $this->input->post('id')], ['is_generate' => 'Y']);
+		# response
+        $result = array('status'=> 'success', 'message'=>'Salary Paid');
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
 	}
 
 	/**
