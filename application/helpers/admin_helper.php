@@ -535,3 +535,50 @@ function _maybe_system_setup_warnings()
     // Php version notice
     hooks()->add_action('before_start_render_dashboard_content', [new Message('app\services\messages\PhpVersionNotice'), 'check']);
 }
+<<<<<<< Updated upstream
+=======
+
+
+//helper for Update csrf
+//Added by Deep Basak on Febuary 20, 2023
+function update_csrf_session()
+{
+	$CI = &get_instance();
+	$csrf = array(
+		'csrfName' => $CI->security->get_csrf_token_name(),
+		'csrfHash' => $CI->security->get_csrf_hash()
+	);
+	return $csrf;
+
+}
+
+//Helper for getting the no of working days by using month and year
+//Added by DEEP BASAK on January 18, 2024
+function getWorkingDays($year, $month) {
+    $totalDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+    $workingDays = 0;
+
+    for ($day = 1; $day <= $totalDays; $day++) {
+        $currentDate = strtotime("$year-$month-$day");
+        $currentDayOfWeek = date('N', $currentDate);
+
+        // Check if the current day is not Saturday (6) or Sunday (7)
+        if ($currentDayOfWeek < 6) {
+            $workingDays++;
+        }
+    }
+
+    return $workingDays;
+}
+
+function pr($val){
+    // return echo
+    echo "<pre>"; print_r($val); echo "</pre>";
+}
+
+function prx($val){
+    // return echo
+    echo "<pre>"; print_r($val); echo "</pre>"; exit;
+
+}
+>>>>>>> Stashed changes

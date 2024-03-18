@@ -7687,6 +7687,155 @@ return false;
 
         return $result;
     }
+
+	public function get_staff_data() {
+		$this->db->select('tblstaff.*, tblroles.name');
+		$this->db->from('tblstaff');
+		$this->db->join('tblroles', 'tblstaff.role = tblroles.roleid');
+		// $this->db->where('tblstaff.role', 3);
+		$this->db->where_not_in('tblstaff.role', array(0, 1, 2));
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function get_staff_data_tbl() {
+		$this->db->select('tblstaff.*, tblroles.name');
+		$this->db->from('tblstaff');
+		$this->db->join('tblroles', 'tblstaff.role = tblroles.roleid');
+		$this->db->where('tblstaff.role', 4);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function get_user_tasks($userId) {
+		$this->db->where('user_id', $userId);
+		$query = $this->db->get('tblteachingtasks');
+		return $query->result();
+	}
+
+	public function getTasksByUserId($user_id) {
+        $this->db->where('user_id', $user_id);
+        $query = $this->db->get('tblteachingtasks');
+        return $query->result_array();
+    }
+
+	// public function getCourse() {
+    //     // $this->db->where('user_id', $user_id);
+    //     $query = $this->db->get('tblcourse');
+    //     return $query->result_array();
+    // }
+	public function insertcourseFeedback($data) {
+        $this->db->insert('course_feedback', $data);
+        return $this->db->insert_id();
+    }
+	public function getCourse() {
+		if (is_admin()) {
+			$query = $this->db->get('tblcourse');
+		} else {
+			$staff_id = get_staff_user_id();
+			$this->db->where('staffid', $staff_id);
+			$assigned_courses = $this->db->get('tblcourseassign')->result_array();
+			$course_ids = array_column($assigned_courses, 'courseid');
+			$this->db->where_in('CourseID', $course_ids);
+			$query = $this->db->get('tblcourse');
+		}
+	
+		return $query->result_array();
+	}
+
+	public function get_course_details($courseId) {
+        // Fetch course details from the database based on $courseId
+        // Replace 'tblcourse_feedback' with your actual table name
+        $this->db->where('course_id', $courseId);
+        $query = $this->db->get('tblcourse_feedback');
+
+        // Return the result as an array
+        return $query->result_array();
+    }
+	
+	public function insert_course($data) {
+        $this->db->insert('tblcourse', $data);
+        return $this->db->insert_id();
+    }
+
+	public function update_course($courseID, $courseName, $courseDuration, $courseDescription) {
+        $data = array(
+            'CourseName' => $courseName,
+            'CourseDuration' => $courseDuration,
+            'CourseDescription' => $courseDescription
+        );
+		// print_r($courseID);die();
+        $this->db->where('CourseID', $courseID);
+        $this->db->update('tblcourse', $data);
+    }
+
+    public function update_course_file($courseID, $filename) {
+        $data = array(
+            'CourseFiles' => $filename
+        );
+        $this->db->where('CourseID', $courseID);
+        $this->db->update('tblcourse', $data);
+    }
+
+    public function get_course_filename($courseID) {
+        // Fetch the current filename from the database
+        $this->db->select('CourseFiles');
+        $this->db->where('CourseID', $courseID);
+        $query = $this->db->get('tblcourse');
+        $result = $query->row_array();
+
+        return isset($result['CourseFiles']) ? $result['CourseFiles'] : null;
+    }
+
+	public function delete_course($courseID)
+    {
+        
+        $this->db->where('CourseID', $courseID);
+        $this->db->delete('tblcourse');
+        return $this->db->affected_rows() > 0;
+    }
+
+	public function updateTaskStatus($task_id, $new_status) {
+        $this->db->where('task_id', $task_id);
+        $update_data = array('status' => $new_status);
+        $update_result = $this->db->update('tblteachingtasks', $update_data);
+        return $update_result;
+    }
+
+	public function getStaffMembers() {
+        return $this->db->get('tblstaff')->result_array();
+    }
+
+    // public function getChatHistory($senderId, $receiverId) {
+    //     $this->db->where("(sender_id = $senderId AND receiver_id = $receiverId) OR (sender_id = $receiverId AND receiver_id = $senderId)");
+    //     $this->db->order_by('timestamp', 'ASC');
+    //     return $this->db->get('tblchatstaff')->result_array();
+    // }
+
+	public function get_chat_history($senderId, $receiverId) {
+        // Fetch chat history from tblchatstaff based on sender_id and receiver_id
+        $this->db->select('*');
+        $this->db->from('tblchatstaff');
+        $this->db->where('(sender_id = ' . $senderId . ' AND receiver_id = ' . $receiverId . ') OR (sender_id = ' . $receiverId . ' AND receiver_id = ' . $senderId . ')');
+        $this->db->order_by('timestamp', 'ASC');
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+    public function insert_chat($senderId, $receiverId, $message) {
+        $timestamp = time();
+		$date_time = date("Y-m-d h:i:s A", $timestamp);
+        $data = array(
+            'sender_id' => $senderId,
+            'receiver_id' => $receiverId,
+            'message' => $message,
+            'timestamp' => $date_time
+        );
+
+        $this->db->insert('tblchatstaff', $data);
+    }
+	
 	
 //end file 
 }
