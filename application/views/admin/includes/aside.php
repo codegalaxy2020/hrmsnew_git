@@ -6,14 +6,7 @@
                 <?php echo get_company_logo(get_admin_uri() . '/', '!tw-mt-0')?>
             </div>
         </li>
-        <li class="menu-item-hrm_dashboard">
-           <a href="<?=base_url();?>admin/tasks" aria-expanded="false">
-                <i class="fa fa-home menu-icon"></i>
-                <span class="menu-text">
-                    Tasks     
-                </span>
-            </a>
-         </li>
+        
         <?php
          hooks()->do_action('before_render_aside_menu');
          ?>
@@ -78,7 +71,7 @@
          
         <li class="menu-item-cost_tracking">
             <a href="#" aria-expanded="true">
-                <i class="fa fa-users menu-icon"></i>
+                <i class="fa fa-balance-scale menu-icon"></i>
                 <span class="menu-text">
                     Cost Tracking 
                 </span>
@@ -117,9 +110,9 @@
                         
         </li>
         <?php if(is_admin()){?>
-        <li class="menu-item-faculty">
+        <!-- <li class="menu-item-faculty">
             <a href="#" aria-expanded="true">
-                <i class="fa fa-users menu-icon"></i>
+                <i class="fa fa-handshake menu-icon"></i>
                 <span class="menu-text">
                 Faculty / Coordinator 
                 </span>
@@ -145,6 +138,99 @@
                 </li>
             </ul>
                         
+        </li> -->
+
+        <li class="menu-item-faculty">
+            <a href="#" aria-expanded="true">
+                <i class="fa fa-handshake menu-icon"></i>
+                <span class="menu-text">
+                Faculty / Coordinator 
+                </span>
+                <span class="fa arrow pleft5"></span>
+            </a>
+            <ul class="nav nav-second-level" aria-expanded="true" style="">
+                <?php if(is_admin()){?>
+                <li class="sub-menu-item-faculty">
+                    <a href="<?=base_url();?>admin/roles">
+                      <i class="fa fa-adjust menu-icon"></i>
+                        <span class="sub-menu-text">
+                            Role Manage   
+                         </span>
+                    </a>
+                </li>
+                <li class="sub-menu-item-faculty">
+                    <a href="<?=base_url();?>admin/hr_profile/manage_course">
+                      <i class="fa fa-graduation-cap menu-icon"></i>
+                        <span class="sub-menu-text">
+                        Course Manage   
+                         </span>
+                    </a>
+                </li>
+                <li class="sub-menu-item-faculty">
+                    <a href="<?=base_url();?>admin/hr_profile/manage_faculty">
+                      <i class="fa fa-address-book menu-icon"></i>
+                        <span class="sub-menu-text">
+                          Faculty & Coordinators
+                         </span>
+                    </a>
+                </li>
+                
+                <?php }?>
+                <?php if(!is_admin()){?>
+                <li class="sub-menu-item-faculty">
+                    <a href="<?=base_url();?>admin/hr_profile/manage_tasks">
+                        <i class="fa-regular fa-circle-check menu-icon"></i>
+                        <span class="sub-menu-text">
+                        Assign Tasks 
+                        </span>
+                    </a>
+                </li>
+                <li class="sub-menu-item-faculty">
+                    <a href="<?=base_url();?>admin/hr_profile/manage_course">
+                        <i class="fa-regular fa-circle-check menu-icon"></i>
+                        <span class="sub-menu-text">
+                        Assign Courses 
+                        </span>
+                    </a>
+                </li>
+                
+                <?php }?>
+                <li class="sub-menu-item-faculty">
+                    <a href="<?=base_url();?>admin/hr_profile/docsmgt">
+                        <i class="fa-regular fa-circle-check menu-icon"></i>
+                        <span class="sub-menu-text">
+                        Document Management
+                        </span>
+                    </a>
+                </li>
+                <li class="sub-menu-item-discussion">
+                    <a href="<?=base_url();?>admin/hr_profile/discussion_forums">
+                        <i class="fa-regular fa-circle-check menu-icon"></i>
+                        <span class="sub-menu-text">
+                        Discussion Forums
+                        </span>
+                    </a>
+                </li>                
+                <li class="sub-menu-item-faculty">
+                    <a href="<?php echo admin_url('utilities/calendar'); ?>">
+                        <i class="fa-regular fa-circle-check menu-icon"></i>
+                        <span class="sub-menu-text">
+                        Personal Calender 
+                        </span>
+                    </a>
+                </li>
+            </ul>
+                        
+        </li>
+
+        <li class="menu-item-faculty">
+            <a href="<?=base_url();?>admin/hr_profile/chat" aria-expanded="true">
+                <i class="fa fa-comment-dots menu-icon"></i>
+                <span class="menu-text">
+                Chat 
+                </span>
+                
+            </a>
         </li>
         <?php } ?>
 
