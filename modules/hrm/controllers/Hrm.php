@@ -9,6 +9,7 @@ class hrm extends AdminController
     {
         parent::__construct();
         $this->load->model('hrm_model');
+        $this->load->model('common/Common_model');      //Added by DEEP BASAK on Febuary 08, 2024
     }
 
     /* List all announcements */
@@ -394,8 +395,23 @@ public function latch_payslip(){
                 $ts_filter_data['this_month'] = true;
             }
 
-            $data['logged_time'] = $this->staff_model->get_logged_time_data($id, $ts_filter_data);
-            
+            // $data['logged_time'] = $this->staff_model->get_logged_time_data($id, $ts_filter_data);
+
+            //Added by DEEP BASAK on Febuary 08, 2024
+            $sql = "SELECT 
+            (SELECT ROUND(SUM(today_hour), 2) FROM tbl_staff_attendance WHERE staff_id = '".$id."') AS total_login_time,
+            (SELECT ROUND(SUM(today_hour), 2) FROM tbl_staff_attendance WHERE staff_id = '".$id."' AND DATE_FORMAT(created_at, '%Y-%m') = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH), '%Y-%m')) AS last_month_login_time,
+            (SELECT ROUND(SUM(today_hour), 2) FROM tbl_staff_attendance WHERE staff_id = '".$id."' AND DATE_FORMAT(created_at, '%Y-%m') = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 0 MONTH), '%Y-%m')) AS this_month_login_time,
+            (SELECT ROUND(SUM(today_hour), 2) FROM tbl_staff_attendance WHERE staff_id = '".$id."' AND WEEK(created_at) = WEEK(NOW())) AS this_week_login_time,
+            (SELECT ROUND(SUM(today_hour), 2) FROM tbl_staff_attendance WHERE staff_id = '".$id."' AND created_at >= DATE_SUB(DATE(NOW()), INTERVAL (WEEKDAY(NOW()) + 7) DAY) AND created_at < DATE_SUB(DATE(NOW()), INTERVAL WEEKDAY(NOW()) DAY)) AS last_week_login_time";
+            $logged_time = $this->Common_model->callSP($sql, 'row');
+            $result1['total']      = $logged_time['total_login_time'];
+            $result1['this_month'] = $logged_time['this_month_login_time'];
+            $result1['last_month'] = $logged_time['last_month_login_time'];
+            $result1['this_week']  = $logged_time['this_week_login_time'];
+            $result1['last_week']  = $logged_time['last_week_login_time'];
+            $data['logged_time'] = $result1;
+            // prx($logged_time);
         }
         $this->load->model('currencies_model');
         $data['positions'] = $this->hrm_model->get_job_position();

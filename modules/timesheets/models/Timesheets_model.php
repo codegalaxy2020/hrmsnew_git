@@ -4101,9 +4101,9 @@ class timesheets_model extends app_model {
  * @param  date $to_date
  * @return array
  */
-	public function get_timesheet($staffid = '', $from_date, $to_date) {
-		return $this->db->query('select * from ' . db_prefix() . 'timesheets_timesheet where staff_id = ' . $staffid . ' and date_work between \'' . $from_date . '\' and \'' . $to_date . '\'')->result_array();
-	}
+	// public function get_timesheet($staffid = '', $from_date, $to_date) {
+	// 	return $this->db->query('select * from ' . db_prefix() . 'timesheets_timesheet where staff_id = ' . $staffid . ' and date_work between \'' . $from_date . '\' and \'' . $to_date . '\'')->result_array();
+	// }
 	/**
 	 * report by working hours
 	 */
