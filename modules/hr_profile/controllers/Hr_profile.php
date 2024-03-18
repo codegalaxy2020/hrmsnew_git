@@ -1015,6 +1015,245 @@ class Hr_profile extends AdminController {
 
 		$this->load->view('hr_profile/training/manage_faculty', $data);
 	}
+
+	public function manage_tasks($id = '') {
+		$this->app_scripts->add('surveys-js', module_dir_url('surveys', 'assets/js/surveys.js'), 'admin', ['app-js']);
+		$this->app_css->add('surveys-css', module_dir_url('hr_profile', 'assets/css/training/training_post.css'), 'admin', ['app-css']);
+
+		$this->load->view('hr_profile/training/manage_tasks');
+	}
+
+	public function docsmgt($id = '') {
+		$this->app_scripts->add('surveys-js', module_dir_url('surveys', 'assets/js/surveys.js'), 'admin', ['app-js']);
+		$this->app_css->add('surveys-css', module_dir_url('hr_profile', 'assets/css/training/training_post.css'), 'admin', ['app-css']);
+		// $data['folders'] = $this->get_folders('./staffuploads/');
+		$user_id = get_staff_user_id();
+		$data['folders'] = $this->get_folders_by_user($user_id);
+		$this->load->view('hr_profile/training/manage_docs',$data);
+	}
+	public function manage_course() {
+		$this->app_scripts->add('surveys-js', module_dir_url('surveys', 'assets/js/surveys.js'), 'admin', ['app-js']);
+		$this->app_css->add('surveys-css', module_dir_url('hr_profile', 'assets/css/training/training_post.css'), 'admin', ['app-css']);
+
+		$this->load->view('hr_profile/training/manage_course');
+	}
+
+	public function discussion_forums() {
+		$this->app_scripts->add('surveys-js', module_dir_url('surveys', 'assets/js/surveys.js'), 'admin', ['app-js']);
+		$this->app_css->add('surveys-css', module_dir_url('hr_profile', 'assets/css/training/training_post.css'), 'admin', ['app-css']);
+
+		$this->load->view('hr_profile/training/discussion_forums');
+	}
+
+	public function get_staff_data() {
+        $data['staff_data'] = $this->hr_profile_model->get_staff_data();
+        echo json_encode($data);
+    }
+
+	public function get_staff_data_tbl() {
+        $data['staff_data'] = $this->hr_profile_model->get_staff_data_tbl();
+        echo json_encode($data);
+    }
+
+	public function assign_course() {
+        // Check if it's a POST request
+        if ($this->input->server('REQUEST_METHOD') === 'POST') {
+            // Get the user ID and other form data
+            $userId = $this->input->post('userId');
+            $courseDropdown = $this->input->post('courseDropdown');
+            $data = array(
+                'staffid' => $userId,
+                'courseid' => $courseDropdown
+            );
+
+            $this->db->insert('tblcourseassign', $data);
+
+            // Send a response, if needed
+            $response = array('status' => 'success', 'message' => 'Course assigned successfully');
+            echo json_encode($response);
+        } else {
+            // If it's not a POST request, handle it accordingly
+            show_error('Invalid Request', 400);
+        }
+    }
+
+	public function assign_task() {
+        // Check if it's a POST request
+        if ($this->input->server('REQUEST_METHOD') === 'POST') {
+            // Get the user ID and other form data
+            $userId = $this->input->post('userId');
+            $taskName = $this->input->post('taskName');
+            $startDate = $this->input->post('startDate');
+            $dueDate = $this->input->post('dueDate');
+            $taskDescription = $this->input->post('taskDescription');
+            $taskPriority = $this->input->post('taskPriority');
+
+            // Validate and process the form data as needed
+            // Perform your database operations or other actions here
+
+            // Example: Insert the task into a hypothetical tasks table
+            $data = array(
+                'user_id' => $userId,
+                'task_name' => $taskName,
+                'start_date' => $startDate,
+                'due_date' => $dueDate,
+                'description' => $taskDescription,
+                'priority' => $taskPriority,
+				'status' => 'pending'
+            );
+
+            $this->db->insert('tblteachingtasks', $data);
+
+            // Send a response, if needed
+            $response = array('status' => 'success', 'message' => 'Task assigned successfully');
+            echo json_encode($response);
+        } else {
+            // If it's not a POST request, handle it accordingly
+            show_error('Invalid Request', 400);
+        }
+    }
+	public function get_user_tasks() {
+		$userId = $this->input->get('userId');
+		$tasks = $this->hr_profile_model->get_user_tasks($userId);
+		header('Content-Type: application/json');
+		echo json_encode(array('tasks' => $tasks));
+	}
+
+	public function get_tasks() {
+        $user_id = $this->input->post('user_id');
+        $tasks = $this->hr_profile_model->getTasksByUserId(get_staff_user_id());
+        header('Content-Type: application/json');
+        echo json_encode($tasks);
+    }
+
+	public function get_course() {
+        // $user_id = $this->input->post('user_id');
+        $tasks = $this->hr_profile_model->getCourse();
+        header('Content-Type: application/json');
+        echo json_encode($tasks);
+    }
+
+	public function addcoursefeedback()
+{
+    $data = array(
+        'course_id' => $this->input->post('course_id'),
+        'feedback' => $this->input->post('feedback'),
+        'rating' => $this->input->post('rating')
+    );
+	// print_r($data);die();
+    $result = $this->hr_profile_model->insertcourseFeedback($data);
+	// print_r($result);die();
+    if ($result) {
+        echo json_encode(array('success' => true));
+    } else {
+        echo json_encode(array('success' => false));
+    }
+}
+
+public function get_course_details() {
+	$courseId = $this->input->get('courseId');
+	$courseDetails = $this->hr_profile_model->get_course_details($courseId);
+	header('Content-Type: application/json');
+	echo json_encode($courseDetails);
+}
+
+	public function add_course() {
+        
+            // Get form data
+            $courseData = array(
+                'CourseName' => $this->input->post('CourseName'),
+                'CourseDuration' => $this->input->post('CourseDuration'),
+                'CourseDescription' => $this->input->post('CourseDescription'),
+                'CourseFiles' => $this->upload_course_files()
+                // Add other fields as needed
+            );
+
+			// print_r($courseData);die();
+
+            // Insert data into the database
+            $insertedCourseID = $this->hr_profile_model->insert_course($courseData);
+
+            if ($insertedCourseID) {
+                // Course added successfully
+                $response = array('status' => 'success', 'message' => 'Course added successfully.');
+                echo json_encode($response);
+            } else {
+                // Failed to add course
+                $response = array('status' => 'error', 'message' => 'Failed to add course.');
+                echo json_encode($response);
+            }
+        
+    }
+
+    // Function to handle file upload
+    private function upload_course_files() {
+        $config['upload_path'] = './uploads/course_files/';
+        $config['allowed_types'] = 'pdf|doc|docx'; // Adjust file types as needed
+        $config['encrypt_name'] = TRUE;
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('CourseFiles')) {
+            // File uploaded successfully
+            $uploadData = $this->upload->data();
+            return $uploadData['file_name'];
+        } else {
+            // File upload failed
+            return '';
+        }
+    }
+
+	public function update_course() {
+        $courseID = $this->input->post('courseID');
+        $courseName = $this->input->post('editCourseName');
+        $courseDuration = $this->input->post('editCourseDuration');
+        $courseDescription = $this->input->post('editCourseDescription');
+
+        // Check if a new file is uploaded
+        if (!empty($_FILES['editCourseFiles']['name'])) {
+            
+            $uploadedFile = $this->upload_files('editCourseFiles');
+            if ($uploadedFile) {                
+                $currentFilename = $this->hr_profile_model->get_course_filename($courseID);
+                if ($currentFilename) {
+                    unlink('uploads/course_files/' . $currentFilename);
+                }
+
+                
+                $this->hr_profile_model->update_course_file($courseID, $uploadedFile['file_name']);
+            }
+        }
+
+        
+        $this->hr_profile_model->update_course($courseID, $courseName, $courseDuration, $courseDescription);
+        $response = array('status' => 'success', 'message' => 'Course updated successfully.');
+    	echo json_encode($response);
+    }
+
+    // Function to upload a file
+    private function upload_files($fieldName) {
+        $config['upload_path'] = 'uploads/course_files/';
+        $config['allowed_types'] = 'pdf|doc|docx';
+        $config['max_size'] = 2048;  // 2MB max size
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload($fieldName)) {
+            return $this->upload->data();
+        } else {
+            
+            return false;
+        }
+    }
+
+
+	public function update_status() {
+        $task_id = $this->input->post('task_id');
+        $new_status = $this->input->post('new_status');
+        $update_result = $this->hr_profile_model->updateTaskStatus($task_id, $new_status);
+        header('Content-Type: application/json');
+        echo json_encode(array('success' => $update_result));
+    }
 	
 	public function deleteFaculty() {
         if ($this->input->server('REQUEST_METHOD') === 'POST') {
@@ -1030,9 +1269,31 @@ class Hr_profile extends AdminController {
             echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
         }
     }
+
+	public function delete_course()
+    {
+        
+        if ($this->input->is_ajax_request()) {
+            $courseID = $this->input->post('courseID');
+
+            if ($courseID) {
+                $result = $this->hr_profile_model->delete_course($courseID);
+                if ($result) {
+                    $response = array('success' => true);
+                } else {
+                    $response = array('success' => false);
+                }
+            } else {
+                $response = array('success' => false);
+            }
+            $this->output->set_content_type('application/json')->set_output(json_encode($response));
+        } else {
+            show_error('Invalid Request', 400);
+        }
+    }
     
     public function editFaculty($facultyId) {
-        $data['title'] = $title;
+        $data['title'] = 'Edit Faculty';
 		$data['type_of_trainings'] = $this->hr_profile_model->get_training_program();
 // 		print_r($data['type_of_trainings']);die();
 		$this->app_scripts->add('surveys-js', module_dir_url('surveys', 'assets/js/surveys.js'), 'admin', ['app-js']);
@@ -7826,7 +8087,6 @@ public function get_list_job_position_training($id) {
 	 */
 	public function table_training_program() {
 		$this->app->get_table_data(module_views_path('hr_profile', 'training/job_position_manage/training_programs_table'));
-		// echo $this->db->last_query();
 	}
 
 	/**
@@ -8611,6 +8871,217 @@ public function get_list_job_position_training($id) {
             echo "Invalid request";
         }
     } 
+
+	//folders 
+	private function get_folders($path) {
+		$folders = [];
+		$directories = glob($path . '*', GLOB_ONLYDIR);
+		foreach ($directories as $directory) {
+		   $folders[] = basename($directory);
+		}
+		return $folders;
+	 }
+  
+	 // Function to handle folder creation
+	 public function create_folder() {
+		$folder_name = $this->input->post('folder_name');
+		$path = './staffuploads/' . $folder_name;
+		$user_id = get_staff_user_id();
+  
+		// Logic to create the folder
+		if (!is_dir($path)) {
+		   mkdir($path, 0777, true);
+		   $data = array(
+            'user_id' => $user_id,
+            'folder_name' => $folder_name
+        	);
+
+        $this->db->insert('tblfolders', $data);
+		   echo json_encode(['status' => 'success', 'message' => 'Folder created successfully.']);
+		} else {
+		   echo json_encode(['status' => 'error', 'message' => 'Folder already exists.']);
+		}
+	 }
+  
+	
+	 public function show_folder($folder_name) {
+		$path = './staffuploads/' . $folder_name;
+		$data['folder_name'] = $folder_name;
+		$data['files'] = $this->get_files($path);
+		$this->load->view('training/folder_view', $data);
+	 }
+
+	// public function show_folders() {
+	// 	$user_id = get_staff_user_id();
+	// 	$data['folders'] = $this->get_folders_by_user($user_id);
+	// 	$this->load->view('training/folders_view', $data);
+	// }
+	private function get_folders_by_user($user_id) {
+		if(!is_admin()){
+		return $this->db->where('user_id', $user_id)
+						->get('tblfolders')
+						->result();
+		} else {
+			return $this->db->get('tblfolders')			
+			->result();	
+		}
+	}
+  
+	 // Function to get a list of files in a folder
+	 private function get_files($path) {
+		$files = [];
+		if (is_dir($path)) {
+		   $files = array_diff(scandir($path), array('.', '..'));
+		}
+		return $files;
+	 }
+  
+	 // Function to handle file upload
+	 public function upload_file1() {
+		$folder_name = $this->input->post('folder_name');
+		$path = './staffuploads/' . $folder_name;
+  
+		$config['upload_path'] = $path;
+		$config['allowed_types'] = 'gif|jpg|png|txt|pdf'; // Adjust file types as needed
+		$this->load->library('upload', $config);
+  
+		if ($this->upload->do_upload('userfile')) {
+		   echo json_encode(['status' => 'success', 'message' => 'File uploaded successfully.']);
+		} else {
+		   echo json_encode(['status' => 'error', 'message' => $this->upload->display_errors()]);
+		}
+	 }
+
+	 public function download_file($folder_name, $filename) {
+        $full_path = './staffuploads/' . $folder_name . '/' . $filename;
+		// print_r($filename);die();
+        if (file_exists($full_path)) {
+            $this->load->helper('download');
+            $data = file_get_contents($full_path);
+            force_download($filename, $data);
+        } else {
+            echo 'File does not exist.';
+        }
+    }
+
+	public function add_discussion_forum() {
+        // Process the form data and add discussion forum to the database
+        // You can access form data using $this->input->post('fieldname')
+
+        // Example: Insert data into the discussion_forums table
+        $data = array(
+            'subject' => $this->input->post('subject'),
+            'description' => $this->input->post('description'),
+            // Add other fields as needed
+        );
+
+        // Handle file upload if needed
+        if (!empty($_FILES['attached_file']['name'])) {
+            $config['upload_path'] = './uploads/'; // Specify your upload path
+            $config['allowed_types'] = 'gif|jpg|jpeg|png|pdf'; // Adjust allowed file types
+            $config['max_size'] = 2048; // Maximum file size in KB
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('attached_file')) {
+                $upload_data = $this->upload->data();
+                $data['attached_file'] = $upload_data['file_name'];
+            } else {
+                echo $this->upload->display_errors();
+                return;
+            }
+        }
+
+        $this->db->insert('tbldiscussion_forums', $data);
+
+        // Return a response (e.g., success or error message)
+        echo 'Discussion forum added successfully!';
+    }
+
+	public function get_discussion_forums() {
+		$discussion_forums = $this->db->get('tbldiscussion_forums')->result_array();
+		echo json_encode($discussion_forums);
+	}
+
+	public function delete_forum() {
+		$forum_id = $this->input->post('forum_id');
+		$this->db->where('forum_id', $forum_id);
+		$this->db->delete('tbldiscussion_forums');
+		echo 'Forum deleted successfully!';
+	}
+
+	public function get_forum_details() {
+		$forum_id = $this->input->get('forum_id');
+		$forum_details = $this->db->get_where('tbldiscussion_forums', array('forum_id' => $forum_id))->row_array();
+		echo json_encode($forum_details);
+	}
+	
+	// public function get_forum_discussions() {
+	// 	$forum_id = $this->input->get('forum_id');
+	// 	$discussions = $this->db->get_where('tbldiscussion', array('forum_id' => $forum_id))->result_array();
+	// 	echo json_encode($discussions);
+	// }
+
+	public function get_forum_discussions() {
+		$forum_id = $this->input->get('forum_id');
+		$this->db->select('tbldiscussion.*, tblstaff.firstname, tblstaff.lastname');
+		$this->db->from('tbldiscussion');
+		$this->db->join('tblstaff', 'tbldiscussion.user_id = tblstaff.staffid', 'left');
+		$this->db->where('tbldiscussion.forum_id', $forum_id);
+	
+		$discussions = $this->db->get()->result_array();
+		echo json_encode($discussions);
+	}
+
+	public function add_discussion() {
+		$forum_id = $this->input->post('forum_id');
+		$user_id = get_staff_user_id();
+		$message = $this->input->post('message');
+	
+		$data = array(
+			'forum_id' => $forum_id,
+			'user_id' => $user_id,
+			'message' => $message,
+		);
+	
+		$this->db->insert('tbldiscussion', $data);
+	
+		// Return a response (you can customize the response as needed)
+		echo 'Discussion added successfully!';
+	}
+
+	public function chat() {
+		$this->app_scripts->add('surveys-js', module_dir_url('surveys', 'assets/js/surveys.js'), 'admin', ['app-js']);
+		$this->app_css->add('surveys-css', module_dir_url('hr_profile', 'assets/css/training/training_post.css'), 'admin', ['app-css']);
+		$data['staff_members'] = $this->hr_profile_model->getStaffMembers();
+		// print_r($data['staff_members']);die();
+		$data['loggedInUserId'] = get_staff_user_id();
+		$this->load->view('hr_profile/training/chat',$data);
+	}
+
+	// public function getChatHistory($senderId, $receiverId) {
+    //     $chatHistory = $this->hr_profile_model->getChatHistory($senderId, $receiverId);
+    //     echo json_encode($chatHistory);
+    // }
+	
+	public function ajax_get_chat_history() {
+        $senderId = get_staff_user_id();
+        $receiverId = $this->input->post('receiver_id'); 
+        $chatHistory = $this->hr_profile_model->get_chat_history($senderId, $receiverId);
+		// print_r($chatHistory);
+        echo json_encode($chatHistory);
+    }
+
+    public function ajax_insert_chat() {
+        $senderId = get_staff_user_id();
+        $receiverId = $this->input->post('receiver_id');
+        $message = $this->input->post('message');
+        // Insert chat data into tblchatstaff
+        $this->hr_profile_model->insert_chat($senderId, $receiverId, $message);
+
+        // Return a response (success or error) as JSON
+        echo json_encode(['status' => 'success']);
+    }
 
 //end file
 }
