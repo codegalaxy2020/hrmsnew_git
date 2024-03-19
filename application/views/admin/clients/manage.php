@@ -39,7 +39,7 @@
                     <a href="<?php echo admin_url('clients/client'); ?>"
                         class="btn btn-primary mright5 test pull-left display-block">
                         <i class="fa-regular fa-plus tw-mr-1"></i>
-                        <?php echo _l('new_client'); ?></a>
+                        Add Vendor</a>
                     <a href="<?php echo admin_url('clients/import'); ?>"
                         class="btn btn-primary pull-left display-block mright5 hidden-xs">
                         <i class="fa-solid fa-upload tw-mr-1"></i>

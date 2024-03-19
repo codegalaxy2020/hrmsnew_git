@@ -32,6 +32,11 @@ class Authentication_model extends App_Model
             $this->db->where('email', $email);
             $user = $this->db->get($table)->row();
             if ($user) {
+                // print_r($user);die();
+                $this->db->set('is_login', 1);
+                $this->db->where('staffid', $user->staffid);
+                $this->db->update('tblstaff');
+
                 // Email is okey lets check the password now
                 if (!app_hasher()->CheckPassword($password, $user->password)) {
                     hooks()->do_action('failed_login_attempt', [
@@ -125,6 +130,7 @@ class Authentication_model extends App_Model
      */
     public function logout($staff = true)
     {
+        // print_r($staff);die();        
         $this->delete_autologin($staff);
 
         if (is_client_logged_in()) {
@@ -133,6 +139,9 @@ class Authentication_model extends App_Model
             $this->session->unset_userdata('client_user_id');
             $this->session->unset_userdata('client_logged_in');
         } else {
+            $this->db->set('is_login', 0);
+            $this->db->where('staffid', get_staff_user_id());
+            $this->db->update('tblstaff');
             hooks()->do_action('before_staff_logout', get_staff_user_id());
 
             $this->session->unset_userdata('staff_user_id');

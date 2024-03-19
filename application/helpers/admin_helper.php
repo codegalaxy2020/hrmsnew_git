@@ -576,6 +576,7 @@ function pr($val){
 function prx($val){
     // return echo
     echo "<pre>"; print_r($val); echo "</pre>"; exit;
+
 }
 
 //Added by DEEP BASAK on March 19, 2024
