@@ -33,10 +33,10 @@
 									<?php if(is_admin()): ?>
 									<div class="col-md-2">
 										<label>Month</label>
-										<input type="month" onchange="filterData(this.value)" class="form-control" id="month_attendance" name="month_attendance" value="<?= date('Y-m') ?>">
+										<input type="month" onchange="filterData(this.value, $('#staff_attendance').val())" class="form-control" id="month_attendance" name="month_attendance" value="<?= date('Y-m') ?>">
 									</div>
 
-									<!-- <div class="col-md-2 leads-filter-column pull-left">
+									<div class="col-md-2 leads-filter-column pull-left">
 
 										<div class="form-group">
 											<label for="staff_attendance" class="control-label"><?php echo _l('staff'); ?></label>
@@ -48,12 +48,12 @@
 											</select>
 										</div>
 
-									</div> -->
+									</div>
 									<?php endif; ?>
 
-									<!-- <div class="col-md-2 leads-filter-column pull-right">
+									<div class="col-md-2 leads-filter-column pull-right">
 										<a class="btn btn-primary btn-block" href="javascript:void(0)" onclick="openExpensesModal()"><i class="fa fa-plus"></i>Add expenses</a>
-									</div> -->
+									</div>
 
 								</div>
 								<!-- filter -->
@@ -61,24 +61,17 @@
 							<div class="col-md-12">
 								<hr class="hr-color">
 								<div class="table-responsive">
-									<table class="table table-bordered table-sm" id="table-staff_payslip">
+									<table class="table table-bordered table-sm" id="table-staff_expense">
 										<thead>
 											<tr>
 												<th>#</th>
 												<th>Staff</th>
 												<th>Month</th>
 												<th>Year</th>
-												<th>Basic Salary</th>
-												<th>Allowance</th>
-												<!-- <th>DA</th> -->
-												<th>HRA</th>
-												<th>P-Tax</th>
-												<th>PF</th>
-												<th>Gross Salary</th>
-												<th>Net Salary</th>
-												<th>Employee Expence</th>
-												<th>Paid / Unpaid</th>
-												<th>Action</th>
+												<th>Expense Type</th>
+												<th>Expense Amount (₹)</th>
+												<th>Reason</th>
+												<th>Document</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -108,7 +101,7 @@
 <div class="modal fade" id="attendance_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
-            <form id="modalFeedbackForm">
+            <form id="modalForm">
                 <div class="modal-header">
                     <h5 class="modal-title" id="attendance_modal_title">Modal title</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -127,7 +120,7 @@
 
 
 <?php init_tail(); ?>
-<?php require 'modules/hr_payroll/assets/js/attendances/payslip_manage_js.php'; ?>
+<?php require 'modules/hr_payroll/assets/js/attendances/expense_manage_js.php'; ?>
 
 </body>
 </html>

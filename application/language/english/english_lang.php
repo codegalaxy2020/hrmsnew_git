@@ -257,6 +257,8 @@ $lang['payment_not_exists']                   = 'The payment does not exists';
 $lang['payment_edit_for_invoice']             = 'Payment for Invoice';
 $lang['payment_edit_amount_received']         = 'Amount Received';
 $lang['payment_edit_date']                    = 'Payment Date';
+$lang['payslip']                              = 'Payslip';                  //Added by DEEP BASAK on March 19, 2024
+$lang['expenses']                             = 'Expenses';                  //Added by DEEP BASAK on March 19, 2024
 
 # Knowledge Base
 $lang['kb_article_add_edit_subject']   = 'Subject';

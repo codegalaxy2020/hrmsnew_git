@@ -28,6 +28,34 @@ function app_init_admin_sidebar_menu_items()
         ]);
     }
 
+    //Added by DEEP BASAK on March 19, 2024
+    if(is_admin()):
+        $CI->app_menu->add_sidebar_menu_item('payslip', [
+            'name'     => _l('payslip'),
+            'href'     => admin_url('hr_payroll/manage_payslip'),
+            'position' => 10,
+            'icon'     => 'fa fa-google-wallet',
+            'badge'    => [],
+        ]);
+
+        $CI->app_menu->add_sidebar_children_item('payslip', [
+            'slug'     => 'payslip',
+            'name'     => _l('payslip'),
+            'href'     => admin_url('hr_payroll/manage_payslip'),
+            'position' => 15,
+            'badge'    => [],
+        ]);
+
+        $CI->app_menu->add_sidebar_children_item('payslip', [
+            'slug'     => 'expenses',
+            'name'     => _l('expenses'),
+            'href'     => admin_url('hr_payroll/manage_expenses'),
+            'position' => 15,
+            'badge'    => [],
+        ]);
+    endif;
+
+
     $CI->app_menu->add_sidebar_menu_item('sales', [
         'collapse' => true,
         'name'     => _l('als_sales'),
