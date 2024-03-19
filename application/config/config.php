@@ -2,8 +2,9 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 define('APP_MINIMUM_REQUIRED_PHP_VERSION', '7.4');
-            // error_reporting(E_ALL);
-            // ini_set('display_errors', 1);
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 if (file_exists(APPPATH . 'config/app-config.php')) {
     if (version_compare(PHP_VERSION, APP_MINIMUM_REQUIRED_PHP_VERSION) === -1) {
