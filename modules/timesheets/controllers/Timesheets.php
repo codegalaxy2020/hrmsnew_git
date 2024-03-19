@@ -4528,9 +4528,11 @@ public function check_in_ts() {
 		} else if($this->input->post('type_check') == 2){
 
 			$val = $this->Common_model->getAllData('tbl_staff_attendance', '', 1, ['is_active' => 'Y', 'staff_id' => $this->input->post('staff_id'), 'check_in_date' => date('Y-m-d')], 'check_in_date DESC');
+			// prx($val);
 
 			$startTime = new DateTime($val->check_in);
-			$endTime = new DateTime($val->check_out);
+			$endTime = new DateTime(); 	//Cr by DEEP on March 19, 2024 new DateTime($val->check_out);
+			// prx($endTime);
 			$interval = $startTime->diff($endTime);
 			
 			// Calculate the difference in hours as a float
