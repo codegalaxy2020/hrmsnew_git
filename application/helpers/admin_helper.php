@@ -578,3 +578,49 @@ function prx($val){
     echo "<pre>"; print_r($val); echo "</pre>"; exit;
 
 }
+
+//Added by DEEP BASAK on March 19, 2024
+function multiUpload($file_name = "", $uploadPath = "", $alow_types = "", $flag = "multi", $upload_name = '')
+{
+    $CI = &get_instance();
+
+    $files = [];
+    $output = '';
+    $config["upload_path"] = './' . $uploadPath;
+    $config["allowed_types"] = $alow_types;
+    $CI->load->library('upload', $config);
+    $CI->upload->initialize($config);
+
+    if ($flag == "multi") {
+
+        for ($count = 0; $count < count($_FILES[$file_name]["name"]); $count++) {
+            $_FILES["file"]["name"] = $upload_name == "" ? $_FILES[$file_name]["name"][$count] : $upload_name . "_" . $count . "." . pathinfo($_FILES[$file_name]["name"][$count], PATHINFO_EXTENSION);
+            //$_FILES["file"]["name"] = $_FILES[$file_name]["name"][$count];
+            $_FILES["file"]["type"] = $_FILES[$file_name]["type"][$count];
+            $_FILES["file"]["tmp_name"] = $_FILES[$file_name]["tmp_name"][$count];
+            $_FILES["file"]["error"] = $_FILES[$file_name]["error"][$count];
+            $_FILES["file"]["size"] = $_FILES[$file_name]["size"][$count];
+
+            if ($CI->upload->do_upload('file')) {
+                $data = $CI->upload->data();
+                array_push($files, $data["file_name"]);
+            }
+        }
+    } else {
+
+        $_FILES["file"]["name"] = $upload_name == "" ? $_FILES[$file_name]["name"] : $upload_name . "." . pathinfo($_FILES[$file_name]["name"], PATHINFO_EXTENSION);
+        $_FILES["file"]["type"] = $_FILES[$file_name]["type"];
+        $_FILES["file"]["tmp_name"] = $_FILES[$file_name]["tmp_name"];
+        $_FILES["file"]["error"] = $_FILES[$file_name]["error"];
+        $_FILES["file"]["size"] = $_FILES[$file_name]["size"];
+
+        if ($CI->upload->do_upload('file')) {
+            $data = $CI->upload->data();
+            $files = $data["file_name"];
+        } else {
+            $files = 'tttt';
+        }
+    }
+
+    return $files;
+}

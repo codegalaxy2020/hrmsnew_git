@@ -56,9 +56,9 @@
 									</div>
 
 									<?php if(is_admin()): ?>
-									<div class="col-md-2">
+									<!-- <div class="col-md-2">
 										<a href="<?= base_url('admin/hr_payroll/manage_payslip') ?>" class="btn btn-primary btn-block">Payslip</a>
-									</div>
+									</div> -->
 									<?php endif; ?>
 									
 									<div class="col-md-12">

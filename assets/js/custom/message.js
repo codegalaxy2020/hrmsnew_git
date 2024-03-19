@@ -1,4 +1,7 @@
-
+/**
+ * Author: DEEP BASAK
+ * IDE: VS Code
+ */
 
 /**
  * ADDED BY Deep Basak on January 11, 2024
@@ -49,4 +52,52 @@ function warnMsg2(title, showDenyButton, showCancelButton, confirmButtonText, de
         }
         
     });
+}
+
+
+/**
+ * ADDED BY Deep Basak on March 19, 2024
+ * @param {*} msg 
+ * @param {*} callback
+ */
+function swalErrMsg(msg, callback = function() {}) {
+
+    if ((typeof msg) == "object") {
+        var nwArr = [];
+        $.each(msg, function(i, val) {
+            nwArr.push(val);
+        });
+        msg = nwArr;
+    }
+
+    if ((typeof msg) == "string") {
+        msg = [msg];
+    }
+
+    if (msg.length > 0) {
+        msgString = "<ul>";
+        var lenChar = 0;
+        $.each(msg, function(i, val) {
+            if (val != '') {
+                msgString += "<li>" + val + "</li>";
+                lenChar++;
+            }
+        });
+        msgString += "</ul>";
+        msgString = "<h4>" + lenChar + " errors occured.</h4><br>" + msgString;
+
+        Swal.fire({
+            title: msgString,
+            confirmButtonColor: '#5156be',
+        });
+
+        $(".swal2-modal").css({ "background": "#FA4848" }); //Optional changes the color of the sweetalert 
+        $(".swal2-title").css("color", "#ffffff");
+        $(".swal2-title h4").css("color", "#ffffff");
+        $(".swal2-container").css("z-index", "10000");      //CR BY DEEP BASAK on March 19, 2024
+    } else {
+        console.log('Array you sent was blank');
+    }
+
+    callback();
 }

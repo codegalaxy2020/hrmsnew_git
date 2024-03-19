@@ -8,8 +8,8 @@
         </li>
         
         <?php
-         hooks()->do_action('before_render_aside_menu');
-         ?>
+        hooks()->do_action('before_render_aside_menu');
+        ?>
         <?php foreach ($sidebar_menu as $key => $item) {
              if ((isset($item['collapse']) && $item['collapse']) && count($item['children']) === 0) {
                  continue;
@@ -36,8 +36,9 @@
             </a>
             <?php if (count($item['children']) > 0) { ?>
             <ul class="nav nav-second-level collapse" aria-expanded="false">
-                <?php foreach ($item['children'] as $submenu) {
-                            ?>
+                <?php 
+                foreach ($item['children'] as $submenu) {
+                ?>
                 <li class="sub-menu-item-<?php echo $submenu['slug']; ?>"
                     <?php echo _attributes_to_string(isset($submenu['li_attributes']) ? $submenu['li_attributes'] : []); ?>>
                     <a href="<?php echo $submenu['href']; ?>"
@@ -52,8 +53,8 @@
                     <?php if (isset($submenu['badge'], $submenu['badge']['value']) && !empty($submenu['badge'])) {?>
                     <span
                         class="badge pull-right
-               <?=isset($submenu['badge']['type']) && $submenu['badge']['type'] != '' ? "bg-{$submenu['badge']['type']}" : 'bg-info' ?>" <?=(isset($submenu['badge']['type']) && $submenu['badge']['type'] == '') ||
-                isset($submenu['badge']['color']) ? "style='background-color: {$submenu['badge']['color']}'" : '' ?>>
+                        <?=isset($submenu['badge']['type']) && $submenu['badge']['type'] != '' ? "bg-{$submenu['badge']['type']}" : 'bg-info' ?>" <?=(isset($submenu['badge']['type']) && $submenu['badge']['type'] == '') ||
+                            isset($submenu['badge']['color']) ? "style='background-color: {$submenu['badge']['color']}'" : '' ?>>
                         <?= $submenu['badge']['value'] ?>
                     </span>
                     <?php } ?>
