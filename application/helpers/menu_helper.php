@@ -29,7 +29,7 @@ function app_init_admin_sidebar_menu_items()
     }
 
     //Added by DEEP BASAK on March 19, 2024
-    if(is_admin()):
+    // if(is_admin()):
         $CI->app_menu->add_sidebar_menu_item('payslip', [
             'name'     => _l('payslip'),
             'href'     => admin_url('hr_payroll/manage_payslip'),
@@ -53,7 +53,17 @@ function app_init_admin_sidebar_menu_items()
             'position' => 15,
             'badge'    => [],
         ]);
-    endif;
+
+        // if(is_admin()){
+            $CI->app_menu->add_sidebar_children_item('payslip', [
+                'slug'     => 'task',
+                'name'     => 'Task',
+                'href'     => admin_url('hr_payroll/manage_task'),
+                'position' => 16,
+                'badge'    => [],
+            ]);
+        // }
+    // endif;
 
 
     $CI->app_menu->add_sidebar_menu_item('sales', [

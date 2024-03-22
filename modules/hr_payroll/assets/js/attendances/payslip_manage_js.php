@@ -1,5 +1,4 @@
 <script>
-	var Gchart;
 	$(document).ready(function () {
 		var month, staff;
 		if ($('#month_attendance').val() != undefined) {
@@ -41,6 +40,20 @@
 				}
 				serverSideDataTable('table-staff_payslip', baseUrl + 'hr_payroll/month_payslip_list/' + month, 10);
 			})
+		});
+	}
+
+	//Added by DEEP BASAK on March 20, 2024
+	function calculatePayslip(){
+		if ($('#month_attendance').val() != undefined) {
+			month = $('#month_attendance').val();
+		} else {
+			month = null;
+		}
+
+		ajaxPostRequest('hr_payroll/calculate_payslip', {'month': month}, function(data) {
+			serverSideDataTable('table-staff_payslip', baseUrl + 'hr_payroll/month_payslip_list/' + month, 10);
+			SwalSuccess2(data.title, data.message, data.status);
 		});
 	}
 

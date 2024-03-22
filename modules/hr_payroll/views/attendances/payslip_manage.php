@@ -50,10 +50,12 @@
 
 									</div> -->
 									<?php endif; ?>
-
-									<!-- <div class="col-md-2 leads-filter-column pull-right">
-										<a class="btn btn-primary btn-block" href="javascript:void(0)" onclick="openExpensesModal()"><i class="fa fa-plus"></i>Add expenses</a>
-									</div> -->
+									
+									<?php if(is_admin()): ?>
+									<div class="col-md-2 leads-filter-column pull-right">
+										<a class="btn btn-primary btn-block" href="javascript:void(0)" onclick="calculatePayslip()"><i class="fa fa-calculator"></i>&nbsp;Calculate Payslip</a>
+									</div>
+									<?php endif; ?>
 
 								</div>
 								<!-- filter -->
