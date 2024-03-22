@@ -1463,102 +1463,159 @@ class hr_payroll extends AdminController {
 
 		$month = date('m');
 		$year = date('Y');
+		
+		$msg = $this->calculatePayslipForAll($month, $year);
+		
+		$this->load->view('attendances/payslip_manage', $data);
+	}
+
+	/**
+	 * Monthly Payslip Calculate
+	 * Added by DEEP BASAK on March 21, 2024
+	 */
+	public function calculatePayslipForAll($month, $year){
 		$staff_details = $this->Common_model->getAllData('tblstaff', '', '');
 
 		if(!empty($staff_details)){
 			foreach($staff_details as $staff_key => $staff_val){
-				$sql = "SELECT * FROM `tbldirect_cost_training` WHERE cost_for = 'staff' AND staff_id = $staff_val->staffid AND created_at LIKE '$year-$month%'";
-				
-				$emp_cost = $this->Common_model->callSP($sql);
-				$empCostVal = 0;
-				if(!empty($emp_cost)){
-					foreach($emp_cost as $key => $val){
-						$empCostVal = $empCostVal + $val['total'] + $val['indirect_cost_total'] + $val['recruitment_cost'] + $val['onboarding_cost'] + $val['payroll_processing_cost'] + $val['hr_personnel_cost'] + $val['administrative_costs'] + $val['employee_training'] + $val['workshops'] + $val['courses'] + $val['certifications'] + $val['materials'] + $val['training_development_expenses_total'] + $val['training_program'] + $val['component_name'] + $val['wefw'] + $val['ewf_wef'] + $val['erger_fbgrnby'];
+
+				$payslipDetails = $this->Common_model->getAllData('tbl_staff_payslip', '', '', ['is_active'=>'Y', 'staff_id' => $staff_val->staffid, 'month' => $month, 'year' => $year, 'is_generate' => 'Y']);
+
+				if(empty($payslipDetails)){
+					$sql = "SELECT * FROM `tbldirect_cost_training` WHERE cost_for = 'staff' AND staff_id = $staff_val->staffid AND created_at LIKE '$year-$month%'";
+					$emp_cost = $this->Common_model->callSP($sql);
+					$empCostVal = 0;
+					if(!empty($emp_cost)){
+						foreach($emp_cost as $key => $val){
+							$empCostVal = $empCostVal + $val['total'] + $val['indirect_cost_total'] + $val['recruitment_cost'] + $val['onboarding_cost'] + $val['payroll_processing_cost'] + $val['hr_personnel_cost'] + $val['administrative_costs'] + $val['employee_training'] + $val['workshops'] + $val['courses'] + $val['certifications'] + $val['materials'] + $val['training_development_expenses_total'] + $val['training_program'] + $val['component_name'] + $val['wefw'] + $val['ewf_wef'] + $val['erger_fbgrnby'];
+						}
 					}
-				}
-				$this->Common_model->UpdateDB('tbl_staff_payslip', ['is_active'=>'Y', 'staff_id' => $staff_val->staffid, 'month' => $month, 'year' => $year, 'is_generate' => 'N'], ['is_active' => 'N', 'updated_at' => date('Y-m-d H:i:s'), 'updated_by' => get_staff_user_id()]);
-				
-				$where = array(
-					'is_active'=> 'Y', 
-					'check_in_date >=' => $year . '-' . $month . '-01',
-					'check_in_date <=' => $year . '-' . $month . '-31',
-					'staff_id'		=> $staff_val->staffid,
-					'today_hour<>'	=> ''
-				);
-				$totalHourByStaff = 0;
-				$totalHourByMonth = 0;
-				$staffMonthlyHour = 0;
-				$basicSalary = 0;
-				$allowance = 0;
-				$da = 0;
-				$hra = 0;
-				$pTax = 0;
-				$pf = 0;
-				$grossSalary = 0;
-				$netSalary = 0;
-				$attendance_details = $this->Common_model->getAllData('tbl_staff_attendance', '', '', $where);
-				if(!empty($attendance_details)){
-					foreach($attendance_details as $att_key => $att_val){
-						$totalHourByStaff = $totalHourByStaff + $att_val->today_hour;
-						$totalHourByMonth = $att_val->total_hour;
-					}
-				}
-
-				if($totalHourByMonth > $totalHourByStaff){
-					$staffMonthlyHour = $totalHourByStaff;
-				} else{
-					$staffMonthlyHour = $totalHourByMonth;
-				}
-
-				$basicSalary = $staffMonthlyHour * $staff_val->hourly_rate;
-				$allowance = (30/100) * $basicSalary;
-				$da = (5/100) * $basicSalary;
-				$hra = (20/100) * $basicSalary;
-				
-				$grossSalary = $basicSalary + $allowance + $da + $hra;
-
-				if($grossSalary < 10000){
+					$this->Common_model->UpdateDB('tbl_staff_payslip', ['is_active'=>'Y', 'staff_id' => $staff_val->staffid, 'month' => $month, 'year' => $year, 'is_generate' => 'N'], ['is_active' => 'N', 'updated_at' => date('Y-m-d H:i:s'), 'updated_by' => get_staff_user_id()]);
+					
+					$where = array(
+						'is_active'=> 'Y', 
+						'check_in_date >=' => $year . '-' . $month . '-01',
+						'check_in_date <=' => $year . '-' . $month . '-31',
+						'staff_id'		=> $staff_val->staffid,
+						'today_hour<>'	=> ''
+					);
+					$totalHourByStaff = 0;
+					$totalHourByMonth = 0;
+					$staffMonthlyHour = 0;
+					$basicSalary = 0;
+					$allowance = 0;
+					$da = 0;
+					$hra = 0;
 					$pTax = 0;
-				} else if($grossSalary > 10000 && $grossSalary < 15000){
-					$pTax = 110;
-				} else if($grossSalary > 15000 && $grossSalary < 25000){
-					$pTax = 130;
-				} else if($grossSalary > 25000 && $grossSalary < 40000){
-					$pTax = 150;
+					$pf = 0;
+					$grossSalary = 0;
+					$netSalary = 0;
+					$attendance_details = $this->Common_model->getAllData('tbl_staff_attendance', '', '', $where);
+					if(!empty($attendance_details)){
+						foreach($attendance_details as $att_key => $att_val){
+							$totalHourByStaff = $totalHourByStaff + $att_val->today_hour;
+							$totalHourByMonth = $att_val->total_hour;
+						}
+					}
+
+					if($totalHourByMonth > $totalHourByStaff){
+						$staffMonthlyHour = $totalHourByStaff;
+					} else{
+						$staffMonthlyHour = $totalHourByMonth;
+					}
+
+					$basicSalary = $staffMonthlyHour * $staff_val->hourly_rate;
+					$allowance = (30/100) * $basicSalary;
+					$da = (5/100) * $basicSalary;
+					$hra = (20/100) * $basicSalary;
+					
+					$grossSalary = $basicSalary + $allowance + $da + $hra;
+
+					if($grossSalary < 10000){
+						$pTax = 0;
+					} else if($grossSalary > 10000 && $grossSalary < 15000){
+						$pTax = 110;
+					} else if($grossSalary > 15000 && $grossSalary < 25000){
+						$pTax = 130;
+					} else if($grossSalary > 25000 && $grossSalary < 40000){
+						$pTax = 150;
+					} else{
+						$pTax = 200;
+					}
+					$pf = (12/100) * $basicSalary;
+					$netSalary = $grossSalary - ($pf - $pTax);
+
+					$holidaySql = "SELECT * FROM tblday_off WHERE break_date LIKE '$year-$month%'";
+					$holiDays = $this->Common_model->callSP($holidaySql);
+					$holidayCount = 0;
+					if(!empty($holiDays)){
+						foreach($holiDays as $key){
+							$holidayCount++;
+						}
+					}
+
+					//Employee TADA
+					$staffExpSql = "SELECT * FROM tbl_staff_expenses WHERE staff_id = " . $staff_val->staffid . " AND date LIKE '$year-$month%'";
+					$staffExp = $this->Common_model->callSP($staffExpSql);
+					if(!empty($staffExp)){
+						foreach($staffExp as $key => $val){
+							$empCostVal = $empCostVal + $val['exp'];
+						}
+					}
+
+					$tblData = array(
+						'staff_id'		=> $staff_val->staffid,
+						'month'			=> $month,
+						'month_text'	=> date('F', strtotime("$year-$month-01")),
+						'year'			=> $year,
+						'days_working'	=> getWorkingDays($year, $month)-$holidayCount,
+						'total_work_hour'=> $attendance_details[0]->total_hour,
+						'basic_salary'	=> $basicSalary,
+						'allowance'		=> $allowance,
+						'da'			=> $da,
+						'hra'			=> $hra,
+						'p_tax'			=> $pTax,
+						'pf'			=> $pf,
+						'gross_salary'	=> $grossSalary,
+						'net_salary'	=> $netSalary,
+						'employee_exp'	=> $empCostVal,
+						'is_generate'	=> 'N',
+						'is_active'		=> 'Y',
+						'created_at'	=> date('Y-m-d H:i:s'),
+						'created_by'	=> get_staff_user_id()
+					);
+
+					$this->Common_model->add('tbl_staff_payslip', $tblData);
+					return 'Payslip Calculation completed.';
 				} else{
-					$pTax = 200;
+					return 'Payslip is already generated.';
 				}
-				$pf = (12/100) * $basicSalary;
-				$netSalary = $grossSalary - ($pf - $pTax);
 
-				$tblData = array(
-					'staff_id'		=> $staff_val->staffid,
-					'month'			=> $month,
-					'month_text'	=> date('F'),
-					'year'			=> $year,
-					'days_working'	=> getWorkingDays($year, $month),
-					'total_work_hour'=> $attendance_details[0]->total_hour,
-					'basic_salary'	=> $basicSalary,
-					'allowance'		=> $allowance,
-					'da'			=> $da,
-					'hra'			=> $hra,
-					'p_tax'			=> $pTax,
-					'pf'			=> $pf,
-					'gross_salary'	=> $grossSalary,
-					'net_salary'	=> $netSalary,
-					'employee_exp'	=> $empCostVal,
-					'is_generate'	=> 'N',
-					'is_active'		=> 'Y',
-					'created_at'	=> date('Y-m-d H:i:s'),
-					'created_by'	=> get_staff_user_id()
-				);
-
-				$this->Common_model->add('tbl_staff_payslip', $tblData);
+				
 			}
 		}
+	}
 
-		
-		$this->load->view('attendances/payslip_manage', $data);
+	/**
+	 * Monthly Payslip Calculate
+	 * Added by DEEP BASAK on March 21, 2024
+	 */
+	public function calculate_payslip(){
+		$month = date('m', strtotime($_POST['month']));
+		$year = date('Y', strtotime($_POST['month']));
+		$msg = $this->calculatePayslipForAll($month, $year);
+
+		$status = 'success';
+		$title = 'Good Job!';
+		if($msg == 'Payslip is already generated.'){
+			$status = 'warning';
+			$title = 'Warning';
+		}
+
+		# response
+        $result = array('status'=> $status, 'message'=> $msg, 'title' => $title);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
 	}
 
 	/**
@@ -1590,7 +1647,7 @@ class hr_payroll extends AdminController {
 				OR year LIKE "%'.$searchValue.'%" 
 				OR basic_salary LIKE "%'.$searchValue.'%" 
 				OR allowance LIKE "%'.$searchValue.'%"
-				--- OR da LIKE "%'.$searchValue.'%"
+				-- OR da LIKE "%'.$searchValue.'%"
 				OR hra LIKE "%'.$searchValue.'%"
 				OR p_tax LIKE "%'.$searchValue.'%"
 				OR pf LIKE "%'.$searchValue.'%"
@@ -1604,6 +1661,19 @@ class hr_payroll extends AdminController {
 		$pageSize = $length != null ? intval($length) : 0;
 		$skip = $start != null ? intval($start) : 0;
 
+		#region order by column
+		//Cr by DEEP BASAK on March 19, 2024
+		if(!empty($_POST['order'][0])){
+			$colArr = array('', 'tblstaff.firstname', 'month_text', 'year', 'basic_salary', 'allowance', 'hra', 'p_tax', 'pf', 'gross_salary', 'net_salary');
+			$columnIndex = $_POST['order'][0]['column'];
+			$orderColName = $colArr[$columnIndex];
+			$orderDir = $_POST['order'][0]['dir'];
+			$orderQuery = ' ORDER BY '. $orderColName . ' ' . $orderDir . ' ';
+		} else{
+			$orderQuery = 'ORDER BY tblstaff.firstname DESC';
+		}
+		#endregion
+
 		//Datatable view Query
 		$query = 'SELECT
 			tblstaff.firstname, tblstaff.lastname,
@@ -1614,8 +1684,7 @@ class hr_payroll extends AdminController {
 		WHERE
 			'.$where.'
 			'.$searchwhere.'
-		ORDER BY
-			tblstaff.firstname DESC
+			' . $orderQuery . '
 		LIMIT '.$pageSize.' OFFSET '.$skip.' ';
 
 		// prx($query);
@@ -1629,8 +1698,7 @@ class hr_payroll extends AdminController {
 		LEFT JOIN tblstaff ON tblstaff.staffid = tbl_staff_payslip.staff_id
 		WHERE
 			'.$where.' 
-		ORDER BY
-			tblstaff.firstname DESC';
+		' . $orderQuery . ' ';
 
 		$testdata = $this->Common_model->callSP($query);
 		$testdata_total = $this->Common_model->callSP($query_total);
@@ -1761,7 +1829,7 @@ class hr_payroll extends AdminController {
 
 	/**
 	 * Monthly Payslip List
-	 * Added by DEEP BASAK on January 19, 2024
+	 * Added by DEEP BASAK on March 19, 2024
 	 */
 	public function expense_manage_list($date = '', $staff = ''){
 		# customize filter
@@ -1803,6 +1871,19 @@ class hr_payroll extends AdminController {
 		$pageSize = $length != null ? intval($length) : 0;
 		$skip = $start != null ? intval($start) : 0;
 
+		#region order by column
+		//Cr by DEEP BASAK on March 19, 2024
+		if(!empty($_POST['order'][0])){
+			$colArr = array('', 'tblstaff.firstname', 'tbl_staff_expenses.month', 'tbl_staff_expenses.year', 'tbl_staff_expenses.exp_type', 'tbl_staff_expenses.exp', 'tbl_staff_expenses.reason', 'tbl_staff_expenses.document');
+			$columnIndex = $_POST['order'][0]['column'];
+			$orderColName = $colArr[$columnIndex];
+			$orderDir = $_POST['order'][0]['dir'];
+			$orderQuery = ' ORDER BY '. $orderColName . ' ' . $orderDir . ' ';
+		} else{
+			$orderQuery = 'ORDER BY tbl_staff_expenses.created_at DESC';
+		}
+		#endregion
+
 		$select = 'tblstaff.firstname, tblstaff.lastname, tbl_staff_expenses.*';
 
 		//Datatable view Query
@@ -1813,9 +1894,8 @@ class hr_payroll extends AdminController {
 		LEFT JOIN tblstaff ON tblstaff.staffid = tbl_staff_expenses.staff_id
 		WHERE
 			'.$where.'
-			'.$searchwhere.'
-		ORDER BY
-			tbl_staff_expenses.created_at DESC
+			'.$searchwhere.' 
+			'. $orderQuery . ' 
 		LIMIT '.$pageSize.' OFFSET '.$skip.' ';
 
 		// prx($query);
@@ -1827,9 +1907,7 @@ class hr_payroll extends AdminController {
 			`tbl_staff_expenses` 
 		LEFT JOIN tblstaff ON tblstaff.staffid = tbl_staff_expenses.staff_id
 		WHERE
-			'.$where.' 
-		ORDER BY
-			tbl_staff_expenses.created_at DESC';
+			'.$where.'  ' . $orderQuery . ' ';
 
 		$testdata = $this->Common_model->callSP($query);
 		$testdata_total = $this->Common_model->callSP($query_total);
@@ -1916,6 +1994,208 @@ class hr_payroll extends AdminController {
 		# Response
 		$array = array_merge($array,update_csrf_session());
         echo json_encode($array);
+	}
+
+	/**
+	 * Task List View
+	 * Added by DEEP BASAK on March 21, 2024
+	 */
+	public function manage_task(){
+		if (!has_permission('hrp_attendance', '', 'view') && !has_permission('hrp_attendance', '', 'view_own') && !is_admin()) {
+			access_denied('hrp_attendance');
+		}
+
+		$this->load->model('staff_model');
+		$this->load->model('departments_model');
+
+		//load deparment by manager
+		if (!is_admin() && !has_permission('hrp_employee', '', 'view')) {
+			//View own
+			$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object(get_staffid_by_permission());
+		} else {
+			//admin or view global
+			$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object();
+		}
+
+		$data['departments'] = $this->departments_model->get();
+		$data['staffs'] = $staffs;
+
+		$data['title'] = 'Task List';
+
+		$month = date('m');
+		$year = date('Y');
+		
+		$msg = $this->calculatePayslipForAll($month, $year);
+		
+		$this->load->view('attendances/task_manage', $data);
+	}
+
+	/**
+	 * Task List
+	 * Added by DEEP BASAK on March 21, 2024
+	 */
+	public function task_list(){
+		# customize filter
+		if(is_admin()){
+			$where = ' ';
+		} else{
+			$where = ' tbltask_assigned.staffid = '.get_staff_user_id();
+		}
+		
+
+		// Skip number of Rows count  
+		$start = $_POST["start"];
+
+		// Paging Length 10,20  
+		$length = $_POST["length"];
+
+		// Search Value from (Search box)  
+		$searchValue = trim($_POST["search"]["value"]);
+		$searchwhere = '';
+		if(!empty($searchValue)){
+			$searchwhere .= ' AND tbltasks.name LIKE "%'.$searchValue.'%" 
+				OR tbltasks.dateadded LIKE "%'.$searchValue.'%" 
+				OR tblstaff.firstname LIKE "%'.$searchValue.'%"
+				OR tblstaff.lastname LIKE "%'.$searchValue.'%"
+				OR tbltasks.duedate LIKE "%'.$searchValue.'%"
+				OR tbltasks.startdate LIKE "%'.$searchValue.'%"
+				OR tbltasks.datefinished LIKE "%'.$searchValue.'%"
+				OR tbltasks.priority LIKE "%'.$searchValue.'%" 
+				OR tbltasks.rel_type LIKE "%'.$searchValue.'%"
+				OR tbltasks.hourly_rate LIKE "%'.$searchValue.'%"';
+		}
+
+		//Paging Size (10, 20, 50,100)  
+		$pageSize = $length != null ? intval($length) : 0;
+		$skip = $start != null ? intval($start) : 0;
+
+		#region order by column
+		//Cr by DEEP BASAK on March 19, 2024
+		if(!empty($_POST['order'][0])){
+			$colArr = array('', 'tbltasks.name', 'tblstaff.firstname', 'tbltasks.dateadded', 'tbltasks.datefinished', 'tbltasks.startdate', 'tbltasks.duedate', 'tbltasks.priority', 'tbltasks.rel_type', 'tbltasks.hourly_rate', '');
+			$columnIndex = $_POST['order'][0]['column'];
+			$orderColName = $colArr[$columnIndex];
+			$orderDir = $_POST['order'][0]['dir'];
+			$orderQuery = ' ORDER BY '. $orderColName . ' ' . $orderDir . ' ';
+		} else{
+			$orderQuery = 'ORDER BY tbltasks.dateadded DESC';
+		}
+		#endregion
+
+		$select = 'tblstaff.firstname, tblstaff.lastname, tbltasks.*';
+
+		//Datatable view Query
+		$query = 'SELECT
+			'.$select.'
+		FROM
+			`tbltasks` 
+		LEFT JOIN tbltask_assigned ON tbltask_assigned.taskid = tbltasks.id 
+		LEFT JOIN tblstaff ON tblstaff.staffid = tbltask_assigned.staffid ';
+		if($where != ' '):
+			$query .=' WHERE
+				'.$where.' ';
+		endif;
+		$query .=' '.$searchwhere.' GROUP BY tbltasks.id 
+			'. $orderQuery . ' 
+		LIMIT '.$pageSize.' OFFSET '.$skip.' ';
+
+		// prx($query);
+
+		//Total records query
+		$query_total = 'SELECT
+			'.$select.'
+		FROM
+			`tbltasks` 
+		LEFT JOIN tbltask_assigned ON tbltask_assigned.taskid = tbltasks.id 
+		LEFT JOIN tblstaff ON tblstaff.staffid = tbltask_assigned.staffid ';
+		if($where != ' '):
+			$query_total .=' WHERE
+					'.$where.' ';
+		endif; 
+		$query_total .=' GROUP BY tbltasks.id '.$orderQuery.' ';
+
+
+		$testdata = $this->Common_model->callSP($query);
+		$testdata_total = $this->Common_model->callSP($query_total);
+		$data = array();
+		
+		foreach ($testdata as $key => $fieldData){
+			$action = '<a href="javascript:void(0)" onclick="init_task_modal('.$fieldData['id'].')"><i class="fa fa-list-alt"></i></a>';
+			$assignName = '';
+			$join = array(
+				array(
+					'table'		=> 'tblstaff',
+					'on'		=> 'tblstaff.staffid = tbltask_assigned.staffid',
+					'type'		=> 'left'
+				)
+			);
+			$assignNameDetails = $this->Common_model->getAllData('tbltask_assigned', 'tblstaff.firstname,tblstaff.lastname,tblstaff.staffid', '', ['tbltask_assigned.taskid' => $fieldData['id']], '', '', '', '', [], $join);
+			$staffId = 0;
+			if(!empty($assignNameDetails)):
+				foreach($assignNameDetails as $k => $val):
+					if(is_admin()):
+						$assignName .= '<span class="badge bg-secondary">'.$val->firstname.' '.$val->lastname.'</span>';
+					else:
+						if(get_staff_user_id() == $val->staffid):
+							$staffId = $val->staffid;
+							$assignName = '<span class="badge bg-secondary">'.$val->firstname.' '.$val->lastname.'</span>';
+						endif;
+					endif;
+				endforeach;
+			endif;
+
+			if(is_admin()):
+				$data[] = array(
+					$key + $skip + 1,
+					$fieldData['name'],
+					$assignName,
+					$fieldData['dateadded'],
+					$fieldData['datefinished'],
+					$fieldData['startdate'],
+					$fieldData['duedate'],
+					$fieldData['priority'],
+					$fieldData['rel_type'],
+					'₹'.$fieldData['hourly_rate'],
+					$action
+				);
+			else:
+				if(get_staff_user_id() == $staffId):
+					$data[] = array(
+						$key + $skip + 1,
+						$fieldData['name'],
+						$assignName,
+						$fieldData['dateadded'],
+						$fieldData['datefinished'],
+						$fieldData['startdate'],
+						$fieldData['duedate'],
+						$fieldData['priority'],
+						$fieldData['rel_type'],
+						'₹'.$fieldData['hourly_rate'],
+						$action
+					);
+				endif;
+			endif;
+
+		}
+
+		if (isset($_POST['draw']) && $_POST['draw']) {
+            $draw = $_POST['draw'];
+        } else {
+            $draw = '';
+        }
+
+        $output = array(
+            "draw" => $draw,
+			"recordsTotal" => count($testdata_total),
+            "recordsFiltered" => count($testdata_total),
+            "data" => $data,
+            "status" => 'success',
+			"csrf" => update_csrf_session()
+        );
+
+        # response
+        echo json_encode($output);
+        unset($dttbl_model);
 	}
 
 	/**

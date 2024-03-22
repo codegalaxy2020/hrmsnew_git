@@ -6803,7 +6803,10 @@ public function check_in_ts() {
 
 					$option = '';
 					if (is_admin()) {
-						$option = '<a href="#" onclick="edit_day_off(this,' . html_entity_decode($aRow['id']) . '); return false" data-off_reason="' . html_entity_decode($aRow['off_reason']) . '" data-off_type="' . html_entity_decode($aRow['off_type']) . '" data-break_date="' . html_entity_decode($aRow['break_date']) . '" data-timekeeping="' . html_entity_decode($aRow['timekeeping']) . '" data-department="' . html_entity_decode($aRow['department']) . '"
+						// prx($aRow);
+						$timekeeping = !empty($aRow['timekeeping'])?html_entity_decode($aRow['timekeeping']):'';		//CR by DEEP BASAK on March 22, 2024
+						$department = !empty($aRow['department'])?html_entity_decode($aRow['department']):'';			//CR by DEEP BASAK on March 22, 2024
+						$option = '<a href="#" onclick="edit_day_off(this,' . html_entity_decode($aRow['id']) . '); return false" data-off_reason="' . html_entity_decode($aRow['off_reason']) . '" data-off_type="' . html_entity_decode($aRow['off_type']) . '" data-break_date="' . html_entity_decode($aRow['break_date']) . '" data-timekeeping="' . $timekeeping . '" data-department="' . $department . '"
 						data-repeat_by_year="' . $aRow['repeat_by_year'] . '"
 						data-position="' . html_entity_decode($aRow['position']) . '" class="btn btn-default btn-icon" data-toggle="sidebar-right" data-target=".leave_modal_update-edit-modal"><i class="fa fa-pencil-square-o"></i></a>
 						<a href="' . admin_url('timesheets/delete_day_off/' . $aRow['id']) . '" class="btn btn-danger btn-icon _delete"><i class="fa fa-remove"></i></a>';

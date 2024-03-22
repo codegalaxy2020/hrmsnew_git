@@ -55,7 +55,8 @@ define('APP_DB_PASSWORD', '');
  * The name of the database you want to connect to
  */
 // define('APP_DB_NAME', 'skilltest_hrmsnew');
-define('APP_DB_NAME', 'hrmsnew');
+// define('APP_DB_NAME', 'hrmsnew');
+define('APP_DB_NAME', 'hrmsnew2');
 
 /**
  * @since  2.3.0

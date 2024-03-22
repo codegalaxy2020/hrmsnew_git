@@ -18,7 +18,7 @@
 
 						<div class="row mb-5">
 							<div class="col-md-12">
-								<h4 class="no-margin"><?php echo _l('hr_manage_payroll') ?> </h4>
+								<h4 class="no-margin">Expense List (Monthly) </h4>
 							</div>
 							<div class="col-md-12">
 								<hr class="hr">
@@ -30,12 +30,13 @@
 								<!-- filter -->
 								<div class="row filter_by">
 
-									<?php if(is_admin()): ?>
+									
 									<div class="col-md-2">
 										<label>Month</label>
 										<input type="month" onchange="filterData(this.value, $('#staff_attendance').val())" class="form-control" id="month_attendance" name="month_attendance" value="<?= date('Y-m') ?>">
 									</div>
 
+									<?php if(is_admin()): ?>
 									<div class="col-md-2 leads-filter-column pull-left">
 
 										<div class="form-group">
@@ -52,7 +53,7 @@
 									<?php endif; ?>
 
 									<div class="col-md-2 leads-filter-column pull-right">
-										<a class="btn btn-primary btn-block" href="javascript:void(0)" onclick="openExpensesModal()"><i class="fa fa-plus"></i>Add expenses</a>
+										<a class="btn btn-primary btn-block" href="javascript:void(0)" onclick="openExpensesModal()"><i class="fa fa-plus"></i>&nbsp;Add expenses</a>
 									</div>
 
 								</div>

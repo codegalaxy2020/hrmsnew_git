@@ -568,6 +568,29 @@ function getWorkingDays($year, $month) {
     return $workingDays;
 }
 
+
+//Added by DEEP BASAK on March 20, 2024
+// Helper Function to calculate working days in a month excluding weekends and holidays
+function getWorkingDaysWithHolidays($year, $month, $holidays = array()) {
+    $totalDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+    $workingDays = 0;
+
+    for ($day = 1; $day <= $totalDays; $day++) {
+        $currentDate = new DateTime("$year-$month-$day");
+        $dayOfWeek = $currentDate->format('N'); // 1 (Monday) through 7 (Sunday)
+
+        // Exclude weekends (Saturday and Sunday)
+        if ($dayOfWeek >= 1 && $dayOfWeek <= 5) {
+            // Check if the current date is not a holiday
+            if (!in_array($currentDate->format('Y-m-d'), $holidays)) {
+                $workingDays++;
+            }
+        }
+    }
+
+    return $workingDays;
+}
+
 function pr($val){
     // return echo
     echo "<pre>"; print_r($val); echo "</pre>";
