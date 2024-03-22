@@ -5,9 +5,17 @@
         <?php
         if(!empty($staff_list)):
             foreach($staff_list as $key => $staff):
+                if(!is_admin()):
+                    if($staff->staffid == get_staff_user_id()):
         ?>
         <option value="<?= $staff->staffid ?>"><?= $staff->firstname . ' ' . $staff->lastname . ' (' . $staff->staff_identifi . ')'; ?></option>
         <?php
+                    endif;
+                else:
+        ?>
+        <option value="<?= $staff->staffid ?>"><?= $staff->firstname . ' ' . $staff->lastname . ' (' . $staff->staff_identifi . ')'; ?></option>
+        <?php
+                endif;
             endforeach;
         endif;
         ?>

@@ -13,9 +13,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="panel_s">
-							<!--<form action="https://skilltest.live/hrmsnew/admin/hr_profile/faculty" method="post" accept-charset="utf-8">-->
 							<?php echo form_open($this->uri->uri_string(), array('id'=>'cost')); ?>
-                            <!--<input type="hidden" name="csrf_token_name" value="4c0aaaedc32aa6fe86d61f61eecc0a35">     -->
 							<div class="panel-body">
 								<h4 class="no-margin">
 								<?php echo html_entity_decode($title); ?>
