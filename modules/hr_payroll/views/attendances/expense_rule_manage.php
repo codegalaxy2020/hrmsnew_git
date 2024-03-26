@@ -30,36 +30,11 @@
 								<!-- filter -->
 								<div class="row filter_by">
 
-									
-									<div class="col-md-2">
-										<label>Month</label>
-										<input type="month" onchange="filterData(this.value, $('#staff_attendance').val())" class="form-control" id="month_attendance" name="month_attendance" value="<?= date('Y-m') ?>">
-									</div>
-
-									<?php if(is_admin()): ?>
-									<div class="col-md-2 leads-filter-column pull-left">
-
-										<div class="form-group">
-											<label for="staff_attendance" class="control-label"><?php echo _l('staff'); ?></label>
-											<select onchange="filterData($('#month_attendance').val(), this.value)" name="staff_attendance" class="form-control selectpicker" id="staff_attendance" data-actions-box="true" data-width="100%" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>" data-live-search="true"> 
-												<option value="0" selected disabled>Select Staff</option>
-												<?php foreach ($staffs as $key => $staff) { ?>
-													<option value="<?php echo html_entity_decode($staff['staffid']); ?>" ><?php  echo html_entity_decode($staff['firstname'].' '.$staff['lastname']); ?></option>
-												<?php } ?>
-											</select>
-										</div>
-
-									</div>
-
-									<?php endif; ?>
-
-									<div class="col-md-2 leads-filter-column pull-right">
-										<a class="btn btn-primary btn-block" href="<?= base_url('hr_payroll/expense_rule_manage'); ?>">Expense Rule Manage</a>
-									</div>
-
-									<div class="col-md-2 leads-filter-column pull-right">
-										<a class="btn btn-primary btn-block" href="javascript:void(0)" onclick="openExpensesModal()"><i class="fa fa-plus"></i>&nbsp;Add expenses</a>
-									</div>
+                                    <?php if(is_admin()): ?>
+									<!-- <div class="col-md-2 leads-filter-column pull-right">
+										<a class="btn btn-primary btn-block" href="javascript:void(0)" onclick="openExpensesRuleModal()"><i class="fa fa-plus"></i>&nbsp;Add expenses rule</a>
+									</div> -->
+                                    <?php endif; ?>
 
 								</div>
 								<!-- filter -->
@@ -67,17 +42,16 @@
 							<div class="col-md-12">
 								<hr class="hr-color">
 								<div class="table-responsive">
-									<table class="table table-bordered table-sm" id="table-staff_expense">
+									<table class="table table-bordered table-sm" id="table-staff_expense_rule">
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Staff</th>
-												<th>Month</th>
-												<th>Year</th>
-												<th>Expense Type</th>
-												<th>Expense Amount (₹)</th>
-												<th>Reason</th>
-												<th>Document</th>
+												<th>TADA</th>
+												<th>Type</th>
+												<th>Rate (₹/per)</th>
+												<th>Created</th>
+												<th>Updated</th>
+												<th>Action</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -126,7 +100,7 @@
 
 
 <?php init_tail(); ?>
-<?php require 'modules/hr_payroll/assets/js/attendances/expense_manage_js.php'; ?>
+<?php require 'modules/hr_payroll/assets/js/attendances/expense_rule_manage_js.php'; ?>
 
 </body>
 </html>

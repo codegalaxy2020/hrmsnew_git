@@ -21,3 +21,9 @@ function closeModal(modalId, callback = ''){
 		callback();
 	}
 }
+
+//Added by DEEP BASAK on March 19, 2024
+function dynamicModalSize(modalId, modalRemoveClass, modalSize){
+	$('#' + modalId).find('.modal-dialog').removeClass(modalRemoveClass);
+	$('#' + modalId).find('.modal-dialog').addClass(modalSize);
+}
