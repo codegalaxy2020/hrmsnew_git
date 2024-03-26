@@ -17,6 +17,7 @@
 		serverSideDataTable('table-month_attendance', baseUrl + 'hr_payroll/month_attendance_list/' + month + '/' + staff, 10);
 		generateApexChart('donut', staff, month);
 		generateDayWiseAttendance(staff, month);
+		$('#table-month_attendance_filter').hide();
 	});
 
 	function openAttendanceModal(date = '') {
@@ -32,6 +33,7 @@
 		generateApexChart('donut', staff, month);
 		generateDayWiseAttendance(staff, month);
 		serverSideDataTable('table-month_attendance', baseUrl + 'hr_payroll/month_attendance_list/' + month + '/' + staff, 10);
+		$('#table-month_attendance_filter').hide();
 	}
 
 	function generateApexChart(type = 'pie', staffId, month) {
