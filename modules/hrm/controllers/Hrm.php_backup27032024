@@ -48,17 +48,9 @@ class hrm extends AdminController
     {
         $this->app->get_table_data(module_views_path('hrm', 'table_staff'));
     }
-    // public function table_insurance()
-    // {
-    //     $this->app->get_table_data(module_views_path('hrm', 'table_insurance'));
-    // }
-    // update by Ankit Adhikary 20-03-24
     public function table_insurance()
-    {        
-            $query = $this->db->get('tblstaff_insurance');
-            $data = $query->result_array();
-            $this->output->set_content_type('application/json')->set_output(json_encode($data));
-        
+    {
+        $this->app->get_table_data(module_views_path('hrm', 'table_insurance'));
     }
     public function setting()
     {
@@ -1826,27 +1818,6 @@ public function delete_hrm_staff_attachment($attachment_id)
 
         $this->load->view('hrm/profile', $data);
     }
-
-    public function delete_insurance($insurance_id) {
-        // Check if the user has permission to delete insurance
-        if (!has_permission('hrm', '', 'delete')) {
-            access_denied('hrm');
-        }
-    
-        // Delete insurance record using Query Builder
-        $this->db->where('insurance_id', $insurance_id);
-        $result = $this->db->delete('tblstaff_insurance');
-    
-        // Check if deletion was successful
-        if ($result) {
-            // Return success response
-            echo json_encode(array('success' => true));
-        } else {
-            // Return error response
-            echo json_encode(array('success' => false, 'message' => 'Failed to delete insurance item'));
-        }
-    }
-    
 
 
 }
