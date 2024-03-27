@@ -35,16 +35,33 @@
 			$('#attendance_modal').find('#attendance_modal_body').html(data.html);
 			$('#attendance_modal').find('#attendance_modal_title').text('Add expenses');
 			dynamicModalSize('attendance_modal', 'modal-xl', 'modal-fullscreen');
-			addExpenseTable();
+			
 			holdModal('attendance_modal');
+
+			if(type == 2){
+				$('#attendance_modal').find('#attendance_modal_body input, #attendance_modal_body select, #attendance_modal_body textarea').attr('disabled', true);
+				$('#attendance_modal').find('.save').hide();
+			} else{
+				$('#attendance_modal').find('#attendance_modal_body input, #attendance_modal_body select, #attendance_modal_body textarea').attr('disabled', false);
+				$('#attendance_modal').find('.save').show();
+				addExpenseTable(type);
+			}
 		});
 	}
 
 	//Added by DEEP BASAK on March 26, 2024
-	function addExpenseTable(){
+	function addExpenseTable(type = 0){
 		var count = $('#staff_expense_list_table').find('.expenseList').length;
 		ajaxPostRequest('hr_payroll/add_expense_table', {'count': count}, function (data){
 			$('#staff_expense_list_table').find('tbody').append(data.html);
+
+			if(type == 2){
+				$('#attendance_modal').find('#attendance_modal_body input, #attendance_modal_body select, #attendance_modal_body textarea').attr('disabled', true);
+				$('#attendance_modal').find('.save').hide();
+			} else{
+				$('#attendance_modal').find('#attendance_modal_body input, #attendance_modal_body select, #attendance_modal_body textarea').attr('disabled', false);
+				$('#attendance_modal').find('.save').show();
+			}
 		});
 	}
 
@@ -71,14 +88,42 @@
 	}
 
 	function getExpenseRate(count = 0){
-		var tada = $('#tada_'+count).val();
-		var type = $('#type_'+count).val();
-		var per = $('#per_'+count).val();
-		var total = $('#exp_amount').val();
-		ajaxPostRequest('hr_payroll/get_expense_rate', {'tada': tada, 'type': type, 'per': per}, function (data){
-			$('#amount_' + count).val(data.rate);
-			total = parseFloat(total) + parseFloat(data.rate);
+		var total = 0;
+		if(count != -1){
+			var tada = $('#tada_'+count).val();
+			var type = $('#type_'+count).val();
+			var per = $('#per_'+count).val();
+			// var total = $('#exp_amount').val();
+			var totalCal = $('#distance_'+count).val();
+			
+			
+			ajaxPostRequest('hr_payroll/get_expense_rate', {'tada': tada, 'type': type, 'per': per}, function (data){
+				if(totalCal != undefined || totalCal != NaN || totalCal != 0){
+					// totalCal = totalCal;
+					totalCal = totalCal * data.rate;
+				} else{
+					totalCal = data.rate;
+				}
+				$('#amount_' + count).val(totalCal);
+
+				for(var index = 0; index < $('.amount').length; index++){
+					total = parseFloat(total) + parseFloat($('#amount_' + index).val());
+				}
+				// total = parseFloat(total) + parseFloat(totalCal);
+				$('#exp_amount').val(total);
+			});
+		} else{
+			// debugger;
+			for(var index = 0; index < $('.amount').length; index++){
+				total = parseFloat(total) + parseFloat($('#amount_' + index).val());
+			}
 			$('#exp_amount').val(total);
-		});
+		}
+		
+	}
+
+	function removeElm(elm, count = 0){
+		elm.parentNode.remove();
+		getExpenseRate(-1);
 	}
 </script>
