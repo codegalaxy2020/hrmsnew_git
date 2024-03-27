@@ -41,21 +41,21 @@
                                  <!-- if hrmcontract id found in url -->
                                  <div class="tab-content">
                                  <!-- start -->
-                                <div role="tabpanel" class="tab-pane active" id="tab_list_insurance">
-                                   
-                                    <?php
-                                    $table_data = array(
-                                        _l('staff_id'),
-                                        _l('clients_list_full_name'),
+                                 <div role="tabpanel" class="tab-pane active" id="tab_list_insurance">
+    <table id="table_insurance" class="table table-striped">
+        <thead>
+            <tr>
+                <th><?php echo _l('insurance_book_number'); ?></th>
+                <th><?php echo _l('health_insurance_number'); ?></th>
+                <th><?php echo _l('actions'); ?></th> <!-- Added for edit and delete buttons -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be populated here via AJAX -->
+        </tbody>
+    </table>
+</div>
 
-                                        _l('job_position'),
-                                        _l('insurance_book_number'),
-                                        _l('health_insurance_number'),                                                           
-                                        );
-                                    render_datatable($table_data,'table_insurance');
-                                    ?>
-
-                                </div>
                                 <div role="tabpanel" class="tab-pane" id="tab_statistic">
                                     
                                 </div>
@@ -108,6 +108,70 @@ $(function(){
 });
 
     
+</script>
+<script>
+    $(document).ready(function() {
+        // Fetch data using AJAX when the document is ready
+        $.ajax({
+            url: '<?php echo admin_url("hrm/table_insurance"); ?>',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                // Populate table with fetched data
+                console.log(data);
+                $.each(data, function(index, item) {
+                    $('#table_insurance tbody').append(`
+                        <tr>
+                            <td>${item.insurance_book_num}</td>
+                            <td>${item.health_insurance_num}</td>
+                            <td>
+                            <button class="btn btn-primary btn-sm edit-insurance" data-toggle="modal" data-target="#editModal" data-insurance-id="${item.insurance_id}">Edit</button>
+                                <button class="btn btn-danger btn-sm delete-insurance" data-toggle="modal" data-target="#deleteModal" data-insurance-id="${item.insurance_id}">Delete</button>
+                            </td>
+                        </tr>
+                    `);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
+    $('#table_insurance').on('click', '.edit-insurance', function() {
+    var insuranceId = $(this).data('insurance-id');
+    // Redirect to edit page with insurance ID
+    window.location.href = '<?php echo admin_url("hrm/insurance/") ?>' + insuranceId;
+});
+
+// Handle delete button click event
+$('#table_insurance').on('click', '.delete-insurance', function() {
+    var insuranceId = $(this).data('insurance-id');
+    
+    // Perform AJAX request to delete the insurance item
+    $.ajax({
+        url: '<?php echo admin_url("hrm/delete_insurance/") ?>' + insuranceId,
+        type: 'POST',
+        dataType: 'json',
+        success: function(response) {
+            // Handle success response
+            if (response.success) {
+                // Refresh the page or update the table
+                location.reload();
+            } else {
+                // Handle error response
+                console.error(response.message);
+                alert("Failed to delete item: " + response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            // Handle error
+            console.error(error);
+            alert("Failed to delete item");
+        }
+    });
+});
+
+
 </script>
 </body>
 </html>

@@ -137,7 +137,13 @@ foreach ($rResult as $aRow) {
 
     $row[] = $aRow['insurance_book_num'];
     $row[] = $aRow['health_insurance_num'];
-    $row[] = date("d-m-Y", strtotime($aRow['from_month']));                                                                        
+    
+    if(!empty($aRow['from_month'])){
+        $row[] = date("d-m-Y", strtotime($aRow['from_month'])); 
+    } else{
+        $row[] = ""; 
+    }
+                                                                           
     $row[] = app_format_money((int)($aRow['premium_rates']),'');
 
     $row[] = app_format_money(get_payment_company($premium, $social_company,  $labor_accident_company, $health_company, $unemployment_company  ),'');

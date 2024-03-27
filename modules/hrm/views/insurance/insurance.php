@@ -26,7 +26,7 @@
                              </div>
                          </div>   
                          <div class="form" id="new_insurance">
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-md-12">
                                 <label for="staff_id" class="control-label"><?php echo _l('staff'); ?></label>
                                 <select onchange="OnSelectStaff(this)" name="staff_id" class="selectpicker" id="staff_id" data-width="100%" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>"> 
@@ -34,6 +34,52 @@
                                   <?php foreach($staff as $s){ ?>
                                   <option value="<?php echo htmlspecialchars($s['staffid']); ?>"  <?php if(isset($insurances) && $insurances[0]['staff_id'] == $s['staffid'] ){echo 'selected';} ?>> <?php echo htmlspecialchars($s['firstname']).''.htmlspecialchars($s['lastname']); ?></option>                  
                                   <?php }?>
+                                </select>
+                                </div>
+                            </div> -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                <?php $hospitalization = isset($insurances) ? $insurances[0]['hospitalization'] : '' ?>
+                                <label for="hospitalization" class="control-label">Type</label>
+                                <select name="hospitalization" class="selectpicker" id="hospitalization" data-width="100%" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>"> 
+                                   <option value=""></option> 
+                                  <option value="Hospitalization" <?php if($hospitalization == "Hospitalization"){?> selected <?php }?>> Hospitalization </option>                  
+                                  <option value="Non Hospitalization" <?php if($hospitalization == "Non Hospitalization"){?> selected <?php }?>> Non Hospitalization </option>
+                                </select>
+                                </div>
+                                <div class="col-md-6">
+                                <?php $surgicalornonsurgical = isset($insurances) ? $insurances[0]['surgicalornonsurgical'] : '' ?>
+                                <label for="surgicalornonsurgical" class="control-label">Surgical / Non Surgical</label>
+                                <select name="surgicalornonsurgical" class="selectpicker" id="surgicalornonsurgical" data-width="100%" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>"> 
+                                   <option value=""></option> 
+                                  <option value="Surgical" <?php if($surgicalornonsurgical == "Surgical"){?> selected <?php }?>> Surgical </option>                  
+                                  <option value="Non Surgical" <?php if($surgicalornonsurgical == "Non Surgical"){?> selected <?php }?>> Non Surgical </option>
+                                </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                            <br>
+                                <div class="col-md-6">
+                                <?php $surgicalornonsurgical_type = isset($insurances) ? $insurances[0]['surgicalornonsurgical_type'] : '' ?>
+                                <label for="surgicalornonsurgical_type" class="control-label">Surgical / Non Surgical Type</label>
+                                <select name="surgicalornonsurgical_type" class="selectpicker" id="surgicalornonsurgical_type" data-width="100%" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>"> 
+                                   <option value=""></option> 
+                                   <option value="minor" <?php if($surgicalornonsurgical_type == "minor"){?> selected <?php }?>>Minor</option>
+                                    <option value="medium" <?php if($surgicalornonsurgical_type == "medium"){?> selected <?php }?>>Medium</option>
+                                    <option value="major" <?php if($surgicalornonsurgical_type == "major"){?> selected <?php }?>>Major</option>
+                                    <option value="super-major" <?php if($surgicalornonsurgical_type == "super-major"){?> selected <?php }?>>Super Major</option>
+                                    <option value="extensive" <?php if($surgicalornonsurgical_type == "extensive"){?> selected <?php }?>>Extensive</option>
+                                </select>
+                                </div>
+                                <div class="col-md-6">
+                                <?php $others = isset($insurances) ? $insurances[0]['others'] : '' ?>
+                                <label for="others" class="control-label">Others</label>
+                                <select name="others" class="selectpicker" id="others" data-width="100%" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>"> 
+                                   <option value=""></option> 
+                                  <option value="General Health Check up" <?php if($others == "General Health Check up"){?> selected <?php }?> > General Health Check up </option>                  
+                                  <option value="Domicile Treatment" <?php if($others == "Domicile Treatment"){?> selected <?php }?> > Domicile Treatment </option>
+                                  <option value="Accidental Compensation with additional leave benefit" <?php if($others == "Accidental Compensation with additional leave benefit"){?> selected <?php }?> > Accidental Compensation with additional leave benefit </option>
+                                  <option value="Incentive for Sterilization Operation, etc." <?php if($others == "Incentive for Sterilization Operation, etc."){?> selected <?php }?> > Incentive for Sterilization Operation, etc. </option>
                                 </select>
                                 </div>
                             </div>
@@ -64,8 +110,14 @@
                                     
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                <?php $amount = isset($insurances) ? $insurances[0]['amount'] : '' ?>
+                                <div class="form-group" app-field-wrapper="amount"><label for="amount" class="control-label">Amount</label>
+                                <input type="text" id="amount" name="amount" class="form-control" value="<?=$amount?>"></div>
 
-
+                                </div>
+                            </div>
 
                         </div>
                         </div>
