@@ -1,5 +1,5 @@
 <tr class="expenseList">
-    <td><?= $count+1 ?></td>
+    <!-- <td><?= $count+1 ?></td> -->
     <td>
         <select class="form-control form-control-sm" id="tada_<?= $count ?>" name="tada[]" onchange="dynamicTADAOption(<?= $count ?>)">
             <option value="" selected disabled>Select Type</option>
@@ -20,7 +20,7 @@
         </select>
     </td>
     <td>
-        <select class="form-control" id="per_<?= $count ?>" name="per[]" onchange="getExpenseRate(<?= $count ?>)">
+        <select class="form-control form-control-sm" id="per_<?= $count ?>" name="per[]" onchange="getExpenseRate(<?= $count ?>)">
             <option value="" selected disabled>Select Per</option>
             <option class="ta_option" value="KM" <?php if(!empty($exp_rule)){ if($exp_rule->per == 'KM') echo "selected"; } ?>>Kelomiter</option>
             <option class="da_option" value="Day" <?php if(!empty($exp_rule)){ if($exp_rule->per == 'Day') echo "selected"; } ?>>Day</option>
@@ -28,8 +28,15 @@
         </select>
     </td>
     <td>
-        <input type="float" name="amount[]" value="<?php if(!empty($exp_rule)){ echo $exp_rule->rate; }else{ echo "0"; } ?>" id="amount_<?= $count ?>" class="form-control" readonly>
+        <input type="float" name="distance[]" value="<?php if(!empty($exp_rule)){ echo $exp_rule->distance; }else{ echo "0"; } ?>" id="distance_<?= $count ?>" class="form-control form-control-sm" onblur="getExpenseRate(<?= $count ?>)">
     </td>
-    <td onclick="this.parentNode.remove()"><i class="fa fa-trash"></i>
+    <td>
+        <textarea class="form-control form-control-sm" id="reason" name="reason" rows="1"><?php if(!empty($exp_rule)){ echo $exp_rule->reason; } ?></textarea>
     </td>
+    <td>
+        <input type="float" name="amount[]" value="<?php if(!empty($exp_rule)){ echo $exp_rule->amount; }else{ echo "0"; } ?>" id="amount_<?= $count ?>" class="form-control form-control-sm amount" readonly>
+    </td>
+    <?php if($count != 0): ?>
+    <td onclick="removeElm(this, <?= $count ?>)"><i class="fa fa-trash"></i></td>
+    <?php endif; ?>
 </tr>

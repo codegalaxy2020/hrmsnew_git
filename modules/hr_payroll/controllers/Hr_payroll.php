@@ -1836,6 +1836,9 @@ class hr_payroll extends AdminController {
 	 * Added by DEEP BASAK on 19 March, 2024
 	 */
 	public function open_expenses_modal(){
+		if(post('id') != 0){
+			$data['exp_details'] = $this->Common_model->getAllData('tbl_staff_expenses', '', 1, ['id' => post('id')]);
+		}
 		$data['staff_list'] = $this->Common_model->getAllData('tblstaff', '', '', []);
 		$html = $this->load->view('attendances/components/add_expense_modal_body', $data, true);
 
@@ -1963,15 +1966,17 @@ class hr_payroll extends AdminController {
 			if(!empty($fieldData['document'])){
 				$document = '<a class="btn btn-sm btn-success" href="'.base_url($fieldData['document']).'" target="_blank" download>Download</a>';
 			}
+			$action = '<a href="javascript:void(0)" onclick="openExpensesModal('.$fieldData['id'].', 2)"><i class="fa fa-eye"></i></a>';
 			$data[] = array(
 				$key + $skip + 1,
 				$fieldData['firstname'] . ' ' . $fieldData['lastname'],
 				$fieldData['month'],
 				$fieldData['year'],
 				$fieldData['exp_type'],
-				$fieldData['exp'],
+				'₹'.$fieldData['exp'],
 				$fieldData['reason'],
-				$document
+				$document,
+				$action
 			);
 		}
 
@@ -2003,10 +2008,32 @@ class hr_payroll extends AdminController {
 		$this->form_validation->set_rules('exp_type', 'Expense Type', 'trim|required');
 		$this->form_validation->set_rules('exp_amount', 'Expense Amount', 'trim|required');
 		$this->form_validation->set_rules('date', 'Expense Date', 'trim|required');
+		$this->form_validation->set_rules('exp_name', 'Expense name', 'trim|required');
+
+		//Multiple validation
+		if(!empty(post('tada'))){
+			foreach(post('tada') as $key => $val){
+				$this->form_validation->set_rules('tada['.$key.']', 'TADA ['.$key.']', 'trim|required');
+				$this->form_validation->set_rules('type['.$key.']', 'Type ['.$key.']', 'trim|required');
+				$this->form_validation->set_rules('amount['.$key.']', 'Amount ['.$key.']', 'trim|required');
+				$this->form_validation->set_rules('per['.$key.']', 'Per ['.$key.']', 'trim|required');
+				$this->form_validation->set_rules('distance['.$key.']', 'Distance ['.$key.']', 'trim|required');
+				// $this->form_validation->set_rules('distance['.$key.']', 'Distance ['.$key.']', 'trim|required');
+			}
+		} else{
+			$this->form_validation->set_rules('tada[0]', 'TADA [0]', 'trim|required');
+			$this->form_validation->set_rules('type[0]', 'Type [0]', 'trim|required');
+			$this->form_validation->set_rules('amount[0]', 'Amount [0]', 'trim|required');
+			$this->form_validation->set_rules('per[0]', 'Per [0]', 'trim|required');
+			$this->form_validation->set_rules('distance[0]', 'Distance [0]', 'trim|required');
+		}
+
 		if ($this->form_validation->run() == FALSE) {
             $msg = $this->form_validation->error_array();
             $array = array('status' => 'fail', 'error' => $msg, 'message' => '');
         } else {
+
+			//For file upload
 			if($_FILES['document']['size'] > 0){
 				$filetype = array('jpeg','jpg','png','PNG','JPEG','JPG', 'pdf');
 				$document_url = multiUpload('document', 'uploads/staff/expenses', $filetype, 'single', '');
@@ -2014,8 +2041,27 @@ class hr_payroll extends AdminController {
 			} else {
 				$document_url = "";
 			}
+
+			//For multiple expense
+			//Cr by DEEP BASAK on March 26, 2024
+			$expense_details = array();
+			if(!empty(post('tada'))){
+				foreach(post('tada') as $key => $val){
+					$expense_details[] = array(
+						'tada'		=> post('tada')[$key],
+						'type'		=> post('type')[$key],
+						'per'		=> post('per')[$key],
+						'amount'	=> post('amount')[$key],
+						'distance'	=> post('distance')[$key],
+						'reason'	=> post('reason')[$key]
+					);
+				}
+			}
+			
+
 			$data = array(
 				'staff_id'		=> $this->input->post('staff_id'),
+				'exp_name'		=> post('exp_name'),
 				'month'			=> date('F', strtotime($this->input->post('date'))),
 				'year'			=> date('Y', strtotime($this->input->post('date'))),
 				'exp_type'		=> $this->input->post('exp_type'),
@@ -2023,6 +2069,7 @@ class hr_payroll extends AdminController {
 				'reason'		=> $this->input->post('reason'),
 				'date'			=> $this->input->post('date'),
 				'document'		=> $document_url,
+				'expense_details'=> json_encode($expense_details),
 				'is_active'		=> 'Y',
 				'created_at'	=> date('Y-m-d H:i:s'),
 				'created_by'	=> get_staff_user_id()

@@ -599,7 +599,14 @@ function pr($val){
 function prx($val){
     // return echo
     echo "<pre>"; print_r($val); echo "</pre>"; exit;
+}
 
+//Added by DEEP BASAK on March 26, 2024
+//Helper For thsi->input->post()
+function post($value = '')
+{
+	$CI = &get_instance();
+	return $CI->input->post($value);
 }
 
 //Added by DEEP BASAK on March 19, 2024
