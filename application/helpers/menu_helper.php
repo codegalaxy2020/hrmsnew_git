@@ -65,6 +65,30 @@ function app_init_admin_sidebar_menu_items()
         // }
     // endif;
 
+    $CI->app_menu->add_sidebar_menu_item('medical', [
+        'name'     => 'Medical Reimbursement Management',
+        'href'     => admin_url('hr_payroll/manage_payslip'),
+        'position' => 11,
+        'icon'     => 'fa fa-medkit',
+        'badge'    => [],
+    ]);
+
+    // $CI->app_menu->add_sidebar_children_item('medical', [
+    //     'slug'     => 'add-medical-insurances',
+    //     'name'     => 'Add Medical Insurances',
+    //     'href'     => admin_url('hrm/insurance'),
+    //     'position' => 16,
+    //     'badge'    => [],
+    // ]);
+
+    $CI->app_menu->add_sidebar_children_item('medical', [
+        'slug'     => 'manage-medical-insurances',
+        'name'     => 'Manage Medical Insurances',
+        'href'     => admin_url('hrm/insurances'),
+        'position' => 16,
+        'badge'    => [],
+    ]);
+
 
     $CI->app_menu->add_sidebar_menu_item('sales', [
         'collapse' => true,
