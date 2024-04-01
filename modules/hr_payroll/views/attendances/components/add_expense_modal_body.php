@@ -90,7 +90,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <th colspan="4"><span class="text-end">Total Expense Amount (₹)<span class="text-danger">*</span></span></th>
+                    <th colspan="5"><span class="text-end">Total Expense Amount (₹)<span class="text-danger">*</span></span></th>
                     <td><input type="float" name="exp_amount" id="exp_amount" class="form-control" value="<?php if(!empty($exp_details)){ echo $exp_details->exp; }else{ echo "0"; } ?>" readonly></td>
                 </tr>
             </tfoot>
@@ -113,3 +113,14 @@
         </div>
     </div>
 </div>
+
+<?php
+if(!empty($exp_details) && ($exp_details->is_approve == 'N') && is_admin()): ?>
+<div class="row">
+    <div class="col-md-10">&nbsp;</div>
+    <div class="col-md-2">
+        <button type="button" onclick="approveRejectExpense(<?= !empty($exp_details)?$exp_details->id:0 ?>, 'Y')" class="btn btn-success btn-sm approveBtn">Approve</button>
+        <button type="button" onclick="approveRejectExpense(<?= !empty($exp_details)?$exp_details->id:0 ?>, 'R')" class="btn btn-danger btn-sm rejectBtn">Reject</button>
+    </div>
+</div>
+<?php endif; ?>

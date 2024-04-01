@@ -1567,7 +1567,8 @@ class hr_payroll extends AdminController {
 			}
 
 			//Employee TADA
-			$staffExpSql = "SELECT * FROM tbl_staff_expenses WHERE staff_id = " . $staff_val->staffid . " AND date LIKE '$year-$month%'";
+			// $staffExpSql = "SELECT * FROM tbl_staff_expenses WHERE is_active = 'Y' AND is_approve = 'Y' AND staff_id = " . $staff_val->staffid . " AND date LIKE '$year-$month%'";
+			$staffExpSql = "SELECT * FROM tbl_staff_expenses WHERE is_active = 'Y' AND is_approve = 'Y' AND is_calculate = 'N' AND staff_id = " . $staff_val->staffid . " AND DATE_FORMAT(date, '%Y-%m') < DATE_FORMAT(CURRENT_DATE(), '%Y-%m')";
 			$staffExp = $this->Common_model->callSP($staffExpSql);
 			if(!empty($staffExp)){
 				foreach($staffExp as $key => $val){
@@ -1801,7 +1802,18 @@ class hr_payroll extends AdminController {
 	 * Added by DEEP BASAK on 02 Febuary, 2024
 	 */
 	public function pain_salary(){
-		$this->Common_model->UpdateDB('tbl_staff_payslip', ['id' => $this->input->post('id')], ['is_generate' => 'Y']);
+		$payslip_details = $this->Common_model->getAllData('tbl_staff_payslip', 'staff_id', 1, ['id' => $this->input->post('id')]);
+		
+		$sql = "UPDATE `tbl_staff_expenses` SET `is_calculate` = 'Y', `updated_at` = '".date('Y-m-d H:i:s')."', `updated_by` = ".get_staff_user_id()."
+		WHERE `is_active` = 'Y'
+		AND `is_approve` = 'Y'
+		AND `is_calculate` = 'N'
+		AND `staff_id` = $payslip_details->staff_id
+		AND DATE_FORMAT(date, '%Y-%m') < DATE_FORMAT(CURRENT_DATE(), '%Y-%m')";
+		
+		$this->db->query($sql);
+		$this->Common_model->UpdateDB('tbl_staff_payslip', ['id' => $this->input->post('id')], ['is_generate' => 'Y', 'updated_at' => date('Y-m-d H:i:s'), 'updated_by' => get_staff_user_id()]);
+
 		# response
         $result = array('status'=> 'success', 'message'=>'Salary Paid');
         $obj = (object) array_merge((array) $result, update_csrf_session());
@@ -1836,17 +1848,41 @@ class hr_payroll extends AdminController {
 	 * Added by DEEP BASAK on 19 March, 2024
 	 */
 	public function open_expenses_modal(){
+		$is_approve = '';
 		if(post('id') != 0){
 			$data['exp_details'] = $this->Common_model->getAllData('tbl_staff_expenses', '', 1, ['id' => post('id')]);
+			$is_approve = $data['exp_details']->is_approve;
 		}
 		$data['staff_list'] = $this->Common_model->getAllData('tblstaff', '', '', []);
 		$html = $this->load->view('attendances/components/add_expense_modal_body', $data, true);
 
 		# response
-        $result = array('status'=> 'success', 'message'=>'Display modal', 'html' => $html);
+        $result = array('status'=> 'success', 'message'=>'Display modal', 'html' => $html, 'is_approve' => $is_approve);
         $obj = (object) array_merge((array) $result, update_csrf_session());
         echo json_encode($obj);
 	}
+
+	/**
+	 * Approv/Reject expenses
+	 * Added by DEEP BASAK on 19 March, 2024
+	 */
+	public function approve_reject_expense(){
+		// prx('t');
+		if(post('type') == 'R'){
+			$message = 'Expense Rejected!';
+		} else{
+			$message = 'Expense Approved!';
+		}
+		// prx('t');
+		$this->Common_model->UpdateDB('tbl_staff_expenses', ['id' => post('id')], ['is_approve' => post('type'), 'updated_at' => date('Y-m-d H:i:s'), 'updated_by' => get_staff_user_id()]);
+
+		# response
+        $result = array('status'=> 'success', 'message'=>$message);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+
 
 	/**
 	 * Ecpense Rule Manage Add expense
@@ -1967,6 +2003,24 @@ class hr_payroll extends AdminController {
 				$document = '<a class="btn btn-sm btn-success" href="'.base_url($fieldData['document']).'" target="_blank" download>Download</a>';
 			}
 			$action = '<a href="javascript:void(0)" onclick="openExpensesModal('.$fieldData['id'].', 2)"><i class="fa fa-eye"></i></a>';
+
+			$approveReject = '';
+			if($fieldData['is_approve'] == 'Y'){
+				$approveReject = '<span class="badge bg-success">Approved</span>';
+			} else if($fieldData['is_approve'] == 'R'){
+				$approveReject = '<span class="badge bg-danger">Rejected</span>';
+			} else {
+				$approveReject = '<span class="badge bg-warning">Not Approve</span>';
+				if(!is_admin()){
+					if($fieldData['staff_id'] == get_staff_user_id()){
+						$action .= '&nbsp;<a href="javascript:void(0)" onclick="deleteExpense('.$fieldData['id'].', 2)"><i class="fa fa-trash text-danger"></i></a>';
+					}
+				} else{
+					$action .= '&nbsp;<a href="javascript:void(0)" onclick="deleteExpense('.$fieldData['id'].', 2)"><i class="fa fa-trash text-danger"></i></a>';
+				}
+				// $action .= '&nbsp;<a href="javascript:void(0)" onclick="deleteExpense('.$fieldData['id'].', 2)"><i class="fa fa-trash text-danger"></i></a>';
+			}
+
 			$data[] = array(
 				$key + $skip + 1,
 				$fieldData['firstname'] . ' ' . $fieldData['lastname'],
@@ -1976,6 +2030,7 @@ class hr_payroll extends AdminController {
 				'₹'.$fieldData['exp'],
 				$fieldData['reason'],
 				$document,
+				$approveReject,
 				$action
 			);
 		}

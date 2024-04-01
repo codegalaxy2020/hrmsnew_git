@@ -78,6 +78,7 @@
 												<th>Expense Amount (₹)</th>
 												<th>Reason</th>
 												<th>Document</th>
+												<th>Approve/Rejected</th>
 												<th>Action</th>
 											</tr>
 										</thead>

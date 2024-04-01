@@ -34,7 +34,7 @@
 		ajaxPostRequest('hr_payroll/open_expenses_modal', {'id': id}, function (data){
 			$('#attendance_modal').find('#attendance_modal_body').html(data.html);
 			$('#attendance_modal').find('#attendance_modal_title').text('Add expenses');
-			dynamicModalSize('attendance_modal', 'modal-xl', 'modal-fullscreen');
+			// dynamicModalSize('attendance_modal', 'modal-xl', 'modal-fullscreen');
 			
 			holdModal('attendance_modal');
 
@@ -46,6 +46,60 @@
 				$('#attendance_modal').find('.save').show();
 				addExpenseTable(type);
 			}
+		});
+	}
+
+	//Added by DEEP BASAK on April 01, 2024
+	function approveRejectExpense(id, type){
+		var msg = "", btn = "";
+		if(type == 'R'){
+			msg = "Are you sure? Want to reject this expense?";
+			btn = "Reject!";
+		}else{
+			msg = "Are you sure? Want to approve this expense?";
+			btn = "Approve!";
+		}
+
+		warnMsg2(msg, false, true, btn, "", function (){
+			ajaxPostRequest('hr_payroll/approve_reject_expense', {'id': id, 'type': type}, function (data) {
+				SwalSuccess2("Good Job!", data.message, data.status);
+				var month, staff;
+				if ($('#month_attendance').val() != undefined) {
+					month = $('#month_attendance').val();
+				} else {
+					month = null;
+				}
+
+				if ($('#staff_attendance').val() != undefined) {
+					staff = $('#staff_attendance').val();
+				} else {
+					staff = null;
+				}
+				closeModal('attendance_modal');
+				serverSideDataTable('table-staff_expense', baseUrl + 'hr_payroll/expense_manage_list/' + month + '/' + staff, 10);
+			})
+		});
+	}
+
+	//Added by DEEP BASAK on April 01, 2024
+	function deleteExpense(id){
+		warnMsg2("Are you sure? Want to delete this?", false, true, 'Delete It!', "", function (){
+			ajaxPostRequest('hr_payroll/delete_expense', {'id': id}, function (data) {
+				SwalSuccess2("Good Job!", data.message, data.status);
+				var month, staff;
+				if ($('#month_attendance').val() != undefined) {
+					month = $('#month_attendance').val();
+				} else {
+					month = null;
+				}
+
+				if ($('#staff_attendance').val() != undefined) {
+					staff = $('#staff_attendance').val();
+				} else {
+					staff = null;
+				}
+				serverSideDataTable('table-staff_expense', baseUrl + 'hr_payroll/expense_manage_list/' + month + '/' + staff, 10);
+			})
 		});
 	}
 

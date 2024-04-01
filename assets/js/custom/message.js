@@ -52,6 +52,8 @@ function warnMsg2(title, showDenyButton, showCancelButton, confirmButtonText, de
         }
         
     });
+
+    $(".swal2-container").css("z-index", "11000");
 }
 
 
