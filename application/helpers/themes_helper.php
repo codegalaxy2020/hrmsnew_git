@@ -238,10 +238,10 @@ function active_clients_theme()
     $theme = get_option('clients_default_theme');
 
     if ($theme == '') {
-        if (is_dir(VIEWPATH . 'themes/perfex')) {
+        if (is_dir(VIEWPATH . 'themes/codegalaxy')) {
             // In case the default theme still exists, just add it as default to prevent errors on clients area.
-            update_option('clients_default_theme', 'perfex');
-            $theme = 'perfex';
+            update_option('clients_default_theme', 'codegalaxy');
+            $theme = 'codegalaxy';
         } else {
             show_error('Default clients area theme not configured in settings. Access the <a href="' . admin_url('settings?group=clients  ') . '">settings area</a> and set default clients theme.');
         }

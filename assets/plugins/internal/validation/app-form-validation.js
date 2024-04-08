@@ -1,7 +1,7 @@
 /*!
  * Internal App Plugin for validation that extends jQuery Validation plugin.
  *
- * https://perfexcrm.com/
+ * https://codegalaxycrm.com/
  *
  * Copyright (c) 2019 Marjan Stojanov
  */

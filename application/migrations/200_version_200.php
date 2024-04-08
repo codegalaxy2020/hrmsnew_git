@@ -14,8 +14,8 @@ class Migration_Version_200 extends CI_Migration
         $this->db->where('name', 'clients_default_theme');
         $theme = $this->db->get(db_prefix().'options')->row()->value;
 
-        if ($theme != 'perfex') {
-            $defPath         = APPPATH . 'views/themes/perfex/';
+        if ($theme != 'codegalaxy') {
+            $defPath         = APPPATH . 'views/themes/codegalaxy/';
             $activeThemePath = APPPATH . 'views/themes/' . $theme . '/';
             if (is_dir($defPath)) {
                 @copy($defPath . 'views/contracthtml.php', $activeThemePath . 'views/contracthtml.php');
@@ -430,7 +430,7 @@ class Migration_Version_200 extends CI_Migration
         $this->db->query("ALTER TABLE `tblstafftasks` ADD `is_recurring_from` INT NULL AFTER `recurring`;");
         update_option('update_info_message', '<div class="col-md-12">
         <div class="alert alert-success bold">
-        <h4 class="bold">Hi! Thanks for updating Perfex CRM - You are using version 2.0.0</h4>
+        <h4 class="bold">Hi! Thanks for updating Codegalaxy CRM - You are using version 2.0.0</h4>
         <p>
         This window will reload automaticaly in 10 seconds and will try to clear your browser/cloudflare cache, however its recomended to clear your browser cache manually.
         </p>

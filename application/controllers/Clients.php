@@ -981,7 +981,7 @@ class Clients extends ClientsController
                 $this->form_validation->set_rules('company', _l('clients_company'), 'required');
             }
 
-            if (active_clients_theme() == 'perfex') {
+            if (active_clients_theme() == 'codegalaxy') {
                 // Fix for custom fields checkboxes validation
                 $this->form_validation->set_rules('company_form', '', 'required');
             }

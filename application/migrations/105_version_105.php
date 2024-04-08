@@ -50,7 +50,7 @@ class Migration_Version_105 extends CI_Migration
             update_option('dateformat','Y-m-d|yyyy-mm-dd');
         }
 
-        $this->db->query("INSERT INTO `tblemailtemplates` (`type`, `slug`, `name`, `subject`, `message`, `fromname`, `fromemail`, `plaintext`, `active`, `order`) VALUES ('contract', 'contract-expiration', 'Contract Expiration', 'Contract Expiration Reminder', '', 'Perfex', NULL, '0', '1', '1');");
+        $this->db->query("INSERT INTO `tblemailtemplates` (`type`, `slug`, `name`, `subject`, `message`, `fromname`, `fromemail`, `plaintext`, `active`, `order`) VALUES ('contract', 'contract-expiration', 'Contract Expiration', 'Contract Expiration Reminder', '', 'Codegalaxy', NULL, '0', '1', '1');");
 
         // estimate items
         $this->db->query("ALTER TABLE `tblestimateitems` ADD `description` MEDIUMTEXT NOT NULL , ADD `long_description` TEXT NULL , ADD `rate` DECIMAL(11,2) NOT NULL , ADD `taxid` INT NULL , ADD `item_order` INT NULL ;");

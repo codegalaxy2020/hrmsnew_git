@@ -39,7 +39,6 @@ $(function() {
 </script>
 <?php } ?>
 <script>
-$(document).ready(function() {
     function checkTrainingSchedule() {
         var csrf_token = $('meta[name="csrf_token"]').attr('content');
         $.ajax({
@@ -55,6 +54,8 @@ $(document).ready(function() {
             }
         });
     }
+$(document).ready(function() {
+    
 
     // Trigger the function initially
     checkTrainingSchedule();

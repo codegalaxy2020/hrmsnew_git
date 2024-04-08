@@ -1023,7 +1023,7 @@ function check_missing_language_strings($language)
         }
     }
     if (isset($keys_missing)) {
-        echo '<br />--<br />Language keys missing please create <a href="https://help.perfexcrm.com/overwrite-translation-text/" target="_blank">custom_lang.php</a> and add the keys listed above.';
+        echo '<br />--<br />Language keys missing please create <a href="#" target="_blank">custom_lang.php</a> and add the keys listed above.';
         echo '<br /> Here is how you should add the keys (You can just copy paste this text above and add your translations)<br /><br />';
         foreach ($missing_keys as $key) {
             echo '$lang[\'' . $key . '\'] = \'Add your translation\';<br />';
@@ -1241,8 +1241,8 @@ function _check_deprecated_calendar_view_name_option($value, $name)
 {
     if ($name === 'default_view_calendar' &&
             is_client_logged_in() &&
-            get_option('_v283_update_clients_theme') !== 'perfex' &&
-            active_clients_theme() !== 'perfex' &&
+            get_option('_v283_update_clients_theme') !== 'codegalaxy' &&
+            active_clients_theme() !== 'codegalaxy' &&
             !in_array($value, ['dayGridMonth','dayGridWeek','dayGridDay','timeGridWeek','timeGridDay'])) {
         $CalendarV5toV3ViewNamesMap = [
             'dayGridMonth' => 'month',

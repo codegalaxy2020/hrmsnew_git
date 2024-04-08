@@ -19,9 +19,9 @@ class App_module_installer
      */
     public function from_upload()
     {
-        if (isset($_FILES['module']) && _perfex_upload_error($_FILES['module']['error'])) {
+        if (isset($_FILES['module']) && _codegalaxy_upload_error($_FILES['module']['error'])) {
             return [
-                    'error'   => _perfex_upload_error($_FILES['file']['error']),
+                    'error'   => _codegalaxy_upload_error($_FILES['file']['error']),
                     'success' => false,
             ];
         }

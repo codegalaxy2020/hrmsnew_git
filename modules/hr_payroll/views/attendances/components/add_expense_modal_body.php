@@ -61,40 +61,42 @@
 
 <div class="row">
     <div class="col-md-12">
-        <table class="table table-sm table-bordered" id="staff_expense_list_table">
-            <thead>
-                <tr>
-                    <!-- <th>Sl No</th> -->
-                    <th>TADA<span class="text-danger">*</span></th>
-                    <th>Type<span class="text-danger">*</span></th>
-                    <th>Total (KM/Days)<span class="text-danger">*</span></th>
-                    <th>Total (KM/Days)<span class="text-danger">*</span></th>
-                    <th>Remarks</th>
-                    <th>Rate (₹)<span class="text-danger">*</span></th>
-                    <th onclick="<?php if(empty($exp_details)): ?>addExpenseTable()<?php endif; ?>">
-                        <i class="fa fa-plus"></i>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if(!empty($exp_details)):
-                    $details = json_decode($exp_details->expense_details);
-                    foreach($details as $key => $val):
-                        // pr($val);
-                        $data['exp_rule'] = $val;
-                        echo $this->load->view('attendances/components/add_expense_modal_tbody', $data, true);
-                    endforeach;
-                endif;
-                ?>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th colspan="5"><span class="text-end">Total Expense Amount (₹)<span class="text-danger">*</span></span></th>
-                    <td><input type="float" name="exp_amount" id="exp_amount" class="form-control" value="<?php if(!empty($exp_details)){ echo $exp_details->exp; }else{ echo "0"; } ?>" readonly></td>
-                </tr>
-            </tfoot>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered" id="staff_expense_list_table">
+                <thead>
+                    <tr>
+                        <!-- <th>Sl No</th> -->
+                        <th>TADA<span class="text-danger">*</span></th>
+                        <th>Type<span class="text-danger">*</span></th>
+                        <th>Total (KM/Days)<span class="text-danger">*</span></th>
+                        <th>Total (KM/Days)<span class="text-danger">*</span></th>
+                        <th>Remarks</th>
+                        <th>Rate (₹)<span class="text-danger">*</span></th>
+                        <th onclick="<?php if(empty($exp_details)): ?>addExpenseTable()<?php endif; ?>">
+                            <i class="fa fa-plus"></i>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if(!empty($exp_details)):
+                        $details = json_decode($exp_details->expense_details);
+                        foreach($details as $key => $val):
+                            // pr($val);
+                            $data['exp_rule'] = $val;
+                            echo $this->load->view('attendances/components/add_expense_modal_tbody', $data, true);
+                        endforeach;
+                    endif;
+                    ?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="5"><span class="text-end">Total Expense Amount (₹)<span class="text-danger">*</span></span></th>
+                        <td><input type="float" name="exp_amount" id="exp_amount" class="form-control" value="<?php if(!empty($exp_details)){ echo $exp_details->exp; }else{ echo "0"; } ?>" readonly></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
 </div>
 

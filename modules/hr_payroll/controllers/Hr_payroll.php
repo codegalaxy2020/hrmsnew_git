@@ -2253,7 +2253,7 @@ class hr_payroll extends AdminController {
 			$action = '<a href="javascript:void(0)" onclick="openExpensesRuleModal('.$fieldData['id'].', 2)"><i class="fa fa-eye"></i></a>';
 			if(is_admin()){
 				$action .= '&nbsp<a href="javascript:void(0)" class="text-success" onclick="openExpensesRuleModal('.$fieldData['id'].', 1)"><i class="fa fa-pencil"></i></a>';
-				$action .= '&nbsp<a href="javascript:void(0)" class="text-danger" onclick="deleteModal('.$fieldData['id'].')"><i class="fa fa-trash"></i></a>';
+				// $action .= '&nbsp<a href="javascript:void(0)" class="text-danger" onclick="deleteModal('.$fieldData['id'].')"><i class="fa fa-trash"></i></a>';
 			}
 
 			$data[] = array(
@@ -2473,11 +2473,12 @@ class hr_payroll extends AdminController {
 			$orderDir = $_POST['order'][0]['dir'];
 			$orderQuery = ' ORDER BY '. $orderColName . ' ' . $orderDir . ' ';
 		} else{
-			$orderQuery = 'ORDER BY tbltasks.dateadded DESC';
+			$orderQuery = 'ORDER BY tbltasks.startdate DESC';
 		}
 		#endregion
 
-		$select = 'tblstaff.firstname, tblstaff.lastname, tbltasks.*';
+		// $select = 'tblstaff.firstname, tblstaff.lastname, tbltasks.*';
+		$select = 'tbltasks.*';
 
 		//Datatable view Query
 		$query = 'SELECT
@@ -2516,34 +2517,34 @@ class hr_payroll extends AdminController {
 		
 		foreach ($testdata as $key => $fieldData){
 			$action = '<a href="javascript:void(0)" onclick="init_task_modal('.$fieldData['id'].')"><i class="fa fa-list-alt"></i></a>';
-			$assignName = '';
-			$join = array(
-				array(
-					'table'		=> 'tblstaff',
-					'on'		=> 'tblstaff.staffid = tbltask_assigned.staffid',
-					'type'		=> 'left'
-				)
-			);
-			$assignNameDetails = $this->Common_model->getAllData('tbltask_assigned', 'tblstaff.firstname,tblstaff.lastname,tblstaff.staffid', '', ['tbltask_assigned.taskid' => $fieldData['id']], '', '', '', '', [], $join);
-			$staffId = 0;
-			if(!empty($assignNameDetails)):
-				foreach($assignNameDetails as $k => $val):
-					if(is_admin()):
-						$assignName .= '<span class="badge bg-secondary">'.$val->firstname.' '.$val->lastname.'</span>';
-					else:
-						if(get_staff_user_id() == $val->staffid):
-							$staffId = $val->staffid;
-							$assignName = '<span class="badge bg-secondary">'.$val->firstname.' '.$val->lastname.'</span>';
-						endif;
-					endif;
-				endforeach;
-			endif;
+			// $assignName = '';
+			// $join = array(
+			// 	array(
+			// 		'table'		=> 'tblstaff',
+			// 		'on'		=> 'tblstaff.staffid = tbltask_assigned.staffid',
+			// 		'type'		=> 'left'
+			// 	)
+			// );
+			// $assignNameDetails = $this->Common_model->getAllData('tbltask_assigned', 'tblstaff.firstname,tblstaff.lastname,tblstaff.staffid', '', ['tbltask_assigned.taskid' => $fieldData['id']], '', '', '', '', [], $join);
+			// $staffId = 0;
+			// if(!empty($assignNameDetails)):
+			// 	foreach($assignNameDetails as $k => $val):
+			// 		if(is_admin()):
+			// 			$assignName .= '<span class="badge bg-secondary">'.$val->firstname.' '.$val->lastname.'</span>';
+			// 		else:
+			// 			if(get_staff_user_id() == $val->staffid):
+			// 				$staffId = $val->staffid;
+			// 				$assignName = '<span class="badge bg-secondary">'.$val->firstname.' '.$val->lastname.'</span>';
+			// 			endif;
+			// 		endif;
+			// 	endforeach;
+			// endif;
 
 			if(is_admin()):
 				$data[] = array(
 					$key + $skip + 1,
 					$fieldData['name'],
-					$assignName,
+					// $assignName,
 					$fieldData['dateadded'],
 					$fieldData['datefinished'],
 					$fieldData['startdate'],

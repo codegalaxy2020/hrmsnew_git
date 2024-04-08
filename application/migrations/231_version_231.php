@@ -433,7 +433,7 @@ class Migration_Version_231 extends CI_Migration
             VIEWPATH . 'views/admin/tables/tasks.php',
             VIEWPATH . 'admin/tables/tasks_relations.php',
             VIEWPATH . 'admin/tables/timesheets.php',
-            VIEWPATH . 'themes/perfex/template_parts/projects/project_tasks.php',
+            VIEWPATH . 'themes/codegalaxy/template_parts/projects/project_tasks.php',
             VIEWPATH . 'themes/' . active_clients_theme() . '/template_parts/projects/project_tasks.php',
         ];
 

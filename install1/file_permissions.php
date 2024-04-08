@@ -204,7 +204,7 @@ if (!is_writable('../temp')) {
 </table>
 <hr class="-tw-mx-4" />
 <?php if ($error == true) {
-    echo '<div class="text-center alert alert-danger tw-mb-0">You need to fix the requirements in order to install Perfex CRM</div>';
+    echo '<div class="text-center alert alert-danger tw-mb-0">You need to fix the requirements in order to install CodeGalaxy CRM</div>';
 } else {
     echo '<div class="text-center">';
     echo '<form action="" method="post" accept-charset="utf-8">';

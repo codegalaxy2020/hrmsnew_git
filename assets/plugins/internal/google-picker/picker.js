@@ -1,7 +1,7 @@
 /*!
  * Internal Google Drive Picker Plugin.
  *
- * https://perfexcrm.com/
+ * https://codegalaxycrm.com/
  *
  * Copyright (c) 2023 Marjan Stojanov
  *

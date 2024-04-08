@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `perfexcrm`
+-- Database: `codegalaxycrm`
 --
 
 -- --------------------------------------------------------
@@ -1686,7 +1686,7 @@ INSERT INTO `tbloptions` (`id`, `name`, `value`, `autoload`) VALUES
 (12, 'smtp_host', '', 1),
 (13, 'smtp_email_charset', 'utf-8', 1),
 (14, 'default_timezone', 'Europe/Berlin', 1),
-(15, 'clients_default_theme', 'perfex', 1),
+(15, 'clients_default_theme', 'codegalaxy', 1),
 (16, 'company_logo', '', 1),
 (17, 'tables_pagination_limit', '25', 1),
 (18, 'main_domain', '', 1),

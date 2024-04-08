@@ -7,7 +7,7 @@
 <div class="form-group">
     <div class="form-group">
         <label for="base_url" class="control-label">Base URL
-            <a href="https://help.perfexcrm.com/faq/what-is-base-url/" target="_blank">
+            <a href="#" target="_blank">
                 Read more...
             </a>
         </label>
