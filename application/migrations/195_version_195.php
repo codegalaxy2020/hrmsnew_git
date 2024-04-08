@@ -10,8 +10,8 @@ class Migration_Version_195 extends CI_Migration
 
     public function up()
     {
-        if (active_clients_theme() != 'perfex') {
-            xcopy(VIEWPATH.'themes/perfex/views/credit_note_pdf.php', VIEWPATH.'themes/'.active_clients_theme().'/views/credit_note_pdf.php');
+        if (active_clients_theme() != 'codegalaxy') {
+            xcopy(VIEWPATH.'themes/codegalaxy/views/credit_note_pdf.php', VIEWPATH.'themes/'.active_clients_theme().'/views/credit_note_pdf.php');
         }
 
         $this->db->query("ALTER TABLE `tblitemstax` ADD INDEX(`itemid`);");
@@ -149,7 +149,7 @@ class Migration_Version_195 extends CI_Migration
 
         update_option('update_info_message', '<div class="col-md-12">
             <div class="alert alert-success bold">
-                <h4 class="bold">Hi! Thanks for updating Perfex CRM - You are using version 1.9.5</h4>
+                <h4 class="bold">Hi! Thanks for updating Codegalaxy CRM - You are using version 1.9.5</h4>
                 <p>
                     This window will reload automaticaly in 10 seconds and will try to clear your browser/cloudflare cache, however its recomended to clear your browser cache manually.
                 </p>

@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 Module Name: Human Resources Management
-Description: Human Resource Management module for Perfex
+Description: Human Resource Management module for Codegalaxy
 Version: 2.3.0
 Requires at least: 2.3.*
 Author: Themesic Interactive

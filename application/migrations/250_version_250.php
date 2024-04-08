@@ -40,10 +40,10 @@ class Migration_Version_250 extends CI_Migration
         $this->db->where('name', 'clients_default_theme');
         $theme = $this->db->get(db_prefix() . 'options')->row()->value;
 
-        if ($theme != 'perfex') {
-            @copy(APPPATH . 'views/themes/perfex/template_parts/contracts_table.php', APPPATH . 'views/themes/' . active_clients_theme() . '/template_parts/contracts_table.php');
+        if ($theme != 'codegalaxy') {
+            @copy(APPPATH . 'views/themes/codegalaxy/template_parts/contracts_table.php', APPPATH . 'views/themes/' . active_clients_theme() . '/template_parts/contracts_table.php');
 
-            @copy(APPPATH . 'views/themes/perfex/template_parts/projects/project_contracts.php', APPPATH . 'views/themes/' . active_clients_theme() . '/template_parts/projects/project_contracts.php');
+            @copy(APPPATH . 'views/themes/codegalaxy/template_parts/projects/project_contracts.php', APPPATH . 'views/themes/' . active_clients_theme() . '/template_parts/projects/project_contracts.php');
         }
 
         // for lead_value

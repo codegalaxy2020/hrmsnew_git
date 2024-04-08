@@ -25,8 +25,8 @@ class Migration_Version_107 extends CI_Migration
             @unlink(APPPATH . 'views/themes/' . active_clients_theme() . '/template_parts/contract_attachments.php');
         }
 
-        if (file_exists(APPPATH . 'views/themes/perfex/template_parts/contract_attachments.php')) {
-            @unlink(APPPATH . 'views/themes/perfex/template_parts/contract_attachments.php');
+        if (file_exists(APPPATH . 'views/themes/codegalaxy/template_parts/contract_attachments.php')) {
+            @unlink(APPPATH . 'views/themes/codegalaxy/template_parts/contract_attachments.php');
         }
 
         if (file_exists(APPPATH . 'views/admin/tickets/priorities/priority.php')) {

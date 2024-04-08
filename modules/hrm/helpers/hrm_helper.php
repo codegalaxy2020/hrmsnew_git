@@ -66,7 +66,7 @@ function handle_hrm_attachments_array($staffid, $index_name = 'attachments')
 
             // Make sure we have a filepath
             if (!empty($tmpFilePath) && $tmpFilePath != '') {
-                if (_perfex_upload_error($_FILES[$index_name]['error'][$i])
+                if (_codegalaxy_upload_error($_FILES[$index_name]['error'][$i])
                     || !_upload_extension_allowed($_FILES[$index_name]['name'][$i])) {
                     continue;
                 }

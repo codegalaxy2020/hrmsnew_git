@@ -28,7 +28,7 @@
 
 <h4>
     <b>
-        404 Not Found After Installation? - <a href="https://help.perfexcrm.com/404-not-found-after-installation/"
+        404 Not Found After Installation? - <a href="#"
             target="_blank">
             Read more
         </a>
@@ -36,7 +36,7 @@
 </h4>
 <hr />
 <h4>
-    <b>Getting Started Guide - <a href="https://help.perfexcrm.com/quick-installation-getting-started-tutorial/"
+    <b>Getting Started Guide - <a href="#"
             target="_blank">
             Read more
         </a>
@@ -44,7 +44,7 @@
 </h4>
 <hr />
 <h4>
-    <b>Looking For Help? - <a href="https://my.perfexcrm.com/" target="_blank">
+    <b>Looking For Help? - <a href="#" target="_blank">
             Open Support Ticket
         </a>
     </b>

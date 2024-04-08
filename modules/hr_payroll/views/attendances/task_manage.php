@@ -43,7 +43,7 @@
 											<tr>
 												<th>#</th>
 												<th>Task</th>
-                                                <th>Staff</th>
+                                                <!-- <th>Staff</th> -->
 												<th>Date Created</th>
 												<th>Date Completed</th>
 												<th>Start Date</th>

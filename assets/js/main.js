@@ -3865,7 +3865,7 @@ function init_editor(selector, settings) {
     browser_spellcheck: true,
     height: 400,
     theme: "modern",
-    skin: "perfex",
+    skin: "codegalaxy",
     language: app.tinymce_lang,
     relative_urls: false,
     inline_styles: true,
@@ -5484,7 +5484,7 @@ function init_proposal_editor() {
     selector: "div.editable",
     inline: true,
     theme: "inlite",
-    // skin: 'perfex',
+    // skin: 'codegalaxy',
     relative_urls: false,
     remove_script_host: false,
     entity_encoding: "raw",
@@ -6760,7 +6760,7 @@ function edit_task_inline_description(e, id) {
   tinymce.init({
     selector: "#task_view_description",
     theme: "inlite",
-    skin: "perfex",
+    skin: "codegalaxy",
     directionality: isRTL == "true" ? "rtl" : "",
     auto_focus: "task_view_description",
     plugins:

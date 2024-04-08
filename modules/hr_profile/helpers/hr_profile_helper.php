@@ -122,7 +122,7 @@ function hr_profile_job_position_by_staff($staffid){
 				for ($i = 0; $i < count($_FILES[$index_name]['name']); $i++) {
 					$tmpFilePath = $_FILES[$index_name]['tmp_name'][$i];
 					if (!empty($tmpFilePath) && $tmpFilePath != '') {
-						if (_perfex_upload_error($_FILES[$index_name]['error'][$i])
+						if (_codegalaxy_upload_error($_FILES[$index_name]['error'][$i])
 							|| !_upload_extension_allowed($_FILES[$index_name]['name'][$i])) {
 							continue;
 					}
@@ -229,7 +229,7 @@ function get_hr_profile_upload_path_by_type($type)
 
 						// Make sure we have a filepath
 						if (!empty($tmpFilePath) && $tmpFilePath != '') {
-							if (_perfex_upload_error($_FILES[$index_name]['error'][$i])
+							if (_codegalaxy_upload_error($_FILES[$index_name]['error'][$i])
 								|| !_upload_extension_allowed($_FILES[$index_name]['name'][$i])) {
 								continue;
 						}
@@ -440,7 +440,7 @@ function get_hr_profile_upload_path_by_type($type)
 
 					// Make sure we have a filepath
 					if (!empty($tmpFilePath) && $tmpFilePath != '') {
-						if (_perfex_upload_error($_FILES[$index_name]['error'][$i])
+						if (_codegalaxy_upload_error($_FILES[$index_name]['error'][$i])
 							|| !_upload_extension_allowed($_FILES[$index_name]['name'][$i])) {
 							continue;
 					}

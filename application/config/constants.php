@@ -106,12 +106,12 @@ define('ADMIN_URI', DEFINED('CUSTOM_ADMIN_URL') ? CUSTOM_ADMIN_URL : ADMIN_URL);
 /**
  * CRM server update url
  */
-define('UPDATE_URL', 'https://www.perfexcrm.com/perfex_updates/index.php');
+define('UPDATE_URL', 'https://codegalaxy.co.in/');
 
 /**
  * Get latest version info
  */
-define('UPDATE_INFO_URL', 'https://www.perfexcrm.com/perfex_updates/update_info.php');
+define('UPDATE_INFO_URL', 'https://codegalaxy.co.in/');
 
 /**
  * Do not send sms to data eq. invoices, estimates older then X days.

@@ -33,8 +33,8 @@ class Migration_Version_106 extends CI_Migration
         $this->db->where('name','clients_default_theme');
         $theme = $this->db->get(db_prefix().'options')->row()->value;
 
-        if($theme != 'perfex'){
-            copy(APPPATH . 'views/themes/perfex/template_parts/contract_attachments.php',APPPATH . 'views/themes/' . active_clients_theme() . '/template_parts/contract_attachments.php');
+        if($theme != 'codegalaxy'){
+            copy(APPPATH . 'views/themes/codegalaxy/template_parts/contract_attachments.php',APPPATH . 'views/themes/' . active_clients_theme() . '/template_parts/contract_attachments.php');
         }
 
         $this->db->query("INSERT INTO `tblpermissions` (`permissionid`, `name`, `shortname`) VALUES (NULL, 'Use Bulk PDF Exporter', 'useBulkPdfExporter');");
