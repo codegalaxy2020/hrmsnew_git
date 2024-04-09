@@ -38,19 +38,16 @@
 							<div class="col-md-12">
 								<hr class="hr-color">
 								<div class="table-responsive">
-									<table class="table table-bordered table-sm" id="table-task_list">
+									<table class="table table-bordered table-sm" id="table-project_list">
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Task</th>
-                                                <!-- <th>Staff</th> -->
-												<th>Date Created</th>
-												<th>Date Completed</th>
+												<th>Project</th>
+                                                <th>Client</th>
 												<th>Start Date</th>
-												<th>Due Date</th>
-												<th>Proprity</th>
-												<th>Rel Type</th>
-												<th>Hourly Rate (₹)</th>
+												<th>Deadline</th>
+												<th>Project Cost (₹)</th>
+                                                <th>Hourly Rate (₹)</th>
 												<th>Action</th>
 											</tr>
 										</thead>
@@ -79,7 +76,7 @@
 
 
 <?php init_tail(); ?>
-<?php require 'modules/hr_payroll/assets/js/attendances/task_manage_js.php'; ?>
+<?php require 'modules/hr_payroll/assets/js/attendances/project_manage_js.php'; ?>
 
 </body>
 </html>

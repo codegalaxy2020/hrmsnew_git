@@ -54,12 +54,21 @@ function app_init_admin_sidebar_menu_items()
             'badge'    => [],
         ]);
 
+        //Added by DEEP BASAK on April 09, 2024
+        $CI->app_menu->add_sidebar_children_item('payslip', [
+            'slug'     => 'project',
+            'name'     => 'Project',
+            'href'     => admin_url('hr_payroll/manage_project'),
+            'position' => 16,
+            'badge'    => [],
+        ]);
+
         // if(is_admin()){
             $CI->app_menu->add_sidebar_children_item('payslip', [
                 'slug'     => 'task',
                 'name'     => 'Task',
                 'href'     => admin_url('hr_payroll/manage_task'),
-                'position' => 16,
+                'position' => 17,
                 'badge'    => [],
             ]);
         // }
