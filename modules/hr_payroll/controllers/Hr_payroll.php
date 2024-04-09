@@ -2407,20 +2407,6 @@ class hr_payroll extends AdminController {
 		$data['staffs'] = $staffs;
 
 		$data['title'] = 'Task List';
-
-		// $month = date('m');
-		// $year = date('Y');
-
-		// $staff_details = $this->Common_model->getAllData('tblstaff', '', '');		//CR by DEEP BASAK on March 26, 2024
-		
-		// // CR by DEEP BASAK on March 26, 2024
-		// if(!empty($staff_details)){
-		// 	foreach($staff_details as $staff_key => $staff_val){
-		// 		$msg = $this->calculatePayslipForAll($month, $year, $staff_val);
-		// 	}
-		// }
-		
-		//$msg = $this->calculatePayslipForAll($month, $year);
 		
 		$this->load->view('attendances/task_manage', $data);
 	}
@@ -2571,6 +2557,178 @@ class hr_payroll extends AdminController {
 					);
 				endif;
 			endif;
+
+		}
+
+		if (isset($_POST['draw']) && $_POST['draw']) {
+            $draw = $_POST['draw'];
+        } else {
+            $draw = '';
+        }
+
+        $output = array(
+            "draw" => $draw,
+			"recordsTotal" => count($testdata_total),
+            "recordsFiltered" => count($testdata_total),
+            "data" => $data,
+            "status" => 'success',
+			"csrf" => update_csrf_session()
+        );
+
+        # response
+        echo json_encode($output);
+        unset($dttbl_model);
+	}
+
+
+	/**
+	 * Project List View
+	 * Added by DEEP BASAK on April 09, 2024
+	 */
+	public function manage_project(){
+		if (!has_permission('hrp_attendance', '', 'view') && !has_permission('hrp_attendance', '', 'view_own') && !is_admin()) {
+			access_denied('hrp_attendance');
+		}
+
+		$this->load->model('staff_model');
+		$this->load->model('departments_model');
+
+		//load deparment by manager
+		if (!is_admin() && !has_permission('hrp_employee', '', 'view')) {
+			//View own
+			$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object(get_staffid_by_permission());
+		} else {
+			//admin or view global
+			$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object();
+		}
+
+		$data['departments'] = $this->departments_model->get();
+		$data['staffs'] = $staffs;
+
+		$data['title'] = 'Project List';
+		
+		$this->load->view('attendances/project_manage', $data);
+	}
+
+	/**
+	 * Task List
+	 * Added by DEEP BASAK on April 09, 2024
+	 */
+	public function project_list(){
+		# customize filter
+		$table_name = 'tblprojects';
+		if(is_admin()){
+			$where = ' ';
+		} else{
+			$where = ' tblproject_members.staff_id = '.get_staff_user_id();
+		}
+		
+
+		// Skip number of Rows count  
+		$start = $_POST["start"];
+
+		// Paging Length 10,20  
+		$length = $_POST["length"];
+
+		// Search Value from (Search box)  
+		$searchValue = trim($_POST["search"]["value"]);
+		$searchwhere = '';
+		if(!empty($searchValue)){
+			$searchwhere .= ' AND '.$table_name.'.name LIKE "%'.$searchValue.'%" 
+				OR tblclients.company LIKE "%'.$searchValue.'%" 
+				OR '.$table_name.'.start_date LIKE "%'.$searchValue.'%"
+				OR '.$table_name.'.deadline LIKE "%'.$searchValue.'%"
+				OR '.$table_name.'.project_cost LIKE "%'.$searchValue.'%"
+				OR '.$table_name.'.project_rate_per_hour LIKE "%'.$searchValue.'%"';
+		}
+
+		//Paging Size (10, 20, 50,100)  
+		$pageSize = $length != null ? intval($length) : 0;
+		$skip = $start != null ? intval($start) : 0;
+
+		#region order by column
+		//Cr by DEEP BASAK on March 19, 2024
+		if(!empty($_POST['order'][0])){
+			$colArr = array('', $table_name.'.name', 'tblclients.company', $table_name.'.start_date', $table_name.'.deadline', $table_name.'.project_cost', $table_name.'.project_rate_per_hour', '');
+			$columnIndex = $_POST['order'][0]['column'];
+			$orderColName = $colArr[$columnIndex];
+			$orderDir = $_POST['order'][0]['dir'];
+			$orderQuery = ' ORDER BY '. $orderColName . ' ' . $orderDir . ' ';
+		} else{
+			$orderQuery = 'ORDER BY '.$table_name.'.project_created DESC';
+		}
+		#endregion
+
+		// $select = 'tblstaff.firstname, tblstaff.lastname, tbltasks.*';
+		$select = $table_name.'.*, tblclients.company ';
+
+		//Datatable view Query
+		$query = 'SELECT
+			'.$select.'
+		FROM
+			`'.$table_name.'` 
+		LEFT JOIN tblclients ON tblclients.userid = '.$table_name.'.clientid 
+		LEFT JOIN tblproject_members ON tblproject_members.project_id = '.$table_name.'.id ';
+		if($where != ' '):
+			$query .=' WHERE
+				'.$where.' ';
+		endif;
+		$query .=' '.$searchwhere.' GROUP BY '.$table_name.'.id 
+			'. $orderQuery . ' 
+		LIMIT '.$pageSize.' OFFSET '.$skip.' ';
+
+		// prx($query);
+
+		//Total records query
+		$query_total = 'SELECT
+			'.$select.'
+		FROM
+			`'.$table_name.'` 
+		LEFT JOIN tblclients ON tblclients.userid = '.$table_name.'.clientid 
+		LEFT JOIN tblproject_members ON tblproject_members.project_id = '.$table_name.'.id ';
+		if($where != ' '):
+			$query_total .=' WHERE
+					'.$where.' ';
+		endif; 
+		$query_total .=' GROUP BY '.$table_name.'.id '.$orderQuery.' ';
+
+
+		$testdata = $this->Common_model->callSP($query);
+		$testdata_total = $this->Common_model->callSP($query_total);
+		$data = array();
+		
+		foreach ($testdata as $key => $fieldData){
+			$project_url = base_url('admin/projects/view/').$fieldData['id'];
+			$action = '<a href="'.$project_url.'"><i class="fa fa-eye"></i></a>';
+
+			// if(is_admin()):
+				$data[] = array(
+					$key + $skip + 1,
+					$fieldData['name'],
+					$fieldData['company'],
+					$fieldData['start_date'],
+					$fieldData['deadline'],
+					'₹'.$fieldData['project_cost'],
+					'₹'.$fieldData['project_rate_per_hour'],
+					$action
+				);
+			// else:
+			// 	if(get_staff_user_id() == $staffId):
+			// 		$data[] = array(
+			// 			$key + $skip + 1,
+			// 			$fieldData['name'],
+			// 			$assignName,
+			// 			$fieldData['dateadded'],
+			// 			$fieldData['datefinished'],
+			// 			$fieldData['startdate'],
+			// 			$fieldData['duedate'],
+			// 			$fieldData['priority'],
+			// 			$fieldData['rel_type'],
+			// 			'₹'.$fieldData['hourly_rate'],
+			// 			$action
+			// 		);
+			// 	endif;
+			// endif;
 
 		}
 
