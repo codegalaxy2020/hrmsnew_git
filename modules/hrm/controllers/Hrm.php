@@ -1184,7 +1184,73 @@ public function delete_hrm_staff_attachment($attachment_id)
         $data['staff'] = $this->staff_model->get();
         $this->load->view('hrm/insurance/insurance', $data);
      }
+     public function insurancestaff($id = ''){
 
+        if (!has_permission('hrm', '', 'view')) {
+            access_denied('hrm');
+        }
+        if ($this->input->post()) {
+            $data = $this->input->post();
+            if ($this->input->post('insurance_id') == '') {
+                if (!has_permission('hrm', '', 'create')) {
+                    access_denied('hrm');
+                }
+                $id = $this->hrm_model->add_insurancestaff($data);
+                if ($id) {
+                    set_alert('success', _l('added_successfully', _l('insurance_history')));
+                    redirect(admin_url('hrm/insuranceforstaff'));
+                }
+            } else {
+                if (!has_permission('hrm', '', 'edit')) {
+                    access_denied('hrm');
+                }
+
+                $response = $this->hrm_model->update_insurancestaff($data, $this->input->post('insurance_id'));
+                if (is_array($response)) {
+                    if (isset($response['cant_remove_main_admin'])) {
+                        set_alert('warning', _l('staff_cant_remove_main_admin'));
+                    } elseif (isset($response['cant_remove_yourself_from_admin'])) {
+                        set_alert('warning', _l('staff_cant_remove_yourself_from_admin'));
+                    }
+                } elseif ($response == true) {
+
+                    set_alert('success', _l('updated_successfully', _l('insurance_history')));
+                }
+                redirect(admin_url('hrm/insuranceforstaff'));
+            }
+        }
+        
+        if ($id == '') {
+            $title = _l('add_new', _l('insurrance'));
+            $data['title'] = $title;
+        } else {
+            $title = _l('edit', _l('insurrance'));
+            $insurance = $this->hrm_model->get_insurance($id);
+            $insurance_history = $this->hrm_model->get_insurance_history($id);
+           
+
+            $data['insurances']            = $insurance;
+            $data['insurance_history']            = $insurance_history;
+            
+           
+            
+        }
+        $data['month'] = $this->hrm_model->get_month();
+        $data['staff'] = $this->staff_model->get();
+        $this->load->view('hrm/insurance/insurance', $data);
+     }
+
+     public function update_insorance()
+    {
+        $insuranceId = $this->input->post('insuranceId');
+        $approvedAmount = $this->input->post('approvedAmount');
+        $this->db->where('insurance_id', $insuranceId)
+                     ->update('tblstaff_insurance', ['approved_amount' => $approvedAmount]);
+
+
+                     $response = array('status' => 'success', 'message' => 'Insurance updated successfully');
+                     echo json_encode($response);
+    }
     public function insurance_book_exists(){
         if ($this->input->is_ajax_request()) {
             if ($this->input->post()) {
