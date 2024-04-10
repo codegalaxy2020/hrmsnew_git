@@ -191,7 +191,11 @@ class Projects extends AdminController
                 blank_page(_l('project_not_found'));
             }
 
-            $project->settings->available_features = unserialize($project->settings->available_features);
+            //CR by DEEP BASAK on April 09, 2024 for bug fix
+            if(!empty($project->settings->available_features)){
+                $project->settings->available_features = unserialize($project->settings->available_features);
+            }
+            
             $data['statuses']                      = $this->projects_model->get_project_statuses();
 
             $group = !$this->input->get('group') ? 'project_overview' : $this->input->get('group');

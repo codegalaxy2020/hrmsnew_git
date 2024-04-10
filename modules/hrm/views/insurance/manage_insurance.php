@@ -23,11 +23,6 @@
                            <?php  $pro = $this->hrm_model->get_staff();?>
                            <div  class="col-md-3 leads-filter-column pull-left">
                           
-                                  <select name="staff[]" id="staff" data-live-search="true" class="selectpicker" multiple="true" data-actions-box="true" data-width="100%" data-none-selected-text="<?php echo _l('als_staff'); ?>">
-                                    <?php foreach($pro as $s) { ?>
-                                      <option value="<?php echo htmlspecialchars($s['staffid']); ?>"><?php echo htmlspecialchars($s['firstname']); ?></option>
-                                      <?php } ?>
-                                  </select>
                             </div> 
                             
                         </div>
@@ -42,23 +37,24 @@
                                  <div class="tab-content">
                                  <!-- start -->
                                  <div role="tabpanel" class="tab-pane active" id="tab_list_insurance">
-    <table id="table_insurance" class="table table-striped">
-        <thead>
-            <tr>
-                <th><?php echo _l('insurance_book_number'); ?></th>
-                <th><?php echo _l('health_insurance_number'); ?></th>
-                <th><?php echo _l('actions'); ?></th> <!-- Added for edit and delete buttons -->
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Data will be populated here via AJAX -->
-        </tbody>
-    </table>
-</div>
-
-                                <div role="tabpanel" class="tab-pane" id="tab_statistic">
-                                    
+                                    <table id="table_insurance" class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Insurance Book Number</th>
+                                                <th>Health Insurance Number</th>
+                                                <th>Amount</th>
+                                                <th>Approved Amount</th>
+                                                <th>Actions</th> <!-- Added for edit and delete buttons -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Data will be populated here via AJAX -->
+                                        </tbody>
+                                    </table>
                                 </div>
+
+
+                                
                                  </div>
                               </div>
                            </div>
@@ -71,6 +67,31 @@
 
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="approveModal" tabindex="-1" role="dialog" aria-labelledby="approveModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="approveModalLabel">Edit Approved Amount</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="approvedAmountForm">
+                    <div class="form-group">
+                        <label for="approvedAmount">Approved Amount:</label>
+                        <input type="number" class="form-control" id="approvedAmount" name="approvedAmount">
+                        <input type="hidden" id="approveModalid" name="approveModalid">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveApprovedAmount">Save changes</button>
             </div>
         </div>
     </div>
@@ -124,9 +145,15 @@ $(function(){
                         <tr>
                             <td>${item.insurance_book_num}</td>
                             <td>${item.health_insurance_num}</td>
+                            <td>${item.amount}</td>
+                            <td style="color: #ff0909;">${item.approved_amount ? item.approved_amount : "Waiting for admin approval"}</td>
+
                             <td>
+                            <?php if (is_admin()) { ?>
+                            <button class="btn btn-primary btn-sm approve-insurance" data-toggle="modal" data-target="#approveModal" data-approved-amount="${item.approved_amount}" data-insurance-id="${item.insurance_id}">Approved</button>
+                            <?php } ?>
                             <button class="btn btn-primary btn-sm edit-insurance" data-toggle="modal" data-target="#editModal" data-insurance-id="${item.insurance_id}">Edit</button>
-                                <button class="btn btn-danger btn-sm delete-insurance" data-toggle="modal" data-target="#deleteModal" data-insurance-id="${item.insurance_id}">Delete</button>
+                            <button class="btn btn-danger btn-sm delete-insurance" data-toggle="modal" data-target="#deleteModal" data-insurance-id="${item.insurance_id}">Delete</button>
                             </td>
                         </tr>
                     `);
@@ -172,6 +199,41 @@ $('#table_insurance').on('click', '.delete-insurance', function() {
 });
 
 
+</script>
+<script>
+    $(document).ready(function() {
+        $(document).on('click', '.approve-insurance', function() {
+            // alert('ggg');
+            var insuranceId = $(this).data('insurance-id');
+            var approved = $(this).data('approved-amount');
+            $('#approveModalid').val(insuranceId);
+            $('#approvedAmount').val(approved);
+        });
+
+        $('#saveApprovedAmount').click(function(e) {
+            e.preventDefault(); 
+            var approvedAmount = $('#approvedAmount').val();
+            var insuranceId = $('#approveModalid').val();
+
+            // AJAX call to submit data
+            $.ajax({
+                url: '<?php echo admin_url("hrm/update_insorance"); ?>',
+                method: 'POST',
+                data: {
+                    approvedAmount: approvedAmount,
+                    insuranceId: insuranceId
+                },
+                success: function(response) {
+                    console.log(response);
+                    $('#approveModal').modal('hide');
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>
