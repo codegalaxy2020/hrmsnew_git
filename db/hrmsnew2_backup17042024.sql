@@ -11,7 +11,7 @@
  Target Server Version : 100425 (10.4.25-MariaDB)
  File Encoding         : 65001
 
- Date: 02/04/2024 09:25:52
+ Date: 17/04/2024 19:22:12
 */
 
 SET NAMES utf8mb4;
@@ -53,7 +53,7 @@ CREATE TABLE `tbl_staff_attendance`  (
   `updated_at` datetime NULL DEFAULT NULL,
   `updated_by` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 134 CHARACTER SET = armscii8 COLLATE = armscii8_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 167 CHARACTER SET = armscii8 COLLATE = armscii8_bin ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tbl_staff_attendance
@@ -173,9 +173,42 @@ INSERT INTO `tbl_staff_attendance` VALUES (127, 2, '2024-03-28', '26.7271012,88.
 INSERT INTO `tbl_staff_attendance` VALUES (128, 1, '2024-04-01', '22.5804288,88.2638848', '2024-04-01 08:25:33', '2024-04-01', '22.5804288,88.2638848', '2024-04-01 18:43:54', 176, 10.31, 'Y', '2024-04-01 12:25:33', 1, '2024-04-01 18:43:54', 1);
 INSERT INTO `tbl_staff_attendance` VALUES (129, 3, '2024-04-01', '22.5804288,88.2638848', '2024-04-01 08:25:42', '2024-04-01', '22.5804288,88.2638848', '2024-04-01 18:42:55', 176, 10.29, 'Y', '2024-04-01 12:25:42', 1, '2024-04-01 18:42:55', 3);
 INSERT INTO `tbl_staff_attendance` VALUES (130, 2, '2024-04-01', '22.5804288,88.2638848', '2024-04-01 12:25:50', '2024-04-01', '22.5804288,88.2638848', '2024-04-01 18:46:15', 176, 6.34, 'Y', '2024-04-01 12:25:50', 1, '2024-04-01 18:46:15', 1);
-INSERT INTO `tbl_staff_attendance` VALUES (131, 1, '2024-04-02', '22.6003073,88.4306861', '2024-04-02 07:46:06', NULL, NULL, NULL, 176, NULL, 'Y', '2024-04-02 09:22:06', 1, NULL, NULL);
-INSERT INTO `tbl_staff_attendance` VALUES (132, 3, '2024-04-02', '22.6003073,88.4306861', '2024-04-02 07:46:16', NULL, NULL, NULL, 176, NULL, 'Y', '2024-04-02 09:22:16', 1, NULL, NULL);
-INSERT INTO `tbl_staff_attendance` VALUES (133, 2, '2024-04-02', '22.6003073,88.4306861', '2024-04-02 09:22:25', NULL, NULL, NULL, 176, NULL, 'Y', '2024-04-02 09:22:25', 1, NULL, NULL);
+INSERT INTO `tbl_staff_attendance` VALUES (131, 1, '2024-04-02', '22.6003073,88.4306861', '2024-04-02 07:46:06', '2024-04-02', '22.6003073,88.4306861', '2024-04-02 18:10:50', 176, 10.41, 'Y', '2024-04-02 09:22:06', 1, '2024-04-02 18:10:50', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (132, 3, '2024-04-02', '22.6003073,88.4306861', '2024-04-02 07:46:16', '2024-04-02', '22.5989416,88.4348884', '2024-04-02 18:11:02', 176, 10.41, 'Y', '2024-04-02 09:22:16', 1, '2024-04-02 18:11:02', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (133, 2, '2024-04-02', '22.6003073,88.4306861', '2024-04-02 09:22:25', '2024-04-02', '22.5989416,88.4348884', '2024-04-02 18:11:13', 176, 8.81, 'Y', '2024-04-02 09:22:25', 1, '2024-04-02 18:11:13', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (134, 1, '2024-04-03', '22.6003073,88.4306861', '2024-04-03 08:01:08', '2024-04-03', '22.6003073,88.4306861', '2024-04-03 19:11:45', 176, 11.18, 'Y', '2024-04-03 09:01:08', 1, '2024-04-03 19:11:45', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (135, 3, '2024-04-03', '22.6003073,88.4306861', '2024-04-03 08:01:16', '2024-04-03', '22.6003073,88.4306861', '2024-04-03 19:12:05', 176, 11.18, 'Y', '2024-04-03 09:01:16', 1, '2024-04-03 19:12:05', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (136, 2, '2024-04-03', '22.6003073,88.4306861', '2024-04-03 09:01:24', '2024-04-03', '22.6003073,88.4306861', '2024-04-03 19:11:54', 176, 10.18, 'Y', '2024-04-03 09:01:24', 1, '2024-04-03 19:11:54', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (137, 1, '2024-04-04', '22.5989561,88.4348833', '2024-04-04 08:00:43', '2024-04-04', '22.5989439,88.4348909', '2024-04-04 19:46:07', 176, 11.76, 'Y', '2024-04-04 09:43:43', 1, '2024-04-04 19:46:07', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (138, 3, '2024-04-04', '22.5989561,88.4348833', '2024-04-04 08:00:52', '2024-04-04', '22.5989439,88.4348909', '2024-04-04 19:45:58', 176, 11.75, 'Y', '2024-04-04 09:43:52', 1, '2024-04-04 19:45:58', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (139, 2, '2024-04-04', '22.5989561,88.4348833', '2024-04-04 09:44:01', '2024-04-04', '22.5989439,88.4348909', '2024-04-04 19:45:44', 176, 10.03, 'Y', '2024-04-04 09:44:01', 1, '2024-04-04 19:45:44', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (140, 1, '2024-04-05', '22.5989474,88.4348877', '2024-04-05 08:00:29', '2024-04-05', '22.5989474,88.4348877', '2024-04-05 23:59:59', 176, 15.99, 'Y', '2024-04-05 10:26:29', 1, '2024-04-08 08:29:01', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (141, 3, '2024-04-05', '22.5989474,88.4348877', '2024-04-05 08:05:38', '2024-04-05', '22.5989474,88.4348877', '2024-04-05 23:59:59', 176, 15.91, 'Y', '2024-04-05 10:26:38', 1, '2024-04-08 08:29:01', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (142, 2, '2024-04-05', '22.5989449,88.4348836', '2024-04-05 10:26:46', '2024-04-05', '22.5989449,88.4348836', '2024-04-05 23:59:59', 176, 13.55, 'Y', '2024-04-05 10:26:46', 1, '2024-04-08 08:29:01', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (143, 1, '2024-04-08', '22.5989396,88.4348806', '2024-04-08 07:58:11', '2024-04-08', '22.5989396,88.4348806', '2024-04-08 23:59:59', 176, 16.03, 'Y', '2024-04-08 08:29:11', 1, '2024-04-09 09:14:18', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (144, 3, '2024-04-08', '22.5989396,88.4348806', '2024-04-08 07:58:21', '2024-04-08', '22.5989396,88.4348806', '2024-04-08 23:59:59', 176, 16.03, 'Y', '2024-04-08 08:29:21', 1, '2024-04-09 09:14:18', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (145, 2, '2024-04-08', '22.5989396,88.4348806', '2024-04-08 07:58:30', '2024-04-08', '22.5989396,88.4348806', '2024-04-08 23:59:59', 176, 16.02, 'Y', '2024-04-08 08:29:30', 1, '2024-04-09 09:14:18', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (146, 1, '2024-04-09', '22.5989368,88.4348813', '2024-04-09 08:14:44', '2024-04-09', '22.6003073,88.4306861', '2024-04-09 18:57:09', 176, 10.71, 'Y', '2024-04-09 09:14:44', 1, '2024-04-09 18:57:09', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (147, 3, '2024-04-09', '22.5989368,88.4348813', '2024-04-09 08:14:57', '2024-04-09', '22.6003073,88.4306861', '2024-04-09 18:57:19', 176, 10.71, 'Y', '2024-04-09 09:14:57', 1, '2024-04-09 18:57:19', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (148, 2, '2024-04-09', '22.5989357,88.4348708', '2024-04-09 09:15:07', '2024-04-09', '22.6003073,88.4306861', '2024-04-09 18:57:28', 176, 9.71, 'Y', '2024-04-09 09:15:07', 1, '2024-04-09 18:57:28', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (149, 1, '2024-04-10', '22.5989433,88.4348806', '2024-04-10 07:36:05', '2024-04-10', '22.598935,88.4348834', '2024-04-10 19:54:13', 176, 12.3, 'Y', '2024-04-10 08:36:05', 1, '2024-04-10 19:54:13', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (150, 3, '2024-04-10', '22.5989433,88.4348806', '2024-04-10 07:36:15', '2024-04-10', '22.6003073,88.4306861', '2024-04-10 19:54:24', 176, 12.3, 'Y', '2024-04-10 08:36:15', 1, '2024-04-10 19:54:24', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (151, 2, '2024-04-10', '22.5989433,88.4348806', '2024-04-10 07:36:23', '2024-04-10', '22.6003073,88.4306861', '2024-04-10 19:54:32', 176, 12.3, 'Y', '2024-04-10 08:36:23', 1, '2024-04-10 19:54:32', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (152, 1, '2024-04-11', '22.598934,88.4348749', '2024-04-11 07:50:49', '2024-04-11', '22.5378304,88.3490816', '2024-04-11 19:38:16', 176, 11.79, 'Y', '2024-04-11 08:46:49', 1, '2024-04-11 19:38:16', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (153, 3, '2024-04-11', '22.598934,88.4348749', '2024-04-11 07:50:59', '2024-04-11', '22.5378304,88.3490816', '2024-04-11 19:38:52', 176, 11.8, 'Y', '2024-04-11 08:46:59', 1, '2024-04-11 19:38:52', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (154, 2, '2024-04-11', '22.6003073,88.4306861', '2024-04-11 08:27:09', '2024-04-11', '22.5378304,88.3490816', '2024-04-11 19:38:23', 176, 11.19, 'Y', '2024-04-11 08:47:09', 1, '2024-04-11 19:38:23', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (155, 1, '2024-04-12', '22.6003073,88.4306861', '2024-04-12 07:48:56', '2024-04-12', '22.5989368,88.4348745', '2024-04-12 18:21:45', 176, 10.55, 'Y', '2024-04-12 09:57:56', 1, '2024-04-12 18:21:45', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (156, 3, '2024-04-12', '22.6003073,88.4306861', '2024-04-12 07:48:06', '2024-04-12', '22.5989325,88.4348852', '2024-04-12 18:22:05', 176, 10.57, 'Y', '2024-04-12 09:58:06', 1, '2024-04-12 18:22:05', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (157, 2, '2024-04-12', '22.6003073,88.4306861', '2024-04-12 07:48:17', '2024-04-12', '22.5989325,88.4348852', '2024-04-12 18:21:56', 176, 10.56, 'Y', '2024-04-12 09:58:17', 1, '2024-04-12 18:21:56', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (158, 1, '2024-04-15', '26.7271012,88.3952861', '2024-04-15 08:05:08', '2024-04-15', '26.7271012,88.3952861', '2024-04-15 23:59:59', 176, 15.91, 'Y', '2024-04-15 08:05:08', 1, '2024-04-16 09:22:29', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (159, 3, '2024-04-15', '26.7271012,88.3952861', '2024-04-15 08:05:18', '2024-04-15', '26.7271012,88.3952861', '2024-04-15 23:59:59', 176, 15.91, 'Y', '2024-04-15 08:05:18', 1, '2024-04-16 09:22:29', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (160, 2, '2024-04-15', '26.7271012,88.3952861', '2024-04-15 08:05:27', '2024-04-15', '26.7271012,88.3952861', '2024-04-15 23:59:59', 176, 15.91, 'Y', '2024-04-15 08:05:27', 1, '2024-04-16 09:22:29', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (161, 1, '2024-04-16', '23.561941,87.2813886', '2024-04-16 07:55:41', '2024-04-16', '23.5367749,87.3445785', '2024-04-16 17:37:26', 176, 9.7, 'Y', '2024-04-16 09:22:41', 1, '2024-04-16 17:37:26', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (162, 3, '2024-04-16', '23.561941,87.2813886', '2024-04-16 07:55:41', '2024-04-16', '23.5367749,87.3445785', '2024-04-16 17:37:35', 176, 9.7, 'Y', '2024-04-16 09:22:50', 1, '2024-04-16 17:37:35', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (163, 2, '2024-04-16', '23.561941,87.2813886', '2024-04-16 07:55:41', '2024-04-16', '23.5367749,87.3445785', '2024-04-16 17:37:43', 176, 9.7, 'Y', '2024-04-16 09:22:58', 1, '2024-04-16 17:37:43', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (164, 1, '2024-04-17', '26.7271012,88.3952861', '2024-04-17 08:35:30', '2024-04-17', '23.5503616,87.2808448', '2024-04-17 19:03:18', 176, 10.46, 'Y', '2024-04-17 08:35:30', 1, '2024-04-17 19:03:18', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (165, 3, '2024-04-17', '26.7271012,88.3952861', '2024-04-17 08:35:39', '2024-04-17', '23.5503616,87.2808448', '2024-04-17 19:03:29', 176, 10.46, 'Y', '2024-04-17 08:35:39', 1, '2024-04-17 19:03:29', 1);
+INSERT INTO `tbl_staff_attendance` VALUES (166, 2, '2024-04-17', '26.7271012,88.3952861', '2024-04-17 08:35:47', '2024-04-17', '23.5367621,87.3445735', '2024-04-17 19:03:05', 176, 10.46, 'Y', '2024-04-17 08:35:47', 1, '2024-04-17 19:03:05', 1);
 
 -- ----------------------------
 -- Table structure for tbl_staff_expense_rule
@@ -203,7 +236,7 @@ INSERT INTO `tbl_staff_expense_rule` VALUES (2, 'DA', 'Food', 220, 'Day', 'Y', '
 INSERT INTO `tbl_staff_expense_rule` VALUES (3, 'TA', 'Car', 6, 'KM', 'Y', '2024-03-26 10:58:35', 1, NULL, NULL);
 INSERT INTO `tbl_staff_expense_rule` VALUES (4, 'TA', 'Bike', 5, 'KM', 'Y', '2024-03-26 11:06:42', 1, NULL, NULL);
 INSERT INTO `tbl_staff_expense_rule` VALUES (5, 'TA', 'Bus', 10, 'KM', 'Y', '2024-03-26 11:06:57', 1, NULL, NULL);
-INSERT INTO `tbl_staff_expense_rule` VALUES (6, 'TA', 'Train', 8, 'KM', 'Y', '2024-03-26 11:07:13', 1, NULL, NULL);
+INSERT INTO `tbl_staff_expense_rule` VALUES (6, 'TA', 'Train', 2, 'KM', 'Y', '2024-03-26 11:07:13', 1, '2024-04-02 12:27:49', 1);
 INSERT INTO `tbl_staff_expense_rule` VALUES (7, 'TA', 'Flight', 100, 'KM', 'Y', '2024-03-26 11:07:35', 1, NULL, NULL);
 INSERT INTO `tbl_staff_expense_rule` VALUES (8, 'TA', 'Ship', 200, 'KM', 'Y', '2024-03-26 11:07:51', 1, NULL, NULL);
 INSERT INTO `tbl_staff_expense_rule` VALUES (9, 'DA', 'Food', 20, 'Hour', 'Y', '2024-03-26 10:51:43', 1, '2024-03-26 10:51:55', 1);
@@ -232,7 +265,7 @@ CREATE TABLE `tbl_staff_expenses`  (
   `updated_at` datetime NULL DEFAULT NULL,
   `updated_by` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tbl_staff_expenses
@@ -242,6 +275,7 @@ INSERT INTO `tbl_staff_expenses` VALUES (15, 3, 'Trip to chennai', 'March', '202
 INSERT INTO `tbl_staff_expenses` VALUES (16, 2, 'Trip to chennai', 'March', '2024', '2024-03-22', 'DA', 100, 'yasd', '', 0x5B7B2274616461223A224441222C2274797065223A22466F6F64222C22706572223A22486F7572222C22616D6F756E74223A22313030222C2264697374616E6365223A22352E3030222C22726561736F6E223A2279227D5D, 'R', 'N', 'Y', '2024-03-27 09:41:29', 1, '2024-04-01 18:47:55', 1);
 INSERT INTO `tbl_staff_expenses` VALUES (17, 3, 'test', 'February', '2024', '2024-02-15', 'TA', 1200, 'test', '', 0x5B7B2274616461223A225441222C2274797065223A22436172222C22706572223A224B4D222C22616D6F756E74223A2231323030222C2264697374616E6365223A223230302E3030222C22726561736F6E223A2274227D5D, 'Y', 'Y', 'Y', '2024-04-01 16:47:21', 3, '2024-04-01 17:58:33', 1);
 INSERT INTO `tbl_staff_expenses` VALUES (18, 3, 'test da', 'February', '2024', '2024-02-14', 'DA', 220, 'test', '', 0x5B7B2274616461223A224441222C2274797065223A22466F6F64222C22706572223A22446179222C22616D6F756E74223A22323230222C2264697374616E6365223A22312E3030222C22726561736F6E223A2274227D5D, 'Y', 'Y', 'Y', '2024-04-01 16:54:10', 3, '2024-04-01 17:58:33', 1);
+INSERT INTO `tbl_staff_expenses` VALUES (19, 3, 'Durgapur to Kolkata Come in April 01, 2024', 'April', '2024', '2024-04-01', 'TA', 396, 'Travel to kolkata', 0x75706C6F6164732F73746166662F657870656E7365732F53637265656E73686F745F323032342D30342D30325F3132333035322E706E67, 0x5B7B2274616461223A225441222C2274797065223A2242696B65222C22706572223A224B4D222C22616D6F756E74223A223630222C2264697374616E6365223A2231322E3030222C22726561736F6E223A2254227D2C7B2274616461223A225441222C2274797065223A22547261696E222C22706572223A224B4D222C22616D6F756E74223A22333336222C2264697374616E6365223A223136382E3030222C22726561736F6E223A2272227D5D, 'Y', 'N', 'Y', '2024-04-02 12:31:20', 1, '2024-04-11 12:14:40', 1);
 
 -- ----------------------------
 -- Table structure for tbl_staff_payslip
@@ -271,7 +305,7 @@ CREATE TABLE `tbl_staff_payslip`  (
   `updated_at` datetime NULL DEFAULT NULL,
   `updated_by` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 600 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 651 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tbl_staff_payslip
@@ -282,56 +316,27 @@ INSERT INTO `tbl_staff_payslip` VALUES (96, 3, '01', 'January', '2024', 23, 184,
 INSERT INTO `tbl_staff_payslip` VALUES (382, 1, '02', 'February', '2024', 20, 168, 24688, 7406.4, 1234.4, 4937.6, 150, 2962.56, 38266.4, 35453.8, 0, 'Y', 'Y', '2024-03-20 11:11:31', 1, '2024-04-01 16:36:00', 1);
 INSERT INTO `tbl_staff_payslip` VALUES (383, 2, '02', 'February', '2024', 20, 168, 18633, 5589.9, 931.65, 3726.6, 150, 2235.96, 28881.2, 26795.2, 0, 'Y', 'Y', '2024-03-20 11:11:31', 1, '2024-04-01 16:36:00', 1);
 INSERT INTO `tbl_staff_payslip` VALUES (384, 3, '02', 'February', '2024', 20, 168, 29246.2, 8773.88, 1462.31, 5849.25, 200, 3509.55, 45331.7, 42022.1, 0, 'Y', 'Y', '2024-03-20 11:11:31', 1, '2024-04-01 16:36:00', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (547, 1, '03', 'March', '2024', 19, 168, 26880, 8064, 1344, 5376, 200, 3225.6, 41664, 38638.4, 0, 'N', 'N', '2024-03-28 09:13:02', 1, '2024-04-01 16:33:28', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (548, 2, '03', 'March', '2024', 19, 168, 10521, 3156.3, 526.05, 2104.2, 130, 1262.52, 16307.5, 15175, 100, 'N', 'N', '2024-03-28 09:13:02', 1, '2024-04-01 16:33:28', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (549, 3, '03', 'March', '2024', 19, 168, 31500, 9450, 1575, 6300, 200, 3780, 48825, 45245, 21564, 'N', 'N', '2024-03-28 09:13:02', 1, '2024-04-01 16:33:28', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (550, 1, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 16:21:12', 1, '2024-04-01 16:32:56', 3);
-INSERT INTO `tbl_staff_payslip` VALUES (551, 2, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 16:21:12', 1, '2024-04-01 16:32:56', 3);
-INSERT INTO `tbl_staff_payslip` VALUES (552, 3, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 16:21:12', 1, '2024-04-01 16:32:56', 3);
-INSERT INTO `tbl_staff_payslip` VALUES (553, 1, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 16:32:56', 3, '2024-04-01 16:43:51', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (554, 2, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 16:32:56', 3, '2024-04-01 16:43:51', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (555, 3, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 16:32:56', 3, '2024-04-01 16:43:51', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (556, 1, '03', 'March', '2024', 19, 168, 26880, 8064, 1344, 5376, 200, 3225.6, 41664, 38638.4, 0, 'N', 'N', '2024-04-01 16:33:28', 1, '2024-04-01 16:53:14', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (557, 2, '03', 'March', '2024', 19, 168, 12798, 3839.4, 639.9, 2559.6, 130, 1535.76, 19836.9, 18431.1, 0, 'N', 'N', '2024-04-01 16:33:28', 1, '2024-04-01 16:53:14', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (558, 3, '03', 'March', '2024', 19, 168, 31500, 9450, 1575, 6300, 200, 3780, 48825, 45245, 21124, 'N', 'N', '2024-04-01 16:33:28', 1, '2024-04-01 16:53:14', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (562, 1, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 16:43:51', 1, '2024-04-01 16:53:01', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (563, 2, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 16:43:51', 1, '2024-04-01 16:53:01', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (564, 3, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 16:43:51', 1, '2024-04-01 16:53:01', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (565, 1, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 16:53:01', 1, '2024-04-01 17:42:03', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (566, 2, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 16:53:01', 1, '2024-04-01 17:42:03', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (567, 3, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 22324, 'N', 'N', '2024-04-01 16:53:01', 1, '2024-04-01 17:42:03', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (568, 1, '03', 'March', '2024', 19, 168, 26880, 8064, 1344, 5376, 200, 3225.6, 41664, 38638.4, 0, 'N', 'N', '2024-04-01 16:53:14', 1, '2024-04-01 16:54:47', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (569, 2, '03', 'March', '2024', 19, 168, 12798, 3839.4, 639.9, 2559.6, 130, 1535.76, 19836.9, 18431.1, 0, 'N', 'N', '2024-04-01 16:53:14', 1, '2024-04-01 16:54:47', 1);
 INSERT INTO `tbl_staff_payslip` VALUES (570, 3, '03', 'March', '2024', 19, 168, 31500, 9450, 1575, 6300, 200, 3780, 48825, 45245, 22324, 'Y', 'Y', '2024-04-01 16:53:14', 1, '2024-04-01 17:58:33', 1);
 INSERT INTO `tbl_staff_payslip` VALUES (571, 1, '03', 'March', '2024', 19, 168, 26880, 8064, 1344, 5376, 200, 3225.6, 41664, 38638.4, 0, 'Y', 'Y', '2024-04-01 16:54:47', 1, '2024-04-01 17:59:45', 1);
 INSERT INTO `tbl_staff_payslip` VALUES (572, 2, '03', 'March', '2024', 19, 168, 12798, 3839.4, 639.9, 2559.6, 130, 1535.76, 19836.9, 18431.1, 0, 'Y', 'Y', '2024-04-01 16:54:47', 1, '2024-04-01 17:59:51', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (573, 1, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 17:42:03', 1, '2024-04-01 17:59:18', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (574, 2, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 17:42:03', 1, '2024-04-01 17:59:18', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (575, 3, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 17:42:03', 1, '2024-04-01 17:59:18', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (576, 1, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 17:59:18', 1, '2024-04-01 18:01:38', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (577, 2, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 17:59:18', 1, '2024-04-01 18:01:38', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (578, 3, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 17:59:18', 1, '2024-04-01 18:01:38', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (579, 1, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 18:01:38', 1, '2024-04-01 18:01:52', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (580, 2, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 18:01:38', 1, '2024-04-01 18:01:52', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (581, 3, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 18:01:38', 1, '2024-04-01 18:01:52', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (582, 1, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 18:01:52', 1, '2024-04-01 18:48:13', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (583, 2, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 18:01:52', 1, '2024-04-01 18:48:13', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (584, 3, '04', 'April', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-01 18:01:52', 1, '2024-04-01 18:48:13', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (585, 1, '04', 'April', '2024', 22, 176, 1649.6, 494.88, 82.48, 329.92, 0, 197.952, 2556.88, 2358.93, 0, 'N', 'N', '2024-04-01 18:48:13', 1, '2024-04-01 18:48:30', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (586, 2, '04', 'April', '2024', 22, 176, 951, 285.3, 47.55, 190.2, 0, 114.12, 1474.05, 1359.93, 0, 'N', 'N', '2024-04-01 18:48:13', 1, '2024-04-01 18:48:30', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (587, 3, '04', 'April', '2024', 22, 176, 1929.38, 578.812, 96.4688, 385.875, 0, 231.525, 2990.53, 2759.01, 440, 'N', 'N', '2024-04-01 18:48:13', 1, '2024-04-01 18:48:30', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (588, 1, '04', 'April', '2024', 22, 176, 1649.6, 494.88, 82.48, 329.92, 0, 197.952, 2556.88, 2358.93, 0, 'N', 'N', '2024-04-01 18:48:30', 1, '2024-04-01 18:50:21', 3);
-INSERT INTO `tbl_staff_payslip` VALUES (589, 2, '04', 'April', '2024', 22, 176, 951, 285.3, 47.55, 190.2, 0, 114.12, 1474.05, 1359.93, 0, 'N', 'N', '2024-04-01 18:48:30', 1, '2024-04-01 18:50:21', 3);
-INSERT INTO `tbl_staff_payslip` VALUES (590, 3, '04', 'April', '2024', 22, 176, 1929.38, 578.812, 96.4688, 385.875, 0, 231.525, 2990.53, 2759.01, 440, 'N', 'N', '2024-04-01 18:48:30', 1, '2024-04-01 18:50:21', 3);
-INSERT INTO `tbl_staff_payslip` VALUES (591, 1, '04', 'April', '2024', 22, 176, 1649.6, 494.88, 82.48, 329.92, 0, 197.952, 2556.88, 2358.93, 0, 'N', 'N', '2024-04-01 18:50:21', 3, '2024-04-02 09:23:45', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (592, 2, '04', 'April', '2024', 22, 176, 951, 285.3, 47.55, 190.2, 0, 114.12, 1474.05, 1359.93, 0, 'N', 'N', '2024-04-01 18:50:21', 3, '2024-04-02 09:23:45', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (593, 3, '04', 'April', '2024', 22, 176, 1929.38, 578.812, 96.4688, 385.875, 0, 231.525, 2990.53, 2759.01, 440, 'N', 'N', '2024-04-01 18:50:21', 3, '2024-04-02 09:23:45', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (594, 1, '04', 'April', '2024', 22, 176, 1649.6, 494.88, 82.48, 329.92, 0, 197.952, 2556.88, 2358.93, 0, 'N', 'N', '2024-04-02 09:23:45', 1, '2024-04-02 09:23:50', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (595, 2, '04', 'April', '2024', 22, 176, 951, 285.3, 47.55, 190.2, 0, 114.12, 1474.05, 1359.93, 0, 'N', 'N', '2024-04-02 09:23:45', 1, '2024-04-02 09:23:50', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (596, 3, '04', 'April', '2024', 22, 176, 1929.38, 578.812, 96.4688, 385.875, 0, 231.525, 2990.53, 2759.01, 440, 'N', 'N', '2024-04-02 09:23:45', 1, '2024-04-02 09:23:50', 1);
-INSERT INTO `tbl_staff_payslip` VALUES (597, 1, '04', 'April', '2024', 22, 176, 1649.6, 494.88, 82.48, 329.92, 0, 197.952, 2556.88, 2358.93, 0, 'N', 'Y', '2024-04-02 09:23:50', 1, NULL, NULL);
-INSERT INTO `tbl_staff_payslip` VALUES (598, 2, '04', 'April', '2024', 22, 176, 951, 285.3, 47.55, 190.2, 0, 114.12, 1474.05, 1359.93, 0, 'N', 'Y', '2024-04-02 09:23:50', 1, NULL, NULL);
-INSERT INTO `tbl_staff_payslip` VALUES (599, 3, '04', 'April', '2024', 22, 176, 1929.38, 578.812, 96.4688, 385.875, 0, 231.525, 2990.53, 2759.01, 440, 'N', 'Y', '2024-04-02 09:23:50', 1, NULL, NULL);
+INSERT INTO `tbl_staff_payslip` VALUES (633, 1, '04', 'April', '2024', 22, 176, 15790.4, 4737.12, 789.52, 3158.08, 130, 1894.85, 24475.1, 22710.3, 0, 'N', 'N', '2024-04-11 12:16:00', 1, '2024-04-12 18:20:08', 1);
+INSERT INTO `tbl_staff_payslip` VALUES (634, 2, '04', 'April', '2024', 22, 176, 13041, 3912.3, 652.05, 2608.2, 130, 1564.92, 20213.6, 18778.6, 0, 'N', 'N', '2024-04-11 12:16:00', 1, '2024-04-12 18:20:08', 1);
+INSERT INTO `tbl_staff_payslip` VALUES (635, 3, '04', 'April', '2024', 22, 176, 18483.8, 5545.12, 924.188, 3696.75, 150, 2218.05, 28649.8, 26581.8, 440, 'N', 'N', '2024-04-11 12:16:00', 1, '2024-04-12 18:20:08', 1);
+INSERT INTO `tbl_staff_payslip` VALUES (636, 1, '04', 'April', '2024', 22, 176, 17676.8, 5303.04, 883.84, 3535.36, 150, 2121.22, 27399, 25427.8, 0, 'N', 'N', '2024-04-12 18:20:08', 1, '2024-04-12 18:20:21', 1);
+INSERT INTO `tbl_staff_payslip` VALUES (637, 2, '04', 'April', '2024', 22, 176, 14719.5, 4415.85, 735.975, 2943.9, 130, 1766.34, 22815.2, 21178.9, 0, 'N', 'N', '2024-04-12 18:20:08', 1, '2024-04-12 18:20:21', 1);
+INSERT INTO `tbl_staff_payslip` VALUES (638, 3, '04', 'April', '2024', 22, 176, 20696.2, 6208.88, 1034.81, 4139.25, 150, 2483.55, 32079.2, 29745.6, 440, 'N', 'N', '2024-04-12 18:20:08', 1, '2024-04-12 18:20:21', 1);
+INSERT INTO `tbl_staff_payslip` VALUES (639, 1, '04', 'April', '2024', 22, 176, 17676.8, 5303.04, 883.84, 3535.36, 150, 2121.22, 27399, 25427.8, 0, 'N', 'N', '2024-04-12 18:20:21', 1, '2024-04-12 18:20:34', 1);
+INSERT INTO `tbl_staff_payslip` VALUES (640, 2, '04', 'April', '2024', 22, 176, 14719.5, 4415.85, 735.975, 2943.9, 130, 1766.34, 22815.2, 21178.9, 0, 'N', 'N', '2024-04-12 18:20:21', 1, '2024-04-12 18:20:34', 1);
+INSERT INTO `tbl_staff_payslip` VALUES (641, 3, '04', 'April', '2024', 22, 176, 20696.2, 6208.88, 1034.81, 4139.25, 150, 2483.55, 32079.2, 29745.6, 440, 'N', 'N', '2024-04-12 18:20:21', 1, '2024-04-12 18:20:34', 1);
+INSERT INTO `tbl_staff_payslip` VALUES (642, 1, '04', 'April', '2024', 22, 176, 17676.8, 5303.04, 883.84, 3535.36, 150, 2121.22, 27399, 25427.8, 0, 'N', 'N', '2024-04-12 18:20:34', 1, '2024-04-16 12:45:58', 1);
+INSERT INTO `tbl_staff_payslip` VALUES (643, 2, '04', 'April', '2024', 22, 176, 14719.5, 4415.85, 735.975, 2943.9, 130, 1766.34, 22815.2, 21178.9, 0, 'N', 'N', '2024-04-12 18:20:34', 1, '2024-04-16 12:45:58', 1);
+INSERT INTO `tbl_staff_payslip` VALUES (644, 3, '04', 'April', '2024', 22, 176, 20696.2, 6208.88, 1034.81, 4139.25, 150, 2483.55, 32079.2, 29745.6, 440, 'N', 'N', '2024-04-12 18:20:34', 1, '2024-04-16 12:45:58', 1);
+INSERT INTO `tbl_staff_payslip` VALUES (645, 1, '05', 'May', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-12 18:21:02', 1, NULL, NULL);
+INSERT INTO `tbl_staff_payslip` VALUES (646, 2, '05', 'May', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'N', 'N', '2024-04-12 18:21:02', 1, NULL, NULL);
+INSERT INTO `tbl_staff_payslip` VALUES (647, 3, '05', 'May', '2024', 22, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 440, 'N', 'N', '2024-04-12 18:21:02', 1, NULL, NULL);
+INSERT INTO `tbl_staff_payslip` VALUES (648, 1, '04', 'April', '2024', 22, 176, 21910.4, 6573.12, 1095.52, 4382.08, 150, 2629.25, 33961.1, 31481.9, 0, 'N', 'Y', '2024-04-16 12:45:58', 1, NULL, NULL);
+INSERT INTO `tbl_staff_payslip` VALUES (649, 2, '04', 'April', '2024', 22, 176, 18690, 5607, 934.5, 3738, 150, 2242.8, 28969.5, 26876.7, 0, 'N', 'Y', '2024-04-16 12:45:58', 1, NULL, NULL);
+INSERT INTO `tbl_staff_payslip` VALUES (650, 3, '04', 'April', '2024', 22, 176, 25661.2, 7698.38, 1283.06, 5132.25, 150, 3079.35, 39774.9, 36845.6, 440, 'N', 'Y', '2024-04-16 12:45:58', 1, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tbl_training_feedback
@@ -406,7 +411,7 @@ CREATE TABLE `tblacc_account_history`  (
   `itemable_id` int NULL DEFAULT NULL,
   `cleared` int NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 57 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 145 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblacc_account_history
@@ -456,6 +461,58 @@ INSERT INTO `tblacc_account_history` VALUES (53, 13, 5547.15, 0.00, '', 2, 'paym
 INSERT INTO `tblacc_account_history` VALUES (54, 1, 0.00, 5547.15, '', 2, 'payment', '2024-02-06 12:07:35', 1, 1, 0, 13, NULL, 0, '2024-02-06', NULL, NULL, NULL, NULL, 0);
 INSERT INTO `tblacc_account_history` VALUES (55, 80, 4567.00, 0.00, '', 2, 'expense', '2024-02-07 10:13:41', 1, 1, 0, 13, NULL, 0, '2024-02-07', 0, NULL, NULL, NULL, 0);
 INSERT INTO `tblacc_account_history` VALUES (56, 13, 0.00, 4567.00, '', 2, 'expense', '2024-02-07 10:13:41', 1, 1, 0, 80, NULL, 0, '2024-02-07', 0, NULL, NULL, NULL, 0);
+INSERT INTO `tblacc_account_history` VALUES (63, 1, 1312.00, 0.00, '', 4, 'invoice', '2024-04-11 12:22:11', 1, 2, 0, 66, 0, 1, '2024-04-11', 0, NULL, NULL, 10, 0);
+INSERT INTO `tblacc_account_history` VALUES (64, 66, 0.00, 1312.00, '', 4, 'invoice', '2024-04-11 12:22:11', 1, 2, 0, 1, 0, 1, '2024-04-11', 0, NULL, NULL, 10, 0);
+INSERT INTO `tblacc_account_history` VALUES (65, 1, 1472.00, 0.00, '', 4, 'invoice', '2024-04-11 12:22:11', 1, 2, 0, 66, 0, 1, '2024-04-11', 0, NULL, NULL, 11, 0);
+INSERT INTO `tblacc_account_history` VALUES (66, 66, 0.00, 1472.00, '', 4, 'invoice', '2024-04-11 12:22:11', 1, 2, 0, 1, 0, 1, '2024-04-11', 0, NULL, NULL, 11, 0);
+INSERT INTO `tblacc_account_history` VALUES (67, 13, 2784.00, 0.00, '', 3, 'payment', '2024-04-11 12:22:11', 1, 2, 0, 1, NULL, 0, '2024-04-11', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `tblacc_account_history` VALUES (68, 1, 0.00, 2784.00, '', 3, 'payment', '2024-04-11 12:22:11', 1, 2, 0, 13, NULL, 0, '2024-04-11', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `tblacc_account_history` VALUES (69, 1, 2944.00, 0.00, '', 3, 'invoice', '2024-04-11 12:22:37', 1, 2, 0, 66, 0, 1, '2024-04-09', 0, NULL, NULL, 9, 0);
+INSERT INTO `tblacc_account_history` VALUES (70, 66, 0.00, 2944.00, '', 3, 'invoice', '2024-04-11 12:22:37', 1, 2, 0, 1, 0, 1, '2024-04-09', 0, NULL, NULL, 9, 0);
+INSERT INTO `tblacc_account_history` VALUES (71, 13, 2944.00, 0.00, '', 4, 'payment', '2024-04-11 12:22:37', 1, 2, 0, 1, NULL, 0, '2024-04-11', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `tblacc_account_history` VALUES (72, 1, 0.00, 2944.00, '', 4, 'payment', '2024-04-11 12:22:37', 1, 2, 0, 13, NULL, 0, '2024-04-11', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `tblacc_account_history` VALUES (81, 1, 2624.00, 0.00, '', 5, 'invoice', '2024-04-12 11:25:22', 1, 1, 0, 66, 0, 1, '2024-04-12', 0, NULL, NULL, 12, 0);
+INSERT INTO `tblacc_account_history` VALUES (82, 66, 0.00, 2624.00, '', 5, 'invoice', '2024-04-12 11:25:22', 1, 1, 0, 1, 0, 1, '2024-04-12', 0, NULL, NULL, 12, 0);
+INSERT INTO `tblacc_account_history` VALUES (83, 1, 1968.00, 0.00, '', 5, 'invoice', '2024-04-12 11:25:22', 1, 1, 0, 66, 0, 1, '2024-04-12', 0, NULL, NULL, 13, 0);
+INSERT INTO `tblacc_account_history` VALUES (84, 66, 0.00, 1968.00, '', 5, 'invoice', '2024-04-12 11:25:22', 1, 1, 0, 1, 0, 1, '2024-04-12', 0, NULL, NULL, 13, 0);
+INSERT INTO `tblacc_account_history` VALUES (85, 1, 1472.00, 0.00, '', 5, 'invoice', '2024-04-12 11:25:22', 1, 1, 0, 66, 0, 1, '2024-04-12', 0, NULL, NULL, 14, 0);
+INSERT INTO `tblacc_account_history` VALUES (86, 66, 0.00, 1472.00, '', 5, 'invoice', '2024-04-12 11:25:22', 1, 1, 0, 1, 0, 1, '2024-04-12', 0, NULL, NULL, 14, 0);
+INSERT INTO `tblacc_account_history` VALUES (87, 1, 2944.00, 0.00, '', 5, 'invoice', '2024-04-12 11:25:22', 1, 1, 0, 66, 0, 1, '2024-04-12', 0, NULL, NULL, 15, 0);
+INSERT INTO `tblacc_account_history` VALUES (88, 66, 0.00, 2944.00, '', 5, 'invoice', '2024-04-12 11:25:22', 1, 1, 0, 1, 0, 1, '2024-04-12', 0, NULL, NULL, 15, 0);
+INSERT INTO `tblacc_account_history` VALUES (89, 13, 9008.00, 0.00, '', 5, 'payment', '2024-04-12 11:25:22', 1, 1, 0, 1, NULL, 0, '2024-04-12', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `tblacc_account_history` VALUES (90, 1, 0.00, 9008.00, '', 5, 'payment', '2024-04-12 11:25:22', 1, 1, 0, 13, NULL, 0, '2024-04-12', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `tblacc_account_history` VALUES (103, 1, 656.00, 0.00, '', 6, 'invoice', '2024-04-12 11:29:47', 1, 1, 0, 66, 0, 1, '2024-04-12', 0, NULL, NULL, 16, 0);
+INSERT INTO `tblacc_account_history` VALUES (104, 66, 0.00, 656.00, '', 6, 'invoice', '2024-04-12 11:29:47', 1, 1, 0, 1, 0, 1, '2024-04-12', 0, NULL, NULL, 16, 0);
+INSERT INTO `tblacc_account_history` VALUES (105, 1, 64616.00, 0.00, '', 6, 'invoice', '2024-04-12 11:29:47', 1, 1, 0, 66, 0, 1, '2024-04-12', 0, NULL, NULL, 17, 0);
+INSERT INTO `tblacc_account_history` VALUES (106, 66, 0.00, 64616.00, '', 6, 'invoice', '2024-04-12 11:29:47', 1, 1, 0, 1, 0, 1, '2024-04-12', 0, NULL, NULL, 17, 0);
+INSERT INTO `tblacc_account_history` VALUES (107, 1, 2824.08, 0.00, '', 6, 'invoice', '2024-04-12 11:29:47', 1, 1, 0, 66, 0, 1, '2024-04-12', 0, NULL, NULL, 18, 0);
+INSERT INTO `tblacc_account_history` VALUES (108, 66, 0.00, 2824.08, '', 6, 'invoice', '2024-04-12 11:29:47', 1, 1, 0, 1, 0, 1, '2024-04-12', 0, NULL, NULL, 18, 0);
+INSERT INTO `tblacc_account_history` VALUES (109, 13, 68096.08, 0.00, '', 6, 'payment', '2024-04-12 11:29:47', 1, 1, 0, 1, NULL, 0, '2024-04-12', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `tblacc_account_history` VALUES (110, 1, 0.00, 68096.08, '', 6, 'payment', '2024-04-12 11:29:47', 1, 1, 0, 13, NULL, 0, '2024-04-12', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `tblacc_account_history` VALUES (111, 1, 164.00, 0.00, '', 7, 'invoice', '2024-04-12 11:30:01', 1, 1, 0, 66, 0, 1, '2024-04-12', 0, NULL, NULL, 19, 0);
+INSERT INTO `tblacc_account_history` VALUES (112, 66, 0.00, 164.00, '', 7, 'invoice', '2024-04-12 11:30:01', 1, 1, 0, 1, 0, 1, '2024-04-12', 0, NULL, NULL, 19, 0);
+INSERT INTO `tblacc_account_history` VALUES (113, 1, 2743.72, 0.00, '', 7, 'invoice', '2024-04-12 11:30:01', 1, 1, 0, 66, 0, 1, '2024-04-12', 0, NULL, NULL, 20, 0);
+INSERT INTO `tblacc_account_history` VALUES (114, 66, 0.00, 2743.72, '', 7, 'invoice', '2024-04-12 11:30:01', 1, 1, 0, 1, 0, 1, '2024-04-12', 0, NULL, NULL, 20, 0);
+INSERT INTO `tblacc_account_history` VALUES (115, 1, 1513.72, 0.00, '', 7, 'invoice', '2024-04-12 11:30:01', 1, 1, 0, 66, 0, 1, '2024-04-12', 0, NULL, NULL, 21, 0);
+INSERT INTO `tblacc_account_history` VALUES (116, 66, 0.00, 1513.72, '', 7, 'invoice', '2024-04-12 11:30:01', 1, 1, 0, 1, 0, 1, '2024-04-12', 0, NULL, NULL, 21, 0);
+INSERT INTO `tblacc_account_history` VALUES (117, 13, 4421.44, 0.00, '', 7, 'payment', '2024-04-12 11:30:01', 1, 1, 0, 1, NULL, 0, '2024-04-12', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `tblacc_account_history` VALUES (118, 1, 0.00, 4421.44, '', 7, 'payment', '2024-04-12 11:30:01', 1, 1, 0, 13, NULL, 0, '2024-04-12', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `tblacc_account_history` VALUES (121, 1, 4567.00, 0.00, '', 8, 'invoice', '2024-04-12 11:31:59', 1, 1, 0, 66, 0, 1, '2024-04-12', 0, NULL, NULL, 22, 0);
+INSERT INTO `tblacc_account_history` VALUES (122, 66, 0.00, 4567.00, '', 8, 'invoice', '2024-04-12 11:31:59', 1, 1, 0, 1, 0, 1, '2024-04-12', 0, NULL, NULL, 22, 0);
+INSERT INTO `tblacc_account_history` VALUES (123, 13, 4567.00, 0.00, '', 8, 'payment', '2024-04-12 11:31:59', 1, 1, 0, 1, NULL, 0, '2024-04-12', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `tblacc_account_history` VALUES (124, 1, 0.00, 4567.00, '', 8, 'payment', '2024-04-12 11:31:59', 1, 1, 0, 13, NULL, 0, '2024-04-12', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `tblacc_account_history` VALUES (131, 1, 5060.00, 0.00, '', 9, 'invoice', '2024-04-12 11:34:01', 1, 1, 0, 66, 1, 1, '2024-04-12', 0, NULL, NULL, 23, 0);
+INSERT INTO `tblacc_account_history` VALUES (132, 66, 0.00, 5060.00, '', 9, 'invoice', '2024-04-12 11:34:01', 1, 1, 0, 1, 1, 1, '2024-04-12', 0, NULL, NULL, 23, 0);
+INSERT INTO `tblacc_account_history` VALUES (133, 1, 12850.00, 0.00, '', 9, 'invoice', '2024-04-12 11:34:01', 1, 1, 0, 66, 1, 1, '2024-04-12', 0, NULL, NULL, 24, 0);
+INSERT INTO `tblacc_account_history` VALUES (134, 66, 0.00, 12850.00, '', 9, 'invoice', '2024-04-12 11:34:01', 1, 1, 0, 1, 1, 1, '2024-04-12', 0, NULL, NULL, 24, 0);
+INSERT INTO `tblacc_account_history` VALUES (135, 1, 330000.00, 0.00, '', 9, 'invoice', '2024-04-12 11:34:01', 1, 1, 0, 66, 2, 1, '2024-04-12', 0, NULL, NULL, 25, 0);
+INSERT INTO `tblacc_account_history` VALUES (136, 66, 0.00, 330000.00, '', 9, 'invoice', '2024-04-12 11:34:01', 1, 1, 0, 1, 2, 1, '2024-04-12', 0, NULL, NULL, 25, 0);
+INSERT INTO `tblacc_account_history` VALUES (137, 13, 347910.00, 0.00, '', 9, 'payment', '2024-04-12 11:34:01', 1, 1, 0, 1, NULL, 0, '2024-04-12', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `tblacc_account_history` VALUES (138, 1, 0.00, 347910.00, '', 9, 'payment', '2024-04-12 11:34:01', 1, 1, 0, 13, NULL, 0, '2024-04-12', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `tblacc_account_history` VALUES (141, 1, 2624.00, 0.00, '', 10, 'invoice', '2024-04-16 12:36:18', 1, 2, 0, 66, 0, 1, '2024-04-16', 0, NULL, NULL, 26, 0);
+INSERT INTO `tblacc_account_history` VALUES (142, 66, 0.00, 2624.00, '', 10, 'invoice', '2024-04-16 12:36:18', 1, 2, 0, 1, 0, 1, '2024-04-16', 0, NULL, NULL, 26, 0);
+INSERT INTO `tblacc_account_history` VALUES (143, 13, 2624.00, 0.00, '', 10, 'payment', '2024-04-16 12:36:18', 1, 2, 0, 1, NULL, 0, '2024-04-16', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `tblacc_account_history` VALUES (144, 1, 0.00, 2624.00, '', 10, 'payment', '2024-04-16 12:36:18', 1, 2, 0, 13, NULL, 0, '2024-04-16', NULL, NULL, NULL, NULL, 0);
 
 -- ----------------------------
 -- Table structure for tblacc_account_type_details
@@ -1050,7 +1107,7 @@ CREATE TABLE `tblactivity_log`  (
   `staffid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `staffid`(`staffid` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1278 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1333 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblactivity_log
@@ -2332,6 +2389,61 @@ INSERT INTO `tblactivity_log` VALUES (1274, 'User Successfully Logged In [User I
 INSERT INTO `tblactivity_log` VALUES (1275, 'User Successfully Logged In [User Id: 1, Is Staff Member: Yes, IP: ::1]', '2024-04-01 12:25:24', 'Krishna Somayaji');
 INSERT INTO `tblactivity_log` VALUES (1276, 'User Successfully Logged In [User Id: 3, Is Staff Member: Yes, IP: ::1]', '2024-04-01 16:32:31', 'Deep Basak');
 INSERT INTO `tblactivity_log` VALUES (1277, 'User Successfully Logged In [User Id: 1, Is Staff Member: Yes, IP: ::1]', '2024-04-02 09:21:59', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1278, 'New Task Added [ID:18, Name: April 01, 2024 task]', '2024-04-02 10:12:40', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1279, 'New Task Added [ID:19, Name: March 28, ]', '2024-04-02 10:15:37', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1280, 'New Task Added [ID:20, Name: March 27, 2024 Task]', '2024-04-02 10:30:33', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1281, 'New Task Added [ID:21, Name: April 02, 2024 Task]', '2024-04-02 12:24:05', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1282, 'User Successfully Logged In [User Id: 1, Is Staff Member: Yes, IP: ::1]', '2024-04-03 09:00:59', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1283, 'New Task Added [ID:22, Name: April 03, 2024 Task]', '2024-04-03 13:39:23', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1284, 'User Successfully Logged In [User Id: 1, Is Staff Member: Yes, IP: ::1]', '2024-04-04 09:43:36', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1285, 'New Task Added [ID:23, Name: April 04, 2024 Task]', '2024-04-04 12:26:12', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1286, 'User Successfully Logged In [User Id: 1, Is Staff Member: Yes, IP: ::1]', '2024-04-05 10:26:06', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1287, 'New Task Added [ID:24, Name: April 05, 2024 Task]', '2024-04-05 14:08:26', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1288, 'User Successfully Logged In [User Id: 1, Is Staff Member: Yes, IP: ::1]', '2024-04-08 08:29:00', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1289, 'New Task Added [ID:25, Name: April 08, 2024 Task]', '2024-04-08 13:25:42', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1290, 'User Successfully Logged In [User Id: 1, Is Staff Member: Yes, IP: ::1]', '2024-04-09 09:14:17', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1291, 'New Project Created [ID: 2]', '2024-04-09 11:32:37', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1292, 'New Task Added [ID:26, Name: April 09, 2024 Task]', '2024-04-09 11:34:01', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1293, 'Failed Login Attempt [Email: deepbasakdmc@gmail.com, Is Staff Member: Yes, IP: ::1]', '2024-04-09 12:12:30', NULL);
+INSERT INTO `tblactivity_log` VALUES (1294, 'User Successfully Logged In [User Id: 3, Is Staff Member: Yes, IP: ::1]', '2024-04-09 12:12:39', 'Deep Basak');
+INSERT INTO `tblactivity_log` VALUES (1295, 'Project Milestone Created [ID:4]', '2024-04-09 17:20:06', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1296, 'Project Milestone Created [ID:5]', '2024-04-09 17:21:13', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1297, 'New Ticket Service Added [ID: 1.COde Galaxy]', '2024-04-09 17:26:04', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1298, 'New Ticket Created [ID: 2]', '2024-04-09 17:26:13', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1299, 'New Reminder Added [TicketID: 2 Description: Added]', '2024-04-09 17:27:04', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1300, 'New Ticket Reply [ReplyID: 2]', '2024-04-09 17:28:42', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1301, 'User Successfully Logged In [User Id: 1, Is Staff Member: Yes, IP: ::1]', '2024-04-10 08:35:55', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1302, 'New Task Added [ID:27, Name: April 10, 2024 Task]', '2024-04-10 10:55:19', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1303, 'New Task Added [ID:28, Name: April 10, 2024 Embark Task]', '2024-04-10 10:59:48', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1304, 'Staff Member Updated [ID: 3]', '2024-04-10 15:03:25', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1305, 'User Successfully Logged In [User Id: 1, Is Staff Member: Yes, IP: ::1]', '2024-04-11 08:46:42', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1306, 'New Task Added [ID:29, Name: April 11, 2024 Task Embark]', '2024-04-11 12:05:47', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1307, 'New Task Added [ID:30, Name: April 11, 2024 HRMS Task]', '2024-04-11 12:07:13', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1308, 'Invoice Status Updated [Invoice Number: INV-000004, From: Unpaid To: Paid]', '2024-04-11 12:22:09', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1309, 'Payment Recorded [ID:3, Invoice Number: INV-000004, Total: ₹2,784.00]', '2024-04-11 12:22:09', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1310, 'Invoice Status Updated [Invoice Number: INV-000003, From: Unpaid To: Paid]', '2024-04-11 12:22:37', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1311, 'Payment Recorded [ID:4, Invoice Number: INV-000003, Total: ₹2,944.00]', '2024-04-11 12:22:37', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1312, 'User Successfully Logged In [User Id: 1, Is Staff Member: Yes, IP: ::1]', '2024-04-12 09:57:32', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1313, 'New Task Added [ID:31, Name: April 12, 2024 Task HRMS]', '2024-04-12 11:21:59', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1314, 'Invoice Status Updated [Invoice Number: INV-000005, From: Unpaid To: Paid]', '2024-04-12 11:25:21', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1315, 'Payment Recorded [ID:5, Invoice Number: INV-000005, Total: ₹9,008.00]', '2024-04-12 11:25:21', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1316, 'Invoice Status Updated [Invoice Number: INV-000006, From: Unpaid To: Paid]', '2024-04-12 11:29:47', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1317, 'Payment Recorded [ID:6, Invoice Number: INV-000006, Total: ₹68,096.08]', '2024-04-12 11:29:47', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1318, 'Invoice Status Updated [Invoice Number: INV-000007, From: Unpaid To: Paid]', '2024-04-12 11:30:01', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1319, 'Payment Recorded [ID:7, Invoice Number: INV-000007, Total: ₹4,421.44]', '2024-04-12 11:30:01', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1320, 'Invoice Status Updated [Invoice Number: INV-000008, From: Unpaid To: Paid]', '2024-04-12 11:31:59', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1321, 'Payment Recorded [ID:8, Invoice Number: INV-000008, Total: ₹4,567.00]', '2024-04-12 11:31:59', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1322, 'Invoice Status Updated [Invoice Number: INV-000009, From: Unpaid To: Paid]', '2024-04-12 11:34:00', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1323, 'Payment Recorded [ID:9, Invoice Number: INV-000009, Total: ₹347,910.00]', '2024-04-12 11:34:00', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1324, 'User Successfully Logged In [User Id: 1, Is Staff Member: Yes, IP: ::1]', '2024-04-15 08:04:56', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1325, 'User Successfully Logged In [User Id: 1, Is Staff Member: Yes, IP: ::1]', '2024-04-16 09:22:26', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1326, 'New Task Added [ID:32, Name: April 16, 2024 Embark Task]', '2024-04-16 12:34:40', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1327, 'Invoice Status Updated [Invoice Number: INV-000010, From: Unpaid To: Paid]', '2024-04-16 12:36:16', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1328, 'Payment Recorded [ID:10, Invoice Number: INV-000010, Total: ₹2,624.00]', '2024-04-16 12:36:16', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1329, 'New Ticket Created [ID: 3]', '2024-04-16 12:39:06', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1330, 'New Task Added [ID:33, Name: April 17, 2024 #3 - Burau Data Retail API JSON data View]', '2024-04-16 12:39:56', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1331, 'New Reminder Added [TaskID: 33 Description: View]', '2024-04-16 12:42:18', 'Krishna Somayaji');
+INSERT INTO `tblactivity_log` VALUES (1332, 'User Successfully Logged In [User Id: 1, Is Staff Member: Yes, IP: ::1]', '2024-04-17 08:35:22', 'Krishna Somayaji');
 
 -- ----------------------------
 -- Table structure for tblallocatecost
@@ -3771,7 +3883,7 @@ CREATE TABLE `tblexpenses`  (
 -- Records of tblexpenses
 -- ----------------------------
 INSERT INTO `tblexpenses` VALUES (1, 1, 3, 300000.00, 0, 0, '', '', 'Deep Basak', 2, 0, 0, NULL, '', '2024-02-06', NULL, 0, 0, 0, 0, 0, NULL, 0, 0, NULL, '2024-02-06 11:48:52', 1);
-INSERT INTO `tblexpenses` VALUES (2, 1, 3, 4567.00, 0, 0, '', '', 'Testing Expen', 1, 1, 1, NULL, '1', '2024-02-07', 'month', 1, 1, 0, 0, 0, NULL, 1, 0, NULL, '2024-02-07 10:13:41', 1);
+INSERT INTO `tblexpenses` VALUES (2, 1, 3, 4567.00, 0, 0, '', '', 'Testing Expen', 1, 1, 1, 8, '1', '2024-02-07', 'month', 1, 1, 0, 0, 0, NULL, 1, 0, NULL, '2024-02-07 10:13:41', 1);
 
 -- ----------------------------
 -- Table structure for tblexpenses_categories
@@ -5269,13 +5381,21 @@ CREATE TABLE `tblinvoicepaymentrecords`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `invoiceid`(`invoiceid` ASC) USING BTREE,
   INDEX `paymentmethod`(`paymentmethod` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblinvoicepaymentrecords
 -- ----------------------------
 INSERT INTO `tblinvoicepaymentrecords` VALUES (1, 1, 1840.00, '1', '', '2024-01-24', '2024-01-24 12:19:11', '', '');
 INSERT INTO `tblinvoicepaymentrecords` VALUES (2, 2, 5547.15, '1', NULL, '2024-02-06', '2024-02-06 12:07:34', 'Amount paid', '');
+INSERT INTO `tblinvoicepaymentrecords` VALUES (3, 4, 2784.00, '1', NULL, '2024-04-11', '2024-04-11 12:22:09', '', 'TNX006');
+INSERT INTO `tblinvoicepaymentrecords` VALUES (4, 3, 2944.00, '1', NULL, '2024-04-11', '2024-04-11 12:22:37', '', 'TNX007');
+INSERT INTO `tblinvoicepaymentrecords` VALUES (5, 5, 9008.00, '1', NULL, '2024-04-12', '2024-04-12 11:25:21', '', 'TNX007');
+INSERT INTO `tblinvoicepaymentrecords` VALUES (6, 6, 68096.08, '1', NULL, '2024-04-12', '2024-04-12 11:29:47', '', '');
+INSERT INTO `tblinvoicepaymentrecords` VALUES (7, 7, 4421.44, '1', NULL, '2024-04-12', '2024-04-12 11:30:01', '', '');
+INSERT INTO `tblinvoicepaymentrecords` VALUES (8, 8, 4567.00, '1', NULL, '2024-04-12', '2024-04-12 11:31:59', '', '');
+INSERT INTO `tblinvoicepaymentrecords` VALUES (9, 9, 347910.00, '1', NULL, '2024-04-12', '2024-04-12 11:34:00', '', '');
+INSERT INTO `tblinvoicepaymentrecords` VALUES (10, 10, 2624.00, '1', NULL, '2024-04-16', '2024-04-16 12:36:16', '', '');
 
 -- ----------------------------
 -- Table structure for tblinvoices
@@ -5343,13 +5463,21 @@ CREATE TABLE `tblinvoices`  (
   INDEX `sale_agent`(`sale_agent` ASC) USING BTREE,
   INDEX `total`(`total` ASC) USING BTREE,
   INDEX `status`(`status` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblinvoices
 -- ----------------------------
 INSERT INTO `tblinvoices` VALUES (1, 0, NULL, 1, NULL, 1, 'INV-', 1, '2024-01-24 12:18:45', '2024-01-24', '2024-02-23', 3, 1840.00, 0.00, 1840.00, 0.00, 1, 'db1dd14b59087462a54b3505d90ddb6c', 2, '', '', NULL, NULL, 0, 'a:1:{i:0;s:1:\"1\";}', NULL, 0.00, 0.00, '', 0, NULL, 0, 0, 0, NULL, NULL, '', 1, '2nd street', 'Durgapur', 'West Bengal', '713216', NULL, '2nd', 'Durgapur', 'West Bengal', '713216', NULL, 1, 1, 2, 1, 0, NULL);
 INSERT INTO `tblinvoices` VALUES (2, 0, NULL, 1, NULL, 2, 'INV-', 1, '2024-02-06 12:07:07', '2024-02-06', '2024-03-07', 3, 5870.00, 0.00, 5547.15, 0.00, 1, '77f1d33642c23c0e9dd9c29a1daa3006', 2, '', 'Test admin note', NULL, NULL, 0, 'a:1:{i:0;s:1:\"1\";}', NULL, 5.50, 322.85, 'after_tax', 1, NULL, 0, 6, 0, NULL, NULL, '', 1, '2nd street', 'Durgapur', 'West Bengal', '713216', NULL, '2nd', 'Durgapur', 'West Bengal', '713216', NULL, 1, 1, 1, 1, 0, NULL);
+INSERT INTO `tblinvoices` VALUES (3, 0, NULL, 2, NULL, 3, 'INV-', 1, '2024-04-09 17:30:55', '2024-04-09', '2024-05-09', 3, 2944.00, 0.00, 2944.00, 0.00, 1, 'e83f99245247cce3f6013882c1637f99', 2, '', '', NULL, NULL, 0, 'a:1:{i:0;s:1:\"1\";}', NULL, 0.00, 0.00, '', 0, NULL, 0, 0, 0, NULL, NULL, '', 1, '', '', '', '', NULL, '', '', '', '', NULL, 1, 1, 2, 2, 0, NULL);
+INSERT INTO `tblinvoices` VALUES (4, 0, NULL, 2, NULL, 4, 'INV-', 1, '2024-04-11 12:21:47', '2024-04-11', '2024-05-11', 3, 2784.00, 0.00, 2784.00, 0.00, 1, 'e72380839c5a1cc6915bd4224138a912', 2, '', '', NULL, NULL, 0, 'a:1:{i:0;s:1:\"1\";}', NULL, 0.00, 0.00, '', 0, NULL, 0, 0, 0, NULL, NULL, '', 1, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 1, 2, 0, NULL);
+INSERT INTO `tblinvoices` VALUES (5, 0, NULL, 1, NULL, 5, 'INV-', 1, '2024-04-12 11:25:00', '2024-04-12', '2024-05-12', 3, 9008.00, 0.00, 9008.00, 0.00, 1, '2a3628b26247394a931024025dc3377b', 2, '', '', NULL, NULL, 0, 'a:1:{i:0;s:1:\"1\";}', NULL, 0.00, 0.00, '', 0, NULL, 0, 0, 0, NULL, NULL, '', 1, '2nd street', 'Durgapur', 'West Bengal', '713216', NULL, '2nd', 'Durgapur', 'West Bengal', '713216', NULL, 1, 1, 1, 1, 0, NULL);
+INSERT INTO `tblinvoices` VALUES (6, 0, NULL, 1, NULL, 6, 'INV-', 1, '2024-04-12 11:28:28', '2024-04-12', '2024-05-12', 3, 68096.08, 0.00, 68096.08, 0.00, 1, 'a8e7e41f30fbbddbb9d2ad4b5e7f3c07', 2, '', '', NULL, NULL, 0, 'a:1:{i:0;s:1:\"1\";}', NULL, 0.00, 0.00, '', 0, NULL, 0, 0, 0, NULL, NULL, '', 1, '2nd street', 'Durgapur', 'West Bengal', '713216', NULL, '2nd', 'Durgapur', 'West Bengal', '713216', NULL, 1, 1, 1, 1, 0, NULL);
+INSERT INTO `tblinvoices` VALUES (7, 0, NULL, 1, NULL, 7, 'INV-', 1, '2024-04-12 11:29:34', '2024-04-12', '2024-05-12', 3, 4421.44, 0.00, 4421.44, 0.00, 1, '7c169ef1d08ca7ba3f2d160b77f3c353', 2, '', '', NULL, NULL, 0, 'a:1:{i:0;s:1:\"1\";}', NULL, 0.00, 0.00, '', 0, NULL, 0, 0, 0, NULL, NULL, '', 1, '2nd street', 'Durgapur', 'West Bengal', '713216', NULL, '2nd', 'Durgapur', 'West Bengal', '713216', NULL, 1, 1, 1, 1, 0, NULL);
+INSERT INTO `tblinvoices` VALUES (8, 0, NULL, 1, NULL, 8, 'INV-', 1, '2024-04-12 11:31:53', '2024-04-12', '2024-05-12', 3, 4567.00, 0.00, 4567.00, 0.00, 1, '2e4a52bd60e9df007218a0c84ef02535', 2, '', '', NULL, NULL, 0, 'a:1:{i:0;s:1:\"1\";}', NULL, 0.00, 0.00, '', 0, NULL, 0, 0, 0, NULL, NULL, '', 1, '2nd street', 'Durgapur', 'West Bengal', '713216', NULL, '2nd', 'Durgapur', 'West Bengal', '713216', NULL, 1, 1, 1, 1, 0, NULL);
+INSERT INTO `tblinvoices` VALUES (9, 0, NULL, 1, NULL, 9, 'INV-', 1, '2024-04-12 11:33:55', '2024-04-12', '2024-05-12', 3, 347910.00, 0.00, 347910.00, 0.00, 1, '5b299802d1423635650d13c799654cff', 2, '', '', NULL, NULL, 0, 'a:1:{i:0;s:1:\"1\";}', NULL, 0.00, 0.00, '', 0, NULL, 0, 0, 0, NULL, NULL, '', 1, '2nd street', 'Durgapur', 'West Bengal', '713216', NULL, '2nd', 'Durgapur', 'West Bengal', '713216', NULL, 1, 1, 1, 1, 0, NULL);
+INSERT INTO `tblinvoices` VALUES (10, 0, NULL, 2, NULL, 10, 'INV-', 1, '2024-04-16 12:36:05', '2024-04-16', '2024-05-16', 3, 2624.00, 0.00, 2624.00, 0.00, 1, 'fe733ea024212e4e21805cbf81a0116f', 2, '', '', NULL, NULL, 0, 'a:1:{i:0;s:1:\"1\";}', NULL, 0.00, 0.00, '', 0, NULL, 0, 0, 0, NULL, NULL, '', 1, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 1, 2, 0, NULL);
 
 -- ----------------------------
 -- Table structure for tblitem_tax
@@ -5390,7 +5518,7 @@ CREATE TABLE `tblitemable`  (
   INDEX `rel_type`(`rel_type` ASC) USING BTREE,
   INDEX `qty`(`qty` ASC) USING BTREE,
   INDEX `rate`(`rate` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblitemable
@@ -5403,6 +5531,24 @@ INSERT INTO `tblitemable` VALUES (5, 1, 'estimate', 'test paiment', '', 1.00, 22
 INSERT INTO `tblitemable` VALUES (6, 1, 'proposal', 'Vendor task', '', 1.00, 124000.00, '', 1);
 INSERT INTO `tblitemable` VALUES (7, 2, 'credit_note', 'test 22', '', 1.00, 2000.00, '', 1);
 INSERT INTO `tblitemable` VALUES (8, 2, 'estimate', 'test 222', '', 1.00, 2999.00, '', 1);
+INSERT INTO `tblitemable` VALUES (9, 3, 'invoice', 'Orange Embark - April 09, 2024 Task', '16:00 Hours', 16.00, 184.00, '', 1);
+INSERT INTO `tblitemable` VALUES (10, 4, 'invoice', 'Orange Embark - April 11, 2024 Task Embark', '08:00 Hours', 8.00, 164.00, '', 1);
+INSERT INTO `tblitemable` VALUES (11, 4, 'invoice', 'Orange Embark - April 10, 2024 Embark Task', '08:00 Hours', 8.00, 184.00, '', 2);
+INSERT INTO `tblitemable` VALUES (12, 5, 'invoice', 'HRMS New - April 12, 2024 Task HRMS', '16:00 Hours', 16.00, 164.00, '', 1);
+INSERT INTO `tblitemable` VALUES (13, 5, 'invoice', 'HRMS New - April 11, 2024 HRMS Task', '12:00 Hours', 12.00, 164.00, '', 2);
+INSERT INTO `tblitemable` VALUES (14, 5, 'invoice', 'HRMS New - April 10, 2024 Task', '08:00 Hours', 8.00, 184.00, '', 3);
+INSERT INTO `tblitemable` VALUES (15, 5, 'invoice', 'HRMS New - April 02, 2024 Task', '16:00 Hours', 16.00, 184.00, '', 4);
+INSERT INTO `tblitemable` VALUES (16, 6, 'invoice', 'HRMS New - Attendance Login & Logout Button', '04:00 Hours', 4.00, 164.00, '', 1);
+INSERT INTO `tblitemable` VALUES (17, 6, 'invoice', 'HRMS New - Complete the attendance module', '394:00 Hours', 394.00, 164.00, '', 2);
+INSERT INTO `tblitemable` VALUES (18, 6, 'invoice', 'HRMS New - Transaction sub module test', '17:12 Hours', 17.22, 164.00, '', 3);
+INSERT INTO `tblitemable` VALUES (19, 7, 'invoice', 'HRMS New - Jurnal Entry', '00:00 Hours', 1.00, 164.00, '', 1);
+INSERT INTO `tblitemable` VALUES (20, 7, 'invoice', 'HRMS New - Jurnal Entry by deep', '16:43 Hours', 16.73, 164.00, '', 2);
+INSERT INTO `tblitemable` VALUES (21, 7, 'invoice', 'HRMS New - Banking Report', '09:14 Hours', 9.23, 164.00, '', 3);
+INSERT INTO `tblitemable` VALUES (22, 8, 'invoice', 'Test Category', '', 1.00, 4567.00, '', 1);
+INSERT INTO `tblitemable` VALUES (23, 9, 'invoice', 'Test Item', '', 2.00, 2530.00, '', 1);
+INSERT INTO `tblitemable` VALUES (24, 9, 'invoice', 'Test Item', '', 5.00, 2570.00, '', 2);
+INSERT INTO `tblitemable` VALUES (25, 9, 'invoice', 'Test Item 2', '', 100.00, 3300.00, '', 3);
+INSERT INTO `tblitemable` VALUES (26, 10, 'invoice', 'Orange Embark - April 16, 2024 Embark Task', '16:00 Hours', 16.00, 164.00, '', 1);
 
 -- ----------------------------
 -- Table structure for tblitems
@@ -5776,7 +5922,7 @@ CREATE TABLE `tblmilestones`  (
   `datecreated` date NOT NULL,
   `hide_from_customer` int NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblmilestones
@@ -5784,6 +5930,8 @@ CREATE TABLE `tblmilestones`  (
 INSERT INTO `tblmilestones` VALUES (1, 'complete budget module', '', 0, '2024-01-23', '2024-01-31', 1, NULL, 1, '2024-01-24', 0);
 INSERT INTO `tblmilestones` VALUES (2, 'complete attendance module', '', 0, '2024-01-08', '2024-01-22', 1, '#7cb342', 2, '2024-01-24', 0);
 INSERT INTO `tblmilestones` VALUES (3, 'Vendor Module', '', 0, '2024-02-06', '2024-02-29', 1, NULL, 3, '2024-02-07', 0);
+INSERT INTO `tblmilestones` VALUES (4, 'Complete the MCA API', '', 0, '2024-04-09', '2024-04-09', 2, NULL, 1, '2024-04-09', 0);
+INSERT INTO `tblmilestones` VALUES (5, 'Complete the Bureau Data API', '', 0, '2024-04-10', '2024-05-09', 2, '#0288d1', 2, '2024-04-09', 0);
 
 -- ----------------------------
 -- Table structure for tblmodules
@@ -5893,13 +6041,14 @@ CREATE TABLE `tblnotes`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `rel_id`(`rel_id` ASC) USING BTREE,
   INDEX `rel_type`(`rel_type` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblnotes
 -- ----------------------------
 INSERT INTO `tblnotes` VALUES (1, 1, 'customer', 'Test Note', NULL, 1, '2024-02-06 12:03:54');
 INSERT INTO `tblnotes` VALUES (2, 1, 'ticket', 'Test note', NULL, 1, '2024-02-07 11:05:53');
+INSERT INTO `tblnotes` VALUES (3, 2, 'ticket', 'Give me some time', NULL, 1, '2024-04-09 17:26:33');
 
 -- ----------------------------
 -- Table structure for tblnotifications
@@ -5919,7 +6068,7 @@ CREATE TABLE `tblnotifications`  (
   `link` mediumtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `additional_data` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12100 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 12162 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblnotifications
@@ -18023,6 +18172,68 @@ INSERT INTO `tblnotifications` VALUES (12096, 0, 0, '2024-03-26 12:19:55', 'not_
 INSERT INTO `tblnotifications` VALUES (12097, 0, 0, '2024-03-26 12:20:36', 'not_task_marked_as_complete', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=17', 'a:1:{i:0;s:39:\"March 26, 2024 Complete the TADA module\";}');
 INSERT INTO `tblnotifications` VALUES (12098, 0, 0, '2024-03-27 10:32:59', 'not_liked_your_post', 3, 0, 'Deep Basak', 1, NULL, '#postid=2', 'a:2:{i:0;s:10:\"Deep Basak\";i:1;s:3:\"dth\";}');
 INSERT INTO `tblnotifications` VALUES (12099, 0, 0, '2024-03-27 10:33:02', 'not_liked_your_post', 3, 0, 'Deep Basak', 1, NULL, '#postid=2', 'a:2:{i:0;s:10:\"Deep Basak\";i:1;s:3:\"dth\";}');
+INSERT INTO `tblnotifications` VALUES (12100, 0, 0, '2024-04-02 10:12:40', 'not_task_assigned_to_you', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=18', 'a:1:{i:0;s:19:\"April 01, 2024 task\";}');
+INSERT INTO `tblnotifications` VALUES (12101, 0, 0, '2024-04-02 10:12:40', 'not_task_added_himself_as_follower', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=18', 'a:1:{i:0;s:19:\"April 01, 2024 task\";}');
+INSERT INTO `tblnotifications` VALUES (12102, 0, 0, '2024-04-02 10:13:59', 'not_task_marked_as_complete', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=18', 'a:1:{i:0;s:19:\"April 01, 2024 task\";}');
+INSERT INTO `tblnotifications` VALUES (12103, 0, 0, '2024-04-02 10:15:37', 'not_task_assigned_to_you', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=19', 'a:1:{i:0;s:10:\"March 28, \";}');
+INSERT INTO `tblnotifications` VALUES (12104, 0, 0, '2024-04-02 10:15:37', 'not_task_added_himself_as_follower', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=19', 'a:1:{i:0;s:10:\"March 28, \";}');
+INSERT INTO `tblnotifications` VALUES (12105, 0, 0, '2024-04-02 10:16:54', 'not_task_marked_as_complete', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=19', 'a:1:{i:0;s:10:\"March 28, \";}');
+INSERT INTO `tblnotifications` VALUES (12106, 0, 0, '2024-04-02 10:30:32', 'not_task_assigned_to_you', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=20', 'a:1:{i:0;s:19:\"March 27, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12107, 0, 0, '2024-04-02 10:31:27', 'not_task_marked_as_complete', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=20', 'a:1:{i:0;s:19:\"March 27, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12108, 0, 0, '2024-04-02 12:24:05', 'not_task_assigned_to_you', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=21', 'a:1:{i:0;s:19:\"April 02, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12109, 0, 0, '2024-04-02 12:24:05', 'not_task_added_himself_as_follower', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=21', 'a:1:{i:0;s:19:\"April 02, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12110, 0, 0, '2024-04-02 12:24:54', 'not_task_marked_as_complete', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=21', 'a:1:{i:0;s:19:\"April 02, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12111, 0, 0, '2024-04-02 12:25:13', 'not_task_marked_as_complete', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=9', 'a:1:{i:0;s:14:\"Test Bill Task\";}');
+INSERT INTO `tblnotifications` VALUES (12112, 0, 0, '2024-04-03 13:39:23', 'not_task_assigned_to_you', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=22', 'a:1:{i:0;s:19:\"April 03, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12113, 0, 0, '2024-04-03 13:39:23', 'not_task_added_himself_as_follower', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=22', 'a:1:{i:0;s:19:\"April 03, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12114, 0, 0, '2024-04-03 13:40:25', 'not_task_marked_as_complete', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=22', 'a:1:{i:0;s:19:\"April 03, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12115, 0, 0, '2024-04-04 12:26:12', 'not_task_assigned_to_you', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=23', 'a:1:{i:0;s:19:\"April 04, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12116, 0, 0, '2024-04-04 12:26:12', 'not_task_added_himself_as_follower', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=23', 'a:1:{i:0;s:19:\"April 04, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12117, 0, 0, '2024-04-04 12:27:11', 'not_task_marked_as_complete', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=23', 'a:1:{i:0;s:19:\"April 04, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12118, 0, 0, '2024-04-05 14:08:26', 'not_task_assigned_to_you', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=24', 'a:1:{i:0;s:19:\"April 05, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12119, 0, 0, '2024-04-05 14:08:26', 'not_task_added_you_as_follower', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=24', 'a:1:{i:0;s:19:\"April 05, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12120, 0, 0, '2024-04-05 14:10:05', 'not_task_marked_as_complete', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=24', 'a:1:{i:0;s:19:\"April 05, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12121, 0, 0, '2024-04-08 13:25:42', 'not_task_assigned_to_you', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=25', 'a:1:{i:0;s:19:\"April 08, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12122, 0, 0, '2024-04-08 13:25:42', 'not_task_added_himself_as_follower', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=25', 'a:1:{i:0;s:19:\"April 08, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12123, 0, 0, '2024-04-08 13:26:18', 'not_task_marked_as_complete', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=25', 'a:1:{i:0;s:19:\"April 08, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12124, 0, 0, '2024-04-09 11:32:37', 'not_staff_added_as_project_member', 1, 0, 'Krishna Somayaji', 2, NULL, 'projects/view/2', 'a:1:{i:0;s:13:\"Orange Embark\";}');
+INSERT INTO `tblnotifications` VALUES (12125, 0, 0, '2024-04-09 11:32:37', 'not_staff_added_as_project_member', 1, 0, 'Krishna Somayaji', 3, NULL, 'projects/view/2', 'a:1:{i:0;s:13:\"Orange Embark\";}');
+INSERT INTO `tblnotifications` VALUES (12126, 0, 0, '2024-04-09 11:34:35', 'not_task_assigned_to_you', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=26', 'a:1:{i:0;s:19:\"April 09, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12127, 0, 0, '2024-04-09 11:34:57', 'not_task_marked_as_complete', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=26', 'a:1:{i:0;s:19:\"April 09, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12128, 0, 0, '2024-04-09 12:47:53', 'not_project_file_uploaded', 1, 0, 'Krishna Somayaji', 2, NULL, 'projects/view/2?group=project_files&file_id=6', NULL);
+INSERT INTO `tblnotifications` VALUES (12129, 0, 0, '2024-04-09 12:47:53', 'not_project_file_uploaded', 1, 0, 'Krishna Somayaji', 3, NULL, 'projects/view/2?group=project_files&file_id=6', NULL);
+INSERT INTO `tblnotifications` VALUES (12130, 0, 0, '2024-04-09 17:28:42', 'not_new_ticket_reply', 0, 0, '', 2, 1, 'tickets/ticket/2', 'a:1:{i:0;s:18:\"MCA API Credit add\";}');
+INSERT INTO `tblnotifications` VALUES (12131, 0, 0, '2024-04-09 17:28:42', 'not_new_ticket_reply', 0, 0, '', 3, 1, 'tickets/ticket/2', 'a:1:{i:0;s:18:\"MCA API Credit add\";}');
+INSERT INTO `tblnotifications` VALUES (12132, 0, 0, '2024-04-10 10:54:35', 'not_staff_added_as_project_member', 1, 0, 'Krishna Somayaji', 2, NULL, 'projects/view/1', 'a:1:{i:0;s:8:\"HRMS New\";}');
+INSERT INTO `tblnotifications` VALUES (12133, 0, 0, '2024-04-10 10:55:19', 'not_task_assigned_to_you', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=27', 'a:1:{i:0;s:19:\"April 10, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12134, 0, 0, '2024-04-10 10:55:19', 'not_task_assigned_to_you', 1, 0, 'Krishna Somayaji', 2, NULL, '#taskid=27', 'a:1:{i:0;s:19:\"April 10, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12135, 0, 0, '2024-04-10 10:55:19', 'not_task_assigned_someone', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=27', 'a:2:{i:0;s:9:\"momo momo\";i:1;s:19:\"April 10, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12136, 0, 0, '2024-04-10 10:55:19', 'not_task_added_himself_as_follower', 1, 0, 'Krishna Somayaji', 2, NULL, '#taskid=27', 'a:1:{i:0;s:19:\"April 10, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12137, 0, 0, '2024-04-10 10:55:19', 'not_task_added_himself_as_follower', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=27', 'a:1:{i:0;s:19:\"April 10, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12138, 0, 0, '2024-04-10 10:55:46', 'not_task_marked_as_complete', 1, 0, 'Krishna Somayaji', 2, NULL, '#taskid=27', 'a:1:{i:0;s:19:\"April 10, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12139, 0, 0, '2024-04-10 10:55:46', 'not_task_marked_as_complete', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=27', 'a:1:{i:0;s:19:\"April 10, 2024 Task\";}');
+INSERT INTO `tblnotifications` VALUES (12140, 0, 0, '2024-04-10 10:59:48', 'not_task_assigned_to_you', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=28', 'a:1:{i:0;s:26:\"April 10, 2024 Embark Task\";}');
+INSERT INTO `tblnotifications` VALUES (12141, 0, 0, '2024-04-10 10:59:48', 'not_task_added_himself_as_follower', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=28', 'a:1:{i:0;s:26:\"April 10, 2024 Embark Task\";}');
+INSERT INTO `tblnotifications` VALUES (12142, 0, 0, '2024-04-10 11:00:43', 'not_task_marked_as_complete', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=28', 'a:1:{i:0;s:26:\"April 10, 2024 Embark Task\";}');
+INSERT INTO `tblnotifications` VALUES (12143, 0, 0, '2024-04-11 12:05:47', 'not_task_assigned_to_you', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=29', 'a:1:{i:0;s:26:\"April 11, 2024 Task Embark\";}');
+INSERT INTO `tblnotifications` VALUES (12144, 0, 0, '2024-04-11 12:05:47', 'not_task_added_himself_as_follower', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=29', 'a:1:{i:0;s:26:\"April 11, 2024 Task Embark\";}');
+INSERT INTO `tblnotifications` VALUES (12145, 0, 0, '2024-04-11 12:06:19', 'not_task_marked_as_complete', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=29', 'a:1:{i:0;s:26:\"April 11, 2024 Task Embark\";}');
+INSERT INTO `tblnotifications` VALUES (12146, 0, 0, '2024-04-11 12:07:23', 'not_task_assigned_to_you', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=30', 'a:1:{i:0;s:24:\"April 11, 2024 HRMS Task\";}');
+INSERT INTO `tblnotifications` VALUES (12147, 0, 0, '2024-04-11 12:07:27', 'not_task_assigned_to_you', 1, 0, 'Krishna Somayaji', 2, NULL, '#taskid=30', 'a:1:{i:0;s:24:\"April 11, 2024 HRMS Task\";}');
+INSERT INTO `tblnotifications` VALUES (12148, 0, 0, '2024-04-11 12:07:27', 'not_task_assigned_someone', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=30', 'a:2:{i:0;s:9:\"momo momo\";i:1;s:24:\"April 11, 2024 HRMS Task\";}');
+INSERT INTO `tblnotifications` VALUES (12149, 0, 0, '2024-04-11 12:07:31', 'not_task_added_himself_as_follower', 1, 0, 'Krishna Somayaji', 2, NULL, '#taskid=30', 'a:1:{i:0;s:24:\"April 11, 2024 HRMS Task\";}');
+INSERT INTO `tblnotifications` VALUES (12150, 0, 0, '2024-04-11 12:07:31', 'not_task_added_himself_as_follower', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=30', 'a:1:{i:0;s:24:\"April 11, 2024 HRMS Task\";}');
+INSERT INTO `tblnotifications` VALUES (12151, 0, 0, '2024-04-11 12:08:26', 'not_task_marked_as_complete', 1, 0, 'Krishna Somayaji', 2, NULL, '#taskid=30', 'a:1:{i:0;s:24:\"April 11, 2024 HRMS Task\";}');
+INSERT INTO `tblnotifications` VALUES (12152, 0, 0, '2024-04-11 12:08:26', 'not_task_marked_as_complete', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=30', 'a:1:{i:0;s:24:\"April 11, 2024 HRMS Task\";}');
+INSERT INTO `tblnotifications` VALUES (12153, 0, 0, '2024-04-11 12:17:17', 'not_task_marked_as_complete', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=10', 'a:1:{i:0;s:21:\"Vendor CRUD Operation\";}');
+INSERT INTO `tblnotifications` VALUES (12154, 0, 0, '2024-04-12 11:22:11', 'not_task_assigned_to_you', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=31', 'a:1:{i:0;s:24:\"April 12, 2024 Task HRMS\";}');
+INSERT INTO `tblnotifications` VALUES (12155, 0, 0, '2024-04-12 11:22:42', 'not_task_marked_as_complete', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=31', 'a:1:{i:0;s:24:\"April 12, 2024 Task HRMS\";}');
+INSERT INTO `tblnotifications` VALUES (12156, 0, 0, '2024-04-16 12:34:39', 'not_task_assigned_to_you', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=32', 'a:1:{i:0;s:26:\"April 16, 2024 Embark Task\";}');
+INSERT INTO `tblnotifications` VALUES (12157, 0, 0, '2024-04-16 12:34:40', 'not_task_added_himself_as_follower', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=32', 'a:1:{i:0;s:26:\"April 16, 2024 Embark Task\";}');
+INSERT INTO `tblnotifications` VALUES (12158, 0, 0, '2024-04-16 12:35:06', 'not_task_marked_as_complete', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=32', 'a:1:{i:0;s:26:\"April 16, 2024 Embark Task\";}');
+INSERT INTO `tblnotifications` VALUES (12159, 0, 0, '2024-04-16 12:39:56', 'not_task_assigned_to_you', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=33', 'a:1:{i:0;s:56:\"April 17, 2024 #3 - Burau Data Retail API JSON data View\";}');
+INSERT INTO `tblnotifications` VALUES (12160, 0, 0, '2024-04-16 12:39:56', 'not_task_added_himself_as_follower', 1, 0, 'Krishna Somayaji', 3, NULL, '#taskid=33', 'a:1:{i:0;s:56:\"April 17, 2024 #3 - Burau Data Retail API JSON data View\";}');
+INSERT INTO `tblnotifications` VALUES (12161, 0, 0, '2024-04-17 19:06:29', 'You are added to following the leave application-Sick Leave', 1, 0, 'Krishna Somayaji', 1, NULL, 'timesheets/requisition_detail/4', 'a:1:{i:0;s:10:\"Sick Leave\";}');
 
 -- ----------------------------
 -- Table structure for tbloptions
@@ -18075,7 +18286,7 @@ INSERT INTO `tbloptions` VALUES (32, 'invoice_company_postal_code', '560001', 1)
 INSERT INTO `tbloptions` VALUES (33, 'invoice_company_phonenumber', '8001092001', 1);
 INSERT INTO `tbloptions` VALUES (34, 'view_invoice_only_logged_in', '0', 1);
 INSERT INTO `tbloptions` VALUES (35, 'invoice_number_format', '1', 1);
-INSERT INTO `tbloptions` VALUES (36, 'next_invoice_number', '3', 0);
+INSERT INTO `tbloptions` VALUES (36, 'next_invoice_number', '11', 0);
 INSERT INTO `tbloptions` VALUES (37, 'active_language', 'english', 1);
 INSERT INTO `tbloptions` VALUES (38, 'invoice_number_decrement_on_delete', '1', 1);
 INSERT INTO `tbloptions` VALUES (39, 'automatically_send_invoice_overdue_reminder_after', '1', 1);
@@ -18678,12 +18889,14 @@ CREATE TABLE `tblpinned_projects`  (
   `staff_id` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `project_id`(`project_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblpinned_projects
 -- ----------------------------
 INSERT INTO `tblpinned_projects` VALUES (1, 1, 3);
+INSERT INTO `tblpinned_projects` VALUES (3, 1, 1);
+INSERT INTO `tblpinned_projects` VALUES (4, 2, 1);
 
 -- ----------------------------
 -- Table structure for tblposition_training_question_form
@@ -18719,7 +18932,7 @@ CREATE TABLE `tblproject_activity`  (
   `additional_data` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `dateadded` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 53 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 106 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblproject_activity
@@ -18776,6 +18989,59 @@ INSERT INTO `tblproject_activity` VALUES (49, 1, 1, 0, 'Krishna Somayaji', 0, 'p
 INSERT INTO `tblproject_activity` VALUES (50, 1, 1, 0, 'Krishna Somayaji', 0, 'project_activity_recorded_timesheet', '<seconds>14400</seconds><br /><lang>project_activity_task_name</lang> Transaction sub module test', '2024-02-07 11:12:35');
 INSERT INTO `tblproject_activity` VALUES (51, 1, 1, 0, 'Krishna Somayaji', 0, 'project_activity_task_marked_complete', 'Transaction sub module test', '2024-02-07 11:12:47');
 INSERT INTO `tblproject_activity` VALUES (52, 1, 1, 0, 'Krishna Somayaji', 0, 'project_activity_created_milestone', 'Vendor Module', '2024-02-07 11:20:10');
+INSERT INTO `tblproject_activity` VALUES (53, 1, 1, 0, 'Krishna Somayaji', 0, 'project_activity_new_task_assignee', 'April 02, 2024 Task - Krishna Somayaji', '2024-04-02 12:24:05');
+INSERT INTO `tblproject_activity` VALUES (54, 1, 1, 0, 'Krishna Somayaji', 0, 'project_activity_new_task_assignee', 'April 02, 2024 Task - Deep Basak', '2024-04-02 12:24:05');
+INSERT INTO `tblproject_activity` VALUES (55, 1, 1, 0, 'Krishna Somayaji', 0, 'project_activity_recorded_timesheet', '<seconds>14400</seconds><br /><lang>project_activity_task_name</lang> April 02, 2024 Task', '2024-04-02 12:24:20');
+INSERT INTO `tblproject_activity` VALUES (56, 1, 1, 0, 'Krishna Somayaji', 0, 'project_activity_recorded_timesheet', '<seconds>14400</seconds><br /><lang>project_activity_task_name</lang> April 02, 2024 Task', '2024-04-02 12:24:30');
+INSERT INTO `tblproject_activity` VALUES (57, 1, 1, 0, 'Krishna Somayaji', 0, 'project_activity_recorded_timesheet', '<seconds>14400</seconds><br /><lang>project_activity_task_name</lang> April 02, 2024 Task', '2024-04-02 12:24:40');
+INSERT INTO `tblproject_activity` VALUES (58, 1, 1, 0, 'Krishna Somayaji', 0, 'project_activity_recorded_timesheet', '<seconds>14400</seconds><br /><lang>project_activity_task_name</lang> April 02, 2024 Task', '2024-04-02 12:24:50');
+INSERT INTO `tblproject_activity` VALUES (59, 1, 1, 0, 'Krishna Somayaji', 0, 'project_activity_task_marked_complete', 'April 02, 2024 Task', '2024-04-02 12:24:54');
+INSERT INTO `tblproject_activity` VALUES (60, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_added_team_member', 'momo momo', '2024-04-09 11:32:37');
+INSERT INTO `tblproject_activity` VALUES (61, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_added_team_member', 'Krishna Somayaji', '2024-04-09 11:32:37');
+INSERT INTO `tblproject_activity` VALUES (62, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_added_team_member', 'Deep Basak', '2024-04-09 11:32:37');
+INSERT INTO `tblproject_activity` VALUES (63, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_created', '', '2024-04-09 11:32:37');
+INSERT INTO `tblproject_activity` VALUES (64, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_new_task_assignee', 'April 09, 2024 Task - Krishna Somayaji', '2024-04-09 11:34:01');
+INSERT INTO `tblproject_activity` VALUES (65, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_recorded_timesheet', '<seconds>28800</seconds><br /><lang>project_activity_task_name</lang> April 09, 2024 Task', '2024-04-09 11:34:18');
+INSERT INTO `tblproject_activity` VALUES (66, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_new_task_assignee', 'April 09, 2024 Task - Deep Basak', '2024-04-09 11:34:35');
+INSERT INTO `tblproject_activity` VALUES (67, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_recorded_timesheet', '<seconds>28800</seconds><br /><lang>project_activity_task_name</lang> April 09, 2024 Task', '2024-04-09 11:34:53');
+INSERT INTO `tblproject_activity` VALUES (68, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_task_marked_complete', 'April 09, 2024 Task', '2024-04-09 11:34:57');
+INSERT INTO `tblproject_activity` VALUES (69, 2, 1, 0, 'Krishna Somayaji', 0, 'project_activity_uploaded_file', '37df927e88fb2f0e613f5c7268b32d30.pdf', '2024-04-09 12:47:53');
+INSERT INTO `tblproject_activity` VALUES (70, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_created_milestone', 'Complete the MCA API', '2024-04-09 17:20:06');
+INSERT INTO `tblproject_activity` VALUES (71, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_created_milestone', 'Complete the Bureau Data API', '2024-04-09 17:21:13');
+INSERT INTO `tblproject_activity` VALUES (72, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_invoiced_project', 'INV-000003', '2024-04-09 17:30:56');
+INSERT INTO `tblproject_activity` VALUES (73, 1, 1, 0, 'Krishna Somayaji', 1, 'project_activity_added_team_member', 'momo momo', '2024-04-10 10:54:35');
+INSERT INTO `tblproject_activity` VALUES (74, 1, 1, 0, 'Krishna Somayaji', 1, 'project_activity_new_task_assignee', 'April 10, 2024 Task - Deep Basak', '2024-04-10 10:55:19');
+INSERT INTO `tblproject_activity` VALUES (75, 1, 1, 0, 'Krishna Somayaji', 1, 'project_activity_new_task_assignee', 'April 10, 2024 Task - momo momo', '2024-04-10 10:55:19');
+INSERT INTO `tblproject_activity` VALUES (76, 1, 1, 0, 'Krishna Somayaji', 1, 'project_activity_recorded_timesheet', '<seconds>14400</seconds><br /><lang>project_activity_task_name</lang> April 10, 2024 Task', '2024-04-10 10:55:35');
+INSERT INTO `tblproject_activity` VALUES (77, 1, 1, 0, 'Krishna Somayaji', 1, 'project_activity_recorded_timesheet', '<seconds>14400</seconds><br /><lang>project_activity_task_name</lang> April 10, 2024 Task', '2024-04-10 10:55:43');
+INSERT INTO `tblproject_activity` VALUES (78, 1, 1, 0, 'Krishna Somayaji', 1, 'project_activity_task_marked_complete', 'April 10, 2024 Task', '2024-04-10 10:55:46');
+INSERT INTO `tblproject_activity` VALUES (79, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_new_task_assignee', 'April 10, 2024 Embark Task - Krishna Somayaji', '2024-04-10 10:59:48');
+INSERT INTO `tblproject_activity` VALUES (80, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_new_task_assignee', 'April 10, 2024 Embark Task - Deep Basak', '2024-04-10 10:59:48');
+INSERT INTO `tblproject_activity` VALUES (81, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_recorded_timesheet', '<seconds>14400</seconds><br /><lang>project_activity_task_name</lang> April 10, 2024 Embark Task', '2024-04-10 10:59:59');
+INSERT INTO `tblproject_activity` VALUES (82, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_recorded_timesheet', '<seconds>14400</seconds><br /><lang>project_activity_task_name</lang> April 10, 2024 Embark Task', '2024-04-10 11:00:07');
+INSERT INTO `tblproject_activity` VALUES (83, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_task_marked_complete', 'April 10, 2024 Embark Task', '2024-04-10 11:00:43');
+INSERT INTO `tblproject_activity` VALUES (84, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_new_task_assignee', 'April 11, 2024 Task Embark - Krishna Somayaji', '2024-04-11 12:05:47');
+INSERT INTO `tblproject_activity` VALUES (85, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_new_task_assignee', 'April 11, 2024 Task Embark - Deep Basak', '2024-04-11 12:05:47');
+INSERT INTO `tblproject_activity` VALUES (86, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_recorded_timesheet', '<seconds>14400</seconds><br /><lang>project_activity_task_name</lang> April 11, 2024 Task Embark', '2024-04-11 12:06:07');
+INSERT INTO `tblproject_activity` VALUES (87, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_recorded_timesheet', '<seconds>14400</seconds><br /><lang>project_activity_task_name</lang> April 11, 2024 Task Embark', '2024-04-11 12:06:16');
+INSERT INTO `tblproject_activity` VALUES (88, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_task_marked_complete', 'April 11, 2024 Task Embark', '2024-04-11 12:06:19');
+INSERT INTO `tblproject_activity` VALUES (89, 1, 1, 0, 'Krishna Somayaji', 1, 'project_activity_new_task_assignee', 'April 11, 2024 HRMS Task - Krishna Somayaji', '2024-04-11 12:07:13');
+INSERT INTO `tblproject_activity` VALUES (90, 1, 1, 0, 'Krishna Somayaji', 1, 'project_activity_new_task_assignee', 'April 11, 2024 HRMS Task - Deep Basak', '2024-04-11 12:07:23');
+INSERT INTO `tblproject_activity` VALUES (91, 1, 1, 0, 'Krishna Somayaji', 1, 'project_activity_new_task_assignee', 'April 11, 2024 HRMS Task - momo momo', '2024-04-11 12:07:27');
+INSERT INTO `tblproject_activity` VALUES (92, 1, 1, 0, 'Krishna Somayaji', 1, 'project_activity_recorded_timesheet', '<seconds>14400</seconds><br /><lang>project_activity_task_name</lang> April 11, 2024 HRMS Task', '2024-04-11 12:07:49');
+INSERT INTO `tblproject_activity` VALUES (93, 1, 1, 0, 'Krishna Somayaji', 1, 'project_activity_recorded_timesheet', '<seconds>14400</seconds><br /><lang>project_activity_task_name</lang> April 11, 2024 HRMS Task', '2024-04-11 12:08:12');
+INSERT INTO `tblproject_activity` VALUES (94, 1, 1, 0, 'Krishna Somayaji', 1, 'project_activity_recorded_timesheet', '<seconds>14400</seconds><br /><lang>project_activity_task_name</lang> April 11, 2024 HRMS Task', '2024-04-11 12:08:22');
+INSERT INTO `tblproject_activity` VALUES (95, 1, 1, 0, 'Krishna Somayaji', 1, 'project_activity_task_marked_complete', 'April 11, 2024 HRMS Task', '2024-04-11 12:08:26');
+INSERT INTO `tblproject_activity` VALUES (96, 1, 1, 0, 'Krishna Somayaji', 1, 'project_activity_new_task_assignee', 'April 12, 2024 Task HRMS - Krishna Somayaji', '2024-04-12 11:21:59');
+INSERT INTO `tblproject_activity` VALUES (97, 1, 1, 0, 'Krishna Somayaji', 1, 'project_activity_new_task_assignee', 'April 12, 2024 Task HRMS - Deep Basak', '2024-04-12 11:22:11');
+INSERT INTO `tblproject_activity` VALUES (98, 1, 1, 0, 'Krishna Somayaji', 1, 'project_activity_recorded_timesheet', '<seconds>28800</seconds><br /><lang>project_activity_task_name</lang> April 12, 2024 Task HRMS', '2024-04-12 11:22:25');
+INSERT INTO `tblproject_activity` VALUES (99, 1, 1, 0, 'Krishna Somayaji', 1, 'project_activity_recorded_timesheet', '<seconds>28800</seconds><br /><lang>project_activity_task_name</lang> April 12, 2024 Task HRMS', '2024-04-12 11:22:38');
+INSERT INTO `tblproject_activity` VALUES (100, 1, 1, 0, 'Krishna Somayaji', 1, 'project_activity_task_marked_complete', 'April 12, 2024 Task HRMS', '2024-04-12 11:22:42');
+INSERT INTO `tblproject_activity` VALUES (101, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_new_task_assignee', 'April 16, 2024 Embark Task - Krishna Somayaji', '2024-04-16 12:34:39');
+INSERT INTO `tblproject_activity` VALUES (102, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_new_task_assignee', 'April 16, 2024 Embark Task - Deep Basak', '2024-04-16 12:34:40');
+INSERT INTO `tblproject_activity` VALUES (103, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_recorded_timesheet', '<seconds>28800</seconds><br /><lang>project_activity_task_name</lang> April 16, 2024 Embark Task', '2024-04-16 12:34:53');
+INSERT INTO `tblproject_activity` VALUES (104, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_recorded_timesheet', '<seconds>28800</seconds><br /><lang>project_activity_task_name</lang> April 16, 2024 Embark Task', '2024-04-16 12:35:03');
+INSERT INTO `tblproject_activity` VALUES (105, 2, 1, 0, 'Krishna Somayaji', 1, 'project_activity_task_marked_complete', 'April 16, 2024 Embark Task', '2024-04-16 12:35:06');
 
 -- ----------------------------
 -- Table structure for tblproject_files
@@ -18798,12 +19064,17 @@ CREATE TABLE `tblproject_files`  (
   `external_link` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `thumbnail_link` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblproject_files
 -- ----------------------------
 INSERT INTO `tblproject_files` VALUES (1, '490cf3a7682236a0c22412a39277eab0.docx', 'Training Module Queries.docx', 'Training Module Queries.docx', NULL, 'application/vnd.openxmlformats-officedocument.word', '2024-01-24 13:38:02', '2024-01-24 13:38:35', 1, 0, 1, 0, NULL, NULL, NULL);
+INSERT INTO `tblproject_files` VALUES (2, 'cd114c1928be24ecea39a008e32c9ffc.pdf', 'API_SM_MCA (3).pdf', 'API_SM_MCA (3).pdf', NULL, 'application/pdf', '2024-04-09 12:47:53', NULL, 2, 0, 1, 0, NULL, NULL, NULL);
+INSERT INTO `tblproject_files` VALUES (3, '107e25b92ef63270d06a5ed2c36ec112.pdf', 'Credit Bureaue API_Documentation.pdf', 'Credit Bureaue API_Documentation.pdf', NULL, 'application/pdf', '2024-04-09 12:47:53', NULL, 2, 0, 1, 0, NULL, NULL, NULL);
+INSERT INTO `tblproject_files` VALUES (4, 'e9446c56a640cfa25da585280f670042.pdf', 'GST_Document_Basic_Details Updated.pdf', 'GST_Document_Basic_Details Updated.pdf', NULL, 'application/pdf', '2024-04-09 12:47:53', NULL, 2, 0, 1, 0, NULL, NULL, NULL);
+INSERT INTO `tblproject_files` VALUES (5, '65eaab28d4e6689b9c16eee2dd1ac25c.pdf', 'GST_Document_Basic_Details_And_Filling Status.pdf', 'GST_Document_Basic_Details_And_Filling Status.pdf', NULL, 'application/pdf', '2024-04-09 12:47:53', NULL, 2, 0, 1, 0, NULL, NULL, NULL);
+INSERT INTO `tblproject_files` VALUES (6, '37df927e88fb2f0e613f5c7268b32d30.pdf', 'GST_Document_xlxs Bulk Upload.pdf', 'GST_Document_xlxs Bulk Upload.pdf', NULL, 'application/pdf', '2024-04-09 12:47:53', NULL, 2, 0, 1, 0, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tblproject_members
@@ -18816,13 +19087,17 @@ CREATE TABLE `tblproject_members`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `project_id`(`project_id` ASC) USING BTREE,
   INDEX `staff_id`(`staff_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblproject_members
 -- ----------------------------
 INSERT INTO `tblproject_members` VALUES (1, 1, 1);
 INSERT INTO `tblproject_members` VALUES (2, 1, 3);
+INSERT INTO `tblproject_members` VALUES (3, 2, 2);
+INSERT INTO `tblproject_members` VALUES (4, 2, 1);
+INSERT INTO `tblproject_members` VALUES (5, 2, 3);
+INSERT INTO `tblproject_members` VALUES (6, 1, 2);
 
 -- ----------------------------
 -- Table structure for tblproject_notes
@@ -18852,11 +19127,49 @@ CREATE TABLE `tblproject_settings`  (
   `value` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `project_id`(`project_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 58 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblproject_settings
 -- ----------------------------
+INSERT INTO `tblproject_settings` VALUES (1, 2, 'available_features', 'a:17:{s:16:\"project_overview\";i:1;s:13:\"project_tasks\";i:1;s:18:\"project_timesheets\";i:1;s:18:\"project_milestones\";i:1;s:13:\"project_files\";i:1;s:19:\"project_discussions\";i:1;s:13:\"project_gantt\";i:1;s:15:\"project_tickets\";i:1;s:17:\"project_contracts\";i:1;s:17:\"project_proposals\";i:1;s:17:\"project_estimates\";i:1;s:16:\"project_invoices\";i:1;s:21:\"project_subscriptions\";i:1;s:16:\"project_expenses\";i:1;s:20:\"project_credit_notes\";i:1;s:13:\"project_notes\";i:1;s:16:\"project_activity\";i:1;}');
+INSERT INTO `tblproject_settings` VALUES (2, 2, 'view_tasks', '1');
+INSERT INTO `tblproject_settings` VALUES (3, 2, 'create_tasks', '1');
+INSERT INTO `tblproject_settings` VALUES (4, 2, 'edit_tasks', '1');
+INSERT INTO `tblproject_settings` VALUES (5, 2, 'comment_on_tasks', '1');
+INSERT INTO `tblproject_settings` VALUES (6, 2, 'view_task_comments', '1');
+INSERT INTO `tblproject_settings` VALUES (7, 2, 'view_task_attachments', '1');
+INSERT INTO `tblproject_settings` VALUES (8, 2, 'view_task_checklist_items', '1');
+INSERT INTO `tblproject_settings` VALUES (9, 2, 'upload_on_tasks', '1');
+INSERT INTO `tblproject_settings` VALUES (10, 2, 'view_task_total_logged_time', '1');
+INSERT INTO `tblproject_settings` VALUES (11, 2, 'view_finance_overview', '1');
+INSERT INTO `tblproject_settings` VALUES (12, 2, 'upload_files', '1');
+INSERT INTO `tblproject_settings` VALUES (13, 2, 'open_discussions', '1');
+INSERT INTO `tblproject_settings` VALUES (14, 2, 'view_milestones', '1');
+INSERT INTO `tblproject_settings` VALUES (15, 2, 'view_gantt', '1');
+INSERT INTO `tblproject_settings` VALUES (16, 2, 'view_timesheets', '1');
+INSERT INTO `tblproject_settings` VALUES (17, 2, 'view_activity_log', '1');
+INSERT INTO `tblproject_settings` VALUES (18, 2, 'view_team_members', '1');
+INSERT INTO `tblproject_settings` VALUES (19, 2, 'hide_tasks_on_main_tasks_table', '0');
+INSERT INTO `tblproject_settings` VALUES (39, 1, 'available_features', 'a:17:{s:16:\"project_overview\";i:1;s:13:\"project_tasks\";i:1;s:18:\"project_timesheets\";i:1;s:18:\"project_milestones\";i:1;s:13:\"project_files\";i:1;s:19:\"project_discussions\";i:1;s:13:\"project_gantt\";i:1;s:15:\"project_tickets\";i:1;s:17:\"project_contracts\";i:1;s:17:\"project_proposals\";i:1;s:17:\"project_estimates\";i:1;s:16:\"project_invoices\";i:1;s:21:\"project_subscriptions\";i:1;s:16:\"project_expenses\";i:1;s:20:\"project_credit_notes\";i:1;s:13:\"project_notes\";i:1;s:16:\"project_activity\";i:1;}');
+INSERT INTO `tblproject_settings` VALUES (40, 1, 'view_tasks', '1');
+INSERT INTO `tblproject_settings` VALUES (41, 1, 'create_tasks', '1');
+INSERT INTO `tblproject_settings` VALUES (42, 1, 'edit_tasks', '1');
+INSERT INTO `tblproject_settings` VALUES (43, 1, 'comment_on_tasks', '1');
+INSERT INTO `tblproject_settings` VALUES (44, 1, 'view_task_comments', '1');
+INSERT INTO `tblproject_settings` VALUES (45, 1, 'view_task_attachments', '1');
+INSERT INTO `tblproject_settings` VALUES (46, 1, 'view_task_checklist_items', '1');
+INSERT INTO `tblproject_settings` VALUES (47, 1, 'upload_on_tasks', '1');
+INSERT INTO `tblproject_settings` VALUES (48, 1, 'view_task_total_logged_time', '1');
+INSERT INTO `tblproject_settings` VALUES (49, 1, 'view_finance_overview', '1');
+INSERT INTO `tblproject_settings` VALUES (50, 1, 'upload_files', '1');
+INSERT INTO `tblproject_settings` VALUES (51, 1, 'open_discussions', '1');
+INSERT INTO `tblproject_settings` VALUES (52, 1, 'view_milestones', '1');
+INSERT INTO `tblproject_settings` VALUES (53, 1, 'view_gantt', '1');
+INSERT INTO `tblproject_settings` VALUES (54, 1, 'view_timesheets', '1');
+INSERT INTO `tblproject_settings` VALUES (55, 1, 'view_activity_log', '1');
+INSERT INTO `tblproject_settings` VALUES (56, 1, 'view_team_members', '1');
+INSERT INTO `tblproject_settings` VALUES (57, 1, 'hide_tasks_on_main_tasks_table', '0');
 
 -- ----------------------------
 -- Table structure for tblprojectdiscussioncomments
@@ -18935,12 +19248,13 @@ CREATE TABLE `tblprojects`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `clientid`(`clientid` ASC) USING BTREE,
   INDEX `name`(`name` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblprojects
 -- ----------------------------
 INSERT INTO `tblprojects` VALUES (1, 'HRMS New', '<p>Test project Description</p>', 2, 1, 0, '2024-01-01', '2024-12-31', '2024-01-24', '2024-12-31 11:51:47', 50, 1, 0.00, 0.00, NULL, 0, 1, 'a:0:{}');
+INSERT INTO `tblprojects` VALUES (2, 'Orange Embark', '', 2, 2, 3, '2024-04-09', NULL, '2024-04-09', NULL, 0, 1, 0.00, 0.00, NULL, 1, 1, 'a:0:{}');
 
 -- ----------------------------
 -- Table structure for tblproposal_comments
@@ -19176,12 +19490,27 @@ CREATE TABLE `tblrelated_items`  (
   `rel_type` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `item_id` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblrelated_items
 -- ----------------------------
 INSERT INTO `tblrelated_items` VALUES (1, 1, 'task', 1);
+INSERT INTO `tblrelated_items` VALUES (2, 26, 'task', 9);
+INSERT INTO `tblrelated_items` VALUES (3, 29, 'task', 10);
+INSERT INTO `tblrelated_items` VALUES (4, 28, 'task', 11);
+INSERT INTO `tblrelated_items` VALUES (5, 31, 'task', 12);
+INSERT INTO `tblrelated_items` VALUES (6, 30, 'task', 13);
+INSERT INTO `tblrelated_items` VALUES (7, 27, 'task', 14);
+INSERT INTO `tblrelated_items` VALUES (8, 21, 'task', 15);
+INSERT INTO `tblrelated_items` VALUES (9, 2, 'task', 16);
+INSERT INTO `tblrelated_items` VALUES (10, 3, 'task', 17);
+INSERT INTO `tblrelated_items` VALUES (11, 6, 'task', 18);
+INSERT INTO `tblrelated_items` VALUES (12, 4, 'task', 19);
+INSERT INTO `tblrelated_items` VALUES (13, 5, 'task', 20);
+INSERT INTO `tblrelated_items` VALUES (14, 7, 'task', 21);
+INSERT INTO `tblrelated_items` VALUES (15, 2, 'expense', 22);
+INSERT INTO `tblrelated_items` VALUES (16, 32, 'task', 26);
 
 -- ----------------------------
 -- Table structure for tblreminders
@@ -19201,12 +19530,14 @@ CREATE TABLE `tblreminders`  (
   INDEX `rel_id`(`rel_id` ASC) USING BTREE,
   INDEX `rel_type`(`rel_type` ASC) USING BTREE,
   INDEX `staff`(`staff` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblreminders
 -- ----------------------------
 INSERT INTO `tblreminders` VALUES (1, 'Test ', '2024-02-07 11:30:00', 0, 1, 3, 'ticket', 1, 1);
+INSERT INTO `tblreminders` VALUES (2, 'Added', '2024-04-09 17:30:00', 0, 2, 1, 'ticket', 1, 1);
+INSERT INTO `tblreminders` VALUES (3, 'View', '2024-04-17 09:00:00', 0, 33, 1, 'task', 0, 1);
 
 -- ----------------------------
 -- Table structure for tblrequest
@@ -19439,7 +19770,7 @@ CREATE TABLE `tblsales_activity`  (
   `full_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblsales_activity
@@ -19452,6 +19783,30 @@ INSERT INTO `tblsales_activity` VALUES (5, 'invoice', 2, 'invoice_activity_statu
 INSERT INTO `tblsales_activity` VALUES (6, 'invoice', 2, 'invoice_activity_payment_made_by_staff', 'a:2:{i:0;s:11:\"₹5,547.15\";i:1;s:106:\"<a href=\"http://localhost/laravel/hrmsnew_git/hrmsnew_git/admin/payments/payment/2\" target=\"_blank\">#2</a>\";}', '1', 'Krishna Somayaji', '2024-02-06 12:07:34');
 INSERT INTO `tblsales_activity` VALUES (7, 'estimate', 1, 'estimate_activity_created', '', '1', 'Krishna Somayaji', '2024-02-07 10:51:01');
 INSERT INTO `tblsales_activity` VALUES (8, 'estimate', 2, 'estimate_activity_created', '', '1', 'Krishna Somayaji', '2024-02-07 11:18:21');
+INSERT INTO `tblsales_activity` VALUES (9, 'invoice', 3, 'invoice_activity_created', '', '1', 'Krishna Somayaji', '2024-04-09 17:30:56');
+INSERT INTO `tblsales_activity` VALUES (10, 'invoice', 4, 'invoice_activity_created', '', '1', 'Krishna Somayaji', '2024-04-11 12:21:48');
+INSERT INTO `tblsales_activity` VALUES (11, 'invoice', 4, 'invoice_activity_status_updated', 'a:2:{i:0;s:36:\"<original_status>1</original_status>\";i:1;s:26:\"<new_status>2</new_status>\";}', '1', 'Krishna Somayaji', '2024-04-11 12:22:09');
+INSERT INTO `tblsales_activity` VALUES (12, 'invoice', 4, 'invoice_activity_payment_made_by_staff', 'a:2:{i:0;s:11:\"₹2,784.00\";i:1;s:106:\"<a href=\"http://localhost/laravel/hrmsnew_git/hrmsnew_git/admin/payments/payment/3\" target=\"_blank\">#3</a>\";}', '1', 'Krishna Somayaji', '2024-04-11 12:22:09');
+INSERT INTO `tblsales_activity` VALUES (13, 'invoice', 3, 'invoice_activity_status_updated', 'a:2:{i:0;s:36:\"<original_status>1</original_status>\";i:1;s:26:\"<new_status>2</new_status>\";}', '1', 'Krishna Somayaji', '2024-04-11 12:22:37');
+INSERT INTO `tblsales_activity` VALUES (14, 'invoice', 3, 'invoice_activity_payment_made_by_staff', 'a:2:{i:0;s:11:\"₹2,944.00\";i:1;s:106:\"<a href=\"http://localhost/laravel/hrmsnew_git/hrmsnew_git/admin/payments/payment/4\" target=\"_blank\">#4</a>\";}', '1', 'Krishna Somayaji', '2024-04-11 12:22:37');
+INSERT INTO `tblsales_activity` VALUES (15, 'invoice', 5, 'invoice_activity_created', '', '1', 'Krishna Somayaji', '2024-04-12 11:25:00');
+INSERT INTO `tblsales_activity` VALUES (16, 'invoice', 5, 'invoice_activity_status_updated', 'a:2:{i:0;s:36:\"<original_status>1</original_status>\";i:1;s:26:\"<new_status>2</new_status>\";}', '1', 'Krishna Somayaji', '2024-04-12 11:25:21');
+INSERT INTO `tblsales_activity` VALUES (17, 'invoice', 5, 'invoice_activity_payment_made_by_staff', 'a:2:{i:0;s:11:\"₹9,008.00\";i:1;s:106:\"<a href=\"http://localhost/laravel/hrmsnew_git/hrmsnew_git/admin/payments/payment/5\" target=\"_blank\">#5</a>\";}', '1', 'Krishna Somayaji', '2024-04-12 11:25:21');
+INSERT INTO `tblsales_activity` VALUES (18, 'invoice', 6, 'invoice_activity_created', '', '1', 'Krishna Somayaji', '2024-04-12 11:28:28');
+INSERT INTO `tblsales_activity` VALUES (19, 'invoice', 7, 'invoice_activity_created', '', '1', 'Krishna Somayaji', '2024-04-12 11:29:34');
+INSERT INTO `tblsales_activity` VALUES (20, 'invoice', 6, 'invoice_activity_status_updated', 'a:2:{i:0;s:36:\"<original_status>1</original_status>\";i:1;s:26:\"<new_status>2</new_status>\";}', '1', 'Krishna Somayaji', '2024-04-12 11:29:47');
+INSERT INTO `tblsales_activity` VALUES (21, 'invoice', 6, 'invoice_activity_payment_made_by_staff', 'a:2:{i:0;s:12:\"₹68,096.08\";i:1;s:106:\"<a href=\"http://localhost/laravel/hrmsnew_git/hrmsnew_git/admin/payments/payment/6\" target=\"_blank\">#6</a>\";}', '1', 'Krishna Somayaji', '2024-04-12 11:29:47');
+INSERT INTO `tblsales_activity` VALUES (22, 'invoice', 7, 'invoice_activity_status_updated', 'a:2:{i:0;s:36:\"<original_status>1</original_status>\";i:1;s:26:\"<new_status>2</new_status>\";}', '1', 'Krishna Somayaji', '2024-04-12 11:30:01');
+INSERT INTO `tblsales_activity` VALUES (23, 'invoice', 7, 'invoice_activity_payment_made_by_staff', 'a:2:{i:0;s:11:\"₹4,421.44\";i:1;s:106:\"<a href=\"http://localhost/laravel/hrmsnew_git/hrmsnew_git/admin/payments/payment/7\" target=\"_blank\">#7</a>\";}', '1', 'Krishna Somayaji', '2024-04-12 11:30:01');
+INSERT INTO `tblsales_activity` VALUES (24, 'invoice', 8, 'invoice_activity_created', '', '1', 'Krishna Somayaji', '2024-04-12 11:31:53');
+INSERT INTO `tblsales_activity` VALUES (25, 'invoice', 8, 'invoice_activity_status_updated', 'a:2:{i:0;s:36:\"<original_status>1</original_status>\";i:1;s:26:\"<new_status>2</new_status>\";}', '1', 'Krishna Somayaji', '2024-04-12 11:31:59');
+INSERT INTO `tblsales_activity` VALUES (26, 'invoice', 8, 'invoice_activity_payment_made_by_staff', 'a:2:{i:0;s:11:\"₹4,567.00\";i:1;s:106:\"<a href=\"http://localhost/laravel/hrmsnew_git/hrmsnew_git/admin/payments/payment/8\" target=\"_blank\">#8</a>\";}', '1', 'Krishna Somayaji', '2024-04-12 11:31:59');
+INSERT INTO `tblsales_activity` VALUES (27, 'invoice', 9, 'invoice_activity_created', '', '1', 'Krishna Somayaji', '2024-04-12 11:33:55');
+INSERT INTO `tblsales_activity` VALUES (28, 'invoice', 9, 'invoice_activity_status_updated', 'a:2:{i:0;s:36:\"<original_status>1</original_status>\";i:1;s:26:\"<new_status>2</new_status>\";}', '1', 'Krishna Somayaji', '2024-04-12 11:34:00');
+INSERT INTO `tblsales_activity` VALUES (29, 'invoice', 9, 'invoice_activity_payment_made_by_staff', 'a:2:{i:0;s:13:\"₹347,910.00\";i:1;s:106:\"<a href=\"http://localhost/laravel/hrmsnew_git/hrmsnew_git/admin/payments/payment/9\" target=\"_blank\">#9</a>\";}', '1', 'Krishna Somayaji', '2024-04-12 11:34:00');
+INSERT INTO `tblsales_activity` VALUES (30, 'invoice', 10, 'invoice_activity_created', '', '1', 'Krishna Somayaji', '2024-04-16 12:36:05');
+INSERT INTO `tblsales_activity` VALUES (31, 'invoice', 10, 'invoice_activity_status_updated', 'a:2:{i:0;s:36:\"<original_status>1</original_status>\";i:1;s:26:\"<new_status>2</new_status>\";}', '1', 'Krishna Somayaji', '2024-04-16 12:36:16');
+INSERT INTO `tblsales_activity` VALUES (32, 'invoice', 10, 'invoice_activity_payment_made_by_staff', 'a:2:{i:0;s:11:\"₹2,624.00\";i:1;s:108:\"<a href=\"http://localhost/laravel/hrmsnew_git/hrmsnew_git/admin/payments/payment/10\" target=\"_blank\">#10</a>\";}', '1', 'Krishna Somayaji', '2024-04-16 12:36:16');
 
 -- ----------------------------
 -- Table structure for tblscheduled_emails
@@ -19481,11 +19836,12 @@ CREATE TABLE `tblservices`  (
   `serviceid` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`serviceid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblservices
 -- ----------------------------
+INSERT INTO `tblservices` VALUES (1, 'COde Galaxy');
 
 -- ----------------------------
 -- Table structure for tblsessions
@@ -19503,249 +19859,29 @@ CREATE TABLE `tblsessions`  (
 -- ----------------------------
 -- Records of tblsessions
 -- ----------------------------
-INSERT INTO `tblsessions` VALUES ('00a7e8e77d3af71107d5997ad34323f1e9b31a05', '152.58.162.143', 1710844958, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303834343935383B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('00ac1bcd8a42bd73b62e8d8896f0632a117b49b7', '175.101.68.55', 1710485475, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303438343938383B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('0112f9f9e6e2cef85770c4a0b2a26c766f10b4ec', '175.101.68.55', 1709619781, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393631393738313B7265645F75726C7C733A36343A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F61646D696E2F74696D657368656574732F73686966745F6D616E6167656D656E74223B);
-INSERT INTO `tblsessions` VALUES ('01f1d65f7aeea0b6ea8358ccd5b24c2ee0ebe430', '38.156.47.81', 1708062604, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383036323630343B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('049f4976d8fb43b1f590519013ecaa2b0087f9c8', '49.37.41.31', 1707383149, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373337333038343B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('04d3eb38c387f5ef7c3007a5f58b06d9b4757166', '152.58.163.150', 1707740130, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373734303132393B7265645F75726C7C733A36353A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F61646D696E2F68725F706179726F6C6C2F6D616E6167655F617474656E64616E6365223B);
-INSERT INTO `tblsessions` VALUES ('063f5a8379229c8722bf14f32ffed4c034af0fb8', '175.101.68.55', 1709010156, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393031303135363B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('089cd6f71983a4bb52470ba0ad10a33d7a8e42bd', '72.167.47.142', 1710484761, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303438343736313B);
-INSERT INTO `tblsessions` VALUES ('0b5f898f613c797d3423bfb231bfda8187d81872', '49.37.45.19', 1709873221, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393837333232313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('0c281df1a98420d4e42202dceda8c904b3bec4f0', '175.101.68.55', 1710484044, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303438343034343B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('0ddda30e588751599609916b495ca4347c2a1ccb', '175.101.68.55', 1710477265, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303437373236353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('0e3vbedvtudnn79a1bk30slepbsuetii', '::1', 1711620168, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313539373333353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('0h453a56go7hbvobh7r8iklu46ijvt7d', '::1', 1712030031, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731323032393837313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('0j0jj9aeiqgkced78gvf4goo9dmr9r8v', '::1', 1711977228, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313937373232383B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('0n0i61aduqt43vn2s7bh8qff64lrsild', '::1', 1711432524, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313433323532343B73746166665F757365725F69647C733A313A2233223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('0r83vcffs8rstnf526jkctl27shrjvgd', '::1', 1711973522, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313937333532323B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('0t4fo7a4kl9qffsogkku8tkcn8nes7qv', '::1', 1711429748, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313432393734383B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('10ciu5hnrdm112nt8ihfauephh11dod2', '::1', 1711437391, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313433373339313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('13422a27d6d5ed2bf13b8a2cba0ee9b8ef2c186a', '216.244.66.237', 1708797427, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383739373432373B);
-INSERT INTO `tblsessions` VALUES ('152d209432c79cd70f2bc57d0c96f96f74e41bee', '185.191.171.19', 1709132721, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393133323732313B);
-INSERT INTO `tblsessions` VALUES ('156c4aeb7f0b2c5d7cc853cef6ba1bd11cd5b326', '49.37.41.31', 1707395988, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373339353938383B69735F6D6F62696C657C623A313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('15c2e65acc98b3e5d9edd33caf56ca44d35de6e2', '175.101.68.55', 1710481979, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303438313937393B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('17c6be06f065480ed865a77b4ba66954fd559bb8', '49.44.84.233', 1707707102, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373730373130323B);
-INSERT INTO `tblsessions` VALUES ('1b6f21aa71063140f75963f9e8ba7c036554aaf2', '47.128.96.21', 1707603753, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373630333735333B7265645F75726C7C733A33313A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F223B);
-INSERT INTO `tblsessions` VALUES ('1c99a6d7daa5cc4182c0b381aa2dbf93c2a32c72', '175.101.68.55', 1709010911, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393031303931313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('1cc159a3c0b6fb2b736e7dd77b906f9f92ab9d11', '49.37.47.93', 1709792940, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393739323639393B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('1cuv5ht64dp9ht7oiq49phs1t2vgl2o6', '::1', 1711955619, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313935353631393B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('1e61c3c7650a14024445d55f3b7971ed6440983b', '185.191.171.6', 1710971366, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303937313336363B);
-INSERT INTO `tblsessions` VALUES ('1fc9ed871b5b84b9181b774dba34a7ec1f6c175d', '72.167.47.142', 1710484761, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303438343736313B);
-INSERT INTO `tblsessions` VALUES ('1fd1d3ca212642b6ff8a9b3c9e1afc90c59e2886', '38.156.47.81', 1708062912, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383036323931323B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('1iqrh0iouj2aduj6nj7e5obuqhg2om5g', '::1', 1711437443, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313433373433333B73746166665F757365725F69647C733A313A2233223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('2043140f89c4854f08fba4710672297497f93676', '49.37.47.141', 1709096059, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393039363034393B);
-INSERT INTO `tblsessions` VALUES ('223f6535c2847e0683b488f961976dbfa00251e9', '49.37.45.19', 1709875065, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393837353036353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('22c2856900c08de09ac04f74b76e10e5dd332153', '72.167.47.142', 1710484761, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303438343736313B);
-INSERT INTO `tblsessions` VALUES ('23e50c290f8faae5a83581139a825eb1c18b542f', '45.114.179.81', 1710750787, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303735303738373B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('25ccedb04a5d97457162499d55f3e3fd8362664a', '45.114.179.81', 1710741425, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303734313432353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('26a559107838380a5e54fa208dcea23350f7608a', '152.58.138.231', 1707708405, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373730373130303B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('28b248b82d8d5bf55be8748b4ca00be238775918', '49.37.43.249', 1707451626, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373435313535323B69735F6D6F62696C657C623A313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('2c9c56de6e5ddfa170aa7945647c90e00cc1eefc', '152.58.139.218', 1708148253, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383134383235333B69735F6D6F62696C657C623A313B7265645F75726C7C733A33363A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F61646D696E223B);
-INSERT INTO `tblsessions` VALUES ('2d5b71dcb513d2cf9e023f8f1b34b1267171143b', '51.222.253.3', 1708103930, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383130333933303B);
-INSERT INTO `tblsessions` VALUES ('2d9d0c01a3d5ee57928b7e46344c48e727ce6b40', '185.191.171.9', 1710523760, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303532333736303B);
-INSERT INTO `tblsessions` VALUES ('2e9aafb56480d23126affa1e6833362341c7656a', '45.114.179.81', 1710750083, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303735303038333B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('2f3sf4pbghtsht9e9bs0fdd77pfq8bsa', '::1', 1711512205, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313531323230353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('2hdt6d8ifsst7bgq6psjr8h4asrhrsg1', '::1', 1711510314, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313531303331343B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('2hl4v87kjj4eo45aobicu9lshfh7l8jb', '::1', 1711539627, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313533393632373B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('2hqgllppl5bv5tekn52krb4v6908jvdb', '::1', 1707280896, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373238303839363B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('2uk8v4paihid6u8rmct6u4qcvj7tmr3p', '::1', 1711428172, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313432383137323B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('325a794d94b37f593424551b75b0458c084ef7e9', '152.59.167.33', 1710749745, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303734393734353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('336e46e81b12d3e9dd27b3858549b431ee66a421', '175.101.68.55', 1710476943, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303437363934333B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('389f22985b4ad1eff6a41e2274cd8321a8f8fded', '51.222.253.10', 1709347623, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393334373632323B);
-INSERT INTO `tblsessions` VALUES ('394era36sdvja4je7j7t019etqahk1sf', '::1', 1711540121, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313533393936313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('39af2117f475c9b40a745c4fc4185cb531f08596', '175.101.68.55', 1710484676, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303438343637363B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('39bc8ba818d7a0da63d92132d14b4b2009d28288', '175.101.68.55', 1707969674, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373936393637343B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('39d14ee91df3df57b02e2420876f5427bd60b067', '152.59.167.33', 1710750071, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303734393734353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('3ac9d2f147adab083a1bc59c1b0bd4b38520870e', '49.37.47.65', 1709016262, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393031363236323B);
-INSERT INTO `tblsessions` VALUES ('3ce1erlceo84d5hh6trtgcbv6a02o06k', '::1', 1711424172, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313432343137323B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('3doth48ttprgpj03m1jbf5qr8a6n90q6', '::1', 1711431983, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313433313938333B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('42a3d5a31eb2c11e5b56c6d55c1f2119d1069162', '72.167.47.142', 1710484761, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303438343736313B);
-INSERT INTO `tblsessions` VALUES ('4321eed837bc6511fedf3ba2b951bdd66fc04c55', '66.249.64.129', 1707839135, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373833393133343B69735F6D6F62696C657C623A313B7265645F75726C7C733A33313A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F223B);
-INSERT INTO `tblsessions` VALUES ('4461e20830879014b6b721f336013f385cc8215a', '175.101.68.55', 1708771779, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383737313638393B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('463tvcdaad2hdnnt35vnc7rj8cbu5tgb', '::1', 1711955241, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313935353234313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('4680e8cfe31e7d15ffda09a385097b4ecb2b827c', '66.249.64.129', 1707407805, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373430373830343B69735F6D6F62696C657C623A313B7265645F75726C7C733A33313A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F223B);
-INSERT INTO `tblsessions` VALUES ('4ba4eee97c5e7943fdba298345a3074f58009fc3', '175.101.68.55', 1709182074, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393138323037343B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('4c59g17b0i8hhojogji9fcj3sq46sjft', '::1', 1711084087, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313038343038373B73746166665F757365725F69647C733A313A2233223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('4jpaaf059u202drimh39blhb989cp03k', '::1', 1711977558, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313937373535383B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('4k4lvp1992j4l65mk0dnckcv1j0ivtcv', '::1', 1711455083, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313435353038333B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('53e506c0d45796528e1c2dd4180cfb27c1c22069', '175.101.68.55', 1707969355, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373936393335353B7265645F75726C7C733A33363A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F61646D696E223B);
-INSERT INTO `tblsessions` VALUES ('5465fd4c2e3b4b446565ab68ca4b0c61d184ca19', '175.101.68.55', 1710483668, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303438333636383B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('54873a72458e387df1e910a52316b2885bd9d325', '175.101.68.55', 1707970076, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373937303037363B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('54bebccd858102a4fcfbb49dcae291882c6cabd4', '38.156.47.81', 1708063217, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383036333231373B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('58b75a71c06abdf1222c7914e3e8b2a186e95ac3', '175.101.68.55', 1707983433, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373938333433333B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('58gurhm3rbmvjo493rdunkdkq4uh9427', '::1', 1711969621, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313936393632313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('5962092e335693636ccb60a2f1a46fcf0aa9ac1d', '49.37.43.249', 1707489219, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373438393136393B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('5963e63a41fd028113c717c6cb30aaa431675f00', '51.222.253.19', 1710236780, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303233363738303B);
-INSERT INTO `tblsessions` VALUES ('5977405687494576df27b90f48aa97cdb111f4f0', '152.58.162.143', 1710845382, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303834353334323B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('5ae05d6857726be67aef20a52742f64827035e08', '49.37.43.113', 1707293266, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373239333236363B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('5bde2068107ede6e6584e4a17bd42f9d8f320a7d', '175.101.68.55', 1710484988, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303438343938383B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('5d9132cf64896196785cb279e954c8b15c8943ea', '175.101.68.55', 1707983994, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373938333830373B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('5k4mp01d5nbqsqsi0ha3314pau8ivsnv', '::1', 1711956152, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313935363135323B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('5mnkne6s8uuf87bh0e17ed2ejua2qhp3', '::1', 1711968556, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313936383535363B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('5njn7m4v0ratqrruc89optvimali4ua9', '::1', 1711517015, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313531373031353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('60qljljhm81jo4q4deemgnlr8fhsmtiu', '::1', 1711517142, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313531353835303B73746166665F757365725F69647C733A313A2233223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('61o7jg65nmuh73pc89rfig3rp6v2ui3h', '::1', 1711517549, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313531373534393B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('62260o2sb7v1vqjcm8k5be30ol0bmcqc', '::1', 1707282999, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373238323939393B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('63abc37d320115efda2bcbeed0f26dcadbd6b243', '49.37.47.181', 1708319945, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383331363231393B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('648b5384b7e854c020338cc52510a2a7f13926c1', '51.222.253.19', 1707460413, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373436303431333B);
-INSERT INTO `tblsessions` VALUES ('65eh1jfh5bvel9dgafmtc8kqunff53cp', '::1', 1711968929, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313936383932393B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('6b4b709cf31c9979f23a32cc29af2589ae6f6a4b', '49.44.86.69', 1709875271, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393837353236383B7265645F75726C7C733A35353A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F61646D696E2F7574696C69746965732F63616C656E646172223B);
-INSERT INTO `tblsessions` VALUES ('6b87f5169bed7e62936bca17ad4113b75a8f46ed', '38.156.47.81', 1708063693, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383036333231373B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('6sgg2qcs7qrv23aubvkrj6v21es8b28j', '::1', 1711467642, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313435353038333B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('739723fdcf65ae1afad231ac77063d56bf75ba65', '152.58.162.143', 1710845342, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303834353334323B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('73ce5d69cb6c82e341ea063ca62f01e137ad9300', '66.249.77.38', 1708525244, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383532353234343B69735F6D6F62696C657C623A313B7265645F75726C7C733A33313A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F223B);
-INSERT INTO `tblsessions` VALUES ('762cb8c8fd84985845043a6ef59ed91cae54567f', '49.44.80.199', 1710735406, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303733353430363B);
-INSERT INTO `tblsessions` VALUES ('76fcf9dabfa5fdc43312a2605b05fb86d5c4f546', '152.58.163.128', 1707827633, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373832373533353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('7773df19cf8d1056909602ea03456e1b1c066fe3', '49.44.84.102', 1707969058, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373936393035363B7265645F75726C7C733A33363A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F61646D696E223B);
-INSERT INTO `tblsessions` VALUES ('785867a4df124ef0a1348da24895b5275e8e647f', '152.59.163.212', 1710747278, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303734373237383B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('7bae3ef3539c46f51f513f18ad9ef6568506c800', '175.101.68.55', 1710481364, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303438313336343B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('7cfa59f517b23bd189383d00a4af7734b452e8ef', '49.44.80.228', 1707969798, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373936393739363B7265645F75726C7C733A34343A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F61646D696E2F636C69656E7473223B);
-INSERT INTO `tblsessions` VALUES ('7f50htd9j9nokd5lmlc94depnr2tqrsn', '::1', 1711084538, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313038343533383B73746166665F757365725F69647C733A313A2233223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('7rs86kikihid9i9u4p7bosi9jcqagobm', '::1', 1711967325, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313936373332353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('811bb6ebd52ecce0afd23e7129612e9b4464a535', '49.44.87.106', 1708771770, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383737313736383B7265645F75726C7C733A34383A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F61646D696E2F68726D2F706179726F6C6C223B);
-INSERT INTO `tblsessions` VALUES ('82ac55635a62cb0e3d59908ff61249bb925d668b', '175.101.68.55', 1709014523, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393031303931313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('83adf9d95f1c6db7843f701208e60dafbeccfb3a', '152.59.167.33', 1710749411, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303734393431313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('85ec5ef99600bc84adec842a3e2756d957defe13', '216.244.66.237', 1708422623, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383432323632333B7265645F75726C7C733A33313A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F223B);
-INSERT INTO `tblsessions` VALUES ('8cc84af6c45e303ed1f419624b849993880d0d3b', '66.249.64.129', 1708495005, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383439353030353B69735F6D6F62696C657C623A313B);
-INSERT INTO `tblsessions` VALUES ('8f21c4fefabbbc3c59cdbcec006b5907eb038cb1', '40.77.167.152', 1710198127, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303139383132373B);
-INSERT INTO `tblsessions` VALUES ('8f7fe884e94c68defaebf1b71380a0a7bf6467a9', '175.101.68.55', 1709181624, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393138313632343B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('8f95443de118224dde93c38aac212fea50fdaf46', '152.58.138.221', 1707793912, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373739333539393B69735F6D6F62696C657C623A313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('8go6r78jk1ki976tusrvnqm78vraokmr', '::1', 1711424586, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313432343538363B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('8os1mobst0qeggf2la7m3228tf1b9bb4', '::1', 1711453151, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313435333135313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('8ua69vesf475po4qp1r68v6rakv30v5f', '::1', 1711435605, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313433353630343B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('91b5d9d28dff224626871e5de466a70b45c2a8f5', '45.114.179.81', 1710748687, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303734383638373B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('9234aaf641ac33f3c4a321a9d35c3da02d6e5706', '66.249.69.133', 1709579685, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393537393638343B69735F6D6F62696C657C623A313B7265645F75726C7C733A33313A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F223B);
-INSERT INTO `tblsessions` VALUES ('92eeqsq9fsjf2gerg2nqi5jg13bue393', '::1', 1711432697, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313433323639373B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('93365b66a9007f43477ae5503846c3399310e41f', '51.222.253.17', 1707350022, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373335303032323B7265645F75726C7C733A33313A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F223B);
-INSERT INTO `tblsessions` VALUES ('946f2e25731cfab7ca7967c54f80f900d59f1102', '175.101.68.55', 1710481666, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303438313636363B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('95fc7f8c93e036f584fb944a68b711098af08d83', '152.59.163.118', 1708021915, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383032313639393B69735F6D6F62696C657C623A313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('989ca8610896cb8b0c31b915b07c150a1a23ab3b', '66.249.64.128', 1707447381, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373434373338313B69735F6D6F62696C657C623A313B);
-INSERT INTO `tblsessions` VALUES ('9c6beecc2cce9373f4c3a14adfff6093eca3ff3d', '51.222.253.20', 1709588039, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393538383033393B7265645F75726C7C733A33313A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F223B);
-INSERT INTO `tblsessions` VALUES ('9cd4e5d0c34ce1c0ae11469302ade50c16461d37', '49.37.41.31', 1707359913, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373335383834343B69735F6D6F62696C657C623A313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('9d1v0abbdqpbel34esuv6843807r1bmq', '::1', 1711435959, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313433353935393B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('9d55783d592e2cbd6e118fce615e537eb2b98891', '49.37.47.229', 1710124820, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303132343338393B69735F6D6F62696C657C623A313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('9d89mp21dgknt2fr9ilk17h4joiquai8', '::1', 1711454625, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313435343632353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('9dd7e001a285d624b4cb5eb286d51407ba8d217d', '175.101.68.55', 1709182425, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393138323432353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('9e47cb8b13e0e5406ec34ae50d932b89309c1725', '152.59.162.150', 1707967382, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373936363935353B69735F6D6F62696C657C623A313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('9f72124dba57c95457f743408b1c643446352987', '49.37.43.113', 1707324943, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373239333236363B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('9frjsvk7336b0q8cothhh4md258avti8', '::1', 1711528181, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313532383138313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('9m0bfs3qt0ptpnfennqmeokoasdaa8ho', '::1', 1711425081, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313432353038313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('9p0q2bk4a88ujqgq3snijhval5v4alv2', '::1', 1711083228, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313038333232383B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('a0007e22ba0801926ef93cf6690a37b6225018fb', '66.249.64.132', 1709697665, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393639373636343B69735F6D6F62696C657C623A313B7265645F75726C7C733A33313A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F223B);
-INSERT INTO `tblsessions` VALUES ('a18a8e0dcb3452de22f7db6495f47bd1cf490056', '72.167.47.142', 1710484761, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303438343736313B);
-INSERT INTO `tblsessions` VALUES ('a292ddd785a6f05f7a476aa5add88868397153ae', '85.208.96.200', 1707739879, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373733393837393B);
-INSERT INTO `tblsessions` VALUES ('a3b2b4d4bf13400ec83a3235696665be8c4e9fb3', '72.167.47.142', 1710484761, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303438343736313B);
-INSERT INTO `tblsessions` VALUES ('a4104bcd52e7678335aeefaf815837057721768c', '152.59.163.91', 1710994440, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303939343434303B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('aad943f746db90b7ddd4f1dd726ed6ff90134fc6', '45.114.179.81', 1710737463, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303733373436333B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('ab61c94a2bbbc4388fa3fff1019a4ad6d5f9fc6f', '49.37.43.249', 1707459047, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373435363130333B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('ad0pbov1pevrjjj0ono7vfde5ouhc7p1', '::1', 1711431297, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313433313239373B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('ae5b4ffd2ddcc9933717eec1180ebf44eb70f42e', '49.37.43.113', 1707324845, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373239333330393B73746166665F757365725F69647C733A313A2233223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('afb3ecec88d6f62da81cc3d5807b7c4ed0ca0304', '49.37.47.181', 1708316218, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383331363231383B);
-INSERT INTO `tblsessions` VALUES ('auh9vjg1aj4ale5u00p0cqgirn32eoq9', '::1', 1711428530, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313432383533303B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('b07a0f89f76604b44908c7921a9618fea6fbe7fd', '72.167.47.142', 1710484761, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303438343736313B);
-INSERT INTO `tblsessions` VALUES ('b15q934dd61vh6npu9rsm1th2gklh4ug', '::1', 1711025015, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313032343935313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('b160c7d500486802c7efd4f03dfe911e8db68c3c', '49.37.41.31', 1707396223, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373339353939323B69735F6D6F62696C657C623A313B73746166665F757365725F69647C733A313A2233223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('b31879b93299cf60d9820b613e105c87ee4ab16e', '49.44.85.166', 1710856530, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303835363532373B7265645F75726C7C733A33363A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F61646D696E223B);
-INSERT INTO `tblsessions` VALUES ('b3d2f95b301129e0fbe3935e9d43870ac0c2d5ad', '175.101.68.55', 1709179538, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393137393533383B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('b3lb6va33pij8ohvd418v1du4ph9c5h6', '::1', 1707281249, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373238313234393B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('b88902e55bca856033edd4cffd307633080139ed', '47.128.96.21', 1707603753, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373630333735333B);
-INSERT INTO `tblsessions` VALUES ('b921624927b6373e4611537d37493705fc7675b2', '175.101.68.55', 1710481063, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303438313036333B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('bd2762bf33f9a88d2ef5e135c6cebe0e212e1d9e', '175.101.68.55', 1709182643, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393138323432353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('bn9evn6hl3cj6ci0pojpcuhjen5vsp49', '::1', 1711430695, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313433303639353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('brfjrv6e1t5dd1ccoq5usheteosf30eu', '::1', 1711969304, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313936393330343B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('bu3041io444iaav2oovh71vdprqo191l', '::1', 1707282006, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373238323030363B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('c0uvl7lkr81hsr8nssqt11p157a38e2v', '::1', 1711510851, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313531303835313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('c626a602eb5b248f12bb11a1c90787d2ea3f9378', '185.191.171.12', 1710075667, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303037353636373B);
-INSERT INTO `tblsessions` VALUES ('c76d68ef00ec2dbaa50cc43223b2365ec4caa8e3', '66.249.64.132', 1710227078, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303232373037383B69735F6D6F62696C657C623A313B7265645F75726C7C733A33313A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F223B);
-INSERT INTO `tblsessions` VALUES ('c77hrt7evu6mc71us0hse97kuq392jps', '::1', 1711452381, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313435323338313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('c7jsuoh8gvccvd5l9ft10pmklopne7k8', '::1', 1711084798, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313038343739383B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('ca3b99e5f3626a88a7f2a920b970733ce08bf7fa', '38.156.47.81', 1708062271, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383036323237313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('cad829c913b618a3e96fada9889b4cc48d0d8adc', '216.244.66.237', 1709027914, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393032373931343B);
-INSERT INTO `tblsessions` VALUES ('ce275db67cd0c1acd1a0bfb27847764a4664e2ca', '182.79.253.134', 1709875143, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393837353134303B7265645F75726C7C733A34363A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F61646D696E2F636F6E747261637473223B);
-INSERT INTO `tblsessions` VALUES ('cfdd084d2535f9f693fb542590fca2ec24cbdee6', '72.167.47.142', 1710484761, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303438343736313B);
-INSERT INTO `tblsessions` VALUES ('cm8bpnujbvd6p7qbgefktlbmgl3ns71u', '::1', 1711434178, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313433343137383B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('d1137aa169fae9f5566d6f0b583970353acf6dc7', '223.235.161.70', 1710914562, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303931343536323B);
-INSERT INTO `tblsessions` VALUES ('d122fd7d96f94f7b8d9027f84b7380b6adab0051', '85.208.96.196', 1708223836, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383232333833363B);
-INSERT INTO `tblsessions` VALUES ('d27d05117ce685ab83a7d0fc5dd12ad738dbea52', '49.37.41.31', 1707373084, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373337333038343B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('d3516b7b9038423356694bf3bbf48bcb85f6b33d', '49.37.45.19', 1709880280, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393837353036353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('d9b432ec69d3c0a1bb737e1d7b5340b49fb37727', '49.37.41.31', 1707367922, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373336373932323B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('da6ad7621dd97265a2888ef2c453701fe4a3c97c', '45.114.179.81', 1710856608, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303835363532353B7265645F75726C7C733A33313A2268747470733A2F2F736B696C6C746573742E6C6976652F68726D736E65772F223B);
-INSERT INTO `tblsessions` VALUES ('daef62d4d23d73af48d10e8235c7265e4b79ffdf', '51.222.253.13', 1709514213, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393531343231333B);
-INSERT INTO `tblsessions` VALUES ('db501c9483dbef3338ea89afc0d6a94202a31911', '175.101.68.55', 1710483187, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303438333138373B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('dc16a60211ad32226dd269300d93676c4430d62c', '45.114.179.81', 1710756645, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303735363634353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('dcuaffpc4mejcukp1abksakcc8sfvfc5', '::1', 1711024951, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313032343935313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('de55a82a699374f791af98a239d754e3b5c627f8', '49.37.45.19', 1709873526, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393837333532363B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('dhqbrrg3vve71nm8oiioqps69nvea01v', '::1', 1711433381, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313433333338313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('dm9k4rrbjdvsaqhamhvlfs8qdecp6u2r', '::1', 1711450457, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313435303435373B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('e1b1237c54c4bb98387e810779dde81cd6ce6c78', '152.59.167.33', 1710748963, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303734383936333B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('e2b289014799379c27cb66eb83b5d90bbc5e8206', '152.59.162.64', 1708057865, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383035373836353B69735F6D6F62696C657C623A313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('e3237912808a74f2598b711d54109c450062b70c', '152.59.162.229', 1708058069, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383035373836353B69735F6D6F62696C657C623A313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('e9a307519c030943b92abc214c00c263f4ce9930', '66.249.64.128', 1710226060, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303232363036303B69735F6D6F62696C657C623A313B);
-INSERT INTO `tblsessions` VALUES ('ec44d2b71b88ceae809ea4059a74842219074f65', '175.101.68.55', 1710484369, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303438343336393B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('efb06e025660ee7222ed19afccc68dd7304b0f3f', '66.249.64.128', 1709697062, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393639373036323B69735F6D6F62696C657C623A313B);
-INSERT INTO `tblsessions` VALUES ('efrgvm7tkmkb34440hpnsssdifdeokaq', '::1', 1707286070, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373238363034343B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B70726F706F73616C735F706970656C696E657C733A353A2266616C7365223B);
-INSERT INTO `tblsessions` VALUES ('eobqmn56kruaqt4036vke9jtnk38tj2e', '::1', 1707284518, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373238343531383B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B70726F706F73616C735F706970656C696E657C733A353A2266616C7365223B);
-INSERT INTO `tblsessions` VALUES ('ep59shrrqch3st3078vo0etjgf2ue7o4', '::1', 1711977604, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313937373630343B73746166665F757365725F69647C733A313A2233223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('f32ce295104646d7b20f2eb9b90ba47ba3f9fea2', '45.114.179.81', 1710758275, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303735363634353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('f32f8aefc8fc908f55eb303f2e54417828ede9ac', '152.58.163.128', 1707827535, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373832373533353B);
-INSERT INTO `tblsessions` VALUES ('f39098f0cad9aa7487c18004effcda8fcb945079', '216.244.66.237', 1709011548, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393031313534383B);
-INSERT INTO `tblsessions` VALUES ('f74a763db871e482975559e6967824f88f4d0bfe', '175.101.68.55', 1707983807, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373938333830373B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('f8f8ec198889d9e6a3868c46147fac24c4a2c67f', '49.44.76.138', 1707707103, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373730373130333B);
-INSERT INTO `tblsessions` VALUES ('f98f3f85ee3cd3b27f41e148a7a2727bf1c09460', '49.37.45.19', 1708409413, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383430393431333B);
-INSERT INTO `tblsessions` VALUES ('farjkdhbln46poe65tl83nrj4jp73267', '::1', 1711108230, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313038343533383B73746166665F757365725F69647C733A313A2233223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('fbfdjknojjci20aebgutjsene6j19le8', '::1', 1711975407, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313937353430373B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('fbig8blru4crp5ueofjn5pv89jajejkp', '::1', 1711435092, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313433353039323B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('fc5269ae3e16e72efa2179ab5f1ca5e45d6c3386', '152.58.163.242', 1708061999, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730383036313939393B);
-INSERT INTO `tblsessions` VALUES ('fdc5b1224cba7bb570bbcc75cd8b3a09c3f2ce4d', '152.59.167.33', 1710749441, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303734393434313B);
-INSERT INTO `tblsessions` VALUES ('ff55a18d545b2ff7030983fb944b8be97b745f69', '152.59.163.91', 1711005511, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731303939343434303B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('ff7973cc0595fbe04024fb1c414100b5ea3c6967', '175.101.68.55', 1709532060, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730393533313837353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('fh3vvicfl3oj92mbn007rs2d2bebqvk7', '::1', 1707283933, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373238333933333B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B70726F706F73616C735F706970656C696E657C733A353A2266616C7365223B);
-INSERT INTO `tblsessions` VALUES ('fke50b49brmklbstg6fu38nlg442l5na', '::1', 1711515421, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313531353432313B73746166665F757365725F69647C733A313A2233223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('fv49ffp6kteukled72nb6i9sk0886fmf', '::1', 1711510006, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313531303030363B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('g6bupgof1208ct27uiptcbg6eamgdbcl', '::1', 1711429424, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313432393432343B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('hq6rsqtuf32cld48v5hrsfonp8qda883', '::1', 1711970581, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313937303538313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('ikqhon79u3jef7le15uqm1estg1mpndb', '::1', 1707284831, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373238343833313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B70726F706F73616C735F706970656C696E657C733A353A2266616C7365223B);
-INSERT INTO `tblsessions` VALUES ('j9imsh8kuub2ca3lpq9s52b2mursaqst', '::1', 1711597335, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313539373333353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('ka0h8679a33qa588dgr5rpn9i6cehr0a', '::1', 1711977835, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313937373630343B73746166665F757365725F69647C733A313A2233223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('kjddmb0hl0ig2im5gbpn8i8j74vs8on8', '::1', 1711538929, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313533383932393B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('l2dke4dvv6iki2hkkrs19oo0b6mjk4vm', '::1', 1711423789, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313432333738393B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('ld0l19e51rlkj12bqab3ahlv3uaguvqv', '::1', 1711425382, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313432353338323B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('lf3ilvgljiq67ktbo0qglfe466mmuph6', '::1', 1711538515, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313533383531353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('lfu1ek5gjnnv1l3clau16b85qk53h97q', '::1', 1711515850, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313531353835303B73746166665F757365725F69647C733A313A2233223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('lpmq3si0j1fo4f8q5tk7ub0lrc1pnp2o', '::1', 1711436790, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313433363739303B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('lqdudrkgr6p495elvoihn6fjnrr9lepj', '::1', 1711082272, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313038323237323B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('m0fhk1imc5krj5n02mpsme3i7vb7n4h4', '::1', 1707282455, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373238323435353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('mt9q55dqgpm65vqbo2rkbof2hjhbq97u', '::1', 1711450800, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313435303830303B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('n0096k64nfvv0aj6in6bmdjen0vfgc3h', '::1', 1711977180, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313937373138303B73746166665F757365725F69647C733A313A2233223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('n3d2f075134jb5tbbovl25mnise5fap8', '::1', 1707283312, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373238333331323B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
-INSERT INTO `tblsessions` VALUES ('nof51udivkulq9kgo6q15mo00raeko5v', '::1', 1711082916, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313038323931363B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('o5vtou2rdrcpp4buvf4ckf4peit8u1fk', '::1', 1711977893, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313937373836393B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('oijco7pbldqbhikjl9iulcj2f0qip8fg', '::1', 1711515213, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313531353231333B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('op68sudb3bh760crt5n3kjcucbgsvtpg', '::1', 1711539288, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313533393238383B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('oreinuttp61af1clpsera7tbv90vv7sm', '::1', 1711974698, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313937343639383B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('orsbbcip62pt0gidna1o2fqrv9aiec9n', '::1', 1711436279, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313433363237393B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('oso0eq9ob1vpmd05tsvv8mqrpm7kflqq', '::1', 1711081852, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313038313835323B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('osps8706fipklm9fin26ng9m8oisa93k', '::1', 1711967999, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313936373939393B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('p3bjqths4i4br8c2si6429p6tl837638', '::1', 1711453919, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313435333931393B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('pha72l7oqmlrp7rj929o6o17et5aodua', '::1', 1711452840, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313435323834303B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('q1ugsrhnheg5quql3vnv9cssuj2nqo31', '::1', 1711512631, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313531323633313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('q3hgqemhc8suv9hp5g7ce15i0i4cgtsi', '::1', 1711426302, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313432363330323B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('q6vpn9qrv9at6r9os1u21dkfrau5nkqs', '::1', 1711437433, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313433373433333B73746166665F757365725F69647C733A313A2233223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('qnag8vir4s9mutfmtr7vu4s585r7e001', '::1', 1707283620, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373238333632303B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B70726F706F73616C735F706970656C696E657C733A353A2266616C7365223B);
-INSERT INTO `tblsessions` VALUES ('rf5i8ous6vmnh42g0f21n1kkdlvs9nv8', '::1', 1711084307, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313038343330373B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('rjbrk58sl4kj9lfd3na5apt2t7o22gjv', '::1', 1711973958, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313937333935383B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('rlpmuctiikuraqe5ccq479csfv3k0ih9', '::1', 1711970205, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313937303230353B73746166665F757365725F69647C733A313A2233223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('sk620u7fatvh2tl5mb7l836af34i7d9n', '::1', 1707286044, 0x5F5F63695F6C6173745F726567656E65726174657C693A313730373238363034343B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B70726F706F73616C735F706970656C696E657C733A353A2266616C7365223B);
-INSERT INTO `tblsessions` VALUES ('t1eufp2gl1agfevbr6om2gs8amsi6aaa', '::1', 1711970031, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313937303033313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('tk260soqhschnishol7vb65dnlmq78pg', '::1', 1711430103, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313433303130333B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('u2bjanr2h8trf6iqf9odi26bshhkbc7t', '::1', 1711527422, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313532373432323B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('ubv0h67hgulvh5iqlmps0grf9ce5l4js', '::1', 1711516516, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313531363531363B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('uij5vgepj513vgattr72e6tktk22ej0i', '::1', 1711108406, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313038343739383B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('ulmvna8ta8gog6da7n1hfhionefimvrp', '::1', 1711977869, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313937373836393B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('v329qiai7fs47l131r3jq8d0815etve0', '::1', 1711422475, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313432323437353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('v36n4hskf9b4on2teu65mptosu337s6c', '::1', 1711961202, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313936313230323B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
-INSERT INTO `tblsessions` VALUES ('v7ovg6eas15h7s15g4nmoe4c32c7l850', '::1', 1711539961, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731313533393936313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
+INSERT INTO `tblsessions` VALUES ('007b8ii5oqisp5kdmdcllimfb39dd7r8', '::1', 1713347545, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731333334373534353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
+INSERT INTO `tblsessions` VALUES ('423vv7eh0s5lgps46ftenh05t7g9sbom', '::1', 1712901601, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731323930313630313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
+INSERT INTO `tblsessions` VALUES ('4mc3uo4frqhilfoq26ons82ivk5qa3fb', '::1', 1712926103, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731323932363130333B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
+INSERT INTO `tblsessions` VALUES ('5qsa951fhutl6ongc1smn9ak0q9pn7fe', '::1', 1713269371, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731333236393230333B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
+INSERT INTO `tblsessions` VALUES ('611vop13i27f0mo0q1qb63gmkhu1db47', '::1', 1713251008, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731333235313030383B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
+INSERT INTO `tblsessions` VALUES ('8rahgcj4v9n380cdtu7111ldirsv4d7m', '::1', 1713333989, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731333333333938393B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
+INSERT INTO `tblsessions` VALUES ('97dlnvg6oniadqetk3hf6ocs8m6k6i81', '::1', 1713172526, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731333136393931313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
+INSERT INTO `tblsessions` VALUES ('b0vaj4id5eibihrr9l1q9f9kltd8g1dg', '::1', 1713168836, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731333136383833363B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
+INSERT INTO `tblsessions` VALUES ('c46rrb2bv1nsh745io8gi78spu25aasg', '::1', 1712901936, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731323930313933363B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
+INSERT INTO `tblsessions` VALUES ('ckl5c25r9bbpe3dl69546ri8dqt8bhnu', '::1', 1713361811, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731333336303734353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
+INSERT INTO `tblsessions` VALUES ('d3sfr16s4c8uejpnp0re6tvavvrihdin', '::1', 1713169911, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731333136393931313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
+INSERT INTO `tblsessions` VALUES ('d53eqgomna93egt7hb186m0vfdb481er', '::1', 1713251346, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731333235313334363B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
+INSERT INTO `tblsessions` VALUES ('e7foapde5ai4pjnsjftsnu8r3ld8se5q', '::1', 1712904701, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731323930343730313B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
+INSERT INTO `tblsessions` VALUES ('eo62g891ginnge9ns01log0m08o0brcp', '::1', 1713360745, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731333336303734353B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
+INSERT INTO `tblsessions` VALUES ('f56aru67min8glvvcmk9dann6h53g7qf', '::1', 1713253583, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731333235333538333B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
+INSERT INTO `tblsessions` VALUES ('lkjf034667vdduii2v80ia093pjpbrga', '::1', 1713269203, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731333236393230333B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
+INSERT INTO `tblsessions` VALUES ('m2hegh0hl68sbcoj3ci4pfe4vggk3309', '::1', 1713339563, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731333333393536333B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
+INSERT INTO `tblsessions` VALUES ('mnk08ohcap31q96j1tq5frudpircea8m', '::1', 1712901300, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731323930313330303B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
+INSERT INTO `tblsessions` VALUES ('n93sou03l8lncnjtl702p1mlmg27ceos', '::1', 1713251700, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731333235313730303B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
+INSERT INTO `tblsessions` VALUES ('nb8m4kg561dt935k836vedt27d39suoq', '::1', 1712916298, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731323931363239383B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
+INSERT INTO `tblsessions` VALUES ('pistb296ef8bnkn33ch5io5vnscr570v', '::1', 1712926361, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731323932363130333B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B73657475702D6D656E752D6F70656E7C733A303A22223B);
+INSERT INTO `tblsessions` VALUES ('utdo5g3dvs42oe8vgf1ba81u703pl1ll', '::1', 1713334298, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731333333343239383B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
+INSERT INTO `tblsessions` VALUES ('v3b7nif5pijb25k2pq1qi67j8eucsmk3', '::1', 1712900987, 0x5F5F63695F6C6173745F726567656E65726174657C693A313731323930303938373B73746166665F757365725F69647C733A313A2231223B73746166665F6C6F676765645F696E7C623A313B);
 
 -- ----------------------------
 -- Table structure for tblsetting_asset_allocation
@@ -19918,9 +20054,9 @@ CREATE TABLE `tblstaff`  (
 -- ----------------------------
 -- Records of tblstaff
 -- ----------------------------
-INSERT INTO `tblstaff` VALUES (1, 'krishna@somayaji-group.com', 'Krishna', 'Somayaji', '', '', '', '', '$2a$08$4Ckyxs9KhcarMizGDLAFeeKX7na9p8Fe7oY9J8uxTTxXkaZTVSghm', '2023-09-18 13:00:39', NULL, '::1', '2024-04-02 09:21:59', '2024-04-02 09:23:51', NULL, NULL, NULL, 1, 0, 1, '', '', NULL, 0, 160.00, 0, NULL, NULL, '', '1980-11-19', '', 'male', 'single', '', '', '', NULL, '', '', '', '', '', 1, 0, '', '', '', '', NULL, '', NULL, 0, '', 'working', '2024-01-22', NULL, 1);
+INSERT INTO `tblstaff` VALUES (1, 'krishna@somayaji-group.com', 'Krishna', 'Somayaji', '', '', '', '', '$2a$08$4Ckyxs9KhcarMizGDLAFeeKX7na9p8Fe7oY9J8uxTTxXkaZTVSghm', '2023-09-18 13:00:39', NULL, '::1', '2024-04-17 08:35:22', '2024-04-17 19:20:11', NULL, NULL, NULL, 1, 0, 1, '', '', NULL, 0, 160.00, 0, NULL, NULL, '', '1980-11-19', '', 'male', 'single', '', '', '', NULL, '', '', '', '', '', 1, 0, '', '', '', '', NULL, '', NULL, 0, '', 'working', '2024-01-22', NULL, 1);
 INSERT INTO `tblstaff` VALUES (2, 'ankitcg0010@gmail.com', 'momo', 'momo', '', '', '', '', '$2a$08$liSzwDqozkTuKIhijAejmeWBwtnf1OJ.ud4cNU67.JPXt1hqJTAfa', '2023-11-15 16:39:35', NULL, '::1', '2024-01-17 13:49:58', '2024-01-17 13:52:19', '2023-11-16 12:39:16', NULL, NULL, 0, 2, 1, 'english', '', 'momo', 0, 150.00, 0, NULL, NULL, '', '1995-11-16', '', 'male', '', '', '', '', NULL, '', '', '', '', '', 1, 0, '', '', '', '', NULL, '', NULL, 0, 'DEV002', 'working', '2024-01-22', NULL, 0);
-INSERT INTO `tblstaff` VALUES (3, 'deepbasakdmc@gmail.com', 'Deep', 'Basak', '', '', '8918124105', '', '$2a$08$XRt8fOnEJ77dOmRnR1iUvuETAq/qBM7p3EGCIQ4H1inxz/2Jm/jDe', '2024-01-12 09:00:58', NULL, '::1', '2024-04-01 16:32:31', '2024-04-01 18:53:55', '2024-01-22 15:47:52', 'fc00db202a50f67fc05c0afc212a1a83', '2024-01-17 13:53:07', 0, 1, 1, '', '', 'deep-basak', 0, 187.50, 0, NULL, NULL, 'Deep Basak<br />\r\nSenior Software Engineer', '1997-03-14', '', 'male', '', '', '', '', NULL, '', '', '', '', '', 1, 0, '', '', '', '', NULL, '', NULL, 0, 'DEV001', 'working', '2024-01-22', NULL, 1);
+INSERT INTO `tblstaff` VALUES (3, 'deepbasakdmc@gmail.com', 'Deep', 'Basak', '', '', '8918124105', '', '$2a$08$XRt8fOnEJ77dOmRnR1iUvuETAq/qBM7p3EGCIQ4H1inxz/2Jm/jDe', '2024-01-12 09:00:58', NULL, '::1', '2024-04-09 12:12:39', '2024-04-09 12:39:39', '2024-01-22 15:47:52', 'fc00db202a50f67fc05c0afc212a1a83', '2024-01-17 13:53:07', 0, 1, 1, '', '', 'deep-basak', 0, 187.50, 0, NULL, NULL, 'Deep Basak<br />\r\nSenior Software Engineer', '1997-03-14', 'Durgapur', 'male', 'single', 'Indian', 'Hindu', '', NULL, 'Durgapur', '', '164/6 Majher para', '', '', 2, 2, '', '35734171031', 'Deep Basak', 'SBI', NULL, '', NULL, 0, 'DEV001', 'working', '2024-04-10', NULL, 1);
 
 -- ----------------------------
 -- Table structure for tblstaff_contract
@@ -19992,13 +20128,13 @@ CREATE TABLE `tblstaff_departments`  (
   `staffid` int NOT NULL,
   `departmentid` int NOT NULL,
   PRIMARY KEY (`staffdepartmentid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblstaff_departments
 -- ----------------------------
 INSERT INTO `tblstaff_departments` VALUES (20, 2, 1);
-INSERT INTO `tblstaff_departments` VALUES (22, 3, 1);
+INSERT INTO `tblstaff_departments` VALUES (23, 3, 1);
 
 -- ----------------------------
 -- Table structure for tblstaff_insurance
@@ -20016,13 +20152,17 @@ CREATE TABLE `tblstaff_insurance`  (
   `city_code` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `registration_medical` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `amount` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `approved_amount` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`insurance_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblstaff_insurance
 -- ----------------------------
-INSERT INTO `tblstaff_insurance` VALUES (2, 0, 'Hospitalization', 'Surgical', 'major', 'Domicile Treatment', 'd fcd', 'dfcd', 'dc', 'dc', '344');
+INSERT INTO `tblstaff_insurance` VALUES (4, 0, 'Hospitalization', 'Surgical', 'major', 'Accidental Compensation with additional leave benefit', 'fgnfg', 'fgnf', 'ffgn', 'fgf', '30000', '10000');
+INSERT INTO `tblstaff_insurance` VALUES (5, 0, 'Hospitalization', 'Non Surgical', 'super-major', 'Accidental Compensation with additional leave benefit', 'sdcsd', 'ds', 'sd', 'sd', '344444', '355555555');
+INSERT INTO `tblstaff_insurance` VALUES (6, 1, 'Hospitalization', 'Surgical', 'medium', 'Domicile Treatment', 'efce', 'efc', 'efc', 'ef', '333333', NULL);
+INSERT INTO `tblstaff_insurance` VALUES (7, 0, 'Hospitalization', 'Non Surgical', 'minor', 'Domicile Treatment', 'TEST', 'TEST', 'test', 'tet', '10000', NULL);
 
 -- ----------------------------
 -- Table structure for tblstaff_insurance_backup27032024
@@ -20249,7 +20389,7 @@ CREATE TABLE `tbltask_assigned`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `taskid`(`taskid` ASC) USING BTREE,
   INDEX `staffid`(`staffid` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 54 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tbltask_assigned
@@ -20274,6 +20414,39 @@ INSERT INTO `tbltask_assigned` VALUES (17, 1, 16, 1, 0);
 INSERT INTO `tbltask_assigned` VALUES (18, 3, 16, 1, 0);
 INSERT INTO `tbltask_assigned` VALUES (19, 1, 17, 1, 0);
 INSERT INTO `tbltask_assigned` VALUES (20, 3, 17, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (21, 1, 18, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (22, 3, 18, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (23, 1, 19, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (24, 3, 19, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (25, 1, 20, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (26, 3, 20, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (27, 1, 21, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (28, 3, 21, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (29, 1, 22, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (30, 3, 22, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (31, 1, 23, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (32, 3, 23, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (33, 1, 24, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (34, 3, 24, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (35, 1, 25, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (36, 3, 25, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (37, 1, 26, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (38, 3, 26, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (39, 3, 27, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (40, 2, 27, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (41, 1, 28, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (42, 3, 28, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (43, 1, 29, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (44, 3, 29, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (45, 1, 30, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (46, 3, 30, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (47, 2, 30, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (48, 1, 31, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (49, 3, 31, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (50, 1, 32, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (51, 3, 32, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (52, 1, 33, 1, 0);
+INSERT INTO `tbltask_assigned` VALUES (53, 3, 33, 1, 0);
 
 -- ----------------------------
 -- Table structure for tbltask_checklist_items
@@ -20330,7 +20503,7 @@ CREATE TABLE `tbltask_followers`  (
   `staffid` int NOT NULL,
   `taskid` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tbltask_followers
@@ -20341,6 +20514,21 @@ INSERT INTO `tbltask_followers` VALUES (3, 1, 10);
 INSERT INTO `tbltask_followers` VALUES (4, 1, 15);
 INSERT INTO `tbltask_followers` VALUES (5, 1, 16);
 INSERT INTO `tbltask_followers` VALUES (6, 1, 17);
+INSERT INTO `tbltask_followers` VALUES (7, 1, 18);
+INSERT INTO `tbltask_followers` VALUES (8, 1, 19);
+INSERT INTO `tbltask_followers` VALUES (9, 1, 21);
+INSERT INTO `tbltask_followers` VALUES (10, 1, 22);
+INSERT INTO `tbltask_followers` VALUES (11, 1, 23);
+INSERT INTO `tbltask_followers` VALUES (12, 3, 24);
+INSERT INTO `tbltask_followers` VALUES (13, 1, 25);
+INSERT INTO `tbltask_followers` VALUES (14, 1, 26);
+INSERT INTO `tbltask_followers` VALUES (15, 1, 27);
+INSERT INTO `tbltask_followers` VALUES (16, 1, 28);
+INSERT INTO `tbltask_followers` VALUES (17, 1, 29);
+INSERT INTO `tbltask_followers` VALUES (18, 1, 30);
+INSERT INTO `tbltask_followers` VALUES (19, 1, 31);
+INSERT INTO `tbltask_followers` VALUES (20, 1, 32);
+INSERT INTO `tbltask_followers` VALUES (21, 1, 33);
 
 -- ----------------------------
 -- Table structure for tbltasks
@@ -20384,21 +20572,21 @@ CREATE TABLE `tbltasks`  (
   INDEX `milestone`(`milestone` ASC) USING BTREE,
   INDEX `kanban_order`(`kanban_order` ASC) USING BTREE,
   INDEX `status`(`status` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tbltasks
 -- ----------------------------
 INSERT INTO `tbltasks` VALUES (1, 'Attendance Login & Logout Button', '<p>complete by deep</p>', 3, '2024-01-24 12:13:57', '2024-01-08', '2024-01-31', '2024-01-24 12:21:58', 1, 0, 5, NULL, 0, 0, NULL, 0, 0, 0, NULL, 1, 'project', 1, 1, 1, 1, 0.00, 2, 1, 0, 0, 0);
-INSERT INTO `tbltasks` VALUES (2, 'Attendance Login & Logout Button', '', 2, '2024-01-24 12:24:51', '2024-01-08', '2024-01-10', '2024-01-24 12:52:08', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'project', 0, 1, 0, 0, 0.00, 2, 1, 0, 0, 0);
-INSERT INTO `tbltasks` VALUES (3, 'Complete the attendance module', '', 2, '2024-01-24 12:25:23', '2024-01-08', '2024-01-15', '2024-01-24 12:54:04', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'project', 0, 1, 0, 0, 0.00, 2, 1, 0, 0, 0);
-INSERT INTO `tbltasks` VALUES (4, 'Jurnal Entry', '', 3, '2024-01-24 12:56:52', '2024-01-24', '2024-01-25', '2024-01-24 13:57:49', 1, 0, 5, 'week', 1, 1, NULL, 2, 0, 0, NULL, 1, 'project', 0, 1, 0, 0, 0.00, 1, 1, 0, 0, 0);
-INSERT INTO `tbltasks` VALUES (5, 'Jurnal Entry by deep', '', 2, '2024-01-24 13:01:26', '2024-01-24', '2024-01-25', '2024-01-24 13:49:27', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'project', 0, 1, 0, 0, 0.00, 1, 1, 0, 0, 0);
-INSERT INTO `tbltasks` VALUES (6, 'Transaction sub module test', '', 4, '2024-01-24 13:03:38', '2024-01-25', '2024-01-26', '2024-02-07 11:12:47', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'project', 0, 1, 0, 0, 0.00, 1, 1, 0, 0, 0);
-INSERT INTO `tbltasks` VALUES (7, 'Banking Report', '<p><span class=\"text-muted\">test project completeNo description for this task</span></p>', 2, '2024-01-24 13:55:42', '2024-01-24', '2024-01-24', '2024-02-07 11:00:39', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'project', 0, 1, 0, 0, 0.00, 1, 1, 0, 0, 0);
-INSERT INTO `tbltasks` VALUES (8, 'Test Task', '', 2, '2024-02-06 11:49:24', '2024-02-06', '2024-02-10', NULL, 1, 0, 4, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'expense', 0, 1, 0, 0, 0.00, 0, 1, 0, 0, 0);
-INSERT INTO `tbltasks` VALUES (9, 'Test Bill Task', '', 2, '2024-02-07 10:14:20', '2024-02-07', '2024-02-29', NULL, 1, 0, 3, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 2, 'expense', 0, 1, 0, 0, 150.00, 0, 1, 0, 0, 0);
-INSERT INTO `tbltasks` VALUES (10, 'Vendor CRUD Operation', '', 2, '2024-02-07 10:18:43', '2024-02-06', '2024-02-09', NULL, 1, 0, 4, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'contract', 0, 1, 0, 0, 200.00, 0, 1, 0, 0, 0);
+INSERT INTO `tbltasks` VALUES (2, 'Attendance Login & Logout Button', '', 2, '2024-01-24 12:24:51', '2024-01-08', '2024-01-10', '2024-01-24 12:52:08', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'project', 0, 1, 1, 6, 0.00, 2, 1, 0, 0, 0);
+INSERT INTO `tbltasks` VALUES (3, 'Complete the attendance module', '', 2, '2024-01-24 12:25:23', '2024-01-08', '2024-01-15', '2024-01-24 12:54:04', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'project', 0, 1, 1, 6, 0.00, 2, 1, 0, 0, 0);
+INSERT INTO `tbltasks` VALUES (4, 'Jurnal Entry', '', 3, '2024-01-24 12:56:52', '2024-01-24', '2024-01-25', '2024-01-24 13:57:49', 1, 0, 5, 'week', 1, 1, NULL, 2, 0, 0, NULL, 1, 'project', 0, 1, 1, 7, 0.00, 1, 1, 0, 0, 0);
+INSERT INTO `tbltasks` VALUES (5, 'Jurnal Entry by deep', '', 2, '2024-01-24 13:01:26', '2024-01-24', '2024-01-25', '2024-01-24 13:49:27', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'project', 0, 1, 1, 7, 0.00, 1, 1, 0, 0, 0);
+INSERT INTO `tbltasks` VALUES (6, 'Transaction sub module test', '', 4, '2024-01-24 13:03:38', '2024-01-25', '2024-01-26', '2024-02-07 11:12:47', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'project', 0, 1, 1, 6, 0.00, 1, 1, 0, 0, 0);
+INSERT INTO `tbltasks` VALUES (7, 'Banking Report', '<p><span class=\"text-muted\">test project completeNo description for this task</span></p>', 2, '2024-01-24 13:55:42', '2024-01-24', '2024-01-24', '2024-02-07 11:00:39', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'project', 0, 1, 1, 7, 0.00, 1, 1, 0, 0, 0);
+INSERT INTO `tbltasks` VALUES (8, 'Test Task', '', 2, '2024-02-06 11:49:24', '2024-02-06', '2024-02-10', '2024-04-11 12:17:11', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'expense', 0, 1, 0, 0, 0.00, 0, 1, 0, 0, 0);
+INSERT INTO `tbltasks` VALUES (9, 'Test Bill Task', '', 2, '2024-02-07 10:14:20', '2024-02-07', '2024-02-29', '2024-04-02 12:25:13', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 2, 'expense', 0, 1, 0, 0, 150.00, 0, 1, 0, 0, 0);
+INSERT INTO `tbltasks` VALUES (10, 'Vendor CRUD Operation', '', 2, '2024-02-07 10:18:43', '2024-02-06', '2024-02-09', '2024-04-11 12:17:17', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'contract', 0, 1, 0, 0, 200.00, 0, 1, 0, 0, 0);
 INSERT INTO `tbltasks` VALUES (11, 'Vendor Contract CRUD', '', 2, '2024-02-07 10:19:40', '2024-02-07', '2024-02-12', '2024-03-11 08:05:38', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'contract', 0, 1, 0, 0, 230.00, 0, 1, 0, 0, 0);
 INSERT INTO `tbltasks` VALUES (12, 'Test Throughly', '', 2, '2024-02-07 11:04:39', '2024-02-07', NULL, '2024-03-21 18:12:25', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'ticket', 0, 1, 0, 0, 130.00, 0, 1, 0, 0, 0);
 INSERT INTO `tbltasks` VALUES (13, '#1 - testing', '', 2, '2024-02-07 11:07:03', '2024-02-07', NULL, '2024-03-21 18:12:18', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'ticket', 0, 1, 0, 0, 110.00, 0, 1, 0, 0, 0);
@@ -20406,6 +20594,22 @@ INSERT INTO `tbltasks` VALUES (14, 'Orange HRMS start again', '', 2, '2024-03-11
 INSERT INTO `tbltasks` VALUES (15, 'Task March 21, 2024', '<ol>\r\n<li><span>Working on cost tracking with payslip</span></li>\r\n<li><span>Working on attendance and shift hours with payslip</span><br><span></span></li>\r\n<li><span>Working on tada calculation with payslip</span></li>\r\n</ol>', 2, '2024-03-21 18:11:08', '2024-03-21', '2024-03-21', '2024-03-21 18:12:02', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, NULL, NULL, 0, 1, 0, 0, 184.00, 0, 1, 0, 0, 0);
 INSERT INTO `tbltasks` VALUES (16, 'Fixed the holiday issue', '<ol>\r\n<li>Holiday list issue done</li>\r\n<li>holiday intregrate with payslip</li>\r\n<li>holiday salary added to payslip</li>\r\n<li>payment calculate with holiday</li>\r\n</ol>', 2, '2024-03-22 10:30:20', '2024-03-22', NULL, '2024-03-22 10:54:54', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, NULL, NULL, 0, 1, 0, 0, 184.00, 0, 1, 0, 0, 0);
 INSERT INTO `tbltasks` VALUES (17, 'March 26, 2024 Complete the TADA module', '<p>Bug fixing on payslip calculation for all employee</p>\r\n<p>Bug fixing on attendance datatable module</p>\r\n<p></p>', 2, '2024-03-26 09:41:34', '2024-03-26', NULL, '2024-03-26 12:20:36', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, NULL, NULL, 0, 1, 0, 0, 184.00, 0, 1, 0, 0, 0);
+INSERT INTO `tbltasks` VALUES (18, 'April 01, 2024 task', '<ol>\r\n<li><span>Complete the Expense approve statement</span></li>\r\n<li><span>Integrate with pay slip if the expense is approved</span></li>\r\n</ol>', 2, '2024-04-02 10:12:40', '2024-04-01', NULL, '2024-04-02 10:13:59', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, NULL, NULL, 0, 1, 0, 0, 184.00, 0, 1, 0, 0, 0);
+INSERT INTO `tbltasks` VALUES (19, 'March 28, 2024 task', '<ol class=\"p-rich_text_list p-rich_text_list__ordered\">\r\n<li>Integration the expense with payslip</li>\r\n<li>Calculation of each expense with payslip</li>\r\n<li>Add the multiple expense in payslip print option</li>\r\n<li>Edit the multiple expense</li>\r\n</ol>', 2, '2024-04-02 10:15:37', '2024-03-28', NULL, '2024-04-02 10:16:54', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, NULL, NULL, 0, 1, 0, 0, 184.00, 0, 1, 0, 0, 0);
+INSERT INTO `tbltasks` VALUES (20, 'March 27, 2024 Task', '<ol>\r\n<li><span>Change the add expense form for staff</span></li>\r\n<li><span>Multiple expense can add at a time</span></li>\r\n<li><span>Total calculation is completed.</span></li>\r\n<li><span>Integration with it or payslip (WIP)</span></li>\r\n<li><span>Connect with arup da Ankit and shuid</span><span class=\"c-message__edited_label\" dir=\"ltr\">&#160;(edited)</span></li>\r\n<li><span class=\"c-message__edited_label\" dir=\"ltr\"><span>sitting with deep to marge data of both branch : done</span></span></li>\r\n</ol>', 2, '2024-04-02 10:30:32', '2024-03-27', NULL, '2024-04-02 10:31:27', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, NULL, NULL, 0, 1, 0, 0, 184.00, 0, 1, 0, 0, 0);
+INSERT INTO `tbltasks` VALUES (21, 'April 02, 2024 Task', '<ol class=\"p-rich_text_list p-rich_text_list__ordered\">\r\n<li>Connect with naveen to check the api</li>\r\n<li>Start working on MCA(Company Basic information API)</li>\r\n<li>Upload The project in Server</li>\r\n<li>Fixed some issues in Expense rules</li>\r\n</ol>', 2, '2024-04-02 12:24:05', '2024-04-02', NULL, '2024-04-02 12:24:54', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'project', 0, 1, 1, 5, 184.00, 0, 1, 0, 0, 0);
+INSERT INTO `tbltasks` VALUES (22, 'April 03, 2024 Task', '<ol class=\"p-rich_text_list p-rich_text_list__ordered\">\r\n<li>Work on API call of Company Basic details fetch records (Complated)</li>\r\n<li>Connect with Naveen to check the Next api</li>\r\n</ol>', 2, '2024-04-03 13:39:23', '2024-04-03', '2024-04-03', '2024-04-03 13:40:25', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, NULL, NULL, 0, 1, 0, 0, 184.00, 0, 1, 0, 0, 0);
+INSERT INTO `tbltasks` VALUES (23, 'April 04, 2024 Task', '<ol class=\"p-rich_text_list p-rich_text_list__ordered\">\r\n<li>Start working on the design of the Company Basic details</li>\r\n<li>About company tab is working fine</li>\r\n<li>Management details is also working fine</li>\r\n</ol>', 2, '2024-04-04 12:26:12', '2024-04-04', '2024-04-04', '2024-04-04 12:27:11', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, NULL, NULL, 0, 1, 0, 0, 184.00, 0, 1, 0, 0, 0);
+INSERT INTO `tbltasks` VALUES (24, 'April 05, 2024 Task', '<ol>\r\n<li><span>Working on Company Full details api call.</span></li>\r\n<li><span>Reference no api call generated success.</span></li>\r\n</ol>', 2, '2024-04-05 14:08:26', '2024-04-05', '2024-04-05', '2024-04-05 14:10:05', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, NULL, NULL, 0, 1, 0, 0, 184.00, 0, 1, 0, 0, 0);
+INSERT INTO `tbltasks` VALUES (25, 'April 08, 2024 Task', '<ol>\r\n<li>Working on get the JSON and EXCEL url api call using Reference ID.</li>\r\n<li>Working on get the Data of the JSON url and save in the database.</li>\r\n</ol>', 2, '2024-04-08 13:25:42', '2024-04-08', '2024-04-08', '2024-04-08 13:26:18', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, NULL, NULL, 0, 1, 0, 0, 184.00, 0, 1, 0, 0, 0);
+INSERT INTO `tbltasks` VALUES (26, 'April 09, 2024 Task', '<ol>\r\n<li>Working on Saved data display and download to excel</li>\r\n<li>After download the excel it will delete from local server</li>\r\n</ol>', 2, '2024-04-09 11:34:01', '2024-04-09', '2024-04-09', '2024-04-09 11:34:57', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 2, 'project', 0, 1, 1, 3, 184.00, 0, 1, 0, 1, 0);
+INSERT INTO `tbltasks` VALUES (27, 'April 10, 2024 Task', '<p>Complete the remove of Perfex</p>', 2, '2024-04-10 10:55:19', '2024-04-10', '2024-04-10', '2024-04-10 10:55:46', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'project', 0, 1, 1, 5, 184.00, 0, 1, 0, 1, 0);
+INSERT INTO `tbltasks` VALUES (28, 'April 10, 2024 Embark Task', '<ol>\r\n<li>Calling the 1st api to send the OTP of Bureau Data</li>\r\n<li>Calling the 2nd API ro validate the OTP of Bureau Data and to get the referance no</li>\r\n<li>Save the referance no in database</li>\r\n</ol>', 2, '2024-04-10 10:59:48', '2024-04-10', '2024-04-10', '2024-04-10 11:00:43', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 2, 'project', 0, 1, 1, 4, 184.00, 0, 1, 0, 1, 0);
+INSERT INTO `tbltasks` VALUES (29, 'April 11, 2024 Task Embark', '<ol>\r\n<li>Working on verify otp&#160;</li>\r\n<li>working on get the data using API call</li>\r\n</ol>', 2, '2024-04-11 12:05:47', '2024-04-11', '2024-04-11', '2024-04-11 12:06:19', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 2, 'project', 0, 1, 1, 4, 164.00, 0, 1, 0, 1, 0);
+INSERT INTO `tbltasks` VALUES (30, 'April 11, 2024 HRMS Task', '<p>Complete the removing of Prefex</p>', 2, '2024-04-11 12:07:13', '2024-04-11', '2024-04-11', '2024-04-11 12:08:26', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'project', 0, 1, 1, 5, 164.00, 0, 1, 0, 1, 0);
+INSERT INTO `tbltasks` VALUES (31, 'April 12, 2024 Task HRMS', '<p>Fetch the bureau retail details</p>', 2, '2024-04-12 11:21:59', '2024-04-12', '2024-04-12', '2024-04-12 11:22:42', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 1, 'project', 0, 1, 1, 5, 164.00, 0, 1, 0, 1, 0);
+INSERT INTO `tbltasks` VALUES (32, 'April 16, 2024 Embark Task', '<ol>\r\n<li>Connect with Naveen show the api works</li>\r\n<li>He added some point</li>\r\n<li>Started working on decession making button to fetch records from external or internal button</li>\r\n</ol>', 2, '2024-04-16 12:34:39', '2024-04-16', '2024-04-16', '2024-04-16 12:35:06', 1, 0, 5, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 2, 'project', 0, 1, 1, 10, 164.00, 0, 1, 0, 1, 0);
+INSERT INTO `tbltasks` VALUES (33, 'April 17, 2024 #3 - Burau Data Retail API JSON data View', '<p>Need to add front end view</p>', 2, '2024-04-16 12:39:56', '2024-04-16', '2024-04-19', NULL, 1, 0, 4, NULL, NULL, 0, NULL, 0, 0, 0, NULL, 3, 'ticket', 0, 1, 0, 0, 164.00, 0, 1, 0, 0, 0);
 
 -- ----------------------------
 -- Table structure for tbltasks_checklist_templates
@@ -20436,7 +20640,7 @@ CREATE TABLE `tbltaskstimers`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `task_id`(`task_id` ASC) USING BTREE,
   INDEX `staff_id`(`staff_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 81 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tbltaskstimers
@@ -20477,6 +20681,50 @@ INSERT INTO `tbltaskstimers` VALUES (33, 17, '1711421292', '1711435692', 1, 160.
 INSERT INTO `tbltaskstimers` VALUES (34, 17, '1711421280', '1711435680', 1, 160.00, 'Form Design of multiple expense in staff expense<br />\nBug fixing on payslip calculation for all employee');
 INSERT INTO `tbltaskstimers` VALUES (35, 17, '1711421362', '1711435762', 3, 187.50, 'Add CRUD operation on Expense Rule');
 INSERT INTO `tbltaskstimers` VALUES (36, 17, '1711421340', '1711435740', 3, 187.50, 'Form Design of multiple expense in staff expense<br />\nBug fixing on attendance datatable module');
+INSERT INTO `tbltaskstimers` VALUES (37, 18, '1712018579', '1712032979', 1, 160.00, 'Complete the Expense approve statement');
+INSERT INTO `tbltaskstimers` VALUES (38, 18, '1712018594', '1712032994', 1, 160.00, 'Integrate with pay slip if the expense is approved');
+INSERT INTO `tbltaskstimers` VALUES (39, 18, '1712018609', '1712033009', 3, 187.50, 'Complete the Expense approve statement');
+INSERT INTO `tbltaskstimers` VALUES (40, 18, '1712018628', '1712033028', 3, 187.50, 'Integrate with pay slip if the expense is approved');
+INSERT INTO `tbltaskstimers` VALUES (41, 19, '1712018755', '1712033155', 1, 160.00, 'Integration the expense with payslip<br />\nCalculation of each expense with payslip');
+INSERT INTO `tbltaskstimers` VALUES (42, 19, '1712018771', '1712033171', 1, 160.00, 'Add the multiple expense in payslip print option<br />\nEdit the multiple expense');
+INSERT INTO `tbltaskstimers` VALUES (43, 19, '1712018790', '1712033190', 3, 187.50, 'Integration the expense with payslip<br />\nCalculation of each expense with payslip');
+INSERT INTO `tbltaskstimers` VALUES (44, 19, '1712018810', '1712033210', 3, 187.50, 'Add the multiple expense in payslip print option<br />\nEdit the multiple expense');
+INSERT INTO `tbltaskstimers` VALUES (45, 20, '1712019650', '1712034050', 1, 160.00, 'Change the add expense form for staff<br />\nMultiple expense can add at a time<br />\nTotal calculation is completed.');
+INSERT INTO `tbltaskstimers` VALUES (46, 20, '1712019662', '1712034062', 1, 160.00, 'Integration with it or payslip (WIP)<br />\nConnect with arup da Ankit and shuid (edited)<br />\nsitting with deep to marge data of both branch : done');
+INSERT INTO `tbltaskstimers` VALUES (47, 20, '1712019673', '1712034073', 3, 187.50, 'Change the add expense form for staff<br />\nMultiple expense can add at a time<br />\nTotal calculation is completed.');
+INSERT INTO `tbltaskstimers` VALUES (48, 20, '1712019684', '1712034084', 3, 187.50, 'Integration with it or payslip (WIP)<br />\nConnect with arup da Ankit and shuid (edited)<br />\nsitting with deep to marge data of both branch : done');
+INSERT INTO `tbltaskstimers` VALUES (49, 21, '1712026460', '1712040860', 1, 160.00, 'Connect with naveen to check the api<br />\nStart working on MCA(Company Basic information API)');
+INSERT INTO `tbltaskstimers` VALUES (50, 21, '1712026470', '1712040870', 1, 160.00, 'Upload The project in Server<br />\nFixed some issues in Expense rules');
+INSERT INTO `tbltaskstimers` VALUES (51, 21, '1712026480', '1712040880', 3, 187.50, 'Connect with naveen to check the api<br />\nStart working on MCA(Company Basic information API)');
+INSERT INTO `tbltaskstimers` VALUES (52, 21, '1712026490', '1712040890', 3, 187.50, 'Upload The project in Server<br />\nFixed some issues in Expense rules');
+INSERT INTO `tbltaskstimers` VALUES (53, 22, '1712117378', '1712131778', 1, 160.00, 'Work on API call of Company Basic details fetch records (Complated)');
+INSERT INTO `tbltaskstimers` VALUES (54, 22, '1712117389', '1712131789', 1, 160.00, 'Connect with Naveen to check the Next api');
+INSERT INTO `tbltaskstimers` VALUES (55, 22, '1712117403', '1712131803', 3, 187.50, 'Work on API call of Company Basic details fetch records (Complated)');
+INSERT INTO `tbltaskstimers` VALUES (56, 22, '1712117420', '1712131820', 3, 187.50, 'Connect with Naveen to check the Next api');
+INSERT INTO `tbltaskstimers` VALUES (57, 23, '1712199390', '1712213790', 1, 160.00, 'Start working on the design of the Company Basic details<br />\nManagement details is also working fine');
+INSERT INTO `tbltaskstimers` VALUES (58, 23, '1712199407', '1712213807', 1, 160.00, 'About company tab is working fine');
+INSERT INTO `tbltaskstimers` VALUES (59, 23, '1712185022', '1712213822', 3, 187.50, 'Start working on the design of the Company Basic details<br />\nAbout company tab is working fine<br />\nManagement details is also working fine');
+INSERT INTO `tbltaskstimers` VALUES (60, 24, '1712277557', '1712306357', 1, 160.00, 'Working on Company Full details api call<br />\nReference no api call generated success.');
+INSERT INTO `tbltaskstimers` VALUES (61, 24, '1712277565', '1712306365', 3, 187.50, 'Working on Company Full details api call<br />\nReference no api call generated success.');
+INSERT INTO `tbltaskstimers` VALUES (62, 25, '1712534159', '1712562959', 1, 160.00, 'Working on get the JSON and EXCEL url api call using Reference ID<br />\nWorking on get the Data of the JSON url and save in the database.');
+INSERT INTO `tbltaskstimers` VALUES (63, 25, '1712534175', '1712562975', 3, 187.50, 'Working on get the JSON and EXCEL url api call using Reference ID<br />\nWorking on get the Data of the JSON url and save in the database.');
+INSERT INTO `tbltaskstimers` VALUES (64, 26, '1712613858', '1712642658', 1, 160.00, 'Working on Saved data display and download to excel<br />\nAfter download the excel it will delete from local server');
+INSERT INTO `tbltaskstimers` VALUES (65, 26, '1712613893', '1712642693', 3, 187.50, 'Working on Saved data display and download to excel<br />\nAfter download the excel it will delete from local server');
+INSERT INTO `tbltaskstimers` VALUES (66, 27, '1712712335', '1712726735', 3, 187.50, 'Complete the remove of Perfex');
+INSERT INTO `tbltaskstimers` VALUES (67, 27, '1712712343', '1712726743', 2, 150.00, NULL);
+INSERT INTO `tbltaskstimers` VALUES (68, 28, '1712712599', '1712726999', 1, 160.00, 'Calling the 1st api to send the OTP of Bureau Data<br />\nCalling the 2nd API ro validate the OTP of Bureau Data and to get the referance no<br />\nSave the referance no in database');
+INSERT INTO `tbltaskstimers` VALUES (69, 28, '1712712607', '1712727007', 3, 187.50, 'Calling the 1st api to send the OTP of Bureau Data<br />\nCalling the 2nd API ro validate the OTP of Bureau Data and to get the referance no<br />\nSave the referance no in database');
+INSERT INTO `tbltaskstimers` VALUES (70, 29, '1712802967', '1712817367', 3, 187.50, 'Working on verify otp <br />\nworking on get the data using API call');
+INSERT INTO `tbltaskstimers` VALUES (71, 29, '1712802976', '1712817376', 1, 160.00, 'Working on verify otp <br />\nworking on get the data using API call');
+INSERT INTO `tbltaskstimers` VALUES (72, 30, '1712803069', '1712817469', 1, 160.00, 'Complete the removing of Prefex');
+INSERT INTO `tbltaskstimers` VALUES (73, 30, '1712803092', '1712817492', 3, 187.50, 'Complete the removing of Prefex');
+INSERT INTO `tbltaskstimers` VALUES (74, 30, '1712803102', '1712817502', 2, 150.00, 'Complete the removing of Prefex');
+INSERT INTO `tbltaskstimers` VALUES (75, 31, '1712872345', '1712901145', 1, 160.00, 'Fetch the bureau retail details');
+INSERT INTO `tbltaskstimers` VALUES (76, 31, '1712872358', '1712901158', 3, 187.50, 'Fetch the bureau retail details');
+INSERT INTO `tbltaskstimers` VALUES (77, 32, '1713222293', '1713251093', 1, 160.00, 'Connect with Naveen show the api works<br />\nHe added some point<br />\nStarted working on decession making button to fetch records from external or internal button');
+INSERT INTO `tbltaskstimers` VALUES (78, 32, '1713222303', '1713251103', 3, 187.50, 'Connect with Naveen show the api works<br />\nHe added some point<br />\nStarted working on decession making button to fetch records from external or internal button');
+INSERT INTO `tbltaskstimers` VALUES (79, 33, '1713310834', '1713339634', 1, 160.00, 'working on decession making button to fetch records from external or internal button<br />\nWorking on display records');
+INSERT INTO `tbltaskstimers` VALUES (80, 33, '1713310843', '1713339643', 3, 187.50, 'working on decession making button to fetch records from external or internal button<br />\nWorking on display records');
 
 -- ----------------------------
 -- Table structure for tbltaxes
@@ -20545,11 +20793,12 @@ CREATE TABLE `tblticket_attachments`  (
   `filetype` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `dateadded` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblticket_attachments
 -- ----------------------------
+INSERT INTO `tblticket_attachments` VALUES (1, 2, NULL, 'Screenshot 2024-04-09 111556.png', 'image/png', '2024-04-09 17:26:13');
 
 -- ----------------------------
 -- Table structure for tblticket_replies
@@ -20567,12 +20816,13 @@ CREATE TABLE `tblticket_replies`  (
   `attachment` int NULL DEFAULT NULL,
   `admin` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tblticket_replies
 -- ----------------------------
 INSERT INTO `tblticket_replies` VALUES (1, 1, 1, 2, NULL, NULL, '2024-02-07 11:06:25', 'Test all the cases', NULL, NULL);
+INSERT INTO `tblticket_replies` VALUES (2, 2, 2, 1, NULL, NULL, '2024-04-09 17:28:42', 'hvhkvkkh', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tbltickets
@@ -20610,12 +20860,14 @@ CREATE TABLE `tbltickets`  (
   INDEX `priority`(`priority` ASC) USING BTREE,
   INDEX `project_id`(`project_id` ASC) USING BTREE,
   INDEX `contactid`(`contactid` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tbltickets
 -- ----------------------------
 INSERT INTO `tbltickets` VALUES (1, 0, 1, 2, NULL, NULL, NULL, 1, 2, 1, 0, '038730976ec2d768f1c22ac6841b52fa', 'testing', '', 1, '2024-02-07 11:03:39', 1, '2024-02-07 11:06:25', 1, 0, 1, NULL, NULL);
+INSERT INTO `tbltickets` VALUES (2, 0, 2, 1, NULL, NULL, NULL, 1, 2, 5, 1, '749c9d51903d13d764513fc940fc34d3', 'MCA API Credit add', '<p>Need to added the credit</p>', 1, '2024-04-09 17:26:13', 2, '2024-04-09 17:28:42', 1, 1, 1, NULL, 'deepbasakdmc@gmail.com');
+INSERT INTO `tbltickets` VALUES (3, 0, 2, 1, NULL, NULL, NULL, 1, 2, 1, 0, '42c9830547409ac6246ad7ed4636007a', 'Burau Data Retail API JSON data View', '<p>Need to add front end view</p>', 1, '2024-04-16 12:39:06', 2, NULL, 0, 1, 1, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tbltickets_pipe_log
@@ -20799,7 +21051,7 @@ INSERT INTO `tbltimesheets_day_off` VALUES (9, 3, '2023', '12', '12', NULL, 0, '
 INSERT INTO `tbltimesheets_day_off` VALUES (10, 3, '2024', '12', '12', NULL, 0, '1');
 INSERT INTO `tbltimesheets_day_off` VALUES (11, 2, '2024', '12', '12', NULL, 0, '8');
 INSERT INTO `tbltimesheets_day_off` VALUES (12, 1, '2024', '0', '1', NULL, 1, '8');
-INSERT INTO `tbltimesheets_day_off` VALUES (13, 3, '2024', '15', '14', NULL, 1, '8');
+INSERT INTO `tbltimesheets_day_off` VALUES (13, 3, '2024', '15', '13', NULL, 2, '8');
 INSERT INTO `tbltimesheets_day_off` VALUES (14, 2, '2024', '12', '12', NULL, 0, '4');
 INSERT INTO `tbltimesheets_day_off` VALUES (15, 1, '2024', '5', '5', NULL, 0, '4');
 INSERT INTO `tbltimesheets_day_off` VALUES (16, 3, '2024', '12', '12', NULL, 0, '4');
@@ -20938,7 +21190,7 @@ CREATE TABLE `tbltimesheets_requisition_leave`  (
   `number_of_leaving_day` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `type_of_leave_text` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`, `staff_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tbltimesheets_requisition_leave
@@ -20946,6 +21198,7 @@ CREATE TABLE `tbltimesheets_requisition_leave`  (
 INSERT INTO `tbltimesheets_requisition_leave` VALUES (1, 1, 'ADdS', '2023-10-10 00:00:00', '2023-10-10 00:00:00', '', NULL, NULL, 0, 0, 1, 1, NULL, 8, 0, '', '2023-10-10 10:44:22', 10, '1', 'Leave');
 INSERT INTO `tbltimesheets_requisition_leave` VALUES (2, 1, 'test leave', '2024-02-12 00:00:00', '2024-02-12 00:00:00', '', NULL, NULL, 0, 0, 1, 1, NULL, 1, 0, '', '2024-02-02 09:56:26', 12, '1', 'sick_leave');
 INSERT INTO `tbltimesheets_requisition_leave` VALUES (3, 3, 'Swarasati Puja Leave', '2024-02-14 00:00:00', '2024-02-14 00:00:00', 'Going out for swaraswati puja', NULL, NULL, 0, 1, 1, 1, NULL, 4, 0, '2', '2024-02-02 11:37:16', 12, '1', 'private_work_without_pay');
+INSERT INTO `tbltimesheets_requisition_leave` VALUES (4, 3, 'Sick Leave', '2024-04-17 00:00:00', '2024-04-17 00:00:00', '', NULL, NULL, 0, 1, 1, 1, NULL, 1, 0, '1', '2024-04-17 19:06:29', 12, '1', 'sick_leave');
 
 -- ----------------------------
 -- Table structure for tbltimesheets_route
@@ -21298,7 +21551,7 @@ CREATE TABLE `tbluser_meta`  (
   `meta_key` varchar(191) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `meta_value` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   PRIMARY KEY (`umeta_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tbluser_meta
@@ -21306,6 +21559,7 @@ CREATE TABLE `tbluser_meta`  (
 INSERT INTO `tbluser_meta` VALUES (1, 0, 0, 2, 'consent_key', 'a47751c777e20903f0b82c09a891ac1b-ffaaa44394d4a3c4a139362fec5bed11');
 INSERT INTO `tbluser_meta` VALUES (2, 0, 0, 3, 'consent_key', 'e8b17204edd003bc3ca92d5533ca8ded-e0c3b8150aec1cfe367f0528fd2ef36c');
 INSERT INTO `tbluser_meta` VALUES (3, 3, 0, 0, 'recent_searches', '[\"holiday\"]');
+INSERT INTO `tbluser_meta` VALUES (4, 0, 0, 1, 'consent_key', 'e0196572a00ed5b079791d3f5ecf7ed9-6e12c45612f853b00149dd6a87d61720');
 
 -- ----------------------------
 -- Table structure for tblvault
