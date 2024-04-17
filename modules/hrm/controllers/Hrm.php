@@ -53,12 +53,131 @@ class hrm extends AdminController
     //     $this->app->get_table_data(module_views_path('hrm', 'table_insurance'));
     // }
     // update by Ankit Adhikary 20-03-24
-    public function table_insurance()
+    public function table_insurance2()
     {        
             $query = $this->db->get('tblstaff_insurance');
             $data = $query->result_array();
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         
+    }
+
+    public function table_insurance(){
+        # customize filter
+        $where = ' ';
+
+        // Skip number of Rows count  
+		$start = $_POST["start"];
+
+		// Paging Length 10,20  
+		$length = $_POST["length"];
+
+		// Search Value from (Search box)  
+		$searchValue = trim($_POST["search"]["value"]);
+		$searchwhere = ' ';
+        if(!empty($searchValue)){
+			$searchwhere .= ' tblstaff_insurance.insurance_book_num LIKE "%'.$searchValue.'%" 
+				OR tblstaff_insurance.health_insurance_num LIKE "%'.$searchValue.'%" 
+				OR tblstaff_insurance.amount LIKE "%'.$searchValue.'%"
+				OR tblstaff_insurance.approved_amount LIKE "%'.$searchValue.'%" ';
+		}
+
+        //Paging Size (10, 20, 50,100)  
+		$pageSize = $length != null ? intval($length) : 0;
+		$skip = $start != null ? intval($start) : 0;
+
+		#region order by column
+		//Cr by DEEP BASAK on March 19, 2024
+		if(!empty($_POST['order'][0])){
+			$colArr = array('', 'tblstaff_insurance.insurance_book_num', 'tblstaff_insurance.health_insurance_num', 'tblstaff_insurance.amount', 'tblstaff_insurance.approved_amount', '');
+			$columnIndex = $_POST['order'][0]['column'];
+			$orderColName = $colArr[$columnIndex];
+			$orderDir = $_POST['order'][0]['dir'];
+			$orderQuery = ' ORDER BY '. $orderColName . ' ' . $orderDir . ' ';
+		} else{
+			$orderQuery = 'ORDER BY tblstaff_insurance.insurance_id DESC';
+		}
+		#endregion
+
+		$select = 'tblstaff_insurance.*';
+
+        //Datatable view Query
+		$query = 'SELECT
+            '.$select.'
+        FROM
+            `tblstaff_insurance` ';
+        if($where != ' '):
+            $query .=' WHERE
+                '.$where.' ';
+        endif;
+        if($searchwhere != ' '):
+            $query .=' WHERE ';
+        endif;
+        $query .=' '.$searchwhere.'  
+            '. $orderQuery . ' 
+        LIMIT '.$pageSize.' OFFSET '.$skip.' ';
+
+        // prx($query);
+
+        //Total records query
+        $query_total = 'SELECT
+            '.$select.'
+        FROM
+            `tblstaff_insurance` ';
+        if($where != ' '):
+            $query_total .=' WHERE
+                    '.$where.' ';
+        endif; 
+        $query_total .=' '.$orderQuery.' ';
+
+
+        $testdata = $this->Common_model->callSP($query);
+        $testdata_total = $this->Common_model->callSP($query_total);
+        $data = array();
+
+        foreach ($testdata as $key => $fieldData){
+            $action = '';
+            $action .= '<button class="btn btn-primary btn-sm edit-insurance" data-toggle="modal" data-target="#editModal"  data-insurance-id="'.$fieldData['insurance_id'].'"><i class="fa fa-eye"></i></button>';
+            if (is_admin() ){
+                if(empty($fieldData['approved_amount'])){
+                    $action .= '&nbsp;<button class="btn btn-primary btn-sm approve-insurance" data-toggle="modal" data-target="#approveModal" data-approved-amount="' . $fieldData['approved_amount'] . '" data-insurance-id="'.$fieldData['insurance_id'].'"><i class="fa fa-check"></i></button>';
+                    $action .= '&nbsp;<button class="btn btn-danger btn-sm delete-insurance" data-toggle="modal" data-target="#deleteModal" data-insurance-id="'.$fieldData['insurance_id'].'"><i class="fa fa-trash"></i></button>';
+                }
+            }
+            
+            if($fieldData['approved_amount']){
+                $approve = $fieldData['approved_amount'];
+            } else{
+                $approve = "Waiting for admin approval";
+            }
+			
+            $data[] = array(
+                $key + $skip + 1,
+                $fieldData['insurance_book_num'],
+                $fieldData['health_insurance_num'],
+                $fieldData['amount'],
+                $approve,
+                $action
+            );
+
+		}
+
+        if (isset($_POST['draw']) && $_POST['draw']) {
+            $draw = $_POST['draw'];
+        } else {
+            $draw = '';
+        }
+
+        $output = array(
+            "draw" => $draw,
+			"recordsTotal" => count($testdata_total),
+            "recordsFiltered" => count($testdata_total),
+            "data" => $data,
+            "status" => 'success',
+			"csrf" => update_csrf_session()
+        );
+
+        # response
+        echo json_encode($output);
     }
     public function setting()
     {
