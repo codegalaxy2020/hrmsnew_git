@@ -72,6 +72,14 @@ function app_init_admin_sidebar_menu_items()
                 'badge'    => [],
             ]);
         // }
+
+        $CI->app_menu->add_sidebar_children_item('payslip', [
+            'slug'     => 'resignation',
+            'name'     => 'Resignation',
+            'href'     => admin_url('hr_payroll/manage_resignation'),
+            'position' => 18,
+            'badge'    => [],
+        ]);
     // endif;
 
     $CI->app_menu->add_sidebar_menu_item('medical', [
