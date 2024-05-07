@@ -1473,7 +1473,7 @@ class hr_payroll extends AdminController {
 		$month = date('m');
 		$year = date('Y');
 
-		$staff_details = $this->Common_model->getAllData('tblstaff', '', '');		//CR by DEEP BASAK on March 26, 2024
+		$staff_details = $this->Common_model->getAllData('tblstaff', '', '', ['active' => 1]);		//CR by DEEP BASAK on March 26, 2024 //CR BY DEEP BASAK on May 07, 2024
 		
 		// CR by DEEP BASAK on March 26, 2024
 		if(!empty($staff_details)){
@@ -1616,7 +1616,7 @@ class hr_payroll extends AdminController {
 		$month = date('m', strtotime($_POST['month']));
 		$year = date('Y', strtotime($_POST['month']));
 
-		$staff_details = $this->Common_model->getAllData('tblstaff', '', '');		//CR by DEEP BASAK on March 26, 2024
+		$staff_details = $this->Common_model->getAllData('tblstaff', '', '', ['active' => 1]);		//CR by DEEP BASAK on March 26, 2024 //Cr by DEEP BASAK on May 07, 2024
 
 		if(!empty($staff_details)){
 			foreach($staff_details as $staff_key => $staff_val){
@@ -2578,6 +2578,307 @@ class hr_payroll extends AdminController {
         # response
         echo json_encode($output);
         unset($dttbl_model);
+	}
+
+	/**
+	 * Resignation List View
+	 * Added by DEEP BASAK on May 02, 2024
+	 */
+	public function manage_resignation(){
+		if (!has_permission('hrp_attendance', '', 'view') && !has_permission('hrp_attendance', '', 'view_own') && !is_admin()) {
+			access_denied('hrp_attendance');
+		}
+
+		$this->load->model('staff_model');
+		$this->load->model('departments_model');
+
+		//load deparment by manager
+		if (!is_admin() && !has_permission('hrp_employee', '', 'view')) {
+			//View own
+			$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object(get_staffid_by_permission());
+		} else {
+			//admin or view global
+			$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object();
+		}
+
+		$data['departments'] = $this->departments_model->get();
+		$data['staffs'] = $staffs;
+
+		$data['title'] = 'Resignation Manage';
+		
+		$this->load->view('resignation/resignation_manage', $data);
+	}
+
+	/**
+	 * Open Resignation Modal View
+	 * Added by DEEP BASAK on May 02, 2024
+	 * CR by DEEP BASAK on May 06, 2024
+	 * CR by DEEP BASAK on May 07, 2024
+	 */
+	public function open_resignation_modal(){
+		$disabled = true;		//CR by DEEP BASAK on May 07, 2024
+		if(post('id') != 0){
+			$select = 'tbl_staff_resignation.*, tblstaff.firstname, tblstaff.lastname, tbl_manager.firstname AS manager_firstname, tbl_manager.lastname manager_lastname';
+			$where = array();
+			$join = array(
+				array(
+					'table'		=> 'tblstaff AS tbl_manager',
+					'on'		=> 'tbl_staff_resignation.manager_id = tbl_manager.staffid',
+					'type'		=> 'left'
+				),
+				array(
+					'table'		=> 'tblstaff',
+					'on'		=> 'tbl_staff_resignation.staff_id = tblstaff.staffid',
+					'type'		=> 'left'
+				)
+			);
+			$data['details'] = $this->Common_model->getAllData('tbl_staff_resignation', $select, 1, $where, '', '', '', '', [], $join);
+			$joinStaff = array();
+			$selectStaff = 'tblstaff.*';
+
+			if($data['details']->is_approve == 'P'){		//CR by DEEP BASAK on May 07, 2024
+				$disabled = false;
+			}
+		}else{
+			$joinStaff = array(
+				array(
+					'table'		=> 'tbl_staff_resignation',
+					'on'		=> 'tbl_staff_resignation.staff_id = tblstaff.staffid',
+					'type'		=> 'left'
+				)
+			);
+			$selectStaff = 'tbl_staff_resignation.manager_id, tbl_staff_resignation.is_approve, tblstaff.*';
+		}
+		
+		$data['staff_list'] = $this->Common_model->getAllData('tblstaff', $selectStaff, '', ['tblstaff.active' => 1], '', '', '', '', [], $joinStaff);
+		// prx($this->db->last_query());
+		$html = $this->load->view('resignation/components/resignation_manage_modal_body', $data, true);
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'Display modal', 'html' => $html, 'is_admin' => is_admin(), 'disabled' => $disabled);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+	/**
+	 * Calculation Resignation List View
+	 * Added by DEEP BASAK on May 02, 2024
+	 * Bug fixing by DEEP BASAK on May 06, 2024
+	 */
+	public function get_date(){
+		$date = date('Y-m-d', strtotime('+'.intval(post('days')).' days'));
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'Display modal', 'date' => $date);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+	/**
+	 * Resignation List
+	 * Added by DEEP BASAK on May 03, 2024
+	 */
+	public function resignation_list(){
+		# customize filter
+		if(is_admin()){
+			$where = ' ';
+		} else{
+			$where = ' tbl_staff_resignation.staff_id = '.get_staff_user_id();
+		}
+
+		// Skip number of Rows count  
+		$start = $_POST["start"];
+
+		// Paging Length 10,20  
+		$length = $_POST["length"];
+
+		// Search Value from (Search box)  
+		$searchValue = trim($_POST["search"]["value"]);
+		$searchwhere = '';
+		if(!empty($searchValue)){
+			$searchwhere .= ' AND tblstaff.firstname LIKE "%'.$searchValue.'%"
+				OR tblstaff.lastname LIKE "%'.$searchValue.'%"
+				OR tbl_manager.firstname LIKE "%'.$searchValue.'%"
+				OR tbl_manager.lastname LIKE "%'.$searchValue.'%"
+				OR tbl_staff_resignation.notice_time LIKE "%'.$searchValue.'%"
+				OR tbl_staff_resignation.notice_days LIKE "%'.$searchValue.'%"
+				OR tbl_staff_resignation.is_approve LIKE "%'.$searchValue.'%"
+				OR tbl_staff_resignation.created_at LIKE "%'.$searchValue.'%" ';
+		}
+
+		//Paging Size (10, 20, 50,100)  
+		$pageSize = $length != null ? intval($length) : 0;
+		$skip = $start != null ? intval($start) : 0;
+
+		#region order by column
+		//Cr by DEEP BASAK on March 19, 2024
+		if(!empty($_POST['order'][0])){
+			$colArr = array('', 'tblstaff.firstname', 'tbl_manager.firstname', 'tbl_staff_resignation.notice_days', 'tbl_staff_resignation.notice_time', 'tbl_staff_resignation.is_approve', 'tbl_staff_resignation.created_at', '');
+			$columnIndex = $_POST['order'][0]['column'];
+			$orderColName = $colArr[$columnIndex];
+			$orderDir = $_POST['order'][0]['dir'];
+			$orderQuery = ' ORDER BY '. $orderColName . ' ' . $orderDir . ' ';
+		} else{
+			$orderQuery = 'ORDER BY tbl_staff_resignation.created_at DESC';
+		}
+		#endregion
+
+		// $select = 'tblstaff.firstname, tblstaff.lastname, tbltasks.*';
+		$select = 'tbl_staff_resignation.*, tblstaff.firstname, tblstaff.lastname, tbl_manager.firstname AS manager_firstname, tbl_manager.lastname manager_lastname';
+
+		//Datatable view Query
+		$query = 'SELECT
+			'.$select.'
+		FROM
+			`tbl_staff_resignation` 
+		LEFT JOIN tblstaff AS tbl_manager ON tbl_staff_resignation.manager_id = tbl_manager.staffid 
+		LEFT JOIN tblstaff ON tblstaff.staffid = tbl_staff_resignation.staff_id ';
+		if($where != ' '):
+			$query .=' WHERE
+				'.$where.' ';
+		endif;
+		$query .=' '.$searchwhere.' 
+			'. $orderQuery . ' 
+		LIMIT '.$pageSize.' OFFSET '.$skip.' ';
+
+		// prx($query);
+
+		//Total records query
+		$query_total = 'SELECT
+			'.$select.'
+		FROM
+			`tbl_staff_resignation` 
+		LEFT JOIN tblstaff AS tbl_manager ON tbl_staff_resignation.manager_id = tbl_manager.staffid 
+		LEFT JOIN tblstaff ON tblstaff.staffid = tbl_staff_resignation.staff_id ';
+		if($where != ' '):
+			$query_total .=' WHERE
+					'.$where.' ';
+		endif; 
+		$query_total .=' '.$orderQuery.' ';
+
+
+		$testdata = $this->Common_model->callSP($query);
+		$testdata_total = $this->Common_model->callSP($query_total);
+		$data = array();
+
+		foreach ($testdata as $key => $fieldData){
+			$action = '<a href="javascript:void(0)" onclick="openModal('.$fieldData['id'].', 2)"><i class="fa fa-eye"></i></a>';
+			if(($fieldData['is_approve'] == 'P') && ($fieldData['created_by'] == get_staff_user_id())){
+				$action .= '<a href="javascript:void(0)" onclick="openModal('.$fieldData['id'].', 1)"><i class="fa fa-pencil"></i></a>';
+			}
+
+			if($fieldData['is_approve'] == 'P'){
+				$status = '<span class="badge badge-secondary">Pending</span>';
+			} elseif($fieldData['is_approve'] == 'A'){
+				$status = '<span class="badge badge-success">Approve</span>';
+			} elseif($fieldData['is_approve'] == 'R'){
+				$status = '<span class="badge badge-danger">Reject</span>';
+			}
+			
+			
+			$data[] = array(
+				$key + $skip + 1,
+				$fieldData['firstname'] . ' ' . $fieldData['lastname'],
+				$fieldData['manager_firstname'] . ' ' . $fieldData['manager_lastname'],
+				intval($fieldData['notice_days']),
+				date('F d, Y', strtotime($fieldData['notice_time'])),
+				$status,
+				date('F d, Y', strtotime($fieldData['created_at'])),
+				$action
+			);
+
+		}
+
+
+		if (isset($_POST['draw']) && $_POST['draw']) {
+            $draw = $_POST['draw'];
+        } else {
+            $draw = '';
+        }
+
+        $output = array(
+            "draw" => $draw,
+			"recordsTotal" => count($testdata_total),
+            "recordsFiltered" => count($testdata_total),
+            "data" => $data,
+            "status" => 'success',
+			"csrf" => update_csrf_session()
+        );
+
+        # response
+        echo json_encode($output);
+        unset($dttbl_model);
+	}
+
+	/**
+	 * Resignation Save
+	 * Added by DEEP BASAK on May 03, 2024
+	 */
+	public function save_resignation(){
+		// prx($_POST);
+		$this->load->library('form_validation');
+		#validation
+		$this->form_validation->set_rules('staff_id', 'Staff', 'trim|required');
+		$this->form_validation->set_rules('manager_id', 'Manager', 'trim|required');
+		$this->form_validation->set_rules('notice_days', 'Notice Days', 'trim|required');
+		$this->form_validation->set_rules('notice_date', 'Notice Date', 'trim|required');
+		$this->form_validation->set_rules('reason', 'Reason', 'trim|required');
+		if ($this->form_validation->run() == FALSE) {
+            $msg = $this->form_validation->error_array();
+            $array = array('status' => 'fail', 'error' => $msg, 'message' => '');
+        } else {
+
+			//Add
+			$data = array(
+				'staff_id'		=> $this->input->post('staff_id'),
+				'manager_id'	=> $this->input->post('manager_id'),
+				'notice_time'	=> $this->input->post('notice_date'),
+				'notice_days'	=> $this->input->post('notice_days'),
+				'reason'		=> post('reason'),
+				'is_approve'	=> 'P',
+				'is_active'		=> 'Y',
+				'created_at'	=> date('Y-m-d H:i:s'),
+				'created_by'	=> get_staff_user_id()
+			);
+
+			$save = $this->Common_model->add('tbl_staff_resignation', $data);
+
+			if ($save) {
+                $array = array('status' => 'success', 'error' => '', 'message' => 'Staff Resignation Added');
+            } else {
+                $array = array('status' => 'fail', 'error' => 'error_message', 'message' => '');
+            }
+		}
+
+		# Response
+		$array = array_merge($array,update_csrf_session());
+        echo json_encode($array);
+	}
+
+	/**
+	 * Resignation Approve/Reject
+	 * Added by DEEP BASAK on May 07, 2024
+	 */
+	public function approve_reject(){
+		$data = array(
+			'is_approve'	=> post('type'),
+			'approved_at'	=> date('Y-m-d H:i:s'),
+			'approved_by'	=> get_staff_user_id(),
+			'notice_time'	=> date('Y-m-d', strtotime('+'.intval(post('notice_days')).' days')),
+			'notice_days'	=> post('notice_days')
+		);
+		$this->Common_model->UpdateDB('tbl_staff_resignation', ['id' => post('id')], $data);
+
+		if(post('type') == 'A'){
+			$msg = 'Resignation Approved!';
+		} else{
+			$msg = 'Resignation Rejected!';
+		}
+
+		# response
+        $result = array('status'=> 'success', 'message'=>$msg);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
 	}
 
 
