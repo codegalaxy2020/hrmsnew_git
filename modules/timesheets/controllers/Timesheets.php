@@ -4495,7 +4495,7 @@ public function check_in_ts() {
 
 	//Added by DEEP BASAK on January 17, 2024
 	public function get_data_attendance2(){
-		$data['staff'] = $this->Common_model->getAllData('tblstaff', '', '', []);
+		$data['staff'] = $this->Common_model->getAllData('tblstaff', '', '', ['active' => 1]);
 		$data['staff_id'] = $this->input->post('staff_id');
 		$today = date('Y-m-d');
 		$data['staff_attendance'] = $this->Common_model->getAllData('tbl_staff_attendance', '', 1, ['is_active' => 'Y', 'check_in_date' => $today, 'staff_id' => $this->input->post('staff_id')]);

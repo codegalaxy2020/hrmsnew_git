@@ -77,12 +77,12 @@ if(!empty($attendance_details)){
         $today_hours = round($hours, 2);
         
         $data = array(
-            'check_out'     => $check_out_date,
-            'today_hour'    => $today_hours,
-            'check_out_date' => $val['check_in_date'],
+            'check_out'             => $check_out_date,
+            'today_hour'            => $today_hours,
+            'check_out_date'        => $val['check_in_date'],
             'check_out_location'    => $val['check_in_location'],
-            'updated_at'        => date('Y-m-d H:i:s'),
-            'updated_by'        => get_staff_user_id()
+            'updated_at'            => date('Y-m-d H:i:s'),
+            'updated_by'            => get_staff_user_id()
         );
         if($val['check_in_date'] != date('Y-m-d')){
             $CI->Common_model->UpdateDB('tbl_staff_attendance', ['id' => $val['id']], $data);
@@ -90,3 +90,18 @@ if(!empty($attendance_details)){
         
     }
 }
+
+//For staff Resignation automatcally inactive staff
+//Added by DEEP BASAK on May 08, 2024
+$sql = "SELECT * FROM tbl_staff_resignation WHERE is_active = 'Y' AND is_approve = 'A' AND notice_time = '".date('Y-m-d')."'";
+$resignation_details = $CI->Common_model->callSP($sql);
+if(!empty($resignation_details)){
+    foreach($resignation_details as $key => $val){
+        $data = array(
+            'active'    => 0
+        );
+        $CI->Common_model->UpdateDB('tblstaff', ['staffid' => $val['staff_id']], $data);
+    }
+    
+}
+?>
