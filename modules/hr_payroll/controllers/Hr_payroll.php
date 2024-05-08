@@ -2865,7 +2865,9 @@ class hr_payroll extends AdminController {
 			'approved_at'	=> date('Y-m-d H:i:s'),
 			'approved_by'	=> get_staff_user_id(),
 			'notice_time'	=> date('Y-m-d', strtotime('+'.intval(post('notice_days')).' days')),
-			'notice_days'	=> post('notice_days')
+			'notice_days'	=> post('notice_days'),
+			'updated_by'	=> get_staff_user_id(),
+			'updated_at'	=> date('Y-m-d H:i:s')
 		);
 		$this->Common_model->UpdateDB('tbl_staff_resignation', ['id' => post('id')], $data);
 
