@@ -654,3 +654,25 @@ function multiUpload($file_name = "", $uploadPath = "", $alow_types = "", $flag 
 
     return $files;
 }
+
+//Added by DEEP BASAK on May 21, 2024
+function getCaseId(){
+    $CI = &get_instance();
+    $last_id = $CI->Common_model->get_last_id('tbl_staff_disciplinary');
+			
+    if($last_id > 0){
+        $last_case = $CI->Common_model->getAllData('tbl_staff_disciplinary', 'case_no', 1, ['id' => $last_id]);
+        $case_no_arr = explode('/', $last_case->case_no);
+        $c = 0;
+        if($case_no_arr[0] == date('Ymd')){
+            $c = $case_no_arr[1] + 1;
+        } else{
+            $c = 1;
+        }
+        $case_id = date('Ymd') . '/' . $c;
+    } else{
+        $case_id = date('Ymd') . '/' . 1; 
+    }
+
+    return $case_id;
+}

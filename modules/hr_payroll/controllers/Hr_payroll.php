@@ -13,6 +13,7 @@ class hr_payroll extends AdminController {
 		hooks()->do_action('hr_payroll_init'); 
 
 		$this->load->model('common/Common_model');		//Added by DEEP BASAK on January 09, 2024
+		$this->load->library('form_validation');        //Added by DEEP BASAK on May 21, 2024
 	}
 
 	/**
@@ -2057,7 +2058,7 @@ class hr_payroll extends AdminController {
 
 	public function save_expenses(){
 
-		$this->load->library('form_validation');
+		//$this->load->library('form_validation');
 		#validation
 		$this->form_validation->set_rules('staff_id', 'Staff Name', 'trim|required');
 		$this->form_validation->set_rules('exp_type', 'Expense Type', 'trim|required');
@@ -2313,7 +2314,7 @@ class hr_payroll extends AdminController {
 	 * Added by DEEP BASAK on 26 March, 2024
 	 */
 	public function save_expenses_rule(){
-		$this->load->library('form_validation');
+		//$this->load->library('form_validation');
 		#validation
 		$this->form_validation->set_rules('tada', 'TADA', 'trim|required');
 		$this->form_validation->set_rules('type', 'Expense Type', 'trim|required');
@@ -2816,7 +2817,7 @@ class hr_payroll extends AdminController {
 	 */
 	public function save_resignation(){
 		// prx($_POST);
-		$this->load->library('form_validation');
+		//$this->load->library('form_validation');
 		#validation
 		$this->form_validation->set_rules('staff_id', 'Staff', 'trim|required');
 		$this->form_validation->set_rules('manager_id', 'Manager', 'trim|required');
@@ -2882,6 +2883,423 @@ class hr_payroll extends AdminController {
         $obj = (object) array_merge((array) $result, update_csrf_session());
         echo json_encode($obj);
 	}
+
+
+	//------------------- disciplinary Management Start -----------------
+	/**
+	 * Disciplinary Managment
+	 * Added by DEEP BASAK on May 16, 2024
+	 */
+	public function manage_disciplinary(){
+		if (!has_permission('hrp_attendance', '', 'view') && !has_permission('hrp_attendance', '', 'view_own') && !is_admin()) {
+			access_denied('hrp_attendance');
+		}
+
+		$this->load->model('staff_model');
+		$this->load->model('departments_model');
+
+		//load deparment by manager
+		if (!is_admin() && !has_permission('hrp_employee', '', 'view')) {
+			//View own
+			$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object(get_staffid_by_permission());
+		} else {
+			//admin or view global
+			$staffs = $this->hr_payroll_model->get_staff_timekeeping_applicable_object();
+		}
+
+		$data['departments'] = $this->departments_model->get();
+		$data['staffs'] = $staffs;
+
+		$data['title'] = 'Disciplinary Manage';
+		
+		$this->load->view('disciplinary/disciplinary_manage', $data);
+	}
+
+	/**
+	 * Disciplinary Managment
+	 * Added by DEEP BASAK on May 16, 2024
+	 */
+	public function open_disciplinary_modal(){
+		$manager = 0;
+		if(post('id') != 0){
+			$data['details'] = $this->Common_model->getAllData('tbl_staff_disciplinary', '', 1, ['id' => post('id')]);
+			$manager = $data['details']->manager;
+		}else{
+			$data['case_id'] = getCaseId();
+		}
+		
+		$data['staff_list'] = $this->Common_model->getAllData('tblstaff', '', '', ['tblstaff.active' => 1]);
+		// prx($this->db->last_query());
+		$html = $this->load->view('disciplinary/components/disciplinary_manage_model_body', $data, true);
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'Display modal', 'html' => $html, 'manager' => $manager);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+	/**
+	 * Disciplinary Managment Approve Comments
+	 * Added by DEEP BASAK on May 22, 2024
+	 */
+	public function approve_comment_complain(){
+		$join = array(
+			array(
+				'table'		=> 'tbl_staff_disciplinary',
+				'on'		=> 'tbl_staff_disciplinary_comments.complain_id = tbl_staff_disciplinary.id',
+				'type'		=> 'left'
+			),
+			array(
+				'table'		=> 'tblstaff',
+				'on'		=> 'tbl_staff_disciplinary_comments.staff_id = tblstaff.staffid',
+				'type'		=> 'left'
+			)
+		);
+		$select = 'tbl_staff_disciplinary_comments.*, tblstaff.firstname, tblstaff.lastname';
+		$data['details_comments'] = $this->Common_model->getAllData('tbl_staff_disciplinary_comments', $select, '', ['complain_id' => post('case_id'), 'tbl_staff_disciplinary_comments.is_active' => 'Y'], 'tbl_staff_disciplinary_comments.created_at DESC', '', '', '', [], $join);
+		$data['details_complaint'] = $this->Common_model->getAllData('tbl_staff_disciplinary', '', 1, ['id' => post('case_id')]);
+		$data['case_id'] = post('case_id');
+		$data['staff_id'] = get_staff_user_id();
+		$data['staff_list'] = $this->Common_model->getAllData('tblstaff', '', '', ['tblstaff.active' => 1]);
+		$html = $this->load->view('disciplinary/components/disciplinary_manage_model_comments_body', $data, true);
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'', 'html' => $html);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+	public function complain_comment_save(){
+		#validation
+		$this->form_validation->set_rules('staff_id', 'Staff', 'trim|required');
+		$this->form_validation->set_rules('case_id', 'Case', 'trim|required');
+		$this->form_validation->set_rules('comment', 'Comment', 'trim|required');
+		if ($this->form_validation->run() == FALSE) {
+            $msg = $this->form_validation->error_array();
+            $array = array('status' => 'fail', 'error' => $msg, 'message' => '');
+        } else {
+			//Add
+			$data = array(
+				'parent_id'			=> 0,
+				'complain_id'		=> post('case_id'),
+				'staff_id'			=> post('staff_id'),
+				'comments'			=> post('comment'),
+				'is_active'			=> 'Y',
+				'created_at'		=> date('Y-m-d H:i:s'),
+				'created_by'		=> get_staff_user_id()
+			);
+			
+			$save = $this->Common_model->add('tbl_staff_disciplinary_comments', $data);
+
+			if ($save) {
+                $array = array('status' => 'success', 'error' => '', 'message' => 'Complain Comment Added');
+            } else {
+                $array = array('status' => 'fail', 'error' => 'error_message', 'message' => '');
+            }
+		}
+
+		# Response
+		$array = array_merge($array,update_csrf_session());
+        echo json_encode($array);
+	}
+
+	/**
+	 * Disciplinary Managment Approve Comments
+	 * Added by DEEP BASAK on May 22, 2024
+	 */
+	public function approve_reject_complain(){
+		$message = 'Approved!';
+		if(post('type') == 'R'){
+			$message = 'Rejected!';
+		}
+		$status = 'success';
+		if(!empty(post('judge'))){
+			$msg = $message;
+			$status = 'success';
+			$error = "Please select Judge first";
+
+			$data = array(
+				'is_approved' 	=> post('type'),
+				'judge'			=> post('judge'),
+				'updated_at'	=> date('Y-m-d H:i:s'),
+				'updated_by'	=> get_staff_user_id()
+			);
+			$this->Common_model->UpdateDB('tbl_staff_disciplinary', ['id' => post('case_id')], $data);
+		} else{
+			$msg = '';
+			$status = 'fail';
+			$error = "Please select Judge first";
+		}
+		
+
+		# response
+        $result = array('status'=> $status, 'message'=> $msg, 'error' => $error);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+
+	/**
+	 * Disciplinary Managment List
+	 * Added by DEEP BASAK on May 21, 2024
+	 */
+	public function complain_list(){
+		# customize filter
+		if(is_admin()){
+			$where = ' ';
+		} else{
+			$where = ' tbl_staff_disciplinary.created_by = '.get_staff_user_id().' OR tbl_staff_disciplinary.staff_id = '.get_staff_user_id();
+		}
+
+		// Skip number of Rows count  
+		$start = $_POST["start"];
+
+		// Paging Length 10,20  
+		$length = $_POST["length"];
+
+		// Search Value from (Search box)  
+		$searchValue = trim($_POST["search"]["value"]);
+		$searchwhere = '';
+		if(!empty($searchValue)){
+			if($where != ' '){
+				$f = ' AND ';
+			}else{
+				$f = ' WHERE ';
+			}
+			$searchwhere .= $f.' tblstaff.firstname LIKE "%'.$searchValue.'%"
+				OR tblstaff.lastname LIKE "%'.$searchValue.'%"
+				OR tbl_manager.firstname LIKE "%'.$searchValue.'%"
+				OR tbl_manager.lastname LIKE "%'.$searchValue.'%"
+				OR tbl_staff_disciplinary.case_no LIKE "%'.$searchValue.'%"
+				OR tbl_complain.lastname LIKE "%'.$searchValue.'%"
+				OR tbl_complain.firstname LIKE "%'.$searchValue.'%" ';
+		}
+
+		//Paging Size (10, 20, 50,100)  
+		$pageSize = $length != null ? intval($length) : 0;
+		$skip = $start != null ? intval($start) : 0;
+
+		#region order by column
+		//Cr by DEEP BASAK on March 19, 2024
+		if(!empty($_POST['order'][0])){
+			$colArr = array(
+				'', 
+				'tbl_staff_disciplinary.case_no', 
+				'tblstaff.firstname', 
+				'complain_firstname', 
+				'manager_firstname', 
+				'tbl_staff_disciplinary.priority',
+				'tbl_staff_disciplinary.is_approved', 
+				'tbl_staff_disciplinary.created_at', 
+				''
+			);
+
+			$columnIndex = $_POST['order'][0]['column'];
+			$orderColName = $colArr[$columnIndex];
+			$orderDir = $_POST['order'][0]['dir'];
+			if($orderColName != ''){
+				$orderQuery = ' ORDER BY '. $orderColName . ' ' . $orderDir . ' ';
+			} else{
+				$orderQuery = ' ORDER BY tbl_staff_disciplinary.created_at DESC ';
+			}
+			
+		} else{
+			$orderQuery = ' ORDER BY tbl_staff_disciplinary.created_at DESC ';
+		}
+		#endregion
+		
+		$select = ' tbl_staff_disciplinary.*, 
+					tblstaff.firstname, 
+					tblstaff.lastname, 
+					tbl_manager.firstname AS manager_firstname, 
+					tbl_manager.lastname AS manager_lastname,
+					tbl_complain.firstname AS complain_firstname,
+					tbl_complain.lastname AS complain_lastname ';
+
+		//Datatable view Query
+		$query = 'SELECT
+			'.$select.'
+		FROM
+			`tbl_staff_disciplinary` 
+		LEFT JOIN tblstaff AS tbl_manager ON tbl_staff_disciplinary.manager = tbl_manager.staffid 
+		LEFT JOIN tblstaff AS tbl_complain ON tbl_staff_disciplinary.complain_by = tbl_complain.staffid 
+		LEFT JOIN tblstaff ON tblstaff.staffid = tbl_staff_disciplinary.staff_id ';
+		if($where != ' '):
+			$query .=' WHERE
+				'.$where.' ';
+		endif;
+		$query .=' '.$searchwhere.' 
+			'. $orderQuery . ' 
+		LIMIT '.$pageSize.' OFFSET '.$skip.' ';
+
+		// prx($query);
+
+		//Total records query
+		$query_total = 'SELECT
+			'.$select.'
+		FROM
+			`tbl_staff_disciplinary` 
+		LEFT JOIN tblstaff AS tbl_manager ON tbl_staff_disciplinary.manager = tbl_manager.staffid 
+		LEFT JOIN tblstaff AS tbl_complain ON tbl_staff_disciplinary.complain_by = tbl_complain.staffid 
+		LEFT JOIN tblstaff ON tblstaff.staffid = tbl_staff_disciplinary.staff_id ';
+		if($where != ' '):
+			$query_total .=' WHERE
+					'.$where.' ';
+		endif; 
+		$query_total .=' '.$orderQuery.' ';
+
+
+		$testdata = $this->Common_model->callSP($query);
+		$testdata_total = $this->Common_model->callSP($query_total);
+		$data = array();
+
+		foreach ($testdata as $key => $fieldData){
+			$action = '<a href="javascript:void(0)" onclick="openModal('.$fieldData['id'].', 2)"><i class="fa fa-eye"></i></a>';
+			if(($fieldData['is_approved'] == 'P') && ($fieldData['created_by'] == get_staff_user_id())){
+				$action .= '<a href="javascript:void(0)" onclick="openModal('.$fieldData['id'].', 1)"><i class="fa fa-pencil"></i></a>';
+			}
+
+			if($fieldData['is_approved'] == 'P'){
+				$status = '<span class="badge bg-secondary">Pending</span>';
+			} elseif($fieldData['is_approved'] == 'A'){
+				$status = '<span class="badge bg-success">Approve</span>';
+			} elseif($fieldData['is_approved'] == 'R'){
+				$status = '<span class="badge bg-danger">Reject</span>';
+			} elseif($fieldData['is_approved'] == 'C'){
+				$status = '<span class="badge bg-primary">Case Closed</span>';
+			}
+
+			if($fieldData['priority'] == 'L'){
+				$priority = '<span class="badge bg-secondary">Low</span>';
+			} elseif($fieldData['priority'] == 'M'){
+				$priority = '<span class="badge bg-warning">Medium</span>';
+			} elseif($fieldData['priority'] == 'H'){
+				$priority = '<span class="badge bg-danger">High</span>';
+			}
+			
+			
+			
+			$data[] = array(
+				$key + $skip + 1,
+				$fieldData['case_no'],
+				$fieldData['firstname'] . ' ' . $fieldData['lastname'],
+				$fieldData['complain_firstname'] . ' ' . $fieldData['complain_lastname'],
+				$fieldData['manager_firstname'] . ' ' . $fieldData['manager_lastname'],
+				$priority,
+				$status,
+				date('F d, Y', strtotime($fieldData['created_at'])),
+				$action
+			);
+
+		}
+
+
+		if (isset($_POST['draw']) && $_POST['draw']) {
+            $draw = $_POST['draw'];
+        } else {
+            $draw = '';
+        }
+
+        $output = array(
+            "draw" => $draw,
+			"recordsTotal" => count($testdata_total),
+            "recordsFiltered" => count($testdata_total),
+            "data" => $data,
+            "status" => 'success',
+			"csrf" => update_csrf_session()
+        );
+
+        # response
+        echo json_encode($output);
+        unset($dttbl_model);
+	}
+	
+
+	/**
+	 * Disciplinary Managment Save
+	 * Added by DEEP BASAK on May 21, 2024
+	 */
+	public function save_complain(){
+
+		#validation
+		$this->form_validation->set_rules('staff_id', 'Staff', 'trim|required');
+		$this->form_validation->set_rules('manager_id', 'Manager', 'trim|required');
+		$this->form_validation->set_rules('case_no', 'Case Number', 'trim|required');
+		$this->form_validation->set_rules('priority', 'Priority', 'trim|required');
+		$this->form_validation->set_rules('reason', 'Reason', 'trim|required');
+		if ($this->form_validation->run() == FALSE) {
+            $msg = $this->form_validation->error_array();
+            $array = array('status' => 'fail', 'error' => $msg, 'message' => '');
+        } else {
+			
+			if(post('complain_id') == 0){
+				
+				//Add
+				$data = array(
+					'case_no'			=> getCaseId(),
+					'staff_id'			=> post('staff_id'),
+					'manager'			=> post('manager_id'),
+					'complain_by'		=> get_staff_user_id(),
+					'priority'			=> post('priority'),
+					'complain_reason'	=> post('reason'),
+					'is_approved'		=> 'P',
+					'is_active'			=> 'Y',
+					'created_at'		=> date('Y-m-d H:i:s'),
+					'created_by'		=> get_staff_user_id()
+				);
+				
+				$save = $this->Common_model->add('tbl_staff_disciplinary', $data);
+				// prx($save);
+			} else{
+				//Edit
+				$data = array(
+					'case_no'			=> post('case_no'),
+					'staff_id'			=> post('staff_id'),
+					'manager'			=> post('manager_id'),
+					'complain_by'		=> get_staff_user_id(),
+					'priority'			=> post('priority'),
+					'complain_reason'	=> post('reason'),
+					'is_approved'		=> 'P',
+					'is_active'			=> 'Y',
+					'updated_at'		=> date('Y-m-d H:i:s'),
+					'updated_by'		=> get_staff_user_id()
+				);
+				$save = $this->Common_model->UpdateDB('tbl_staff_disciplinary', ['id' => post('complain_id')], $data);
+			}
+			
+
+			if ($save) {
+                $array = array('status' => 'success', 'error' => '', 'message' => 'Staff Complain Added');
+            } else {
+                $array = array('status' => 'fail', 'error' => 'error_message', 'message' => '');
+            }
+		}
+
+		# Response
+		$array = array_merge($array,update_csrf_session());
+        echo json_encode($array);
+	}
+
+	/**
+	 * Disciplinary Managment Final Judgment
+	 * Added by DEEP BASAK on May 27, 2024
+	 */
+	public function final_judgement(){
+
+		$data = array(
+			'is_approved' 	=> 'C',
+			'updated_at'	=> date('Y-m-d H:i:s'),
+			'updated_by'	=> get_staff_user_id()
+		);
+		$this->Common_model->UpdateDB('tbl_staff_disciplinary', ['id' => post('case_id')], $data);
+
+		# response
+        $result = array('status'=> 'success', 'message'=> 'Final Judgment Complete', 'error' => '');
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+	//------------------- disciplinary Management End -------------------
 
 
 	/**
