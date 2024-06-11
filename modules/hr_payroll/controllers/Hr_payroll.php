@@ -2620,7 +2620,7 @@ class hr_payroll extends AdminController {
 		$disabled = true;		//CR by DEEP BASAK on May 07, 2024
 		if(post('id') != 0){
 			$select = 'tbl_staff_resignation.*, tblstaff.firstname, tblstaff.lastname, tbl_manager.firstname AS manager_firstname, tbl_manager.lastname manager_lastname';
-			$where = array();
+			$where = array('tbl_staff_resignation.id' => post('id'));
 			$join = array(
 				array(
 					'table'		=> 'tblstaff AS tbl_manager',
@@ -2669,10 +2669,15 @@ class hr_payroll extends AdminController {
 	public function get_date(){
 		$date = date('Y-m-d', strtotime('+'.intval(post('days')).' days'));
 
-		# response
-        $result = array('status'=> 'success', 'message'=>'Display modal', 'date' => $date);
-        $obj = (object) array_merge((array) $result, update_csrf_session());
-        echo json_encode($obj);
+		if(empty(post('is_return'))){
+			# response
+			$result = array('status'=> 'success', 'message'=>'Display modal', 'date' => $date);
+			$obj = (object) array_merge((array) $result, update_csrf_session());
+			echo json_encode($obj);
+		} else{
+			return $date;
+		}
+		
 	}
 
 	/**
@@ -2830,17 +2835,33 @@ class hr_payroll extends AdminController {
         } else {
 
 			//Add
-			$data = array(
-				'staff_id'		=> $this->input->post('staff_id'),
-				'manager_id'	=> $this->input->post('manager_id'),
-				'notice_time'	=> $this->input->post('notice_date'),
-				'notice_days'	=> $this->input->post('notice_days'),
-				'reason'		=> post('reason'),
-				'is_approve'	=> 'P',
-				'is_active'		=> 'Y',
-				'created_at'	=> date('Y-m-d H:i:s'),
-				'created_by'	=> get_staff_user_id()
-			);
+			if(empty(post('is_return'))){
+				$data = array(
+					'staff_id'		=> $this->input->post('staff_id'),
+					'manager_id'	=> $this->input->post('manager_id'),
+					'notice_time'	=> $this->input->post('notice_date'),
+					'notice_days'	=> $this->input->post('notice_days'),
+					'reason'		=> post('reason'),
+					'is_approve'	=> 'P',
+					'is_active'		=> 'Y',
+					'created_at'	=> date('Y-m-d H:i:s'),
+					'created_by'	=> get_staff_user_id()
+				);
+			} else{
+				$data = array(
+					'staff_id'		=> $this->input->post('staff_id'),
+					'manager_id'	=> $this->input->post('manager_id'),
+					'notice_time'	=> $this->input->post('notice_date'),
+					'notice_days'	=> $this->input->post('notice_days'),
+					'reason'		=> post('reason'),
+					'is_approve'	=> 'A',
+					'approved_at'	=> date('Y-m-d H:i:s'),
+					'approved_by'	=> get_staff_user_id(),
+					'is_active'		=> 'Y',
+					'created_at'	=> date('Y-m-d H:i:s'),
+					'created_by'	=> get_staff_user_id()
+				);
+			}
 
 			$save = $this->Common_model->add('tbl_staff_resignation', $data);
 
@@ -2851,9 +2872,14 @@ class hr_payroll extends AdminController {
             }
 		}
 
-		# Response
-		$array = array_merge($array,update_csrf_session());
-        echo json_encode($array);
+		if(empty(post('is_return'))){
+			# Response
+			$array = array_merge($array,update_csrf_session());
+			echo json_encode($array);
+		} else{
+			return '1';
+		}
+		
 	}
 
 	/**
@@ -2886,6 +2912,39 @@ class hr_payroll extends AdminController {
 
 
 	//------------------- disciplinary Management Start -----------------
+
+	/**
+	 * Disciplinary Managment Show Cause
+	 * Added by DEEP BASAK on June 11, 2024
+	 */
+	public function show_cause(){
+		$_POST['days'] = '1';
+		$_POST['is_return'] = true;
+		$date = $this->get_date();
+		$details = $this->Common_model->getAllData('tbl_staff_disciplinary', '', 1, ['id' => post('case_id')]);
+
+		$_POST['staff_id'] = $details->staff_id;
+		$_POST['manager_id'] = $details->manager;
+		$_POST['notice_date'] = $date;
+		$_POST['notice_days'] = $_POST['days'];
+		$_POST['reason'] = 'Show Cause by orgination';
+		$_POST['is_return'] = true;
+		$check = $this->save_resignation();
+
+		if($check == '1'){
+			$status = 'success';
+			$msg = 'Employee show cause successfully!';
+		} else{
+			$status = 'fail';
+			$msg = 'Somthing went wrong!';
+		}
+
+		# response
+        $result = array('status'=> $status, 'error'=> $msg, 'message'=>$msg);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
 	/**
 	 * Disciplinary Managment
 	 * Added by DEEP BASAK on May 16, 2024

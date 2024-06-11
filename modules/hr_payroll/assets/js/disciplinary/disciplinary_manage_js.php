@@ -78,13 +78,33 @@
         
     }
 
-    function finalJudgement(caseId){
-        warnMsg2("Are you sure? Want to final judgement this complain?", false, true, "Yes", "", function (){
+    function finalJudgement(caseId, isAuto = false){
+        if(isAuto == false){
+            warnMsg2("Are you sure? Want to final judgement this complain?", false, true, "Yes", "", function (){
+                ajaxPostRequest('hr_payroll/final_judgement', {'case_id': caseId}, function (data){
+                    SwalSuccess2("Good Job!", data.message, data.status);
+                    serverSideDataTable('table-staff_disciplinary', baseUrl + 'hr_payroll/complain_list', 10);
+                    closeModal(modelId);
+                });
+            });
+        } else{
             ajaxPostRequest('hr_payroll/final_judgement', {'case_id': caseId}, function (data){
                 SwalSuccess2("Good Job!", data.message, data.status);
                 serverSideDataTable('table-staff_disciplinary', baseUrl + 'hr_payroll/complain_list', 10);
                 closeModal(modelId);
             });
+        }
+        
+    }
+
+    //added by DEEP BASAK on June 11, 2024
+    function showCause(caseId){
+        warnMsg2("Are you sure? Want to show cause this employee?", false, true, "Yes", "", function (){
+            finalJudgement(caseId, true);
+            ajaxPostRequest('hr_payroll/show_cause', {'case_id': caseId}, function (data) {
+                
+            });
         });
+        
     }
 </script>

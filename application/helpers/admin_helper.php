@@ -676,3 +676,13 @@ function getCaseId(){
 
     return $case_id;
 }
+
+//Added by DEEP BASAK on May 31, 2024
+/**
+ * Database Tables Prefix
+ * @return string
+ */
+function db_prefix()
+{
+    return defined('APP_DB_PREFIX') ? APP_DB_PREFIX : 'tbl';
+}

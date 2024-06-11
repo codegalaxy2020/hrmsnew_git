@@ -28,10 +28,10 @@ if (file_exists(APPPATH . 'config/app-config.php')) {
  * Database Tables Prefix
  * @return string
  */
-function db_prefix()
-{
-    return defined('APP_DB_PREFIX') ? APP_DB_PREFIX : 'tbl';
-}
+// function db_prefix()
+// {
+//     return defined('APP_DB_PREFIX') ? APP_DB_PREFIX : 'tbl';
+// }
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
