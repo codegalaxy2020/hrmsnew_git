@@ -63,6 +63,7 @@
                 <?php if($details_complaint->is_approved != 'C'): ?>
                 <?php if($staff_id == $details_complaint->judge): ?>
                 <button type="button" class="btn btn-primary" onclick="finalJudgement(<?= $case_id ?>)" id="approve_btn">Final Judgement</button>
+                <button type="button" class="btn btn-danger" onclick="showCause(<?= $case_id ?>)" id="show_cause_btn">Show Cause</button>
                 <?php endif; ?>
 
 
