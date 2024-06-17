@@ -1038,6 +1038,14 @@ class Hr_profile extends AdminController {
 		$this->load->view('hr_profile/training/manage_course');
 	}
 
+    //Added by ANKIT ADHIARY
+	public function competency() {
+		$this->app_scripts->add('surveys-js', module_dir_url('surveys', 'assets/js/surveys.js'), 'admin', ['app-js']);
+		$this->app_css->add('surveys-css', module_dir_url('hr_profile', 'assets/css/training/training_post.css'), 'admin', ['app-css']);
+
+		$this->load->view('hr_profile/training/competency');
+	}
+
 	public function discussion_forums() {
 		$this->app_scripts->add('surveys-js', module_dir_url('surveys', 'assets/js/surveys.js'), 'admin', ['app-js']);
 		$this->app_css->add('surveys-css', module_dir_url('hr_profile', 'assets/css/training/training_post.css'), 'admin', ['app-css']);
@@ -1156,6 +1164,7 @@ public function get_course_details() {
 	header('Content-Type: application/json');
 	echo json_encode($courseDetails);
 }
+
 
 	public function add_course() {
         
@@ -9082,6 +9091,224 @@ public function get_list_job_position_training($id) {
         // Return a response (success or error) as JSON
         echo json_encode(['status' => 'success']);
     }
+
+
+//ADDED BY ANKIT ADHIKARY
+	public function search() {
+		$criteria = $this->input->post('criteria');
+		$value = $this->input->post('value');
+		$column = '';
+		$results = [];
+	
+		switch ($criteria) {
+			case 'Location':
+				$column = 'home_town';
+				break;
+			case 'Department':
+				$department_name = $value;
+				
+				// Fetch the department(s) matching the given name
+				$this->db->like('name', $department_name);
+				$department_query = $this->db->get('tbldepartments');
+				$departments = $department_query->result();
+				
+				if (empty($departments)) {
+					echo "No matching department found";
+					return;
+				}
+				
+				// Get department IDs
+				$department_ids = array_map(function($department) {
+					return $department->departmentid;
+				}, $departments);
+				
+				// Get staff IDs from the matching departments
+				$this->db->where_in('departmentid', $department_ids);
+				$staff_departments_query = $this->db->get('tblstaff_departments');
+				$staff_departments = $staff_departments_query->result();
+				
+				if (empty($staff_departments)) {
+					echo "No staff found in the given departments";
+					return;
+				}
+				
+				// Get staff IDs
+				$staff_ids = array_map(function($staff_department) {
+					return $staff_department->staffid;
+				}, $staff_departments);
+				
+				// Fetch staff information
+				$this->db->where_in('staffid', $staff_ids);
+				$query = $this->db->get('tblstaff');
+				$results = $query->result();
+				
+				// Include department name in the results
+				foreach ($results as &$result) {
+					foreach ($staff_departments as $staff_department) {
+						if ($staff_department->staffid == $result->staffid) {
+							foreach ($departments as $department) {
+								if ($department->departmentid == $staff_department->departmentid) {
+									$result->department_name = $department->name;
+									break;
+								}
+							}
+							break;
+						}
+					}
+				}
+				unset($result);
+				break;
+			case 'Grade':
+				$column = 'grade';
+				break;
+			case 'Designation':
+				$column = 'designation';
+				break;
+			case 'TotalService':
+				$column = 'total_service';
+				break;
+			case 'DeptService':
+				$column = 'dept_service';
+				break;
+			case 'Age':
+				$column = 'age';
+				break;
+			case 'Qualification':
+				$column = 'qualification';
+				break;
+			case 'Experience':
+				$column = 'experience';
+				break;
+			default:
+				echo "Invalid criteria";
+				return;
+		}
+		
+		if ($criteria !== 'Department') {
+			$this->db->like($column, $value);
+			$query = $this->db->get('tblstaff');
+			$results = $query->result();
+		}
+		
+		if (!empty($results)) {
+			$output = '<table class="table table-bordered">';
+			$output .= '<thead><tr><th>ID</th><th>Name</th><th>' . ucfirst($criteria) . '</th>';
+			// if ($criteria === 'Department') {
+			// 	$output .= '<th>Department</th>';
+			// }
+			$output .= '</tr></thead><tbody>';
+			
+			foreach ($results as $row) {
+				$output .= '<tr>';
+				// $output .= '<td>' . $row->staffid . '</td>';
+				$output .= '<td><input type="checkbox" name="user_ids[]" value="' . $row->staffid . '"></td>';
+				$output .= '<td>' . $row->firstname . '</td>';
+				if ($criteria === 'Department') {
+					$output .= '<td>' . $row->department_name . '</td>';
+				} else {
+					$output .= '<td>' . $row->$column . '</td>';
+				}
+				$output .= '</tr>';
+			}
+			
+			$output .= '</tbody></table>';
+			echo $output;
+		} else {
+			echo "No results found";
+		}
+	}
+	
+
+	public function add_competency() {
+		// Load the database library if not already loaded
+		$this->load->database();
+		
+		// Get form data
+		$user_ids = $this->input->post('user_ids');
+		$search_by = $this->input->post('searchCriteria');
+		$course_name = $this->input->post('CourseName');
+		
+		// Validate inputs (simplified validation, you may want to add more)
+		if (empty($user_ids) || empty($search_by) || empty($course_name)) {
+			// Handle the error (e.g., return an error response)
+			echo json_encode(['status' => 'error', 'message' => 'Invalid input']);
+			return;
+		}
+	
+		// Prepare data for insertion
+		$data = [];
+		foreach ($user_ids as $user_id) {
+			$data[] = [
+				'user_id' => $user_id,
+				'search_by' => $search_by,
+				'name' => $course_name
+			];
+		}
+	
+		// Insert data into the table
+		if ($this->db->insert_batch('tblcompetency', $data)) {
+			// Return a success response
+			echo json_encode(['status' => 'success']);
+		} else {
+			// Return an error response
+			echo json_encode(['status' => 'error', 'message' => 'Database insert failed']);
+		}
+	}
+
+	public function get_competency() {
+        // Join tblcompetency and tblstaff tables
+        $this->db->select('tblcompetency.id, tblcompetency.search_by, tblcompetency.user_id, tblcompetency.name, tblstaff.firstname, tblstaff.lastname');
+        $this->db->from('tblcompetency');
+        $this->db->join('tblstaff', 'tblcompetency.user_id = tblstaff.staffid');
+        $query = $this->db->get();
+
+        $result = $query->result_array();
+
+        // Format the result
+        $competencies = [];
+        foreach ($result as $row) {
+            $competencies[] = [
+				'id' => $row['id'],
+                'search_by' => $row['search_by'],
+                'search_with' => $row['name'],
+                'name' => $row['firstname'] . ' ' . $row['lastname']
+            ];
+        }
+
+        // Return data as JSON
+        echo json_encode($competencies);
+    }
+
+	public function details($id) {
+		// Get the competency details along with user information
+		$this->db->select('tblcompetency.*, tblstaff.firstname, tblstaff.lastname');
+		$this->db->from('tblcompetency');
+		$this->db->join('tblstaff', 'tblcompetency.user_id = tblstaff.staffid');
+		$this->db->where('tblcompetency.id', $id);
+		$query = $this->db->get();
+	
+		// Check if the record exists
+		if ($query->num_rows() > 0) {
+			$data['competency'] = $query->row();
+			$this->load->view('training/course_details', $data);
+		} else {
+			// Handle the case where no data is found
+			show_404();
+		}
+	}
+	
+
+	public function delete_com() {
+        $id = $this->input->post('id');
+        $this->db->where('id', $id);
+        $deleted = $this->db->delete('tblcompetency');
+        if ($deleted) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false]);
+        }
+    }
+	
 
 //end file
 }
