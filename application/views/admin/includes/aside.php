@@ -225,6 +225,16 @@
         </li>
 
         <li class="menu-item-faculty">
+            <a href="<?=base_url();?>admin/hr_profile/competency" aria-expanded="true">
+                <i class="fa fa-comment-dots menu-icon"></i>
+                <span class="menu-text">
+                Competency Management 
+                </span>
+                
+            </a>
+        </li>
+
+        <li class="menu-item-faculty">
             <a href="<?=base_url();?>admin/hr_profile/chat" aria-expanded="true">
                 <i class="fa fa-comment-dots menu-icon"></i>
                 <span class="menu-text">

@@ -798,4 +798,22 @@ class Forms extends ClientsController
         $data['form'] = $form;
         $this->load->view('forms/ticket', $data);
     }
+
+    public function jobs($form_id = ''){
+        $this->load->model('common/Common_model');
+        if(!empty($form_id)){
+            $title = base64_decode($form_id);
+            $data['details'] = $this->Common_model->getAllData('tbl_form_link', '', 1, ['is_active'=> 'Y', 'form_id' => $title]);
+            if(!empty($data['details'])){
+                $data['title'] = $form_id;
+                $this->load->view('forms/requirement/requirement_form', $data);
+            } else{
+                show_404();
+            }
+        } else{
+            show_404();
+        }
+        
+        
+    }
 }
