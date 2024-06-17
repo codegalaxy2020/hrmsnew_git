@@ -31,7 +31,7 @@
 								<div class="row filter_by">
 
                                     <div class="col-md-2 leads-filter-column pull-right">
-										<a class="btn btn-primary btn-block" href="javascript:void(0)" onclick="openModal()"><i class="fa fa-plus"></i>&nbsp;Add Disciplinary</a>
+										<a class="btn btn-primary btn-block" href="javascript:void(0)" onclick="openModal()"><i class="fa fa-plus"></i>&nbsp;Add Requirement</a>
 									</div>
 
 								</div>
@@ -44,13 +44,11 @@
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Case Number</th>
-												<th>Staff</th>
-												<th>Complain By</th>
-                                                <th>Manager</th>
-												<th>Priority</th>
-												<th>Approve / Reject</th>
-												<th>Complain On</th>
+												<th>Form Number</th>
+												<th>Job Title</th>
+												<th>Form Link</th>
+                                                <th>Publish By</th>
+												<th>Publish At</th>
 												<th>Action</th>
 											</tr>
 										</thead>
@@ -77,20 +75,20 @@
 </div>
 </div>
 
-<div class="modal fade" id="disciplinary_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="requirement_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <form id="modalForm">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="disciplinary_modal_title">Modal title</h5>
+                    <h5 class="modal-title" id="requirement_modal_title">Modal title</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body" id="disciplinary_modal_body">
+                <div class="modal-body" id="requirement_modal_body">
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary save">Submit Complain</button>
+                    <button type="submit" class="btn btn-primary save">Submit Requirement</button>
                 </div>
             </form>
         </div>
@@ -99,7 +97,7 @@
 
 
 <?php init_tail(); ?>
-<?php require 'modules/hr_payroll/assets/js/disciplinary/disciplinary_manage_js.php'; ?>
+<?php require 'modules/requirement/assets/js/requirement_manage_js.php'; ?>
 
 </body>
 </html>

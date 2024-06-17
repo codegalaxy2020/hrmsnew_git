@@ -656,25 +656,72 @@ function multiUpload($file_name = "", $uploadPath = "", $alow_types = "", $flag 
 }
 
 //Added by DEEP BASAK on May 21, 2024
-function getCaseId(){
+function getCaseId($type = ''){
     $CI = &get_instance();
-    $last_id = $CI->Common_model->get_last_id('tbl_staff_disciplinary');
-			
-    if($last_id > 0){
-        $last_case = $CI->Common_model->getAllData('tbl_staff_disciplinary', 'case_no', 1, ['id' => $last_id]);
-        $case_no_arr = explode('/', $last_case->case_no);
-        $c = 0;
-        if($case_no_arr[0] == date('Ymd')){
-            $c = $case_no_arr[1] + 1;
+    
+    if($type == 'form'){
+        $divider = '-';
+        $last_id = $CI->Common_model->get_last_id('tbl_form_link');
+        // prx($last_id);
+        if($last_id > 0){
+            $last_case = $CI->Common_model->getAllData('tbl_form_link', 'form_id', 1, ['id' => $last_id]);
+            $case_no_arr = explode('-', $last_case->form_id);
+            $c = 0;
+            if($case_no_arr[0] == date('Ymd')){
+                $c = $case_no_arr[1] + 1;
+            } else{
+                $c = 1;
+            }
+            
+            $case_id = date('Ymd') . $divider . $c;
         } else{
-            $c = 1;
+            $case_id = date('Ymd') . $divider . 1; 
         }
-        $case_id = date('Ymd') . '/' . $c;
     } else{
-        $case_id = date('Ymd') . '/' . 1; 
+        $last_id = $CI->Common_model->get_last_id('tbl_staff_disciplinary');
+	    $divider = '/';
+        if($last_id > 0){
+            $last_case = $CI->Common_model->getAllData('tbl_staff_disciplinary', 'case_no', 1, ['id' => $last_id]);
+            $case_no_arr = explode('/', $last_case->case_no);
+            $c = 0;
+            if($case_no_arr[0] == date('Ymd')){
+                $c = $case_no_arr[1] + 1;
+            } else{
+                $c = 1;
+            }
+            
+            $case_id = date('Ymd') . $divider . $c;
+        } else{
+            $case_id = date('Ymd') . $divider . 1; 
+        }
     }
 
+    
+
     return $case_id;
+}
+
+//Added by DEEP BASAK on June 14, 2024
+function compareArrays($array1, $array2) {
+    $differences = [];
+
+    foreach ($array1 as $key => $value) {
+        if (array_key_exists($key, $array2)) {
+            if ($array1[$key] !== $array2[$key]) {
+                $differences[$key] = ['array1' => $array1[$key], 'array2' => $array2[$key]];
+            }
+        } else {
+            $differences[$key] = ['array1' => $array1[$key], 'array2' => null];
+        }
+    }
+
+    foreach ($array2 as $key => $value) {
+        if (!array_key_exists($key, $array1)) {
+            $differences[$key] = ['array1' => null, 'array2' => $array2[$key]];
+        }
+    }
+
+    return $differences;
 }
 
 //Added by DEEP BASAK on May 31, 2024

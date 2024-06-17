@@ -86,7 +86,7 @@ function app_init_admin_sidebar_menu_items()
     //For Disciplinary Managment
     $CI->app_menu->add_sidebar_menu_item('disciplinary', [
         'name'     => 'Disciplinary',
-        'href'     => admin_url('hr_payroll/manage_disciplinary'),
+        'href'     => '#',
         'position' => 10,
         'icon'     => 'fa fa-sitemap',
         'badge'    => [],
@@ -99,6 +99,25 @@ function app_init_admin_sidebar_menu_items()
         'position' => 1,
         'badge'    => [],
     ]);
+
+    //Added by DEEP BASAK on June 13, 2024
+    if(is_admin()){
+        $CI->app_menu->add_sidebar_menu_item('requirement', [
+            'name'     => 'Requirement',
+            'href'     => '#',
+            'position' => 10,
+            'icon'     => 'fa fa-external-link',
+            'badge'    => [],
+        ]);
+
+        $CI->app_menu->add_sidebar_children_item('requirement', [
+            'slug'     => 'requirement',
+            'name'     => 'Requirement Manage',
+            'href'     => admin_url('requirement/manage_requirement'),
+            'position' => 1,
+            'badge'    => [],
+        ]);
+    }
 
     $CI->app_menu->add_sidebar_menu_item('medical', [
         'name'     => 'Medical Reimbursement Management',
