@@ -35,7 +35,6 @@ class Requirement extends AdminController {
 	 */
 	public function open_requirement_modal(){
 		$data['form_id'] = getCaseId('form');
-        // $data['']
         if(post('id') != 0){
             $data['details'] = $this->Common_model->getAllData('tbl_form_link', '', 1, ['id' => post('id')]);
             $data['field_type'] = $this->Common_model->getAllData('tbl_field_type_master', '', '', ['is_active' => 'Y']);
@@ -168,12 +167,14 @@ class Requirement extends AdminController {
 			// }
 			
 			$link = '<a href="'.$fieldData['form_link'].'" class="btn btn-primary" target="_blank">Apply Link</a>';
+			$link2 = '<a href="'.base_url('requirement/manage_requirement_data/').base64_encode($fieldData['form_id']).'" class="btn btn-success">View Application</a>';
 			
 			$data[] = array(
 				$key + $skip + 1,
 				$fieldData['form_id'],
 				$fieldData['job_title'],
 				$link,
+				$link2,
 				$fieldData['firstname'] . ' ' . $fieldData['lastname'],
 				date('F d, Y', strtotime($fieldData['created_at'])),
 				$action
@@ -365,6 +366,277 @@ class Requirement extends AdminController {
 		$array = array_merge($array,update_csrf_session());
         echo json_encode($array);
     }
+
+
+
+	/**
+	 * Requirement data MANAGE
+	 * Added by DEEP BASAK on June 17, 2024
+	 */
+	public function manage_requirement_data($form_id = ''){
+		if(!empty($form_id)){
+			$data['title'] = 'Application of '. base64_decode($form_id);
+			$data['form_id'] = $form_id;
+			$data['form_details'] = $this->Common_model->getAllData('tbl_form_link', '', 1, ['is_active'=> 'Y', 'form_id' => base64_decode($form_id)]);
+			if(!empty($data['form_details'])){
+				$this->load->view('requirement/requirement_manage_data', $data);
+			} else{
+				show_404();
+			}
+			
+		} else{
+			show_404();
+		}
+	}
+
+	/**
+	 * Requirement data List
+	 * Added by DEEP BASAK on June 18, 2024
+	 */
+	public function requirement_data_list(){
+		$data =array();
+		$fields_name = array();
+		$testdata = $this->Common_model->getAllData('tbl_form_link_data', '', '', ['is_active' => 'Y', 'form_id' => base64_decode(post('form_id'))], 'created_at DESC');
+		if(!empty($testdata)){
+			foreach($testdata as $key => $fieldData){
+				$fields_data = json_decode($fieldData->fields_data);
+				$fields = json_decode($fieldData->form_fields, true);
+				$data_u = array();
+
+				foreach($fields_data as $k => $v){
+					$fieldType = $this->getFieldTypeBySlug($k, $fields);
+					// pr($fieldType);
+					$fields_name[] = $k;
+					if($fieldType != 'file'){
+						$data_u[$k] = $v;
+					} else if(trim($fieldType) == 'email'){
+						$email = $v;
+					} else if(trim($fieldType) == 'phone'){
+						$mobile = $v;
+					} else {
+						$convertedString = str_replace('\\', '/', $v);
+						$data_u[$k] = '<a href="'.base_url().$convertedString.'" class="btn btn-primary btn-sm" target="_blank">View Resume</a>';
+					}
+					
+				}
+				// pr($fieldData);
+				if(!empty($fieldData->interview_time)){
+					$data_u['interview_time'] = date('F d, Y H:iA', strtotime($fieldData->interview_time));
+				} else{
+					$data_u['interview_time'] = '';
+				}
+				
+				$data_u['action'] = '';
+				if($fieldData->is_shortlisted == 'P'){
+					$data_u['action'] .= '<a href="javascript:void(0)" onclick="shortlisted('.$fieldData->id.')"><i class="fa fa-list"></i></a>';
+				} else if(($fieldData->is_shortlisted == 'Y') && empty($fieldData->interview_time)){
+					$data_u['action'] .= '<a href="javascript:void(0)" onclick="scheduleInterview('.$fieldData->id.')"><i class="fa fa-calendar"></i></a>';
+				} else if($fieldData->is_shortlisted == 'C'){
+					$data_u['action'] .= '<span class="badge bg-success">Selected</span>';
+				} else if($fieldData->is_shortlisted == 'N'){
+					$data_u['action'] .= '<span class="badge bg-danger">Rejected</span>';
+				}
+				
+				if(
+					(!empty($fieldData->interview_time) && ($fieldData->is_shortlisted == 'Y')) 
+					|| (!empty($fieldData->interview_time) && ($fieldData->is_shortlisted == 'N'))
+					|| (!empty($fieldData->interview_time) && ($fieldData->is_shortlisted == 'C'))
+				){
+					$data_u['action'] .= '&nbsp;<a href="javascript:void(0)" onclick="interviewDetails('.$fieldData->id.')"><i class="fa fa-folder-open"></i></a>';
+				}
+				
+				$data[] = $data_u;
+				// exit;
+			}
+			// exit;
+			$field_data_arr['data'] = $data;
+			$field_data_arr['fields'] = $fields;
+			$html = $this->load->view('requirement/components/requirement_manage_data_tbody', $field_data_arr, true);
+			$status = 'success';
+			$message = 'Data found!';
+		} else{
+			$status = 'fail';
+			$message = 'No data found!';
+			$html = '';
+		}
+
+		# response
+        $result = array('status'=> $status, 'error' => $message, 'message'=> $message, 'data' => $data, 'fields' => $fields_name, 'html' => $html);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+	public function getFieldTypeBySlug($slug, $fieldDefinitions) {
+		foreach ($fieldDefinitions as $field) {
+			if ($field['field_name_slug'] === $slug) {
+				return $field['field_type'];
+			}
+		}
+		return null; // If no matching slug is found
+	}
+
+	/**
+	 * Shortlisted
+	 * Added by DEEP BASAK on June 19, 2024
+	 */
+	public function shortlisted(){
+		$this->Common_model->UpdateDB('tbl_form_link_data', ['id' => post('can_id')], ['is_shortlisted' => post('type'), 'shortlisted_at' => date('Y-m-d H:i:s'), 'shortlisted_by' => get_staff_user_id()]);
+		if(post('type') == 'Y'){
+			$message = 'Candidate Shortlisted!';
+		} else{
+			$message = 'Candidate Rejected!';
+		}
+
+		# response
+        $result = array('status'=> 'success', 'message'=>$message);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+	/**
+	 * Schedule Interview Modal
+	 * Added by DEEP BASAK on June 19, 2024
+	 */
+	public function schedule_interview(){
+		$data['can_id'] = post('can_id');
+		$html = $this->load->view('requirement/components/schedule_interview_modal_body', $data, true);
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'', 'html' => $html);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+	/**
+	 * Schedule Interview Save
+	 * Added by DEEP BASAK on June 19, 2024
+	 */
+	public function save_interview_schedule(){
+		$this->Common_model->UpdateDB(
+			'tbl_form_link_data', 
+			['id' => post('can_id')], 
+			[
+				'interview_time'=> post('interview_datetime'), 
+				'updated_at'=>date('Y-m-d H:i:s'), 
+				'updated_by' => get_staff_user_id()
+			]
+		);
+		$data = array(
+			'form_link_data_id'		=> post('can_id'),
+			'interview_datetime'	=> post('interview_datetime'),
+			'interview_by'			=> get_staff_user_id(),
+			'comments'				=> 'Schedule the interview',
+			'is_active'				=> 'Y',
+			'created_at'			=> date('Y-m-d H:i:s'),
+			'created_by'			=> get_staff_user_id()
+		);
+		$this->Common_model->add('tbl_interview_history', $data);
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'Interview Schedule completed!');
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+	/**
+	 * Interview Details
+	 * Added by DEEP BASAK on June 21, 2024
+	 */
+	public function interview_details(){
+		$data['can_id'] = post('can_id');
+		$data['details'] = $details = $this->Common_model->getAllData('tbl_form_link_data', '', 1, ['id' => post('can_id')]);
+		$html = $this->load->view('requirement/components/interview_details_modal_body', $data, true);
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'', 'html' => $html, 'title' => $details->form_id);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+	/**
+	 * Get Interview Details LIST
+	 * Added by DEEP BASAK on June 21, 2024
+	 */
+	public function get_interview_details_list(){
+		$join = array(
+			array(
+				'table'		=> 'tblstaff',
+				'on'		=> 'tblstaff.staffid = tbl_interview_history.interview_by',
+				'type'		=> 'left'
+			)
+		);
+		$select = 'tbl_interview_history.*, tblstaff.firstname, tblstaff.lastname';
+		$data['details'] = $this->Common_model->getAllData('tbl_interview_history', $select, '', ['form_link_data_id' => post('can_id')], '', '', '', '', [], $join);
+		$html = $this->load->view('requirement/components/interview_details_table_tbody', $data, true);
+
+		# response
+        $result = array('status'=> 'success', 'message'=>'', 'html' => $html);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
+
+	/**
+	 * Submit Interview comments
+	 * Added by DEEP BASAK on June 21, 2024
+	 */
+	public function submit_interview_comments(){
+		#validation
+		$this->form_validation->set_rules('can_id', 'Candidate ID', 'trim|required');
+		$this->form_validation->set_rules('interview_datetime', 'Interview Datetime', 'trim|required');
+		$this->form_validation->set_rules('comments', 'Comments', 'trim|required');
+		if ($this->form_validation->run() == FALSE) {
+            $msg = $this->form_validation->error_array();
+            $array = array('status' => 'fail', 'error' => $msg, 'message' => '');
+        } else {
+			$data = array(
+				'form_link_data_id'		=> post('can_id'),
+				'interview_datetime'	=> date('Y-m-d H:i:s', strtotime(post('interview_datetime'))),
+				'interview_by'			=> get_staff_user_id(),
+				'comments'				=> post('comments'),
+				'is_active'				=> 'Y',
+				'created_at'			=> date('Y-m-d H:i:s'),
+				'created_by'			=> get_staff_user_id()
+			);
+			$save = $this->Common_model->add('tbl_interview_history', $data);
+
+			if ($save) {
+                $array = array('status' => 'success', 'error' => '', 'message' => 'Interview Comment added!');
+            } else {
+                $array = array('status' => 'fail', 'error' => 'error_message', 'message' => '');
+            }
+		}
+
+		# Response
+		$array = array_merge($array,update_csrf_session());
+        echo json_encode($array);
+		
+	}
+
+	/**
+	 * Select the Employee
+	 * Added by DEEP BASAK on June 24, 2024
+	 */
+	public function select_as_employee(){
+		$this->Common_model->UpdateDB(
+			'tbl_form_link_data', 
+			['id' => post('can_id')], 
+			[
+				'is_shortlisted' 	=> post('type'),
+				'updated_at'		=> date('Y-m-d H:i:s'),
+				'updated_by'		=> get_staff_user_id()
+			]
+		);
+		if(post('type') == 'C'){
+			$message = 'Candidate Selected!';
+		} else{
+			$message = 'Candidate Rejected!';
+		}
+
+		# response
+        $result = array('status'=> 'success', 'message'=>$message);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+	}
 
 }
 
