@@ -119,6 +119,41 @@ function app_init_admin_sidebar_menu_items()
         ]);
     }
 
+    //Added by DEEP BASAK on June 26, 2024
+    if(is_admin()){
+        $CI->app_menu->add_sidebar_menu_item('appraisal', [
+            'name'     => 'Appraisal',
+            'href'     => '#',
+            'position' => 11,
+            'icon'     => 'fa fa-external-link',
+            'badge'    => [],
+        ]);
+
+        $CI->app_menu->add_sidebar_children_item('appraisal', [
+            'slug'     => 'krakpi',
+            'name'     => 'KRA & KPI Manage',
+            'href'     => admin_url('appraisal/manage_krakpi'),
+            'position' => 1,
+            'badge'    => [],
+        ]);
+
+        $CI->app_menu->add_sidebar_children_item('appraisal', [
+            'slug'     => 'appraisal',
+            'name'     => 'Appraisal Manage',
+            'href'     => admin_url('appraisal/manage_appraisal'),
+            'position' => 1,
+            'badge'    => [],
+        ]);
+
+        $CI->app_menu->add_sidebar_children_item('appraisal', [
+            'slug'     => 'appraisal_history',
+            'name'     => 'Appraisal History Manage',
+            'href'     => admin_url('appraisal/manage_appraisal_history'),
+            'position' => 1,
+            'badge'    => [],
+        ]);
+    }
+
     $CI->app_menu->add_sidebar_menu_item('medical', [
         'name'     => 'Medical Reimbursement Management',
         'href'     => admin_url('hr_payroll/manage_payslip'),

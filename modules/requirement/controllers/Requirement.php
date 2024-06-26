@@ -15,6 +15,7 @@ class Requirement extends AdminController {
 
         $this->load->model('staff_model');
 		$this->load->model('departments_model');
+		date_default_timezone_set('Asia/Kolkata');
 	}
 
 
