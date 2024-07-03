@@ -145,13 +145,13 @@ function app_init_admin_sidebar_menu_items()
             'badge'    => [],
         ]);
 
-        $CI->app_menu->add_sidebar_children_item('appraisal', [
-            'slug'     => 'appraisal_history',
-            'name'     => 'Appraisal History Manage',
-            'href'     => admin_url('appraisal/manage_appraisal_history'),
-            'position' => 1,
-            'badge'    => [],
-        ]);
+        // $CI->app_menu->add_sidebar_children_item('appraisal', [
+        //     'slug'     => 'appraisal_history',
+        //     'name'     => 'Appraisal History Manage',
+        //     'href'     => admin_url('appraisal/manage_appraisal_history'),
+        //     'position' => 1,
+        //     'badge'    => [],
+        // ]);
     }
 
     $CI->app_menu->add_sidebar_menu_item('medical', [
