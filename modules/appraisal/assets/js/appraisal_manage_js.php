@@ -1,25 +1,38 @@
 <script type="text/javascript">
-    var modelId = 'requirement_modal';
+    var modelId = 'appraisal_modal';
     $(document).ready(function () {
 
-        serverSideDataTable('table-staff_disciplinary', baseUrl + 'requirement/requirement_list', 10);
+        var year;
+		if ($('#year_filter').val() != undefined) {
+			year = $('#year_filter').val();
+		} else {
+			year = null;
+		}
+        $('#year_filter').select2();
+        serverSideDataTable('table-staff_appraisal', baseUrl + 'appraisal/apprisal_list/' + year, 10);
 
         $('#modalForm').on('submit', function (e){
             e.preventDefault();
             ajaxFromSubmit('requirement/save_requirement', this, function(data){
                 closeModal(modelId);
-                serverSideDataTable('table-staff_disciplinary', baseUrl + 'requirement/requirement_list', 10);
+                serverSideDataTable('table-staff_appraisal', baseUrl + 'appraisal/apprisal_list/'+year, 10);
                 SwalSuccess2(data.message, '', data.status);
             });
         });
     });
 
-    function openModal(id = 0, type = 0){
-        ajaxPostRequest('requirement/open_requirement_modal', {'id': id}, function (data){
+    function filterData(year){
+        serverSideDataTable('table-staff_appraisal', baseUrl + 'appraisal/apprisal_list/' + year, 10);
+    }
+
+    function openAppraisalModal(id = 0, type = 0){
+        ajaxPostRequest('appraisal/open_appraisal_modal', {'id': id}, function (data){
             $('#'+modelId).find('#'+modelId+'_body').html(data.html);
-			$('#'+modelId).find('#'+modelId+'_title').text('Add Requirement');
+			$('#'+modelId).find('#'+modelId+'_title').text('Add Appraisal');
             $('#'+modelId).find('.save').show();
             holdModal(modelId);
+            // $('#'+modelId).find('#staff_id').select2();
+            // $(document).find('.select2-container').attr('style', 'z-index: 10000');
 
             if(type == 2){
 				$('#'+modelId).find('#'+modelId+'_body input, #'+modelId+'_body select, #'+modelId+'_body textarea, #'+modelId+'_body .delBtn').attr('disabled', true);
@@ -39,19 +52,29 @@
         });
     }
 
-    function addFields(){
-        var count = $('#form_field_tbl tbody tr').length;
-        ajaxPostRequest('requirement/add_fields', {'count': count}, function (data) {
-            $('#form_field_tbl tbody').append(data.html);
-        });
-    }
+    function getAppraisalDetails(type, elem){
+        var staffId = $('#'+modelId).find('#staff_id').val();
+        if((staffId != undefined) && (staffId != '') && (staffId != null)){
+            var salary, designation;
+            if($('#salary').is(':checked')){
+                salary = 'S';
+            } else{
+                salary = '';
+            }
 
-    function setFieldNameSlug(elem, count){
-        var fieldName = $('#form_field_tbl').find('#field_name_'+count).val();
-        if(fieldName != undefined && fieldName != ''){
-            var fieldNameSlug = fieldName.toLowerCase().replace(/ /g, '_');
-            $('#form_field_tbl').find('#field_name_slug_'+count).val(fieldNameSlug);
+            if($('#designation').is(':checked')){
+                designation = 'S';
+            } else{
+                designation = '';
+            }
+            ajaxPostRequest('appraisal/get_appraisal_details', {'salary': salary, 'designation': designation, 'staff_id': staffId}, function (data){
+                $('#'+modelId).find('#appraisalDetailsDiv').html(data.html);
+                $('#'+modelId).find('#staff_id').attr('disabled', data.type);
+            });
+        } else{
+            SwalSuccess2('Please select staff first!', '', 'warning');
+            $(".swal2-container").css("z-index", "11000");
+            $(elem).prop('checked', false);
         }
-        
     }
 </script>

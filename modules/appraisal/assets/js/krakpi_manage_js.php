@@ -75,6 +75,10 @@
 			$('#'+modelId).find('#'+modelId+'_title').text('View Rating Details');
             $('#'+modelId).find('.save').hide();
             holdModal(modelId);
+            if($('#'+modelId).find('.modal-dialog').hasClass('modal-sm')){
+                $('#'+modelId).find('.modal-dialog').removeClass('modal-sm');
+            }
+            $('#'+modelId).find('.modal-dialog').addClass('modal-md');
         });
     }
 </script>

