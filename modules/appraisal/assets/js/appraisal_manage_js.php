@@ -1,5 +1,6 @@
 <script type="text/javascript">
     var modelId = 'appraisal_modal';
+    var appraisalModalId = 'appraisal_approve_modal';
     $(document).ready(function () {
 
         var year;
@@ -13,8 +14,18 @@
 
         $('#modalForm').on('submit', function (e){
             e.preventDefault();
-            ajaxFromSubmit('requirement/save_requirement', this, function(data){
+            ajaxFromSubmit('appraisal/save_appraisal', this, function(data){
                 closeModal(modelId);
+                serverSideDataTable('table-staff_appraisal', baseUrl + 'appraisal/apprisal_list/'+year, 10);
+                SwalSuccess2(data.message, '', data.status);
+            });
+        });
+
+        //Added by DEEP BASAK on July 05, 2024
+        $('#modalFormAppraisalApprove').on('submit', function (e){
+            e.preventDefault();
+            ajaxFromSubmit('appraisal/appraisal_approve_reject', this, function(data){
+                closeModal(appraisalModalId);
                 serverSideDataTable('table-staff_appraisal', baseUrl + 'appraisal/apprisal_list/'+year, 10);
                 SwalSuccess2(data.message, '', data.status);
             });
@@ -31,8 +42,6 @@
 			$('#'+modelId).find('#'+modelId+'_title').text('Add Appraisal');
             $('#'+modelId).find('.save').show();
             holdModal(modelId);
-            // $('#'+modelId).find('#staff_id').select2();
-            // $(document).find('.select2-container').attr('style', 'z-index: 10000');
 
             if(type == 2){
 				$('#'+modelId).find('#'+modelId+'_body input, #'+modelId+'_body select, #'+modelId+'_body textarea, #'+modelId+'_body .delBtn').attr('disabled', true);
@@ -70,11 +79,41 @@
             ajaxPostRequest('appraisal/get_appraisal_details', {'salary': salary, 'designation': designation, 'staff_id': staffId}, function (data){
                 $('#'+modelId).find('#appraisalDetailsDiv').html(data.html);
                 $('#'+modelId).find('#staff_id').attr('disabled', data.type);
+                $('#'+modelId).find('#hdn_staff_id').val(staffId);
+                if(salary != ''){
+                    $('#'+modelId).find('#salary').val('Y');
+                } else{
+                    $('#'+modelId).find('#salary').val('N');
+                }
+
+                if(designation != ''){
+                    $('#'+modelId).find('#designation').val('Y');
+                } else{
+                    $('#'+modelId).find('#designation').val('N');
+                }
+                
             });
         } else{
             SwalSuccess2('Please select staff first!', '', 'warning');
             $(".swal2-container").css("z-index", "11000");
             $(elem).prop('checked', false);
         }
+    }
+
+    function approveOrRejectAppraisal(apprisalId){
+        
+        warnMsg2('Are you sure want to approve or reject the appraisal?', true, true, 'Approve', 'Reject', function (){
+            ajaxPostRequest('appraisal/appraisal_approve_reject_open_modal', {'appraisal_id': apprisalId}, function (data){
+                $('#'+appraisalModalId).find('#'+appraisalModalId+'_body').html(data.html);
+                $('#'+appraisalModalId).find('#'+appraisalModalId+'_title').text('Add Appraisal Starting Date');
+                $('#'+appraisalModalId).find('.save').show();
+                holdModal(appraisalModalId);
+            });
+        }, '', function (){
+            ajaxPostRequest('appraisal/appraisal_approve_reject', {'appraisal_id': apprisalId, 'type': 'R'}, function (data){
+                serverSideDataTable('table-staff_appraisal', baseUrl + 'appraisal/apprisal_list/' + year, 10);
+                SwalSuccess2(data.message, '', data.status);
+            });
+        });
     }
 </script>

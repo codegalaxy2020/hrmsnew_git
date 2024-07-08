@@ -30,7 +30,14 @@
 								<!-- filter -->
 								<div class="row filter_by">
 
-									
+									<div class="col-md-2 leads-filter-column pull-right">
+										<a href="#"
+											onclick="new_task_from_relation(undefined,'project',''); return false;"
+											class="btn btn-primary">
+											<i class="fa-regular fa-plus tw-mr-1"></i>
+											<?php echo _l('new_task'); ?>
+										</a>
+									</div>
 
 								</div>
 								<!-- filter -->

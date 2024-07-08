@@ -74,6 +74,7 @@
                                                 <th>New Designation</th>
                                                 <th>KRA & KPI Avg. Rating</th>
                                                 <th>KRA & KPI Last Rating</th>
+												<th>Document</th>
                                                 <th>Status</th>
                                                 <th>Status Change At</th>
 												<th>Action</th>
@@ -116,6 +117,26 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary save">Submit Appraisal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="appraisal_approve_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xs" role="document">
+        <div class="modal-content">
+            <form id="modalFormAppraisalApprove">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="appraisal_approve_modal_title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="appraisal_approve_modal_body">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary save">Submit Appraisal Date</button>
                 </div>
             </form>
         </div>
