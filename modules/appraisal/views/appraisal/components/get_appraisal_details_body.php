@@ -20,7 +20,8 @@
     <div class="col-md-6">
         <div class="mb-3">
             <label for="current_designation" class="form-label">Current Designation<span class="text-danger">*</span></label>
-            <input type="float" readonly class="form-control form-control-sm" name="current_designation" id="current_designation" value="<?= !empty($staff_details)?$staff_details->position_name:'' ?>">
+            <input type="hidden" name="hdn_current_designation" id="hdn_current_designation" value="<?= !empty($staff_details)?$staff_details->job_position:'' ?>">
+            <input type="text" readonly class="form-control form-control-sm" name="current_designation" id="current_designation" value="<?= !empty($staff_details)?$staff_details->position_name:'' ?>">
         </div>
     </div>
 

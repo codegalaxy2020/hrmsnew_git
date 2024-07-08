@@ -34,14 +34,14 @@
             <label for="appraisal_type" class="form-label">Appraisal Type<span class="text-danger">*</span></label>
             
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" onchange="getAppraisalDetails('S', this)" id="salary" name="appraisal_type">
+                <input class="form-check-input" type="checkbox" value="N" onchange="getAppraisalDetails('S', this)" id="salary" name="appraisal_type_salary">
                 <label class="form-check-label" for="salary">
                     Salary Hike
                 </label>
             </div>
 
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" onchange="getAppraisalDetails('D', this)" id="designation" name="appraisal_type">
+                <input class="form-check-input" type="checkbox" value="N" onchange="getAppraisalDetails('D', this)" id="designation" name="appraisal_type_designation">
                 <label class="form-check-label" for="designation">
                     Designation Hike
                 </label>

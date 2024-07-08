@@ -343,7 +343,7 @@ class Appraisal extends AdminController {
 		$this->load->view('appraisal/appraisal/appraisal_manage', $data);
 	}
 
-    public function apprisal_list($year = ''){
+    public function apprisal_list($year = ''){  
         # customize filter
 		$where = ' is_active = "Y" ';
         
@@ -413,14 +413,19 @@ class Appraisal extends AdminController {
 
         $select = ' history.*, 
 					tblstaff.firstname, 
-					tblstaff.lastname ';
+					tblstaff.lastname,
+                    new_position.position_name AS new_dgt,
+                    old_position.position_name AS current_dgt ';    //CR by DEEP BASAK on July 08, 2024
         
         //Datatable view Query
+        //CR by DEEP BASAK on July 08, 2024
 		$query = 'SELECT
             '.$select.'
         FROM
             tbl_staff_appraisal_history AS history
-        LEFT JOIN tblstaff ON history.staff_id = tblstaff.staffid ';
+        LEFT JOIN tblstaff ON history.staff_id = tblstaff.staffid 
+        LEFT JOIN tbljob_position new_position ON history.new_designation = new_position.position_id AND history.new_designation <> 0 
+        LEFT JOIN tbljob_position old_position ON history.current_designation = old_position.position_id AND history.current_designation <> 0 ';
         if($where != ' '):
             $query .=' WHERE
                 '.$where.' ';
@@ -432,11 +437,14 @@ class Appraisal extends AdminController {
         // prx($query);
 
         //Total records query
+        //CR by DEEP BASAK on July 08, 2024
         $query_total = 'SELECT
             '.$select.'
         FROM
             tbl_staff_appraisal_history AS history
-        LEFT JOIN tblstaff ON history.staff_id = tblstaff.staffid ';
+        LEFT JOIN tblstaff ON history.staff_id = tblstaff.staffid 
+        LEFT JOIN tbljob_position new_position ON history.new_designation = new_position.position_id AND history.new_designation <> 0 
+        LEFT JOIN tbljob_position old_position ON history.current_designation = old_position.position_id AND history.current_designation <> 0 ';
         if($where != ' '):
             $query_total .=' WHERE
                     '.$where.' ';
@@ -448,22 +456,53 @@ class Appraisal extends AdminController {
         $testdata_total = $this->Common_model->callSP($query_total);
         $data = array();
         foreach ($testdata as $key => $fieldData){
-			$action = '<a href="javascript:void(0)" onclick="openModal('.$fieldData['id'].', 2)"><i class="fa fa-eye"></i></a>';
-            $action .= '&nbsp;<a href="javascript:void(0)" onclick="openRatingModal('.$fieldData['staff_id'].')"><i class="fa fa-star"></i></a>';
+			$action = '<a href="javascript:void(0)" onclick="openAppraisalModal('.$fieldData['id'].', 2)"><i class="fa fa-eye"></i></a>';
+            
+            if($fieldData['is_approved'] == 'P'){
+                $action .= '&nbsp;<a href="javascript:void(0)" onclick="openAppraisalModal('.$fieldData['id'].', 1)"><i class="fa fa-edit"></i></a>';  //CR by DEEP BASAK on July 08, 2024
+                $action .= '&nbsp;<a href="javascript:void(0)" onclick="approveOrRejectAppraisal('.$fieldData['id'].')"><i class="fa fa-pause"></i></a>';
+            }
+
+            $appraisalType = json_decode($fieldData['appraisal_type']);
+            $app_type = '';
+            foreach($appraisalType as $k){
+                if($k == 'S'){
+                    $app_type .= '<span class="badge bg-success">Salary Hike</span>';
+                } else if($k == 'D'){
+                    $app_type .= '<span class="badge bg-primary">Designation Hike</span>';
+                }
+            }
+
+            //CR by DEEP BASAK on July 08, 2024
+            if(!empty($fieldData['appraisal_document'])){
+                $download = '<a href="'.base_url($fieldData['appraisal_document']).'" target="_blank"><i class="fa fa-download"></i></a>';
+            } else{
+                $download = '';
+            }
+            
+
+            if($fieldData['is_approved'] == 'P'){
+                $status = '<span class="badge bg-secondary">Pending</span>';
+            } else if($fieldData['is_approved'] == 'A'){
+                $status = '<span class="badge bg-success">Approved</span>';
+            } else if($fieldData['is_approved'] == 'R'){
+                $status = '<span class="badge bg-danger">Rejected</span>';
+            }
 			
 			$data[] = array(
 				$key + $skip + 1,
 				$fieldData['firstname'] . ' ' . $fieldData['lastname'],
-                '',
+                $app_type,
 				$fieldData['appraisal_year'],
 				$fieldData['current_salary'],
                 $fieldData['new_salary'],
-                $fieldData['current_designation'],
-                $fieldData['new_designation'],
+                $fieldData['current_dgt'],      //CR by DEEP BASAK on July 08, 2024
+                $fieldData['new_dgt'],          //CR by DEEP BASAK on July 08, 2024
                 $fieldData['krakpi_avg_rating'],
                 $fieldData['krakpi_last_rating'],
-                '',
-				date('F d, Y', strtotime($fieldData['created_at'])),
+                $download,
+                $status,
+				!empty($fieldData['approved_at'])?date('F d, Y', strtotime($fieldData['approved_at'])):'',
 				$action
 			);
 
@@ -556,6 +595,156 @@ class Appraisal extends AdminController {
 
 		# response
         $result = array('status'=> 'success', 'message'=>'', 'html' => $html, 'type' => $type);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+    }
+
+    /**
+	 * Save Appraisal
+	 * Added by DEEP BASAK on July 03, 2024
+	 */
+    public function save_appraisal(){
+        #validation
+		$this->form_validation->set_rules('hdn_staff_id', 'Staff', 'trim|required');
+        if(!empty(post('appraisal_type_salary'))){
+            $this->form_validation->set_rules('current_salary', 'Current Salary', 'trim|required');
+            $this->form_validation->set_rules('new_salary', 'New Salary', 'trim|required');
+        } else if(!empty(post('appraisal_type_designation'))){
+            $this->form_validation->set_rules('hdn_current_designation', 'Current Designation', 'trim|required');
+            $this->form_validation->set_rules('new_designation', 'New Designation', 'trim|required');
+        }
+        
+        if ($this->form_validation->run() == FALSE) {
+            $msg = $this->form_validation->error_array();
+            $array = array('status' => 'fail', 'error' => $msg, 'message' => '');
+        } else {
+            if(empty(post('appraisal_type_designation')) && empty(post('appraisal_type_salary'))){
+                $msg = 'Please select any Appraisal Type';
+                $status = 'fail';
+            } else if(empty($_FILES['appraisal_docs']['name'])){
+                $msg = 'Please select Appraisal Document!';
+                $status = 'fail';
+            } else{
+                $select = 'AVG( rating ) AS average_rating,
+                        ( SELECT rating FROM `tbl_staff_krakpi` WHERE staff_id = '.post('hdn_staff_id').' ORDER BY created_at DESC LIMIT 1 ) AS last_rating,
+                        ( SELECT created_at FROM `tbl_staff_krakpi` WHERE staff_id = '.post('hdn_staff_id').' ORDER BY created_at DESC LIMIT 1 ) AS last_rating_at,
+                        ( SELECT SUM( rating ) FROM `tbl_staff_krakpi` WHERE staff_id = '.post('hdn_staff_id').' ) AS total_rating,
+                        ( SELECT COUNT( rating ) FROM `tbl_staff_krakpi` WHERE staff_id = '.post('hdn_staff_id').' ) AS total_rating_count,
+                        tblstaff.firstname,
+                        tblstaff.lastname ';
+                $join = array(
+                    array(
+                        'table'     => 'tblstaff',
+                        'on'        => 'tbl_staff_krakpi.staff_id = tblstaff.staffid',
+                        'type'      => 'left'
+                    )
+                );
+                $krakpi_details = $this->Common_model->getAllData('tbl_staff_krakpi', $select, 1, ['staff_id' => post('hdn_staff_id'), 'is_active' => 'Y'], '', '', '', '', [], $join);
+                if(post('appraisal_id') == 0){
+                    #Add
+                    $appraisal_type = json_encode(
+                        array(
+                            !empty(post('appraisal_type_salary'))?'S':'N', 
+                            !empty(post('appraisal_type_designation'))?'D':'N'
+                        )
+                    );
+
+                    $filetype = array('jpeg','jpg','png','PNG','JPEG','JPG', 'pdf');
+                    $document_url = multiUpload('appraisal_docs', 'uploads/appraisal', $filetype, 'single', '');
+                    $document_url = 'uploads/appraisal/' . $document_url;
+
+                    $data = array(
+                        'staff_id'              => post('hdn_staff_id'),
+                        'appraisal_type'        => $appraisal_type,
+                        'current_salary'        => !empty(post('current_salary'))?post('current_salary'):0.00,
+                        'new_salary'            => !empty(post('new_salary'))?post('new_salary'):0.00,
+                        'current_designation'   => !empty(post('hdn_current_designation'))?post('hdn_current_designation'):0,
+                        'new_designation'       => !empty(post('new_designation'))?post('new_designation'):0,
+                        'krakpi_avg_rating'     => $krakpi_details->average_rating,
+                        'krakpi_last_rating'    => $krakpi_details->last_rating,
+                        'appraisal_document'    => $document_url,
+                        'is_approved'           => 'P',
+                        'appraisal_year'        => date('Y'),
+                        'is_active'             => 'Y',
+                        'created_at'		    => date('Y-m-d H:i:s'),
+					    'created_by'		    => get_staff_user_id()
+                    );
+                    $save = $this->Common_model->add('tbl_staff_appraisal_history', $data);
+                    
+                    if($save){
+                        $status = 'success';
+                        $msg = 'Appraisal Added!';
+                    } else{
+                        $status = 'fail';
+                        $msg = 'Appraisal Not Added!';
+                    }
+                    
+                } else{
+                    #Edit
+                    $msg = 'Appraisal Updated!';
+                    $status = 'success';
+                }
+
+                
+            }
+            $array = array('status' => $status, 'error' => $msg, 'message' => $msg);
+            
+        }
+
+        # Response
+		$array = array_merge($array,update_csrf_session());
+        echo json_encode($array);
+    }
+
+    /**
+	 * Appraisal Approval Modal
+	 * Added by DEEP BASAK on July 05, 2024
+	 */
+    public function appraisal_approve_reject_open_modal(){
+        $data['appraisal_id'] = post('appraisal_id');
+        $html = $this->load->view('appraisal/appraisal/components/appraisal_approve_modal_body', $data, true);
+
+        # response
+        $result = array('status'=> 'success', 'message'=>'', 'html' => $html);
+        $obj = (object) array_merge((array) $result, update_csrf_session());
+        echo json_encode($obj);
+    }
+
+    /**
+	 * Approve/Reject Appraisal
+	 * Added by DEEP BASAK on July 05, 2024
+	 */
+    public function appraisal_approve_reject(){
+        
+        if(post('type') == 'A'){
+            $status = 'success';
+            $message = 'Appraisal Approved!';
+
+            $data = array(
+                'is_approved'   => post('type'),
+                'approved_at'   => date('Y-m-d H:i:s'),
+                'approved_by'   => get_staff_user_id(),
+                'appraisal_time'=> post('appraisal_start_date'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+                'updated_by'    => get_staff_user_id()
+            );
+        } else if(post('type') == 'R'){
+            $status = 'warning';
+            $message = 'Appraisal Rejected!';
+
+            $data = array(
+                'is_approved'   => post('type'),
+                'approved_at'   => date('Y-m-d H:i:s'),
+                'approved_by'   => get_staff_user_id(),
+                'updated_at'    => date('Y-m-d H:i:s'),
+                'updated_by'    => get_staff_user_id()
+            );
+        }
+
+        $this->Common_model->UpdateDB('tbl_staff_appraisal_history', ['id' => post('appraisal_id')], $data);
+
+        # response
+        $result = array('status'=> $status, 'message'=>$message);
         $obj = (object) array_merge((array) $result, update_csrf_session());
         echo json_encode($obj);
     }
