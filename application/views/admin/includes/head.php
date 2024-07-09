@@ -102,6 +102,30 @@ if(!empty($resignation_details)){
         );
         $CI->Common_model->UpdateDB('tblstaff', ['staffid' => $val['staff_id']], $data);
     }
-    
 }
+
+#Code for update the employee table for appraisal
+//Added by DEEP BASAK on July 05, 2024
+////CR by DEEP BASAK on July 08, 2024
+$detail = $CI->Common_model->getAllData('tbl_staff_appraisal_history', '', '', ['is_active' => 'Y', 'is_approved' => 'A', 'appraisal_year' => date('Y')]);
+// prx($CI->db->last_query());
+if(!empty($detail)){
+    foreach($detail as $key => $details){
+        // prx(date('Y-m-d', strtotime($details->appraisal_time)));
+        if(date('Y-m-d', strtotime($details->appraisal_time)) == date('Y-m-d')){
+            $appraisal_type = json_decode($details->appraisal_type);
+            foreach($appraisal_type as $key){
+                if($key == 'S'){
+                    $CI->Common_model->UpdateDB('tblstaff', ['staffid' => $details->staff_id], ['hourly_rate' => $details->new_salary]);
+                } else if($key == 'D'){
+                    $CI->Common_model->UpdateDB('tblstaff', ['staffid' => $details->staff_id], ['job_position' => $details->new_designation]);
+                }
+            }
+            $CI->Common_model->UpdateDB('tbl_staff_appraisal_history', ['id' => $details->id], ['updated_at' => date('Y-m-d H:i:s'), 'updated_by' => get_staff_user_id(), 'appraisal_activate_at' => date('Y-m-d H:i:s')]);
+        }
+    }
+}
+
+
+
 ?>

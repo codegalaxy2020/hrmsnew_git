@@ -7836,6 +7836,13 @@ return false;
         $this->db->insert('tblchatstaff', $data);
     }
 	
+	public function assign_job($competency_id, $job_id) {
+        $data = array(
+            'competency_id' => $competency_id,
+            'job_id' => $job_id
+        );
+        return $this->db->insert('competency_assign', $data);
+    }
 	
 //end file 
 }

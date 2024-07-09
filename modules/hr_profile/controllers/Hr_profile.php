@@ -9227,6 +9227,7 @@ public function get_list_job_position_training($id) {
 		$user_ids = $this->input->post('user_ids');
 		$search_by = $this->input->post('searchCriteria');
 		$course_name = $this->input->post('CourseName');
+		$competency_name = $this->input->post('competency_name');
 		
 		// Validate inputs (simplified validation, you may want to add more)
 		if (empty($user_ids) || empty($search_by) || empty($course_name)) {
@@ -9241,7 +9242,8 @@ public function get_list_job_position_training($id) {
 			$data[] = [
 				'user_id' => $user_id,
 				'search_by' => $search_by,
-				'name' => $course_name
+				'name' => $course_name,
+				'competency_name' => $competency_name
 			];
 		}
 	
@@ -9256,32 +9258,134 @@ public function get_list_job_position_training($id) {
 	}
 
 	public function get_competency() {
-        // Join tblcompetency and tblstaff tables
-        $this->db->select('tblcompetency.id, tblcompetency.search_by, tblcompetency.user_id, tblcompetency.name, tblstaff.firstname, tblstaff.lastname');
-        $this->db->from('tblcompetency');
-        $this->db->join('tblstaff', 'tblcompetency.user_id = tblstaff.staffid');
-        $query = $this->db->get();
-
-        $result = $query->result_array();
-
-        // Format the result
-        $competencies = [];
-        foreach ($result as $row) {
-            $competencies[] = [
-				'id' => $row['id'],
-                'search_by' => $row['search_by'],
-                'search_with' => $row['name'],
-                'name' => $row['firstname'] . ' ' . $row['lastname']
-            ];
-        }
-
-        // Return data as JSON
-        echo json_encode($competencies);
-    }
+		# customize filter
+		$where = " 1=1 ";  // Default condition to simplify additional conditions
+	
+		// Skip number of Rows count  
+		$start = $_POST["start"];
+	
+		// Paging Length 10,20  
+		$length = $_POST["length"];
+	
+		// Search Value from (Search box)  
+		$searchValue = trim($_POST["search"]["value"]);
+		$searchwhere = '';
+		if (!empty($searchValue)) {
+			if ($where != ' ') {
+				$f = ' AND ';
+			} else {
+				$f = ' WHERE ';
+			}
+			$searchwhere .= $f . ' tblcompetency.id LIKE "%' . $searchValue . '%"
+				OR tblcompetency.search_by LIKE "%' . $searchValue . '%"
+				OR tblcompetency.name LIKE "%' . $searchValue . '%"
+				OR tblstaff.firstname LIKE "%' . $searchValue . '%"
+				OR tblstaff.lastname LIKE "%' . $searchValue . '%" ';
+		}
+	
+		//Paging Size (10, 20, 50, 100)  
+		$pageSize = $length != null ? intval($length) : 0;
+		$skip = $start != null ? intval($start) : 0;
+	
+		#region order by column
+		if (!empty($_POST['order'][0])) {
+			$colArr = array(
+				'tblcompetency.id',
+				'tblcompetency.search_by',
+				'tblcompetency.name',
+				'tblstaff.firstname',
+				'tblstaff.lastname'
+			);
+	
+			$columnIndex = $_POST['order'][0]['column'];
+			$orderColName = $colArr[$columnIndex];
+			$orderDir = $_POST['order'][0]['dir'];
+			if ($orderColName != '') {
+				$orderQuery = ' ORDER BY ' . $orderColName . ' ' . $orderDir . ' ';
+			} else {
+				$orderQuery = ' ORDER BY tblcompetency.id DESC ';
+			}
+		} else {
+			$orderQuery = ' ORDER BY tblcompetency.id DESC ';
+		}
+		#endregion
+	
+		$select = ' tblcompetency.id, 
+					tblcompetency.search_by, 
+					tblcompetency.name, 
+					tblstaff.firstname,
+					tblstaff.staffid, 
+					tblstaff.lastname ';
+	
+		//Datatable view Query
+		$query = 'SELECT
+			' . $select . '
+		FROM
+			`tblcompetency` 
+		LEFT JOIN tblstaff ON tblcompetency.user_id = tblstaff.staffid ';
+		if ($where != ' '):
+			$query .= ' WHERE
+				' . $where . ' ';
+		endif;
+		$query .= ' ' . $searchwhere . ' 
+			' . $orderQuery . ' 
+		LIMIT ' . $pageSize . ' OFFSET ' . $skip . ' ';
+	
+		//Total records query
+		$query_total = 'SELECT
+			' . $select . '
+		FROM
+			`tblcompetency` 
+		LEFT JOIN tblstaff ON tblcompetency.user_id = tblstaff.staffid ';
+		if ($where != ' '):
+			$query_total .= ' WHERE
+					' . $where . ' ';
+		endif;
+		$query_total .= ' ' . $searchwhere . ' ';
+	
+		// Execute queries
+		$testdata = $this->db->query($query)->result_array();
+		$testdata_total = $this->db->query($query_total)->result_array();
+		$data = array();
+	
+		foreach ($testdata as $key => $fieldData) {
+			$action = '<button style="margin-right: 5px;" class="btn btn-info btn-sm ml-1" onclick="editCourse(' . $fieldData['id'] . ')">View</button>';
+        $action .= '<button style="margin-right: 5px;" class="btn btn-danger btn-sm ml-1" onclick="confirmDelete(' . $fieldData['id'] . ')">Delete</button>';
+		$action .= '<button style="margin-right: 5px;" class="btn btn-success btn-sm ml-1" data-toggle="modal" data-target="#assignJobModal" onclick="openAssignJobModal(' . $fieldData['id']. ', ' .$fieldData['staffid']. ')">Assign to job</button>';	
+		$data[] = array(
+				$key + $skip + 1,
+				$fieldData['firstname'] . ' ' . $fieldData['lastname'],
+				$fieldData['search_by'],
+				$fieldData['name'],
+				$action
+				
+			);
+		}
+	
+		if (isset($_POST['draw']) && $_POST['draw']) {
+			$draw = $_POST['draw'];
+		} else {
+			$draw = '';
+		}
+	
+		$output = array(
+			"draw" => $draw,
+			"recordsTotal" => count($testdata_total),
+			"recordsFiltered" => count($testdata_total),
+			"data" => $data,
+			"status" => 'success',
+			"csrf" => update_csrf_session()
+		);
+	
+		# response
+		echo json_encode($output);
+		unset($dttbl_model);
+	}
+	
 
 	public function details($id) {
 		// Get the competency details along with user information
-		$this->db->select('tblcompetency.*, tblstaff.firstname, tblstaff.lastname');
+		$this->db->select('tblcompetency.*, tblstaff.firstname, tblstaff.lastname, tblstaff.*');
 		$this->db->from('tblcompetency');
 		$this->db->join('tblstaff', 'tblcompetency.user_id = tblstaff.staffid');
 		$this->db->where('tblcompetency.id', $id);
@@ -9309,6 +9413,59 @@ public function get_list_job_position_training($id) {
         }
     }
 	
-
+	public function assign_job() {
+		$competency_id = $this->input->post('competencyId');
+		$job_id = $this->input->post('jobDropdown');
+		$staffid = $this->input->post('staffid');
+	
+		if (!empty($competency_id) && !empty($job_id) && !empty($staffid)) {
+			// Fetch the current staff_id value
+			$this->db->select('staff_id');
+			$this->db->from('tblhr_jp_interview_training');
+			$this->db->where('training_process_id', $job_id);
+			$query = $this->db->get();
+			$row = $query->row();
+	
+			if ($row) {
+				$current_staff_ids = $row->staff_id;
+	
+				if (!empty($current_staff_ids)) {
+					$staff_ids_array = explode(',', $current_staff_ids);
+					
+					// Check if staffid already exists
+					if (in_array($staffid, $staff_ids_array)) {
+						echo json_encode(array('status' => 'error', 'message' => 'Staff ID already exists.'));
+						return;
+					} else {
+						// If there's already data, append the new staffid
+						$updated_staff_ids = $current_staff_ids . ',' . $staffid;
+					}
+				} else {
+					// If there's no data, just add the new staffid
+					$updated_staff_ids = $staffid;
+				}
+	
+				$data = array(
+					'staff_id' => $updated_staff_ids
+				);
+	
+				$this->db->where('training_process_id', $job_id);
+				if ($this->db->update('tblhr_jp_interview_training', $data)) {
+					echo json_encode(array('status' => 'success', 'message' => 'Job assigned successfully.'));
+				} else {
+					echo json_encode(array('status' => 'error', 'message' => 'Error assigning job.'));
+				}
+			} else {
+				echo json_encode(array('status' => 'error', 'message' => 'Invalid job ID.'));
+			}
+		} else {
+			echo json_encode(array('status' => 'error', 'message' => 'Please select a job and staff.'));
+		}
+	}
+	//end file
+	
+	
+	
+	
 //end file
 }
