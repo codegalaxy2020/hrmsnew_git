@@ -11,20 +11,77 @@
                             <h1 class="text-center">Competency Details</h1>
                             <div class="card">
                                 <div class="card-header">
-                                    <h2><?= $competency->firstname ?> <?= $competency->lastname ?></h2>
+                                    <h2><strong>Competency Name : </strong><?= $competency->competency_name ?></h2>
                                 </div>
                                 <div class="card-body">
-                                    <p><strong>Search By:</strong> <?= $competency->search_by ?></p>
-                                    <p><strong>Search With:</strong> <?= $competency->name ?></p>
-                                    <!-- Add more fields as necessary -->
+                                <h3>Details</h3>
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">Search By</th>
+                                                <td><?= $competency->search_by ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Search With</th>
+                                                <td><?= $competency->name ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Staff Name</th>
+                                                <td><?= $competency->firstname ?> <?= $competency->lastname ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Email</th>
+                                                <td><?= $competency->email ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Phone Number</th>
+                                                <td><?= $competency->phonenumber ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Birthday</th>
+                                                <td><?= $competency->birthday ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Sex</th>
+                                                <td><?= $competency->sex ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Home Town</th>
+                                                <td><?= $competency->home_town ?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <h3>Job Details</h3>
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">Job Title</th>
+                                                <td>demo</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Department</th>
+                                                <td>sfv</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Manager</th>
+                                                <td>df</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Employment Date</th>
+                                                <td>df</td>
+                                            </tr>
+                                            <!-- Add more job-related fields as necessary -->
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <div class="card-footer">
                                     <a href="<?= base_url('hr_profile/competency/') ?>" class="btn btn-primary">Back to
-                                        Courses</a>
-                                    <button onclick="editCourse(<?= $competency->id ?>)" class="btn btn-info">Edit
-                                        Course</button>
+                                    Competency</a>
+                                    <!-- <button onclick="editCourse(<?= $competency->id ?>)" class="btn btn-info">Edit -->
+                                    <!-- Course</button> -->
                                     <button onclick="confirmDelete(<?= $competency->id ?>)"
-                                        class="btn btn-danger">Delete Course</button>
+                                        class="btn btn-danger">Delete Competency</button>
                                 </div>
                             </div>
                         </div>

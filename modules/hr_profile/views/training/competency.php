@@ -65,6 +65,10 @@
                 <form id="courseForm" enctype="multipart/form-data">
                 <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
                 <div class="form-group">
+                <label for="searchCriteria">Competency Name</label>
+                <input type="text" id="competency_name" name="competency_name" class="form-control" placeholder="Competency Name">
+                </div>
+                <div class="form-group">
                     <label for="searchCriteria">Search By</label>
                     <select class="form-control" id="searchCriteria" name="searchCriteria" required>
                         <option value="">Select a criteria</option>
@@ -91,16 +95,57 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="assignJobModal" tabindex="-1" role="dialog" aria-labelledby="assignJobModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="assignJobModalLabel">Assign to Job</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form id="assignJobForm" method="post">
+      <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>">
+                    <div class="form-group">
+                        <label for="jobDropdown">Select Job</label>
+                        <select class="form-control" id="jobDropdown" name="jobDropdown">
+                            <option value="">Select a job</option>
+                            <?php
+                            $jobs = $this->db->select('training_process_id, training_name')
+                                             ->get('tblhr_jp_interview_training')
+                                             ->result_array();
+                            foreach ($jobs as $job): ?>
+                                <option value="<?php echo $job['training_process_id']; ?>"><?php echo $job['training_name']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <input type="hidden" id="competencyId" name="competencyId" value="">
+                    <input type="hidden" id="staffid" name="staffid" value="">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <div id="modal_wrapper"></div>
 	<?php init_tail(); ?>
 	
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>    
+    <script>
+        var modelId = 'requirement_modal';
+    $(document).ready(function () {
+
+        serverSideDataTable('staffTable', baseUrl + 'hr_profile/get_competency', 10);
+    });
+    </script>
 	<script>
     $(document).ready(function () {
-        fetchData();
+        // fetchData();
     });
     function fetchData() {
         $.ajax({
@@ -163,6 +208,7 @@
                     title: 'Success!',
                     text: 'Competency added successfully.',
                 });
+                serverSideDataTable('staffTable', baseUrl + 'hr_profile/get_competency', 10);
             },
             error: function(error) {
                 console.error('Error:', error);
@@ -252,5 +298,56 @@
 
 
     </script>
+<script>
+    function openAssignJobModal(id, staffid) {
+        console.log("Assigning ID:", id);
+        document.getElementById('competencyId').value = id;
+        document.getElementById('staffid').value = staffid;
+    }
+
+    $(document).ready(function(){
+    $('#assignJobForm').on('submit', function(e){
+        e.preventDefault();
+
+        $.ajax({
+            url: "<?php echo site_url('admin/hr_profile/assign_job'); ?>",
+            method: "POST",
+            data: $(this).serialize(),
+            success: function(response) {
+                var res = JSON.parse(response);
+                if (res.status === 'success') {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: res.message,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: res.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            },
+            error: function() {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Error assigning job.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    });
+});
+
+</script>
+
 </body>
 </html>
