@@ -1351,15 +1351,15 @@ class hr_payroll extends AdminController {
 		FROM
 			tbl_staff_attendance 
 		WHERE
-			' . $where . ' ';
+			' . $where . ' ORDER BY id DESC ';		//CR by Deep Added Order by cause on August 16, 2024
 			
 		$query1 = 'SELECT
 			FORMAT(SUM(today_hour), 2) AS total_work_done
 		FROM
 			tbl_staff_attendance 
 		WHERE
-			' . $where . ' ';
-		
+			' . $where . ' ORDER BY id DESC ';		//CR by Deep Added Order by cause on August 16, 2024
+		// prx($query);
 
 		$testdata = $this->Common_model->callSP($query, 'row');
 		$testdata1 = $this->Common_model->callSP($query1, 'row');

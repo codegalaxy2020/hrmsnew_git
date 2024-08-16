@@ -4511,7 +4511,17 @@ public function check_in_ts() {
 	public function check_in_ts2(){
 
 		if($this->input->post('type_check') == 1){
-			$total_hours = getWorkingDays(date('Y'), date('m')) * 8;
+
+			//Added holiday count in attendance module by Deep On August 16, 2024
+			$holidaySql = "SELECT * FROM tblday_off WHERE break_date LIKE '".date('Y')."-".date('m')."%'";
+			$holiDays = $this->Common_model->callSP($holidaySql);
+			$holidayCount = 0;
+			if(!empty($holiDays)){
+				foreach($holiDays as $key){
+					$holidayCount++;
+				}
+			}
+			$total_hours = (getWorkingDays(date('Y'), date('m'))-$holidayCount) * 8;
 			$data = array(
 				'staff_id' 				=> $this->input->post('staff_id'),
 				'check_in_date'			=> date('Y-m-d'),
