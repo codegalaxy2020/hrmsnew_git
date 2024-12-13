@@ -2416,14 +2416,21 @@ class hr_payroll extends AdminController {
 	 * Task List
 	 * Added by DEEP BASAK on March 21, 2024
 	 */
-	public function task_list(){
+	public function task_list($from_date, $to_date){
 		# customize filter
 		if(is_admin()){
 			$where = ' ';
 		} else{
 			$where = ' tbltask_assigned.staffid = '.get_staff_user_id();
 		}
-		
+
+		if(!empty($from_date) && !empty($to_date)){
+			if($where != ' '){
+				$where .= ' AND startdate BETWEEN \''.date('Y-m-d', strtotime($from_date)).'\' AND \''.date('Y-m-d', strtotime($to_date)).'\'';
+			} else{
+				$where = ' startdate BETWEEN \''.date('Y-m-d', strtotime($from_date)).'\' AND \''.date('Y-m-d', strtotime($to_date)).'\'';
+			}
+		}
 
 		// Skip number of Rows count  
 		$start = $_POST["start"];

@@ -30,6 +30,19 @@
 								<!-- filter -->
 								<div class="row filter_by">
 
+									<div class="col-md-2 leads-filter-column">
+										<div class="mb-3">
+											<label for="from_date" class="form-label">From Date</label>
+											<input type="date" class="form-control" onchange="filterData(this.value, $('#to_date').val())" id="from_date" name="from_date" value="<?= date('Y-m-d') ?>">
+										</div>
+									</div>
+									<div class="col-md-2 leads-filter-column">
+										<div class="mb-3">
+											<label for="to_date" class="form-label">To Date</label>
+											<input type="date" class="form-control" onchange="filterData($('#from_date').val(), this.value)" id="to_date" name="to_date" value="<?= date('Y-m-d') ?>">
+										</div>
+									</div>
+
 									<div class="col-md-2 leads-filter-column pull-right">
 										<a href="#"
 											onclick="new_task_from_relation(undefined,'project',''); return false;"
@@ -39,7 +52,7 @@
 										</a>
 									</div>
 
-								</div>
+								</di>
 								<!-- filter -->
 							</div>
 							<div class="col-md-12">
